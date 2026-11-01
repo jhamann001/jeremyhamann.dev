@@ -1,0 +1,512 @@
+name: CI
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    uses: ./.github/workflows/guard.yml
+    secrets:
+      NAME_DENYLIST: ${{ secrets.NAME_DENYLIST }}
+
+  # Actions minutes are capped, so a push runs only the jobs of the apps changed since its branch's last green run
+  # (tools/ci/changed-apps.mjs). A manual run runs every job; the guard always runs. A skipped job counts as passed.
+  changes:
+    name: Which apps changed
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      synthetic: ${{ steps.select.outputs.synthetic }}
+      site: ${{ steps.select.outputs.site }}
+      trade: ${{ steps.select.outputs.trade }}
+      acat: ${{ steps.select.outputs.acat }}
+      helpdesk: ${{ steps.select.outputs.helpdesk }}
+      statements: ${{ steps.select.outputs.statements }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      - name: The selector's own tests
+        run: node --test tools/ci/changed-apps.test.mjs
+      - name: Select the apps changed since this branch's last green run (or since it left main)
+        id: select
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node tools/ci/changed-apps.mjs
+
+  test:
+    name: Test and build
+    needs: [guard, changes]
+    if: >-
+      needs.changes.outputs.synthetic == 'true' || needs.changes.outputs.site == 'true' ||
+      needs.changes.outputs.trade == 'true' || needs.changes.outputs.statements == 'true' ||
+      needs.changes.outputs.helpdesk == 'true'
+    runs-on: ubuntu-24.04
+    env:
+      WRANGLER_SEND_METRICS: "false"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Synthetic universe (tests include "committed output is current")
+        if: needs.changes.outputs.synthetic == 'true'
+        run: |
+          npm test -w synthetic
+          npm run typecheck -w synthetic
+      - name: "Trade Request: typecheck (builds shared first; server and client import its output)"
+        if: needs.changes.outputs.trade == 'true'
+        run: npm run typecheck -w trade-request
+      - name: "Trade Request: tests (the database integration tests skip: CI has no DATABASE_URL)"
+        if: needs.changes.outputs.trade == 'true'
+        run: npm test -w trade-request
+      - name: "Trade Request: Worker config check (dry run, nothing deployed or built)"
+        if: needs.changes.outputs.trade == 'true'
+        run: npm run deploy:check -w @trade-request/worker
+      - name: "Statement Analyzer: frontend build"
+        if: needs.changes.outputs.statements == 'true'
+        run: npm run build -w statement-analyzer
+      - name: "Statement Analyzer: frontend tests"
+        if: needs.changes.outputs.statements == 'true'
+        run: npm test -w statement-analyzer
+      - name: "Statement Analyzer: Worker tests and config check (dry run, nothing deployed or built)"
+        if: needs.changes.outputs.statements == 'true'
+        run: |
+          npm test -w @statement-analyzer/worker
+          npm run deploy:check -w @statement-analyzer/worker
+      - name: Build the site
+        if: needs.changes.outputs.site == 'true'
+        run: npm run build -w site
+      - name: Validate the Cloudflare config (dry run, nothing deployed)
+        if: needs.changes.outputs.site == 'true'
+        run: npm run deploy:check -w site
+      - name: "WM Help Desk: Worker tests and config check (dry run, nothing deployed or built)"
+        if: needs.changes.outputs.helpdesk == 'true'
+        run: |
+          npm test -w @wm-helpdesk/worker
+          npm run deploy:check -w @wm-helpdesk/worker
+
+  tracker:
+    name: "Transfer Tracker: test and build"
+    needs: [guard, changes]
+    if: needs.changes.outputs.acat == 'true'
+    runs-on: ubuntu-24.04
+    # The database tests get this job's own throwaway Postgres; they refuse any other database.
+    services:
+      postgres:
+        image: postgres:16.13-alpine
+        env:
+          POSTGRES_USER: tester
+          POSTGRES_PASSWORD: tester
+          POSTGRES_DB: transfer_tracker_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U tester -d transfer_tracker_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: "Transfer Tracker: typecheck"
+        run: npm run typecheck -w transfer-tracker
+      - name: "Transfer Tracker: tests (the database tests skip here and run in the next step)"
+        run: npm test -w transfer-tracker
+      - name: "Transfer Tracker: database tests, against this job's throwaway Postgres"
+        working-directory: apps/acat
+        env:
+          DATABASE_URL: postgresql://tester:tester@localhost:5432/transfer_tracker_test
+          TEST_DATABASE_URL: postgresql://tester:tester@localhost:5432/transfer_tracker_test
+          BACKFILL_TEST_DATABASE_URL: postgresql://tester:tester@localhost:5432/transfer_tracker_test
+          ACAT_DIRECTORY_DATABASE_TEST: "1"
+          ACAT_DIRECTORY_STATUS_DATABASE_TEST: "1"
+          ACAT_DOCUMENT_DATABASE_TEST: "1"
+          ACAT_IDENTITY_DATABASE_TEST: "1"
+          ACAT_LIMITS_DATABASE_TEST: "1"
+          ACAT_SECURITY_DATABASE_TEST: "1"
+          ACAT_SEED_DATABASE_TEST: "1"
+          TRANSFER_LINKAGE_DATABASE_TEST: "1"
+        run: |
+          npx prisma migrate deploy
+          npx vitest run --no-file-parallelism $(git ls-files '*.database.test.ts' '*.postgres.test.ts')
+      - name: "Transfer Tracker: production build"
+        run: npm run build -w transfer-tracker
+      - name: "Transfer Tracker: Worker config check (dry run, nothing deployed or built)"
+        env:
+          WRANGLER_SEND_METRICS: "false"
+        run: npm run deploy:check -w @transfer-tracker/worker
+
+  helpdesk:
+    name: "WM Help Desk: typecheck, lint, tests, database and build"
+    needs: [guard, changes]
+    if: needs.changes.outputs.helpdesk == 'true'
+    runs-on: ubuntu-24.04
+    # The help desk installs on its own (its own lockfile and node_modules, outside the npm workspace), so its
+    # Next.js 15 and React 19.1 never share a package with the tracker's Next.js 16. Node 24, as its image uses.
+    defaults:
+      run:
+        working-directory: apps/helpdesk
+    # The demo reset's database test gets this job's own throwaway Postgres; it empties the database it is given.
+    services:
+      postgres:
+        image: postgres:16.13-alpine
+        env:
+          POSTGRES_USER: tester
+          POSTGRES_PASSWORD: tester
+          POSTGRES_DB: helpdesk_reset_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U tester -d helpdesk_reset_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: apps/helpdesk/package-lock.json
+      - run: npm ci
+      - run: npx prisma generate
+      - name: "WM Help Desk: typecheck"
+        run: npm run typecheck
+      - name: "WM Help Desk: lint"
+        run: npm run lint
+      - name: "WM Help Desk: tests (the database tests skip here and run in the next step)"
+        run: npm test
+      - name: "WM Help Desk: database tests, then the demo reset as the owner, against this job's throwaway Postgres"
+        env:
+          DATABASE_URL: postgresql://tester:tester@localhost:5432/helpdesk_reset_test
+          TEST_DATABASE_URL: postgresql://tester:tester@localhost:5432/helpdesk_reset_test
+          TEST_APP_DATABASE_URL: postgresql://wm_helpdesk_app:wm_helpdesk_app@localhost:5432/helpdesk_reset_test
+          HELPDESK_RESET_DATABASE_TEST: "1"
+        # The reset test empties the database, so it runs after the others, which need the reference seed.
+        run: |
+          npx prisma migrate deploy
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -v dbname=helpdesk_reset_test -q -f prisma/sql/runtime-roles.sql
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -c "ALTER ROLE wm_helpdesk_app PASSWORD 'wm_helpdesk_app'"
+          npx prisma db seed
+          npx vitest run --no-file-parallelism $(git ls-files '*.integration.test.ts')
+          npx vitest run prisma/demo-reset.database.test.ts
+      - name: "WM Help Desk: production build"
+        run: npm run build
+
+  helpdesk-image:
+    name: "WM Help Desk: container image builds and starts"
+    needs: [guard, changes]
+    if: needs.changes.outputs.helpdesk == 'true'
+    runs-on: ubuntu-24.04
+    # The image runs against this job's throwaway Postgres as the app role, with the demo's own settings.
+    services:
+      postgres:
+        image: postgres:16.13-alpine
+        env:
+          POSTGRES_USER: tester
+          POSTGRES_PASSWORD: tester
+          POSTGRES_DB: helpdesk_image
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U tester -d helpdesk_image"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      DATABASE_URL: postgresql://tester:tester@127.0.0.1:5432/helpdesk_image
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: apps/helpdesk/package-lock.json
+      - name: Build the image (not pushed; the deploy builds its own)
+        run: docker build -f apps/helpdesk/Dockerfile --platform linux/amd64 -t helpdesk-demo:ci .
+      - name: The image holds the built files the deploy copies out for Cloudflare to serve
+        run: |
+          id=$(docker create helpdesk-demo:ci)
+          docker cp "$id:/app/.next/static" "$RUNNER_TEMP/static-files"
+          docker rm "$id" > /dev/null
+          test -n "$(find "$RUNNER_TEMP/static-files" -name '*.js' -print -quit)"
+      - name: Migrate the job's database and grant the app role
+        working-directory: apps/helpdesk
+        run: |
+          npm ci
+          npx prisma generate
+          npx prisma migrate deploy
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -v dbname=helpdesk_image -q -f prisma/sql/runtime-roles.sql
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -c "ALTER ROLE wm_helpdesk_app PASSWORD 'wm_helpdesk_app'"
+          node scripts/demo-env.mjs >> "$GITHUB_ENV"
+      - name: Reset the demo desk, as the daily workflow does
+        working-directory: apps/helpdesk
+        run: DEMO_SEED=reset npm run demo:reset
+      - name: Start the image with the demo's settings and load the sign-in page
+        run: |
+          umask 077
+          env_file="$RUNNER_TEMP/container.env"
+          node apps/helpdesk/scripts/demo-env.mjs > "$env_file"
+          {
+            echo "DATABASE_URL=postgresql://wm_helpdesk_app:wm_helpdesk_app@127.0.0.1:5432/helpdesk_image"
+            echo "AUTH_SECRET=$(openssl rand -hex 32)"
+            echo "REPLY_TOKEN_SECRET=$(openssl rand -hex 32)"
+            echo "OUTBOX_API_TOKEN=$(openssl rand -hex 32)"
+            echo "INGEST_API_TOKEN=$(openssl rand -hex 32)"
+            echo "SLA_ALERT_SLACK_WEBHOOK_URL=http://127.0.0.1:8090/slack/sla-alerts/$(openssl rand -hex 24)"
+          } >> "$env_file"
+          docker run -d --name app --network host --env-file "$env_file" helpdesk-demo:ci
+          for attempt in $(seq 1 30); do
+            curl -sf -o /dev/null http://127.0.0.1:3000/api/health && break
+            sleep 2
+          done
+          curl -sf -o /dev/null http://127.0.0.1:3000/api/health
+          curl -sf http://127.0.0.1:3000/sign-in | grep -q "Marco Ferreira"
+          echo "The image serves the demo's persona sign-in page."
+          # Cloudflare's own start check: "/" by this host over plain http, following redirects. A redirect
+          # to the https address can't be followed inside Cloudflare, so only http redirects are allowed.
+          curl -sf -L --proto-redir =http -o /dev/null --connect-to containerstarthealthcheck:80:127.0.0.1:3000 http://containerstarthealthcheck/
+          echo "The container platform's start check passes."
+          # The seeded attachments are baked in at the filesystem store's paths.
+          docker exec app test -s .local-attachments/hd-2470/att-lindqvist-voided-check
+          echo "The seeded attachments are in the image."
+      - name: The app's log, if a step failed
+        if: failure()
+        run: docker logs app || true
+
+  statements:
+    name: "Statement Analyzer: Python tests"
+    needs: [guard, changes]
+    if: needs.changes.outputs.statements == 'true'
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: apps/statements
+    # The database tests get this job's own throwaway Postgres; each makes and drops its own schema.
+    services:
+      postgres:
+        image: postgres:16.13-alpine
+        env:
+          POSTGRES_USER: tester
+          POSTGRES_PASSWORD: tester
+          POSTGRES_DB: statements_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U tester -d statements_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: apps/statements/requirements.txt
+      - run: pip install -r requirements.txt pytest==9.2.0
+      - name: "Statement Analyzer: tests, the database ones against this job's throwaway Postgres"
+        env:
+          TEST_DATABASE_URL: postgresql://tester:tester@localhost:5432/statements_test
+        run: python -m pytest -q -p no:cacheprovider
+
+  statements-image:
+    name: "Statement Analyzer: container image builds and starts"
+    needs: [guard, changes]
+    if: needs.changes.outputs.statements == 'true'
+    runs-on: ubuntu-24.04
+    # The image creates its schema in this job's throwaway Postgres on start.
+    services:
+      postgres:
+        image: postgres:16.13-alpine
+        env:
+          POSTGRES_USER: tester
+          POSTGRES_PASSWORD: tester
+          POSTGRES_DB: statements_image
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U tester -d statements_image"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build the image (not pushed)
+        run: docker build -f apps/statements/Dockerfile --platform linux/amd64 -t statements-demo:ci .
+      - name: Start the image and load the app
+        run: |
+          docker run -d --name app --network host \
+            -e DB_HOST=127.0.0.1 -e DB_PORT=5432 -e DB_NAME=statements_image \
+            -e DB_USER=tester -e DB_PASSWORD=tester -e DB_IAM_AUTH=false -e PORT=8080 \
+            statements-demo:ci
+          for attempt in $(seq 1 30); do
+            curl -sf -o /dev/null http://127.0.0.1:8080/ && break
+            sleep 2
+          done
+          curl -sf http://127.0.0.1:8080/ | grep -q "<title>Statement Analyzer</title>"
+          echo "The image serves the built app."
+          # Cloudflare's own start check: "/" by this host over plain http, following only http redirects.
+          curl -sf -L --proto-redir =http -o /dev/null --connect-to containerstarthealthcheck:80:127.0.0.1:8080 http://containerstarthealthcheck/
+          echo "The container platform's start check passes."
+          # The service created its schema on start.
+          test "$(psql postgresql://tester:tester@127.0.0.1:5432/statements_image -Atc "select count(*) from information_schema.tables where table_schema = 'public' and table_name in ('households', 'accounts', 'positions', 'users')")" = 4
+          echo "The schema is in place."
+      - name: Start the image as the demo runs it, and run the nightly reset through it
+        run: |
+          docker rm -f app > /dev/null
+          token=$(openssl rand -hex 32)
+          docker run -d --name app --network host \
+            -e DEMO_MODE=on -e SESSION_SECRET="$(openssl rand -hex 32)" -e DEMO_RESET_TOKEN="$token" \
+            -e DATABASE_URL=postgresql://tester:tester@127.0.0.1:5432/statements_image -e PORT=8080 \
+            statements-demo:ci
+          for attempt in $(seq 1 30); do
+            curl -sf -o /dev/null http://127.0.0.1:8080/api/health && break
+            sleep 2
+          done
+          curl -sf http://127.0.0.1:8080/api/health
+          echo
+          # The Worker's cron call: no browser headers, the token as a bearer.
+          curl -sf --max-time 300 -X POST -H "authorization: Bearer $token" \
+            http://127.0.0.1:8080/api/internal/demo-reset | tee reset.json
+          echo
+          test "$(jq .runs reset.json)" -gt 0
+          test "$(psql postgresql://tester:tester@127.0.0.1:5432/statements_image -Atc "select count(*) from users")" = 2
+          test "$(curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8080/api/internal/demo-reset)" = 401
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/docs)" = 404
+          echo "The demo starts, resets through its own endpoint, and refuses the reset without the token."
+      - name: The app's log, if a step failed
+        if: failure()
+        run: docker logs app || true
+
+  image:
+    name: "Trade Request: container image builds"
+    needs: [guard, changes]
+    if: needs.changes.outputs.trade == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build the image (not pushed; the deploy builds its own)
+        run: docker build -f apps/trade/Dockerfile --platform linux/amd64 -t trade-demo:ci .
+      - name: The image holds the built files the deploy copies out for Cloudflare to serve
+        run: |
+          id=$(docker create trade-demo:ci)
+          docker cp "$id:/app/apps/trade/client/dist/assets" "$RUNNER_TEMP/static-files"
+          docker rm "$id" > /dev/null
+          test -n "$(find "$RUNNER_TEMP/static-files" -name '*.js' -print -quit)"
+
+  tracker-image:
+    name: "Transfer Tracker: container image builds and starts"
+    needs: [guard, changes]
+    if: needs.changes.outputs.acat == 'true'
+    runs-on: ubuntu-24.04
+    # The image runs against this job's throwaway Postgres, with the demo's own settings.
+    services:
+      postgres:
+        image: postgres:16.13-alpine
+        env:
+          POSTGRES_USER: tester
+          POSTGRES_PASSWORD: tester
+          POSTGRES_DB: transfer_tracker_image
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U tester -d transfer_tracker_image"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      DATABASE_URL: postgresql://tester:tester@127.0.0.1:5432/transfer_tracker_image
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Build the image (not pushed; the deploy builds its own)
+        run: docker build -f apps/acat/Dockerfile --platform linux/amd64 -t transfers-demo:ci .
+      - name: The image holds the built files the deploy copies out for Cloudflare to serve
+        run: |
+          id=$(docker create transfers-demo:ci)
+          docker cp "$id:/app/apps/acat/.next/static" "$RUNNER_TEMP/static-files"
+          docker rm "$id" > /dev/null
+          test -n "$(find "$RUNNER_TEMP/static-files" -name '*.js' -print -quit)"
+      - name: Migrate the job's database
+        run: |
+          npm ci
+          cd apps/acat && npx prisma migrate deploy
+      - name: Start the image with the demo's settings, reset the demo through it, and load the sign-in page
+        run: |
+          umask 077
+          env_file="$RUNNER_TEMP/demo.env"
+          node -e "for (const [k, v] of Object.entries(require('./apps/acat/demo-config.json'))) console.log(k + '=' + v)" > "$env_file"
+          token=$(openssl rand -hex 32)
+          {
+            echo "DATABASE_URL=$DATABASE_URL"
+            # Production's public https address, as the Worker sets it.
+            echo "NEXTAUTH_URL=https://transfers.jeremyhamann.dev"
+            echo "NEXTAUTH_SECRET=$(openssl rand -hex 32)"
+            echo "DEMO_RESET_TOKEN=$token"
+            echo "FEE_STORE_API_KEY=$(openssl rand -hex 32)"
+            echo "CLIENT_DIRECTORY_WAREHOUSE_API_KEY=$(openssl rand -hex 32)"
+            echo "SLACK_WEBHOOK_URL=http://127.0.0.1:8091/slack/services/T0DEMO/B0DEMO/$(openssl rand -hex 32)"
+          } >> "$env_file"
+          docker run -d --name app --network host --env-file "$env_file" transfers-demo:ci
+          for attempt in $(seq 1 30); do
+            curl -sf -o /dev/null http://127.0.0.1:3000/api/health && break
+            sleep 2
+          done
+          curl -sf --max-time 120 -X POST -H "authorization: Bearer $token" http://127.0.0.1:3000/api/internal/demo-reset > reset.json
+          cat reset.json; echo
+          node -e "
+            const r = require('./reset.json');
+            if (!(r.transfers > 0) || r.directory !== 'published' || !r.digestSent) {
+              console.error('The reset inside the image did not complete.');
+              process.exit(1);
+            }"
+          curl -sf -o /dev/null http://127.0.0.1:3000/login
+          echo "The image serves the sign-in page."
+          # Cloudflare's own start check: "/" by this host over plain http, following redirects. A redirect
+          # to the https address can't be followed inside Cloudflare, so only http redirects are allowed.
+          curl -sf -L --proto-redir =http -o /dev/null --connect-to containerstarthealthcheck:80:127.0.0.1:3000 http://containerstarthealthcheck/
+          echo "The container platform's start check passes."
+      - name: The app's log, if a step failed
+        if: failure()
+        run: docker logs app || true

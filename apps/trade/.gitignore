@@ -1,0 +1,33 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+*.tsbuildinfo
+.DS_Store
+.claude/
+google-cloud-sdk/
+coverage/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local design mockups (the v2/v3/main mockup.html are already tracked)
+mockup-*.html
+portal-mockup.html
+
+# Cloud / credential files
+*-credentials.json
+**/service-account*.json
+*.pem
+*.p12
+*.key
+application_default_credentials.json
+
+# Sector worklist — carries per-ticker held $ (position sizes); keep local
+server/data/sector-list.csv
+
+# Local-only household fixtures — never committed
+server/fixtures/dev/

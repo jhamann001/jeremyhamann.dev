@@ -1,0 +1,38 @@
+# ACAT Statement Automation Pipeline – Dependencies
+# Python 3.11+
+
+# Google APIs
+google-api-python-client>=2.100.0
+google-auth>=2.23.0
+
+# Google Gen AI SDK (Gemini via Vertex AI — service account, no separate API key needed)
+google-genai>=1.0.0
+
+# Notion (uses requests directly)
+requests>=2.31.0
+
+# Postgres (Cloud SQL)
+psycopg2-binary>=2.9.9
+
+# Environment variable management
+python-dotenv>=1.0.0
+
+# PDF report generation
+# Pinned, not floored. Pillow is a transitive dependency of fpdf2
+# (fpdf2 asks for Pillow!=9.2.*,>=8.3.2) and it statically links libavif
+# into _avif.cpython-311-*.so, which security scanner flags but cannot see the version
+# of. Leaving it floating meant every rebuild silently changed libavif.
+# Both versions below are the ones CI actually resolved and proved on
+# Debian 13 -- see the PR for the build evidence.
+# Bump these deliberately; do not let them go stale.
+fpdf2==2.8.8
+Pillow==12.3.0
+
+# Cloud Run server
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+
+# MCP (Model Context Protocol) remote server
+# Capped below 2.0 — that release restructured the SDK and dropped
+# mcp.server.fastmcp, which mcp_server.py imports.
+mcp>=1.2.0,<2.0.0

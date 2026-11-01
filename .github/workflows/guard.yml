@@ -1,0 +1,46 @@
+# Reusable guard: real-name check (files, commit messages, full history), commit-email check,
+# data-file check, secret scan.
+# Every other workflow runs this first; a deploy never ships a commit that fails it.
+name: Guard
+
+on:
+  workflow_call:
+    secrets:
+      NAME_DENYLIST:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: Names, emails, data files, secrets
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+      - name: Block real names (files, commit messages, full history)
+        env:
+          NAME_DENYLIST: ${{ secrets.NAME_DENYLIST }}
+        run: |
+          node tools/guard/check-names.mjs --all
+          node tools/guard/check-names.mjs --history
+      - name: Every commit uses the private GitHub address (author and committer, full history)
+        run: node tools/guard/check-commit-emails.mjs
+      - name: Data files only in synthetic/out
+        run: node tools/guard/check-data-files.mjs
+      - name: Secret scan (full history)
+        env:
+          GITLEAKS_VERSION: 8.30.1
+          GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+        run: |
+          curl -sSfL -o "$RUNNER_TEMP/gitleaks.tar.gz" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/gitleaks.tar.gz" | sha256sum -c -
+          tar -xzf "$RUNNER_TEMP/gitleaks.tar.gz" -C "$RUNNER_TEMP" gitleaks
+          # Scans the history of the commit under test, so each branch answers for its own history.
+          "$RUNNER_TEMP/gitleaks" git --redact --no-banner --exit-code 1 --log-opts="HEAD" .

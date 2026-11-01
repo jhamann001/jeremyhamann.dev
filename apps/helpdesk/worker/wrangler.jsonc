@@ -1,0 +1,37 @@
+{
+  "$schema": "../../../node_modules/wrangler/config-schema.json",
+  "name": "helpdesk-demo",
+  "main": "src/index.js",
+  // The app's built static files, copied out of its image by the deploy (.github/workflows/deploy-helpdesk.yml).
+  // A request that matches one is answered by Cloudflare directly, without this Worker or the container, so
+  // pages load fast and a sleeping container isn't woken for them; anything else reaches the Worker.
+  "assets": { "directory": "./static" },
+  "compatibility_date": "2026-10-01",
+  "routes": [{ "pattern": "helpdesk.jeremyhamann.dev", "custom_domain": true }],
+  "vars": {
+    "APP_ORIGIN": "https://helpdesk.jeremyhamann.dev"
+  },
+  // Secrets (set by the deploy workflow): DATABASE_URL (the app role, whose password each deploy generates),
+  // AUTH_SECRET, REPLY_TOKEN_SECRET, VISITOR_HASH_KEY (the key the visitor pseudonyms are made with).
+  "containers": [
+    {
+      "class_name": "HelpdeskApp",
+      "image": "../Dockerfile",
+      "image_build_context": "../../..",
+      // One small instance (1/4 vCPU, 1 GiB); it sleeps after 10 idle minutes (see HelpdeskApp.sleepAfter).
+      "max_instances": 1,
+      "instance_type": "basic"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [{ "name": "HELPDESK_APP", "class_name": "HelpdeskApp" }]
+  },
+  "exports": {
+    "HelpdeskApp": { "type": "durable-object", "storage": "sqlite" }
+  },
+  // Per-visitor ceiling at the edge, before anything reaches the container (counted per Cloudflare location):
+  // far above normal use, so it only stops floods. Like the tracker's: a Next.js page load fetches many chunks.
+  "ratelimits": [{ "name": "VISITOR_LIMIT", "namespace_id": "1003", "simple": { "limit": 600, "period": 60 } }],
+  // No cron: the daily reset runs from GitHub Actions as the database owner (.github/workflows/reset-helpdesk.yml).
+  "observability": { "enabled": true }
+}

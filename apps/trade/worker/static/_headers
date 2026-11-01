@@ -1,0 +1,5 @@
+# Cloudflare's headers for the files the deploy copies here (see wrangler.jsonc, assets). Their names change with
+# their content, so browsers may keep them for a year.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff

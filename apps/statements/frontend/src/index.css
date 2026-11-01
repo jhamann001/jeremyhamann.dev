@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import "./theme.css";
+
+/* dark: follows the theme class on <html> (theme.css), not only the system setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translate(-50%, 16px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

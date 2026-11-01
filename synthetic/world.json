@@ -1,0 +1,174 @@
+{
+  "asOf": "2026-10-23",
+  "priceNote": "Illustrative prices for demo purposes only. Not market data.",
+  "firm": { "name": "Cedar Ridge Wealth", "shortName": "Cedar Ridge" },
+  "clearingFirm": { "id": "apex", "name": "Apex Clearing" },
+  "modelProvider": { "id": "meridian", "name": "Meridian Models" },
+  "custodians": [
+    { "id": "edward-jones", "name": "Edward Jones", "transferType": "ACAT" },
+    { "id": "schwab", "name": "Charles Schwab", "transferType": "ACAT" },
+    { "id": "fidelity", "name": "Fidelity", "transferType": "ACAT" },
+    { "id": "bny", "name": "BNY Investments", "transferType": "Non-ACAT" }
+  ],
+  "staff": [
+    { "id": "helen-carver", "name": "Helen Carver", "role": "client-service", "title": "Client service" },
+    { "id": "marco-ferreira", "name": "Marco Ferreira", "role": "operations", "title": "Operations, money movement" },
+    { "id": "priya-nair", "name": "Priya Nair", "role": "compliance", "title": "Compliance" },
+    { "id": "sam-ortiz", "name": "Sam Ortiz", "role": "advisor", "title": "Advisor" },
+    { "id": "rachel-moss", "name": "Rachel Moss", "role": "advisor", "title": "Advisor" },
+    { "id": "dana-pruitt", "name": "Dana Pruitt", "role": "advisor", "title": "Advisor" },
+    { "id": "ethan-cole", "name": "Ethan Cole", "role": "trader", "title": "Trader" },
+    { "id": "jordan-reyes", "name": "Jordan Reyes", "role": "transfers", "title": "Transfer specialist" }
+  ],
+  "securities": [
+    { "symbol": "VTI", "name": "Vanguard Total Stock Market ETF", "assetClass": "us-equity", "vehicle": "etf", "price": 295.00 },
+    { "symbol": "VXUS", "name": "Vanguard Total International Stock ETF", "assetClass": "intl-equity", "vehicle": "etf", "price": 66.20 },
+    { "symbol": "AVUV", "name": "Avantis U.S. Small Cap Value ETF", "assetClass": "us-equity", "vehicle": "etf", "price": 98.75 },
+    { "symbol": "VNQ", "name": "Vanguard Real Estate ETF", "assetClass": "real-estate", "vehicle": "etf", "price": 89.40 },
+    { "symbol": "BND", "name": "Vanguard Total Bond Market ETF", "assetClass": "us-bond", "vehicle": "etf", "price": 73.10 },
+    { "symbol": "AGG", "name": "iShares Core U.S. Aggregate Bond ETF", "assetClass": "us-bond", "vehicle": "etf", "price": 99.40 },
+    { "symbol": "VGSH", "name": "Vanguard Short-Term Treasury ETF", "assetClass": "treasury", "vehicle": "etf", "price": 58.70 },
+    { "symbol": "SCHR", "name": "Schwab Intermediate-Term U.S. Treasury ETF", "assetClass": "treasury", "vehicle": "etf", "price": 25.10 },
+    { "symbol": "VCSH", "name": "Vanguard Short-Term Corporate Bond ETF", "assetClass": "corporate-bond", "vehicle": "etf", "price": 79.30 },
+    { "symbol": "VTEB", "name": "Vanguard Tax-Exempt Bond ETF", "assetClass": "muni-bond", "vehicle": "etf", "price": 50.30 },
+    { "symbol": "SUB", "name": "iShares Short-Term National Muni Bond ETF", "assetClass": "muni-bond", "vehicle": "etf", "price": 106.10 },
+    { "symbol": "SWVXX", "name": "Schwab Value Advantage Money Fund", "assetClass": "cash", "vehicle": "money-market", "price": 1.00 },
+    { "symbol": "VMSXX", "name": "Vanguard Municipal Money Market Fund", "assetClass": "cash", "vehicle": "money-market", "price": 1.00 },
+    { "symbol": "AAPL", "name": "Apple Inc", "assetClass": "us-equity", "vehicle": "stock", "price": 229.80 },
+    { "symbol": "MSFT", "name": "Microsoft Corp", "assetClass": "us-equity", "vehicle": "stock", "price": 429.38 },
+    { "symbol": "NVDA", "name": "NVIDIA Corp", "assetClass": "us-equity", "vehicle": "stock", "price": 182.40 },
+    { "symbol": "BBGLX", "name": "Bridge Builder Large Cap Growth Fund", "assetClass": "us-equity", "vehicle": "mutual-fund", "price": 31.62, "proprietaryTo": "edward-jones" }
+  ],
+  "models": [
+    { "id": "meridian-income", "name": "Meridian Income", "weights": { "VTI": 0.18, "VXUS": 0.07, "BND": 0.35, "VGSH": 0.15, "VTEB": 0.15, "VCSH": 0.05, "SWVXX": 0.05 } },
+    { "id": "meridian-balanced-60-40", "name": "Meridian Balanced 60/40", "weights": { "VTI": 0.38, "VXUS": 0.16, "AVUV": 0.06, "BND": 0.22, "VGSH": 0.08, "VTEB": 0.07, "SWVXX": 0.03 } },
+    { "id": "meridian-growth-80-20", "name": "Meridian Growth 80/20", "weights": { "VTI": 0.50, "VXUS": 0.18, "AVUV": 0.08, "VNQ": 0.04, "BND": 0.16, "VGSH": 0.02, "SWVXX": 0.02 } }
+  ],
+  "storyHouseholds": [
+    {
+      "id": "alvarez", "name": "Alvarez Family", "advisor": "rachel-moss", "model": "meridian-balanced-60-40",
+      "members": [{ "first": "Lucia", "last": "Alvarez" }, { "first": "Daniel", "last": "Alvarez" }],
+      "accounts": [
+        { "suffix": "3317", "type": "joint-taxable", "value": 612400 },
+        { "suffix": "8820", "type": "roth-ira", "value": 148900 },
+        { "suffix": "4410", "type": "traditional-ira", "value": 402150 }
+      ]
+    },
+    {
+      "id": "okafor", "name": "Okafor Household", "advisor": "rachel-moss", "model": "meridian-growth-80-20",
+      "members": [{ "first": "Kofi", "last": "Okafor" }, { "first": "Ada", "last": "Okafor" }],
+      "accounts": [
+        { "suffix": "2290", "type": "joint-taxable", "value": 412880 }
+      ]
+    },
+    {
+      "id": "chen-ashby", "name": "Chen–Ashby", "advisor": "sam-ortiz", "model": "meridian-growth-80-20",
+      "members": [{ "first": "Grace", "last": "Chen" }, { "first": "Owen", "last": "Ashby" }],
+      "accounts": [{ "suffix": "5106", "type": "joint-taxable", "value": 331050 }]
+    },
+    {
+      "id": "patel-trust", "name": "Patel Trust", "advisor": "dana-pruitt", "model": "meridian-balanced-60-40",
+      "members": [{ "first": "Ravi", "last": "Patel" }],
+      "accounts": [{ "suffix": "6630", "type": "trust", "value": 1120300 }]
+    },
+    {
+      "id": "lindqvist", "name": "Lindqvist Household", "advisor": "dana-pruitt", "model": "meridian-income",
+      "members": [{ "first": "Erik", "last": "Lindqvist" }],
+      "accounts": [{ "suffix": "7714", "type": "traditional-ira", "value": 486200 }, { "suffix": "7721", "type": "individual", "value": 58200 }]
+    },
+    {
+      "id": "brennan", "name": "Brennan Household", "advisor": "rachel-moss", "model": "meridian-balanced-60-40",
+      "members": [{ "first": "Maeve", "last": "Brennan" }],
+      "accounts": [{ "suffix": "1188", "type": "individual", "value": 205770 }, { "suffix": "1195", "type": "rollover-ira", "value": 318400 }]
+    },
+    {
+      "id": "nakamura", "name": "Nakamura Household", "advisor": "sam-ortiz", "model": "meridian-balanced-60-40",
+      "members": [{ "first": "Ken", "last": "Nakamura" }, { "first": "Emi", "last": "Nakamura" }],
+      "accounts": [{ "suffix": "4402", "type": "traditional-ira", "value": 284100 }]
+    },
+    {
+      "id": "morgan", "name": "Morgan Household", "advisor": "sam-ortiz", "model": "meridian-income",
+      "members": [{ "first": "Tom", "last": "Morgan" }, { "first": "Claire", "last": "Morgan" }],
+      "accounts": [{ "suffix": "9031", "type": "joint-taxable", "value": 96450 }]
+    },
+    {
+      "id": "rossi", "name": "Rossi Household", "advisor": "dana-pruitt", "model": "meridian-growth-80-20",
+      "members": [{ "first": "Anthony", "last": "Rossi", "suffix": "Jr." }],
+      "accounts": [{ "suffix": "2257", "type": "individual", "value": 127600 }]
+    },
+    {
+      "id": "delgado-trust", "name": "Delgado Family Trust", "advisor": "rachel-moss", "model": "meridian-income",
+      "members": [{ "first": "Marisol", "last": "Delgado" }],
+      "accounts": [{ "suffix": "3840", "type": "trust", "value": 640000 }]
+    }
+  ],
+  "stories": {
+    "helpdesk": [
+      { "id": "HD-2479", "household": "alvarez", "requester": "Lucia Alvarez", "queue": "money-movement", "priority": "urgent", "subject": "Wire to title company for Friday closing", "assignee": "marco-ferreira", "links": ["TR-1046"] },
+      { "id": "HD-2476", "household": "chen-ashby", "requester": "Grace Chen", "queue": "client-service", "priority": "high", "subject": "Can't sign in after changing phones", "assignee": null },
+      { "id": "HD-2481", "household": "okafor", "requester": "Ada Okafor", "queue": "client-service", "priority": "normal", "subject": "Update beneficiary on Roth IRA", "assignee": "helen-carver" },
+      { "id": "HD-2465", "household": "patel-trust", "requester": "Ravi Patel", "queue": "operations", "priority": "normal", "subject": "Transfer from Edward Jones still pending", "assignee": "marco-ferreira", "links": ["T-305"] },
+      { "id": "HD-2470", "household": "lindqvist", "requester": "Erik Lindqvist", "queue": "money-movement", "priority": "high", "subject": "2026 required minimum distribution", "assignee": "marco-ferreira", "links": ["TR-1038"] },
+      { "id": "HD-2474", "household": "brennan", "requester": "Maeve Brennan", "queue": "client-service", "priority": "normal", "subject": "Question about Q3 advisory fee", "assignee": "helen-carver" },
+      { "id": "HD-2463", "household": "morgan", "requester": "Tom Morgan", "queue": "compliance-review", "priority": "high", "subject": "Complaint flagged for review", "assignee": "priya-nair" },
+      { "id": "HD-2468", "household": "nakamura", "requester": "Ken Nakamura", "queue": "client-service", "priority": "low", "subject": "Statement shows old mailing address", "assignee": "helen-carver" }
+    ],
+    "trade": [
+      { "id": "TR-1046", "household": "alvarez", "type": "raise-cash", "amount": 85000, "status": "new", "advisor": "rachel-moss", "links": ["HD-2479"] },
+      { "id": "TR-1045", "household": "okafor", "type": "rebalance-to-model", "amount": null, "status": "in-review", "advisor": "rachel-moss", "model": "meridian-growth-80-20" },
+      { "id": "TR-1043", "household": "patel-trust", "type": "model-change", "amount": null, "status": "approved", "advisor": "dana-pruitt", "model": "meridian-balanced-60-40" },
+      { "id": "TR-1041", "household": "brennan", "type": "tax-loss-harvest", "amount": null, "status": "executing", "advisor": "rachel-moss" },
+      { "id": "TR-1038", "household": "lindqvist", "type": "raise-cash", "amount": 42300, "status": "done", "advisor": "dana-pruitt", "links": ["HD-2470"] }
+    ],
+    "transfers": [
+      { "id": "T-311", "household": "nakamura", "from": "schwab", "value": 284100, "stage": "paperwork", "daysInStage": 3, "flag": "Joint owner signature missing" },
+      { "id": "T-312", "household": "morgan", "from": "bny", "value": 96450, "stage": "paperwork", "daysInStage": 1, "flag": "Non-ACAT, medallion signature needed" },
+      { "id": "T-305", "household": "patel-trust", "from": "edward-jones", "value": 1120300, "stage": "submitted", "daysInStage": 2, "control": "CTL-10433" },
+      { "id": "T-304", "household": "brennan", "from": "schwab", "value": 205770, "stage": "submitted", "daysInStage": 1, "control": "CTL-10431" },
+      { "id": "T-298", "household": "okafor", "from": "edward-jones", "value": 412880, "stage": "in-transfer", "daysInStage": 4, "control": "CTL-10421", "flag": "Partial: 1 fund sells first", "statement": "s1" },
+      { "id": "T-301", "household": "lindqvist", "from": "fidelity", "value": 58200, "stage": "in-transfer", "daysInStage": 2, "control": "CTL-10427" },
+      { "id": "T-287", "household": "alvarez", "from": "schwab", "value": 743900, "stage": "completed", "completed": "2026-10-16", "control": "CTL-10398" },
+      { "id": "T-280", "household": "chen-ashby", "from": "edward-jones", "value": 331050, "stage": "completed", "completed": "2026-10-09", "control": "CTL-10385" },
+      { "id": "T-299", "household": "rossi", "from": "fidelity", "value": 127600, "stage": "exception", "daysInStage": 5, "control": "CTL-10423", "flag": "Rejected: name mismatch (Jr.)" }
+    ],
+    "statements": [
+      {
+        "id": "s1", "household": "okafor", "custodian": "edward-jones", "periodEnd": "2026-09-30", "precheck": "ready",
+        "accounts": [
+          {
+            "label": "Joint WROS", "suffix": "7781", "total": 412880.40,
+            "positions": [
+              { "symbol": "VTI", "quantity": "812", "value": 236616.80 },
+              { "symbol": "MSFT", "quantity": "100", "value": 42938.00 },
+              { "symbol": "AAPL", "quantity": "140", "value": 32172.00 },
+              { "symbol": "BND", "quantity": "420", "value": 30702.00 },
+              { "symbol": "BBGLX", "quantity": "2104.330", "value": 66538.91 },
+              { "symbol": "CASH", "quantity": "", "value": 3912.69 }
+            ]
+          },
+          {
+            "label": "Roth IRA", "suffix": "7790", "total": 121644.12,
+            "positions": [
+              { "symbol": "VXUS", "quantity": "1050", "value": 69510.00 },
+              { "symbol": "AVUV", "quantity": "310", "value": 30612.50 },
+              { "symbol": "CASH", "quantity": "", "value": 21521.62 }
+            ]
+          },
+          {
+            "label": "Individual", "suffix": "7802", "total": 52715.66,
+            "positions": [
+              { "symbol": "NVDA", "quantity": "260", "value": 47424.00 },
+              { "symbol": "AAPL 270115C00250000", "description": "AAPL Jan 2027 250 call", "quantity": "2 contracts", "value": 3140.00 },
+              { "symbol": "CASH", "quantity": "", "value": 2151.66 }
+            ]
+          }
+        ]
+      },
+      { "id": "s2", "household": "delgado-trust", "custodian": "schwab", "periodEnd": "2026-08-31", "precheck": "unsupported-account-type", "accountKinds": ["Revocable trust"] },
+      { "id": "s3", "household": "nakamura", "custodian": "schwab", "periodEnd": "2026-03-31", "precheck": "stale", "accountKinds": ["Traditional IRA"] },
+      { "id": "s4", "household": "brennan", "custodian": "schwab", "periodEnd": "2026-09-30", "precheck": "ready", "accountKinds": ["Individual", "Rollover IRA"] },
+      { "id": "s5", "household": "morgan", "custodian": "bny", "periodEnd": "2026-09-30", "precheck": "ready", "accountKinds": ["Joint"] },
+      { "id": "s6", "household": "lindqvist", "custodian": "fidelity", "periodEnd": "2026-09-30", "precheck": "ready", "accountKinds": ["Individual"] }
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+# Resets the WM Help Desk demo daily at 14:00 UTC (10 a.m. New York in summer, 9 a.m. in winter), so visitors
+# start on a fresh desk whose SLA clocks run through their day. The help desk's ledger tables refuse UPDATE and
+# DELETE even to the app, so the reset runs here, as the database owner, in one transaction
+# (apps/helpdesk/prisma/demo-reset.ts): a failed reset leaves yesterday's desk in place. It then runs seven of
+# the desk's jobs once. GitHub can start scheduled runs late at busy times; the sign-in page says "daily at
+# 14:00 UTC", and a late reset only means slightly older data.
+name: Reset WM Help Desk demo
+
+on:
+  schedule:
+    - cron: "0 14 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# The deploy runs the same reset; never both at once.
+concurrency:
+  group: helpdesk-database
+  cancel-in-progress: false
+
+jobs:
+  reset:
+    name: Reset the demo data
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    # Room for both attempts: each reset transaction may run up to 10 minutes (prisma/demo-reset.ts).
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: apps/helpdesk
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: apps/helpdesk/package-lock.json
+      - run: npm ci
+      - run: npx prisma generate
+      - name: Load the demo settings (no secrets; the same ones the Worker hands the container)
+        run: node scripts/demo-env.mjs >> "$GITHUB_ENV"
+      - name: Reset (one retry a minute later; the first query also wakes the database)
+        env:
+          HELPDESK_DATABASE_URL: ${{ secrets.HELPDESK_DATABASE_URL }}
+        run: |
+          export DATABASE_URL="$HELPDESK_DATABASE_URL"
+          export DEMO_SEED=reset
+          npm run demo:reset || { echo "Reset failed; retrying in 60 s."; sleep 60; npm run demo:reset; }

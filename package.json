@@ -1,0 +1,44 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "type": "module",
+  "description": "Personal portfolio site and demo apps. All demo data is synthetic.",
+  "workspaces": [
+    "synthetic",
+    "site",
+    "apps/trade",
+    "apps/trade/shared",
+    "apps/trade/server",
+    "apps/trade/client",
+    "apps/trade/worker",
+    "apps/acat",
+    "apps/acat/worker",
+    "apps/helpdesk/worker",
+    "apps/statements/frontend",
+    "apps/statements/worker"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "prepare": "git config core.hooksPath .githooks || true",
+    "guard": "node tools/guard/check-names.mjs --all && node tools/guard/check-names.mjs --history && node tools/guard/check-commit-emails.mjs && node tools/guard/check-data-files.mjs",
+    "test": "npm run test --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present"
+  },
+  "overrides": {
+    "miniflare": {
+      "undici": "7.30.1"
+    },
+    "gaxios": {
+      "uuid": "11.1.1"
+    },
+    "vite": "8.3.4",
+    "postcss": "^8.5.26",
+    "sharp": "0.35.5",
+    "source-map-js": "^1.2.2",
+    "baseline-browser-mapping": "^2.11.0",
+    "nanoid": "^3.3.18",
+    "deepmerge-ts": "^8.0.1"
+  }
+}

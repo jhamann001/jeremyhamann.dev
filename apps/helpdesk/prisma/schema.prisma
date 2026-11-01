@@ -1,0 +1,1442 @@
+// Wealth Management Help Desk — books-and-records schema.
+//
+// Owner of record: slice S2 (compliance-core). FROZEN: this file is part of the
+// architecture contract. Implementation slices consume it via
+// `prisma generate` only; any change is a contract amendment, not a slice edit.
+//
+// Conventions
+// - Every enum is closed; no free-string status/category columns. The same literal unions are
+//   hand-mirrored in src/types/domain.ts with a compile-time parity check, so edge/browser code
+//   never imports @prisma/client at runtime.
+// - AuditLog, Comment and Ticket are never hard-deleted; AuditLog and Comment are never updated.
+//   Enforced three ways: Prisma client extension (src/lib/db.ts), Postgres triggers
+//   (prisma/migrations/*_audit_immutability/migration.sql), and REVOKE on the runtime role.
+// - AuditLog.seq / prevHash / hash form a DB-computed SHA-256 chain (trigger-assigned); the app
+//   never supplies them. The app-side defaults (0 / "") are always overwritten by the trigger; if the
+//   trigger is missing, the second insert fails on the unique seq — audit writes fail closed.
+// - All DateTime columns hold UTC wall time (Prisma convention, timestamp(3)).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+/// Internal group values. Okta sign-ins arrive as the configured ID-token claim (AUTH_OKTA_GROUPS_CLAIM, default `groups`)
+/// and are MAPPED onto these four by src/lib/okta-groups.ts before anything stores or authorises on them (#59).
+enum OktaGroup {
+  ops_team
+  advisors
+  client_services
+  compliance_officers
+}
+
+enum QueueKey {
+  OPERATIONS
+  CLIENT_SERVICE
+  ADVICE
+}
+
+/// Wave A appends Cedar Ridge's real intake categories after the original eleven.
+/// Order is append-only: existing values keep their position so stored rows never shift meaning.
+enum TicketCategory {
+  WIRE_TRANSFER
+  ACAT
+  TRADE_CORRECTION
+  CASH_MOVEMENT
+  PORTAL_RESET
+  TAX_DOCUMENT
+  ADDRESS_CHANGE
+  REBALANCING
+  PLANNING_UPDATE
+  TAX_LOSS_HARVESTING
+  OTHER
+  ACCOUNT_CLOSURE
+  BENEFICIARY_TOD
+  RETURNED_CHECK
+  RETURNED_MAIL
+  PASSKEY_LOGIN
+  IDENTITY_VERIFICATION
+  COMPLAINT
+  RETIREMENT_DISTRIBUTION
+  COST_BASIS
+  VOICEMAIL_CALLBACK
+  STATEMENT_REQUEST
+}
+
+enum TicketPriority {
+  URGENT
+  HIGH
+  STANDARD
+  LOW
+}
+
+enum TicketStatus {
+  NEW
+  OPEN
+  PENDING_CLIENT
+  PENDING_INTERNAL
+  RESOLVED
+  CLOSED
+  /// Wave B. "Entered in error": a ticket that should never have existed. Reached ONLY
+  /// through voidTicket (ops_team, recorded reason, refused once a PUBLIC reply exists), never through
+  /// ALLOWED_STATUS_TRANSITIONS, and excluded from every counter, SLA sweep, metric and export.
+  VOIDED
+}
+
+/// Wave B. How a ticket ended, independent of HOW it was closed. NONE until it resolves.
+enum TicketResolution {
+  NONE
+  ANSWERED
+  COMPLETED
+  DUPLICATE
+  WITHDRAWN
+  NO_RESPONSE
+  ENTERED_IN_ERROR
+}
+
+enum CommentVisibility {
+  INTERNAL
+  PUBLIC
+}
+
+/// Firm-approved disclaimer texts live in src/lib/disclaimers.ts (code, versioned in git).
+/// PUBLIC replies must carry a key other than NONE; the text is appended into Comment.body at
+/// write time so the stored row is exactly what the client received.
+enum DisclaimerKey {
+  NONE
+  GENERAL_SERVICE
+  WIRE_VERIFICATION
+  TAX_DOCUMENT
+  NOT_TAX_OR_LEGAL_ADVICE
+  INVESTMENT_ADVICE
+}
+
+/// Closed action catalog. Adding an action is a schema migration and therefore a reviewed change.
+enum AuditAction {
+  TICKET_CREATED
+  TICKET_VIEWED
+  TICKET_PREVIEWED
+  TICKET_FIELD_CHANGED
+  TICKET_STATUS_CHANGED
+  TICKET_PRIORITY_CHANGED
+  TICKET_ASSIGNED
+  TICKET_QUEUE_CHANGED
+  COMMENT_ADDED_INTERNAL
+  COMMENT_ADDED_PUBLIC
+  MACRO_APPLIED
+  PII_REDACTED
+  AUDIT_LOG_VIEWED
+  AUDIT_LOG_EXPORTED
+  AUDIT_CHAIN_VERIFIED
+  CLIENT_API_READ
+  USER_SIGNED_IN
+  USER_SIGNED_OUT
+  AUTHZ_DENIED
+  // --- Wave A. Append-only: never reorder or remove a value. ---
+  /// A requester-authored message landed on a ticket (email reply, client-app message).
+  COMMENT_ADDED_REQUESTER
+  /// A requester reply reopened a RESOLVED ticket.
+  TICKET_REOPENED_BY_REQUESTER
+  /// A ticket was created by a machine caller (ingest API, email intake, client app).
+  TICKET_INGESTED
+  /// A CLOSED ticket's follow-up chain: newValue = the linked ticket's id.
+  TICKET_LINKED
+  /// An inbound message was held instead of becoming a ticket or comment.
+  INTAKE_SUSPENDED
+  /// A held inbound message was released by a human into a ticket.
+  INTAKE_RELEASED
+  /// An outbound delivery row was created in the same transaction as its PUBLIC comment.
+  MESSAGE_QUEUED
+  /// An outbound delivery was handed to a poller under a lease.
+  MESSAGE_LEASED
+  /// A sender reported a successful send.
+  MESSAGE_SENT
+  /// A sender reported a failure.
+  MESSAGE_FAILED
+  ATTACHMENT_ADDED
+  ATTACHMENT_VIEWED
+  ATTACHMENT_REMOVED
+  /// The SLA sweep fired for one ticket/phase/kind.
+  SLA_ALERT
+  /// A staff CSV export of ticket rows, written before the first byte.
+  TICKET_LIST_EXPORTED
+  /// The OPS-PORTAL-mirror integration read a page of the ticket export.
+  TICKET_EXPORT_READ
+  /// A callback / voicemail / in-person contact credited as first response.
+  CLIENT_CONTACT_RECORDED
+  USER_DEACTIVATED
+  USER_REACTIVATED
+  MACRO_CREATED
+  MACRO_UPDATED
+  MACRO_DEACTIVATED
+  MACRO_REACTIVATED
+  /// One summarised row standing for N unauthenticated denials from one client IP in one window.
+  AUTHZ_DENIED_COALESCED
+  /// A scheduled job run (start/finish summary).
+  JOB_RUN
+
+  // --- Carried from Wave A CONTRACT §14 (each was borrowed from a neighbouring action + metadata). ---
+  /// A ticket's requesterEmail was RE-POINTED at a different address (the privileged two-step edit).
+  TICKET_REQUESTER_EMAIL_CHANGED
+  /// A held inbound message was discarded by a reviewer instead of released.
+  INTAKE_DISCARDED
+  /// An upload reservation (signed PUT URL minted); the file is not on the record until READY.
+  ATTACHMENT_INTENT_CREATED
+
+  // --- Wave B. Append-only: never reorder or remove a value. ---
+  /// A staff member changed their own notification preferences.
+  NOTIFICATION_PREFS_CHANGED
+  TICKET_FOLLOWED
+  TICKET_UNFOLLOWED
+  TICKET_LINK_ADDED
+  TICKET_LINK_REMOVED
+  /// A ticket was merged into another as a duplicate (the loser keeps its record and points at the winner).
+  TICKET_MERGED
+  /// A ticket was voided as entered in error.
+  TICKET_VOIDED
+  /// One row PER TICKET touched by a bulk action, beside that ticket's own field/status/assign row.
+  BULK_ACTION_APPLIED
+  /// A PUBLIC comment was withdrawn by an overlay row; the body itself is never edited or deleted.
+  COMMENT_RETRACTED
+  /// A QUEUED delivery was cancelled before any sender leased it (retraction).
+  MESSAGE_CANCELLED
+  /// A DSN reported an accepted message as undeliverable.
+  MESSAGE_BOUNCED
+  /// A macro's structured actions (status / priority / assignee / queue / follow-up) were applied.
+  MACRO_ACTIONS_APPLIED
+  /// A draft was requested from the AI provider. newValue is a HASH of the draft, never its text.
+  AI_DRAFT_REQUESTED
+  /// An SLA policy row was edited at /admin/sla.
+  SLA_POLICY_CHANGED
+  WEBHOOK_ENDPOINT_CREATED
+  WEBHOOK_ENDPOINT_UPDATED
+  WEBHOOK_ENDPOINT_REVOKED
+  WEBHOOK_DELIVERY_SENT
+  WEBHOOK_DELIVERY_FAILED
+  /// A delivery exhausted its retries and will not be attempted again.
+  WEBHOOK_DELIVERY_DEAD
+  /// A supervisor reviewed a PUBLIC reply.
+  REVIEW_STAMPED
+  /// A requester's identity was verified on a ticket (the money-movement gate).
+  IDENTITY_VERIFIED
+  /// ops_team overrode the identity gate with a recorded reason.
+  IDENTITY_GATE_OVERRIDDEN
+  /// A reporting CSV export, written before the first byte.
+  REPORT_EXPORTED
+  API_TOKEN_CREATED
+  API_TOKEN_REVOKED
+  /// A token was replaced by a successor; the old one is revoked in the same transaction.
+  API_TOKEN_ROTATED
+  PUSH_SUBSCRIBED
+  PUSH_UNSUBSCRIBED
+  SUPPRESSION_ADDED
+  SUPPRESSION_REMOVED
+  /// A ticket was created by the legacy help desk import tool with historical timestamps.
+  TICKET_IMPORTED
+}
+
+enum AuditEntityType {
+  TICKET
+  COMMENT
+  USER
+  QUEUE
+  MACRO
+  AUDIT_LOG
+  SESSION
+  // --- Wave A ---
+  ATTACHMENT
+  MESSAGE_DELIVERY
+  SUSPENDED_INTAKE
+  JOB
+  /// A route, not a record: used by AUTHZ_DENIED_COALESCED (entityId = the route path).
+  ENDPOINT
+  // --- Wave B ---
+  NOTIFICATION
+  TICKET_LINK
+  WEBHOOK_ENDPOINT
+  WEBHOOK_DELIVERY
+  API_TOKEN
+  REVIEW_STAMP
+  IDENTITY_VERIFICATION
+  PUSH_SUBSCRIPTION
+  SUPPRESSION
+  /// One row of the SLA policy table (entityId = the SLA row id).
+  SLA_POLICY
+  /// A report, not a record: REPORT_EXPORTED stores the report key as entityId.
+  REPORT
+}
+
+// ---------------------------------------------------------------------------
+// Wave A enums. Every one is closed and mirrored in src/types/domain.ts.
+// ---------------------------------------------------------------------------
+
+/// Who wrote a Comment. STAFF rows carry an authorId (DB CHECK); REQUESTER and SYSTEM rows do not.
+/// The client-facing view renders REQUESTER as "You" and everything else as the service-team label.
+enum CommentAuthorKind {
+  STAFF
+  REQUESTER
+  SYSTEM
+}
+
+/// Sending identity family. Drives From / Reply-To / display name (src/lib/brand.ts) and the
+/// disclaimer variant. Set at intake from the mailbox map; never editable by a client.
+enum TicketBrand {
+  CEDAR_RIDGE_WEALTH
+  CEDAR_RIDGE_DIRECT
+}
+
+/// How the ticket entered the desk. STAFF_FORM is the pre-Wave-A default, so existing rows are correct.
+enum TicketSource {
+  STAFF_FORM
+  EMAIL
+  CLIENT_APP
+  PHONE
+  VOICEMAIL
+  SLACK
+  SYSTEM
+  IMPORT
+  API
+}
+
+/// Structured escalation pointer (Section 3 "compliance flags"). NONE is the default, never null.
+enum EscalationTarget {
+  NONE
+  COMPLIANCE
+  FRAUD
+  OPERATIONS
+  ADVISOR
+}
+
+/// Why an inbound message was held instead of becoming a ticket or comment.
+enum SuspendedIntakeReason {
+  /// SPF/DKIM/DMARC did not pass, or no Authentication-Results were supplied.
+  UNAUTHENTICATED
+  AUTO_REPLY
+  BOUNCE
+  SYSTEM_SENDER
+  SPAM
+  UNKNOWN_MAILBOX
+  /// The desk's own address appeared as the sender, or the loop counter tripped.
+  LOOP_DETECTED
+  PARSE_FAILED
+  OVERSIZE
+  /// Wave B: the message is a staff- or client-forwarded copy of somebody else's mail. The apparent
+  /// sender is the forwarder, so attributing it would file a third party's words under their name.
+  FORWARDED
+}
+
+enum SuspendedIntakeStatus {
+  NEW
+  RELEASED
+  DISCARDED
+}
+
+/// Outbound lifecycle. QUEUED -> LEASED -> SENT | FAILED; an expired lease returns to QUEUED.
+enum MessageDeliveryStatus {
+  QUEUED
+  LEASED
+  SENT
+  FAILED
+  /// Wave B: the comment behind this delivery was retracted before a sender leased it.
+  CANCELLED
+  /// Wave B: a provider DSN reported the message undeliverable after it was accepted.
+  BOUNCED
+  /// Wave B: the destination address is on RequesterSuppression; the outbox refused to hand it out.
+  FAILED_SUPPRESSED
+}
+
+enum AttachmentKind {
+  /// Uploaded by a staff member through the app.
+  UPLOAD
+  /// A MIME part of an inbound email.
+  EMAIL_PART
+  /// Produced by the app or a job.
+  SYSTEM
+}
+
+enum AttachmentState {
+  PENDING
+  READY
+  REMOVED
+}
+
+/// v1 is INTERNAL-only: attachments never travel through the client view or the export routes.
+enum AttachmentVisibility {
+  INTERNAL
+}
+
+/// The clock an SLA alert fired against. COMPLETE is a verdict, not an alertable phase.
+enum SlaAlertPhase {
+  FIRST_RESPONSE
+  RESOLUTION
+}
+
+enum SlaAlertKind {
+  WARNING
+  BREACHED
+}
+
+/// Non-reply contact that legitimately stops the first-response clock.
+enum ClientContactChannel {
+  PHONE
+  VOICEMAIL_RETURNED
+  IN_PERSON
+  SMS
+}
+
+// ---------------------------------------------------------------------------
+// Wave B enums. Closed, mirrored in src/types/domain.ts, parity-checked.
+// ---------------------------------------------------------------------------
+
+/// Why a Notification row exists. The inbox groups on it and notificationPrefs switches on it.
+enum NotificationKind {
+  MENTION
+  ASSIGNED
+  FOLLOWED_UPDATE
+  REQUESTER_REPLY
+  SLA_WARNING
+  SLA_BREACH
+  REVIEW_REQUESTED
+  FOLLOW_UP_DUE
+}
+
+/// Where a notification may be delivered. IN_APP is unconditional; the other two are env-gated.
+enum NotificationChannel {
+  IN_APP
+  SLACK_DM
+  WEB_PUSH
+}
+
+/// How someone came to follow a ticket. MANUAL is the only one a person can remove and re-add freely.
+enum FollowerSource {
+  MANUAL
+  MENTION
+  ASSIGNEE
+  AUTHOR
+}
+
+/// Ticket-to-ticket relations. RELATED reads the same both ways; the other two are directed.
+enum TicketLinkKind {
+  RELATED
+  DUPLICATE_OF
+  BLOCKS
+}
+
+/// Outbound webhook lifecycle. PENDING -> SENT | FAILED; FAILED retries until it reaches DEAD.
+enum WebhookDeliveryStatus {
+  PENDING
+  SENT
+  FAILED
+  DEAD
+}
+
+/// What a ClientApiToken may do. A token holds the UNION of its scopes and nothing else.
+enum ApiTokenScope {
+  CLIENT_READ
+  CLIENT_WRITE
+  INTEGRATION_INGEST
+  INTEGRATION_OUTBOX
+  EXPORT_READ
+  MCP
+}
+
+/// How a requester's identity was established. Callback to a KNOWN number is the firm's default.
+enum IdentityVerificationMethod {
+  CALLBACK_KNOWN_NUMBER
+  IN_PERSON
+  VIDEO
+  DOCUMENT
+  KBA
+  ADVISOR_CONFIRMED
+  OTHER
+}
+
+enum IdentityVerificationResult {
+  VERIFIED
+  FAILED
+  /// ops_team let the ticket resolve without a verification, with a recorded reason.
+  OVERRIDDEN
+}
+
+/// A supervisor's verdict on a PUBLIC reply. FLAGGED means "this needed something else", not "undo".
+enum ReviewVerdict {
+  APPROVED
+  FLAGGED
+}
+
+/// Why an address is suppressed. Every value means "the outbox refuses this address until removed".
+enum SuppressionReason {
+  HARD_BOUNCE
+  COMPLAINT
+  MANUAL
+  UNSUBSCRIBE_REQUEST
+  LOOP
+}
+
+// ---------------------------------------------------------------------------
+// Auth.js (@auth/prisma-adapter) models
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+
+  /// Okta `sub`; null for dev personas.
+  oktaId   String?     @unique
+  /// Last MAPPED internal groups seen on sign-in (never the raw claim values). Display / assignee lookup only — authorization reads the JWT.
+  groups   OktaGroup[] @default([])
+  /// Checked on every request in getViewer(); false makes a still-valid JWT inert immediately.
+  isActive Boolean     @default(true)
+
+  // --- Wave B: availability and preferences. ---
+  /// Set while this person is away. Auto-assignment skips them and the out-of-office job hands their
+  /// open tickets to `backupUser` (or leaves them unassigned when there is none).
+  outOfOfficeUntil  DateTime?
+  /// Who covers this person while they are out. Never themselves (DB CHECK).
+  backupUserId      String?
+  /// Per-kind, per-channel notification switches. Shape and defaults live in src/types/domain.ts
+  /// (NOTIFICATION_PREFS_DEFAULT); a null column means "the defaults", never "notify nothing".
+  notificationPrefs Json?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  accounts        Account[]
+  sessions        Session[]
+  createdTickets  Ticket[]   @relation("TicketCreatedBy")
+  assignedTickets Ticket[]   @relation("TicketAssignee")
+  comments        Comment[]
+  auditEntries    AuditLog[]
+
+  uploadedAttachments Attachment[]      @relation("AttachmentUploader")
+  removedAttachments  Attachment[]      @relation("AttachmentRemovedBy")
+  releasedIntakes     SuspendedIntake[] @relation("SuspendedIntakeReleasedBy")
+  discardedIntakes    SuspendedIntake[] @relation("SuspendedIntakeDiscardedBy")
+  macrosUpdated       Macro[]           @relation("MacroUpdatedBy")
+
+  // --- Wave B ---
+  backupUser   User?  @relation("UserBackup", fields: [backupUserId], references: [id], onDelete: SetNull)
+  backingUpFor User[] @relation("UserBackup")
+
+  notifications          Notification[]         @relation("NotificationRecipient")
+  notificationsCaused    Notification[]         @relation("NotificationActor")
+  ticketsFollowed        TicketFollower[]
+  composerDrafts         ComposerDraft[]
+  commentRetractions     CommentRetraction[]    @relation("CommentRetractedBy")
+  ticketLinksCreated     TicketLink[]           @relation("TicketLinkCreatedBy")
+  ticketLinksRemoved     TicketLink[]           @relation("TicketLinkRemovedBy")
+  ticketsVoided          Ticket[]               @relation("TicketVoidedBy")
+  webhookEndpointsMade   WebhookEndpoint[]      @relation("WebhookEndpointCreatedBy")
+  webhookEndpointsEdited WebhookEndpoint[]      @relation("WebhookEndpointUpdatedBy")
+  pushSubscriptions      PushSubscription[]
+  apiTokensCreated       ClientApiToken[]       @relation("ApiTokenCreatedBy")
+  apiTokensRevoked       ClientApiToken[]       @relation("ApiTokenRevokedBy")
+  identityVerifications  IdentityVerification[] @relation("IdentityVerifiedBy")
+  reviewStamps           ReviewStamp[]          @relation("ReviewStampReviewer")
+  suppressionsAdded      RequesterSuppression[] @relation("SuppressionAddedBy")
+  suppressionsRemoved    RequesterSuppression[] @relation("SuppressionRemovedBy")
+
+  @@index([backupUserId])
+  @@index([outOfOfficeUntil])
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+/// Present for the adapter's contract; unused at runtime because session strategy is "jwt".
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// ---------------------------------------------------------------------------
+// Domain
+// ---------------------------------------------------------------------------
+
+model Queue {
+  id          String   @id @default(cuid())
+  key         QueueKey @unique
+  name        String
+  description String
+  sortOrder   Int      @default(0)
+  /// Wave B: auto-assignment is a property of the QUEUE (who works it), not of the
+  /// priority. Off by default — an unattended queue is a deliberate choice, never a migration default.
+  autoAssign  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tickets Ticket[]
+  macros  Macro[]
+}
+
+/// SLA policy table, one row per priority. The model is literally named `SLA` to satisfy deliverable
+/// D1; the generated Prisma accessor is `prisma.sLA` (Prisma lowercases only the first character).
+/// Minutes are calendar minutes, 24x7, no pausing.
+/// Decision: "Urgent wires: 2-hour SLA" = URGENT resolution 120 min (first response 30);
+/// "Standard request: 24-hour SLA" = STANDARD resolution 1440 min (first response 240).
+/// The WARNING threshold is a fixed 30-minute constant in code (SLA_WARNING_THRESHOLD_MS), not a column.
+/// Tickets snapshot the minutes that applied (Ticket.slaFirstResponseMinutes / slaResolutionMinutes),
+/// so editing this table never rewrites history.
+model SLA {
+  id                   String         @id @default(cuid())
+  priority             TicketPriority @unique
+  name                 String
+  firstResponseMinutes Int
+  resolutionMinutes    Int
+  /// Wave B: how many minutes before a due time the clock reads WARNING. Was the fixed
+  /// code constant SLA_WARNING_THRESHOLD_MS; it is now per-priority and editable at /admin/sla. Tickets
+  /// do NOT snapshot it — WARNING is a live reading, not a verdict, so editing it re-colours open work
+  /// and rewrites no history. 0 disables the warning band for that priority.
+  warningMinutes       Int            @default(30)
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+}
+
+model Ticket {
+  id     String @id @default(cuid())
+  /// Human reference, rendered as "HD-<number>".
+  number Int    @unique @default(autoincrement())
+
+  subject         String
+  /// Markdown. Always passed through sanitizePII before persistence.
+  description     String
+  /// Free-text pointer to the client relationship (household name, masked account tail). Sanitized.
+  clientReference String?
+  /// Free text (1..120). Sanitized by createTicket like subject/description — it is rendered on list
+  /// rows and searched via ILIKE, so raw PII here would surface everywhere (contract amendment #34).
+  requesterName   String
+  /// Contact data validated by z.email(); by definition not a redaction target.
+  /// NULLABLE since Wave A: a voicemail or inbound call has a phone and no address.
+  /// DB CHECK `ticket_requester_contact_present`: at least one of requesterEmail / requesterPhone is set.
+  /// The client API's requester-equality check DENIES when this is null (a null never matches a header).
+  requesterEmail  String?
+  /// E.164 (`+` and 8..15 digits), validated in zod. Contact data, not a redaction target.
+  requesterPhone  String?
+
+  // --- Wave A: channel, identity and idempotency ---
+  /// Sending identity family; drives From / Reply-To and the disclaimer variant.
+  brand      TicketBrand  @default(CEDAR_RIDGE_WEALTH)
+  /// How the ticket entered the desk. Pre-Wave-A rows are STAFF_FORM by default, which is accurate.
+  source     TicketSource @default(STAFF_FORM)
+  /// The upstream system's id for this ticket (Gmail Message-ID, client-app request id, legacy help desk id).
+  /// Unique PER SOURCE, so a retry is idempotent and two channels may reuse the same string.
+  externalId String?
+
+  // --- Wave A: Ops Portal pointers (hybrid-light). IDS ONLY — never account numbers. ---
+  /// Ops Portal household id. Opaque pointer for the requester-history panel and the Ops Portal deep link.
+  householdId         String?
+  /// Ops Portal person / cedar_ridge_user_id. Opaque pointer.
+  requesterExternalId String?
+
+  // --- Wave A: structured compliance flags ---
+  /// Cedar Ridge files a complaint record even when the matter is self-resolved.
+  isComplaint      Boolean          @default(false)
+  /// Stamped automatically the first time isComplaint flips true; never cleared by un-flagging.
+  complaintFiledAt DateTime?
+  escalationTarget EscalationTarget @default(NONE)
+  /// Unresponsive-client cadence: the next date staff must act. Filterable (due / overdue).
+  followUpAt       DateTime?
+  /// One external reference (e-signature envelope, ACAT control number, REQ-…). Sanitized like free text.
+  externalRef      String?
+
+  /// Follow-up chain: a requester reply on a CLOSED ticket opens a NEW ticket pointing back here.
+  linkedFromTicketId String?
+
+  // --- Wave B: outcome, merge and void. ---
+  /// How the ticket ended. NONE while it is live; set alongside RESOLVED / CLOSED / VOIDED.
+  resolution   TicketResolution @default(NONE)
+  /// Set when this ticket was merged INTO another as a duplicate. The row is never deleted: it keeps
+  /// its own comments, its own ledger and its own number, and points at the survivor.
+  mergedIntoId String?
+  mergedAt     DateTime?
+  /// VOIDED bookkeeping. All three are set together, in the same transaction as the status change.
+  voidedAt     DateTime?
+  voidedById   String?
+  /// Sanitized free text: why this ticket should never have existed. Also on the TICKET_VOIDED row.
+  voidReason   String?
+
+  category TicketCategory
+  priority TicketPriority
+  status   TicketStatus   @default(NEW)
+
+  queueId     String
+  createdById String
+  assigneeId  String?
+
+  /// SLA snapshot at creation / last priority change — which policy applied, provable later.
+  slaFirstResponseMinutes Int
+  slaResolutionMinutes    Int
+  firstResponseDueAt      DateTime
+  resolutionDueAt         DateTime
+  /// Set by the first PUBLIC reply only. Internal notes and status changes never count.
+  firstRespondedAt        DateTime?
+  resolvedAt              DateTime?
+  closedAt                DateTime?
+
+  /// True if sanitizePII changed any persisted field on this ticket or any of its comments.
+  piiRedacted       Boolean @default(false)
+  piiRedactionCount Int     @default(0)
+
+  /// Optimistic-concurrency token; every mutation increments and checks it (CONFLICT on mismatch).
+  version   Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  queue      Queue      @relation(fields: [queueId], references: [id], onDelete: Restrict)
+  createdBy  User       @relation("TicketCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  assignee   User?      @relation("TicketAssignee", fields: [assigneeId], references: [id], onDelete: Restrict)
+  comments   Comment[]
+  auditLogs  AuditLog[]
+  linkedFrom Ticket?    @relation("TicketFollowUp", fields: [linkedFromTicketId], references: [id], onDelete: Restrict)
+  followUps  Ticket[]   @relation("TicketFollowUp")
+
+  attachments      Attachment[]
+  deliveries       MessageDelivery[]
+  ingestReceipts   IngestReceipt[]
+  suspendedIntakes SuspendedIntake[]
+  slaAlerts        SlaAlert[]
+
+  // --- Wave B ---
+  mergedInto            Ticket?                @relation("TicketMerge", fields: [mergedIntoId], references: [id], onDelete: Restrict)
+  mergedFrom            Ticket[]               @relation("TicketMerge")
+  voidedBy              User?                  @relation("TicketVoidedBy", fields: [voidedById], references: [id], onDelete: Restrict)
+  linksFrom             TicketLink[]           @relation("TicketLinkFrom")
+  linksTo               TicketLink[]           @relation("TicketLinkTo")
+  followers             TicketFollower[]
+  composerDrafts        ComposerDraft[]
+  notifications         Notification[]
+  identityVerifications IdentityVerification[]
+  followUpNudges        FollowUpNudge[]
+  webhookDeliveries     WebhookDelivery[]
+
+  @@unique([source, externalId])
+  @@index([queueId, status, priority])
+  @@index([assigneeId, status])
+  @@index([status, resolutionDueAt])
+  @@index([status, firstResponseDueAt])
+  @@index([requesterEmail])
+  @@index([requesterPhone])
+  @@index([householdId])
+  @@index([requesterExternalId])
+  @@index([isComplaint, createdAt])
+  @@index([status, followUpAt])
+  @@index([createdAt])
+  @@index([updatedAt])
+  @@index([updatedAt, id])
+  @@index([linkedFromTicketId])
+  // Carried from Wave A CONTRACT §14: the dashboard's default ordering, so the newest page is an
+  // index scan rather than a sort over the whole table.
+  @@index([status, createdAt(sort: Desc), id(sort: Desc)])
+  // --- Wave B ---
+  @@index([mergedIntoId])
+  @@index([status, resolution])
+  @@index([assigneeId, status, updatedAt])
+}
+
+/// Immutable (DB trigger + Prisma extension). INTERNAL rows never leave the staff surface:
+/// the client-facing path reads the "ClientVisibleComment" view only.
+model Comment {
+  id               String            @id @default(cuid())
+  ticketId         String
+  /// NULL for REQUESTER and SYSTEM rows. DB CHECK `comment_staff_has_author`: a STAFF row always has one.
+  authorId         String?
+  /// Wave A. Pre-Wave-A rows are STAFF, which is accurate — the only writers were staff actions.
+  authorKind       CommentAuthorKind @default(STAFF)
+  visibility       CommentVisibility
+  /// Markdown, sanitized. For PUBLIC rows the disclaimer text is already appended — the row is the
+  /// record of exactly what the client receives.
+  body             String
+  /// Disclaimer applied to PUBLIC replies (never NONE for PUBLIC); always NONE for INTERNAL notes.
+  disclaimerKey    DisclaimerKey     @default(NONE)
+  macroId          String?
+  /// Wave B (carried from Wave A CONTRACT §14). The RFC 5322 Message-ID of the inbound mail this
+  /// comment was written from, so the next outbound reply on the thread can set In-Reply-To /
+  /// References and the client's mail client keeps one conversation. NULL for anything not from email.
+  inboundMessageId String?
+
+  piiRedacted       Boolean @default(false)
+  piiRedactionCount Int     @default(0)
+
+  createdAt DateTime @default(now())
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  author User?  @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  macro  Macro? @relation(fields: [macroId], references: [id], onDelete: Restrict)
+
+  attachments    Attachment[]
+  delivery       MessageDelivery?
+  ingestReceipts IngestReceipt[]
+
+  // --- Wave B ---
+  retraction    CommentRetraction?
+  reviewStamps  ReviewStamp[]
+  notifications Notification[]
+
+  @@index([ticketId, visibility, createdAt])
+  @@index([authorId])
+  @@index([ticketId, authorKind, createdAt])
+  @@index([inboundMessageId])
+}
+
+model Macro {
+  id            String            @id @default(cuid())
+  key           String            @unique
+  title         String
+  /// Null = available in every queue.
+  queueId       String?
+  /// Markdown with {{ticket.number}}, {{requester.firstName}}, {{requester.name}}, {{agent.name}}, {{today}} placeholders.
+  body          String
+  channel       CommentVisibility @default(PUBLIC)
+  disclaimerKey DisclaimerKey     @default(GENERAL_SERVICE)
+  isActive      Boolean           @default(true)
+  sortOrder     Int               @default(0)
+  /// Wave B: structured side effects applied atomically when the macro is submitted —
+  /// status, priority, queue, assignee ("me" or a user id) and a follow-up offset. The TYPE
+  /// (MacroActions) lives in src/types/domain.ts; the zod schema and the application are in
+  /// src/server/macros-apply.ts (macroActionsSchema, applyMacroActions) — a "use server" file may not
+  /// export a non-action, so the validator sits beside the code that applies it rather than in the
+  /// shared type module. Null means "insert the body only".
+  actions       Json?
+  /// Wave A: last staff member to edit this macro through /admin/macros (null = seeded, never edited).
+  updatedById   String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  queue     Queue?    @relation(fields: [queueId], references: [id], onDelete: Restrict)
+  comments  Comment[]
+  updatedBy User?     @relation("MacroUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
+
+  @@index([queueId, isActive])
+  @@index([updatedById])
+}
+
+/// Append-only. UPDATE/DELETE/TRUNCATE raise at the DB; the Prisma extension raises in-app.
+model AuditLog {
+  id         String   @id @default(cuid())
+  /// Trigger-assigned from sequence audit_log_seq under an advisory lock; the app's 0 is always overwritten.
+  seq        BigInt   @unique @default(0)
+  /// App-supplied `new Date()`; the DB default is only a fallback for rows written outside the app.
+  occurredAt DateTime @default(now())
+
+  /// Null for system / client-API actors. The snapshots below survive user deactivation and Okta group churn.
+  actorId     String?
+  actorEmail  String
+  actorGroups OktaGroup[] @default([])
+
+  action     AuditAction
+  entityType AuditEntityType
+  entityId   String?
+  ticketId   String?
+
+  fieldChanged String?
+  /// Sanitized (sanitizePII) and truncated to 4000 chars by writeAudit. Never raw PII.
+  oldValue     String?
+  newValue     String?
+
+  /// Never null: "unknown" when the trusted-hop resolver cannot determine a client address.
+  ipAddress String
+  /// Attacker-controlled header: sanitized (sanitizePII) and truncated to 512 by the audit mapper. Hash-chained.
+  userAgent String?
+  /// Shared by every row written by one server action / request, so one click groups.
+  requestId String
+  /// Supplementary context only (counts, filters). With `id`, the ONLY column outside the hash chain.
+  metadata  Json?
+
+  /// SHA-256 hex of the previous row's hash (by seq); "GENESIS" for the first row. Trigger-set.
+  prevHash String @default("")
+  /// SHA-256 hex over prevHash + every evidentiary column (all columns except id and metadata,
+  /// actorGroups joined in stored/OKTA_GROUPS order). Trigger-set;
+  hash     String @default("")
+
+  actor  User?   @relation(fields: [actorId], references: [id], onDelete: Restrict)
+  ticket Ticket? @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+
+  @@index([ticketId, occurredAt])
+  @@index([actorId, occurredAt])
+  @@index([action, occurredAt])
+  @@index([occurredAt])
+}
+
+// ---------------------------------------------------------------------------
+// Wave A models. See the build record for ownership.
+//
+// Append-only at the DB (triggers + REVOKE, migration 20260919000100):
+//   IngestReceipt, SlaAlert.
+// Mutable but audited on every state change (their mutation path is the only writer):
+//   SuspendedIntake, MessageDelivery, Attachment, JobCursor.
+// NONE of them is readable by the wm_helpdesk_public role (prisma/sql/runtime-roles.sql).
+// ---------------------------------------------------------------------------
+
+/// Idempotency ledger for machine intake. APPEND-ONLY: a retry with the same (source, externalId)
+/// finds this row and returns the SAME ticket / comment id instead of writing a duplicate.
+/// Carries no message content — only the upstream identifier and what it produced.
+model IngestReceipt {
+  id         String       @id @default(cuid())
+  source     TicketSource
+  /// The upstream identifier: RFC 5322 Message-ID, client-app request id, n8n execution id.
+  externalId String
+  ticketId   String?
+  commentId  String?
+  /// "ticket" | "comment" — what the first successful call produced.
+  outcome    String
+  receivedAt DateTime     @default(now())
+
+  ticket  Ticket?  @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Restrict)
+
+  @@unique([source, externalId])
+  @@index([ticketId])
+  @@index([receivedAt])
+}
+
+/// Inbound messages held before they could become a ticket or a comment (unauthenticated sender,
+/// auto-reply, bounce, unknown mailbox …). NOTHING here is client-visible and nothing here has
+/// created a record yet. `headers` holds the forwarded header block for a human reviewer; `snippet`
+/// is a sanitized, truncated preview, never the full body.
+model SuspendedIntake {
+  id                      String                @id @default(cuid())
+  reason                  SuspendedIntakeReason
+  status                  SuspendedIntakeStatus @default(NEW)
+  /// The inbound address the message arrived on (the mailbox-map key).
+  mailbox                 String
+  /// Envelope / header From, lower-cased. Sanitized before persistence.
+  fromAddress             String
+  subject                 String
+  /// RFC 5322 Message-ID when present — how a duplicate delivery is recognised on review.
+  messageId               String?
+  /// Opaque pointer to the raw message in the workflow's own store (n8n execution id, Gmail id).
+  rawRef                  String?
+  /// Forwarded header block (Authentication-Results, In-Reply-To, References, Auto-Submitted …).
+  headers                 Json?
+  /// Sanitized preview, <= 2000 chars. Never the full body.
+  snippet                 String?
+  /// Set when a reviewer released this into a ticket.
+  ticketId                String?
+  releasedById            String?
+  releasedAt              DateTime?
+  /// Wave B (carried from Wave A): the disposition columns that mirror the release ones, so "not for
+  /// the desk" is on the row rather than reconstructed from the ledger.
+  discardedById           String?
+  discardedAt             DateTime?
+  /// Wave B (carried from Wave A CONTRACT §14). Whether the sender passed DMARC from an authserv-id
+  /// this desk trusts. Reconstructible from the ledger; on the row so a reviewer's banner cannot
+  /// over-claim and so the release path can refuse an unverified sender without a second query.
+  senderVerified          Boolean               @default(false)
+  /// Wave B: for a FORWARDED hold, the address parsed out of the forwarded header block. A CANDIDATE
+  /// only — staff confirm it on release; nothing is ever attributed to it automatically.
+  candidateRequesterEmail String?
+  createdAt               DateTime              @default(now())
+  updatedAt               DateTime              @updatedAt
+
+  ticket      Ticket? @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  releasedBy  User?   @relation("SuspendedIntakeReleasedBy", fields: [releasedById], references: [id], onDelete: Restrict)
+  discardedBy User?   @relation("SuspendedIntakeDiscardedBy", fields: [discardedById], references: [id], onDelete: Restrict)
+
+  /// Wave B (carried from Wave A CONTRACT §14): two overlapping deliveries of ONE inbound message (an
+  /// n8n retry on a slow webhook) must not both insert. NULLs do not collide in Postgres, so a message
+  /// with no Message-ID is unaffected.
+  @@unique([messageId])
+  @@index([status, createdAt])
+  @@index([mailbox, createdAt])
+}
+
+/// The transactional outbox. Exactly one row per PUBLIC Comment, written in the SAME transaction as
+/// the comment and its audit row, so "a reply exists" and "a reply is queued to leave" can never
+/// disagree. A sender (n8n, Workspace) leases rows through /api/integrations/outbox and reports back.
+/// textBody / htmlBody are rendered from the stored comment body — the row is what the client receives.
+model MessageDelivery {
+  id        String @id @default(cuid())
+  /// One delivery per comment (the comment is immutable, so a resend is a new comment).
+  commentId String @unique
+  ticketId  String
+
+  brand       TicketBrand
+  fromAddress String
+  fromName    String
+  replyTo     String
+  toAddress   String
+  subject     String
+  textBody    String
+  htmlBody    String
+  /// RFC 5322 Message-ID generated at enqueue and stored so inbound replies can be threaded.
+  messageId   String      @unique
+  /// Wave B (carried from Wave A CONTRACT §14). Threading headers this delivery must carry, derived
+  /// from the requester comment it answers (`Comment.inboundMessageId`) and the thread before it.
+  /// `references` is the space-separated RFC 5322 list, oldest first, capped by the outbox.
+  inReplyTo   String?
+  references  String?
+
+  status            MessageDeliveryStatus @default(QUEUED)
+  attempts          Int                   @default(0)
+  /// While LEASED, no other poller may take the row; an expired lease returns it to QUEUED.
+  leaseExpiresAt    DateTime?
+  leasedAt          DateTime?
+  sentAt            DateTime?
+  /// The sending provider's own id, for reconciliation against the mail archive.
+  providerMessageId String?
+  /// Last failure reason, sanitized and truncated. Never a full provider payload.
+  lastError         String?
+  /// Wave B: terminal timestamps for the three new statuses.
+  cancelledAt       DateTime?
+  bouncedAt         DateTime?
+  /// Wave B: "hard" | "soft" as parsed from the DSN status code. A hard bounce is a suppression
+  /// CANDIDATE — never an automatic suppression, because one DSN is not a policy decision.
+  bounceType        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Restrict)
+  ticket  Ticket  @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+
+  @@index([status, createdAt])
+  @@index([ticketId])
+  @@index([status, leaseExpiresAt])
+  @@index([toAddress, createdAt])
+}
+
+/// Files on a ticket or comment. v1 is INTERNAL-only: never served through the client view or the
+/// export routes. The object itself lives in GCS (or .local-attachments/ in local dev); this row is
+/// the record. Attachments are never hard-deleted — "remove" sets state REMOVED and is audited.
+model Attachment {
+  id         String  @id @default(cuid())
+  ticketId   String
+  commentId  String?
+  /// NULL for machine-sourced parts (inbound email, jobs).
+  uploaderId String?
+
+  kind      AttachmentKind @default(UPLOAD)
+  /// Sanitized display name. NEVER part of the object key.
+  filename  String
+  mime      String
+  /// Bytes. Capped at ATTACHMENT_MAX_BYTES (25 MiB) by the server.
+  size      Int
+  /// Lower-case hex SHA-256 of the object, verified server-side where the backend allows it.
+  sha256    String?
+  /// `<ticketId>/<attachmentId>` — derived, never the original filename (no path traversal).
+  objectKey String         @unique
+
+  state      AttachmentState      @default(PENDING)
+  visibility AttachmentVisibility @default(INTERNAL)
+
+  createdAt   DateTime  @default(now())
+  readyAt     DateTime?
+  removedAt   DateTime?
+  removedById String?
+
+  ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Restrict)
+  uploader  User?    @relation("AttachmentUploader", fields: [uploaderId], references: [id], onDelete: Restrict)
+  removedBy User?    @relation("AttachmentRemovedBy", fields: [removedById], references: [id], onDelete: Restrict)
+
+  @@index([ticketId, state, createdAt])
+  @@index([commentId])
+  @@index([uploaderId])
+  @@index([removedById])
+}
+
+/// One row per (ticket, phase, kind) the SLA sweep has already alerted on. APPEND-ONLY: the unique
+/// constraint IS the dedupe, so a 5-minute sweep never re-pages on the same breach.
+model SlaAlert {
+  id          String        @id @default(cuid())
+  ticketId    String
+  phase       SlaAlertPhase
+  kind        SlaAlertKind
+  firedAt     DateTime      @default(now())
+  /// Minutes past due at the moment the alert fired (negative is impossible; WARNING stores 0).
+  minutesOver Int           @default(0)
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+
+  @@unique([ticketId, phase, kind])
+  @@index([firedAt])
+}
+
+/// Durable cursors for scheduled jobs (e.g. the AuditLog seq the event-alert job has consumed).
+/// Mutable by design — it is a bookmark, not evidence; every job run also writes a JOB_RUN audit row.
+model JobCursor {
+  name      String   @id
+  seq       BigInt   @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------------------------------------------------------
+// Wave B models. See the build record for ownership.
+//
+// Append-only at the DB (triggers + REVOKE, migration 20260920000200):
+//   CommentRetraction, IdentityVerification, ReviewStamp, FollowUpNudge.
+// Mutable but audited on every state change (their mutation path is the only writer):
+//   Notification, TicketFollower, TicketLink, WebhookEndpoint, WebhookDelivery,
+//   ClientApiToken, RequesterSuppression.
+// Deletable, deliberately, because they are neither evidence nor client material:
+//   ComposerDraft (the owner deletes their own row), PushSubscription (pruned on HTTP 410).
+// NONE of them is readable by the wm_helpdesk_public role (prisma/sql/runtime-roles.sql).
+// ---------------------------------------------------------------------------
+
+/// One staff-facing notification. DERIVED from an audited event — the AuditLog row is the record, this
+/// is the inbox item that points at it — so a Notification carries no body text of its own beyond a
+/// sanitized one-line preview. Never hard-deleted: "dismiss" is a state change, like everything else here.
+model Notification {
+  id        String           @id @default(cuid())
+  /// Who sees it.
+  userId    String
+  kind      NotificationKind
+  /// Who caused it. NULL for a job (the SLA sweep, the nudge job).
+  actorId   String?
+  ticketId  String?
+  commentId String?
+  /// Sanitized, <= 200 chars. A subject line or a mention snippet — never a full comment body.
+  preview   String
+  /// Collapses repeats: one row per (userId, dedupeKey). NULLs never collide, so an un-keyed
+  /// notification is always inserted. Example: `follow-up:<ticketId>:2026-09-22`.
+  dedupeKey String?
+
+  createdAt   DateTime              @default(now())
+  readAt      DateTime?
+  dismissedAt DateTime?
+  /// Which channels this row was fanned out to, for the "why did I get a Slack DM" question.
+  channels    NotificationChannel[] @default([])
+
+  user    User     @relation("NotificationRecipient", fields: [userId], references: [id], onDelete: Restrict)
+  actor   User?    @relation("NotificationActor", fields: [actorId], references: [id], onDelete: Restrict)
+  ticket  Ticket?  @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Restrict)
+
+  @@unique([userId, dedupeKey])
+  @@index([userId, readAt, createdAt])
+  @@index([userId, createdAt])
+  @@index([ticketId])
+}
+
+/// Who is watching a ticket. Soft-removed (`removedAt`) rather than deleted, because TICKET_FOLLOWED
+/// and TICKET_UNFOLLOWED are audited and a row that vanished would leave the pair unreadable.
+model TicketFollower {
+  id        String         @id @default(cuid())
+  ticketId  String
+  userId    String
+  source    FollowerSource @default(MANUAL)
+  createdAt DateTime       @default(now())
+  removedAt DateTime?
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@unique([ticketId, userId])
+  @@index([userId, removedAt])
+  @@index([ticketId, removedAt])
+}
+
+/// A composer draft that survives a hard reload. NOT a record: nothing here has been sent, seen by a
+/// client or entered the ledger, and the owner may delete their own row (that is what "discard" means).
+/// One row per (ticket, author, channel); the body is sanitized on write like every other free text.
+model ComposerDraft {
+  id            String            @id @default(cuid())
+  ticketId      String
+  userId        String
+  channel       CommentVisibility
+  body          String
+  macroId       String?
+  disclaimerKey DisclaimerKey     @default(NONE)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@unique([ticketId, userId, channel])
+  @@index([userId, updatedAt])
+}
+
+/// "Sent in error" overlay on a PUBLIC comment. APPEND-ONLY, and the comment itself is never touched:
+/// the body stays exactly as it was written, the client surface renders a withdrawal placeholder
+/// instead of it (the "ClientVisibleComment" view blanks the body at the DATABASE), and any QUEUED
+/// delivery is CANCELLED in the same transaction. A retraction cannot be undone — that would be an
+/// edit of the record by another name.
+model CommentRetraction {
+  id            String   @id @default(cuid())
+  commentId     String   @unique
+  retractedById String
+  /// Sanitized free text, >= 12 chars. Also on the COMMENT_RETRACTED audit row.
+  reason        String
+  createdAt     DateTime @default(now())
+
+  comment     Comment @relation(fields: [commentId], references: [id], onDelete: Restrict)
+  retractedBy User    @relation("CommentRetractedBy", fields: [retractedById], references: [id], onDelete: Restrict)
+
+  @@index([createdAt])
+  @@index([retractedById])
+}
+
+/// Ticket-to-ticket relation. Soft-removed so TICKET_LINK_ADDED / TICKET_LINK_REMOVED both resolve.
+/// DUPLICATE_OF is what `mergeTickets` writes alongside `Ticket.mergedIntoId`.
+model TicketLink {
+  id           String         @id @default(cuid())
+  fromTicketId String
+  toTicketId   String
+  kind         TicketLinkKind @default(RELATED)
+  /// Sanitized free text, optional: why these two are linked.
+  note         String?
+  createdById  String
+  createdAt    DateTime       @default(now())
+  removedById  String?
+  removedAt    DateTime?
+
+  fromTicket Ticket @relation("TicketLinkFrom", fields: [fromTicketId], references: [id], onDelete: Restrict)
+  toTicket   Ticket @relation("TicketLinkTo", fields: [toTicketId], references: [id], onDelete: Restrict)
+  createdBy  User   @relation("TicketLinkCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  removedBy  User?  @relation("TicketLinkRemovedBy", fields: [removedById], references: [id], onDelete: Restrict)
+
+  @@unique([fromTicketId, toTicketId, kind])
+  @@index([toTicketId, removedAt])
+  @@index([fromTicketId, removedAt])
+}
+
+/// An outbound webhook subscription. The row stores a random per-endpoint salt plus a display prefix
+/// of it; the signing secret is derived from that salt and the app-held `WEBHOOK_SIGNING_KEY`, shown
+/// once at creation and never again. Never deleted: revoking sets
+/// `revokedAt`, so a delivery history keeps pointing at a row that explains itself.
+model WebhookEndpoint {
+  id           String        @id @default(cuid())
+  name         String
+  /// Absolute https URL. The SSRF guard refuses loopback, private, link-local and metadata ranges at
+  /// creation AND again immediately before every send (DNS can change under a stored hostname).
+  url          String
+  /// A random per-endpoint SALT, 64 hex characters. NAME IS HISTORICAL: it is not a digest of the
+  /// secret and it signs nothing on its own — the signing key is
+  /// `HMAC-SHA256(WEBHOOK_SIGNING_KEY, "wmhd:webhook-signing:v1:<salt>")`, and the app-held half is
+  /// never in the database (src/lib/webhook-signing.ts; integration notes §2.1).
+  secretHash   String
+  /// First 8 characters OF THE SALT — a random label, not part of any credential.
+  secretPrefix String
+  /// Which audit actions this endpoint receives. Empty = nothing is delivered (fail closed).
+  events       AuditAction[] @default([])
+  isActive     Boolean       @default(true)
+  createdById  String
+  updatedById  String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  revokedAt    DateTime?
+
+  createdBy  User              @relation("WebhookEndpointCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  updatedBy  User?             @relation("WebhookEndpointUpdatedBy", fields: [updatedById], references: [id], onDelete: Restrict)
+  deliveries WebhookDelivery[]
+
+  @@index([isActive, revokedAt])
+}
+
+/// One attempt-bearing delivery of one audited event to one endpoint. The dispatcher walks AuditLog by
+/// `seq`, so `@@unique([endpointId, auditSeq])` IS the at-most-once guarantee. Payloads are PII-light
+/// by contract: ids, enum values and counts — never a subject, a body or a requester address.
+model WebhookDelivery {
+  id          String      @id @default(cuid())
+  endpointId  String
+  /// The AuditLog.seq this delivery carries. The cursor is per endpoint.
+  auditSeq    BigInt
+  eventAction AuditAction
+  entityId    String?
+  ticketId    String?
+  /// SHA-256 of the exact bytes signed and sent, so a receiver's copy can be reconciled with ours.
+  payloadHash String
+
+  status         WebhookDeliveryStatus @default(PENDING)
+  attempts       Int                   @default(0)
+  nextAttemptAt  DateTime?
+  responseStatus Int?
+  /// Sanitized, truncated. Never a full response body.
+  lastError      String?
+  sentAt         DateTime?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+
+  endpoint WebhookEndpoint @relation(fields: [endpointId], references: [id], onDelete: Restrict)
+  ticket   Ticket?         @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+
+  @@unique([endpointId, auditSeq])
+  @@index([status, nextAttemptAt])
+  @@index([endpointId, createdAt])
+}
+
+/// A browser push subscription (RFC 8291). DELETABLE by design: a subscription is a device-side
+/// artefact, not a record, and the push service answers HTTP 410 Gone when it dies — a row we cannot
+/// use and must not keep trying. Pruning on 410 is the whole point.
+model PushSubscription {
+  id         String    @id @default(cuid())
+  userId     String
+  /// The push service's endpoint URL. Unique: one row per browser installation.
+  endpoint   String    @unique
+  /// Base64url, from the browser's PushSubscription.getKey("p256dh") / ("auth").
+  p256dh     String
+  auth       String
+  /// Sanitized, truncated: which device this is, so a person can tell two browsers apart.
+  userAgent  String?
+  createdAt  DateTime  @default(now())
+  lastSeenAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+/// A per-consumer machine credential. `tokenHash` is SHA-256 of the plaintext, which is shown ONCE at
+/// creation; `prefix` is the first 12 characters, for "which token is this" in a log or an admin list.
+/// Never deleted — a revoked token's id still appears on the audit rows it authorised.
+model ClientApiToken {
+  id             String          @id @default(cuid())
+  name           String
+  /// Display prefix, e.g. `wmhd_ab12cd34`. Unique so an operator can name a token unambiguously.
+  prefix         String          @unique
+  tokenHash      String          @unique
+  scopes         ApiTokenScope[] @default([])
+  /// Optional requester-scope: when set, a client:* token may only act for this address.
+  requesterEmail String?
+  createdById    String
+  createdAt      DateTime        @default(now())
+  expiresAt      DateTime?
+  revokedAt      DateTime?
+  revokedById    String?
+  /// Set by the verifier, at most once a minute, so an unused token is visible before it is rotated.
+  lastUsedAt     DateTime?
+  /// Sanitized free text: who holds this token and what for.
+  note           String?
+
+  createdBy User  @relation("ApiTokenCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  revokedBy User? @relation("ApiTokenRevokedBy", fields: [revokedById], references: [id], onDelete: Restrict)
+
+  @@index([revokedAt, expiresAt])
+}
+
+/// The money-movement gate's evidence. APPEND-ONLY: a verification is a statement about a moment, so a
+/// correction is a new row, never an edit. `OVERRIDDEN` is ops_team letting a ticket resolve without
+/// one, with a recorded reason — it is written here as well as in the ledger so the gate can read it.
+model IdentityVerification {
+  id           String                     @id @default(cuid())
+  ticketId     String
+  verifiedById String
+  method       IdentityVerificationMethod
+  result       IdentityVerificationResult
+  /// Sanitized: how the identity was established ("called the number on file", ticket reference).
+  /// NEVER a phone number, an account number or a document number — sanitizePII runs on it anyway.
+  note         String
+  createdAt    DateTime                   @default(now())
+
+  ticket     Ticket @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  verifiedBy User   @relation("IdentityVerifiedBy", fields: [verifiedById], references: [id], onDelete: Restrict)
+
+  @@index([ticketId, createdAt])
+  @@index([result, createdAt])
+}
+
+/// A supervisor's review of a PUBLIC reply. APPEND-ONLY, one per (comment, reviewer): a second opinion
+/// from a second reviewer is a second row, and nobody can revise their own stamp.
+model ReviewStamp {
+  id         String        @id @default(cuid())
+  commentId  String
+  reviewerId String
+  verdict    ReviewVerdict
+  /// Sanitized free text, optional for APPROVED and required for FLAGGED.
+  note       String?
+  createdAt  DateTime      @default(now())
+
+  comment  Comment @relation(fields: [commentId], references: [id], onDelete: Restrict)
+  reviewer User    @relation("ReviewStampReviewer", fields: [reviewerId], references: [id], onDelete: Restrict)
+
+  @@unique([commentId, reviewerId])
+  @@index([createdAt])
+  @@index([verdict, createdAt])
+}
+
+/// Addresses the outbox refuses to send to. Soft-removed so SUPPRESSION_ADDED / SUPPRESSION_REMOVED
+/// both resolve to a row. An address here is not a blocked CLIENT — inbound mail from them still
+/// arrives and still becomes a ticket; only the outbound leg is refused (FAILED_SUPPRESSED).
+model RequesterSuppression {
+  id          String            @id @default(cuid())
+  /// Lower-cased address. Unique: one live decision per address at a time.
+  email       String            @unique
+  reason      SuppressionReason
+  /// Sanitized free text: the DSN code, the complaint, or the person who asked.
+  note        String?
+  createdById String?
+  createdAt   DateTime          @default(now())
+  removedById String?
+  removedAt   DateTime?
+
+  createdBy User? @relation("SuppressionAddedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  removedBy User? @relation("SuppressionRemovedBy", fields: [removedById], references: [id], onDelete: Restrict)
+
+  @@index([removedAt])
+}
+
+/// Dedupe ledger for the follow-up nudge job: one row per (ticket, firm-local due date), so a job that
+/// runs twice in a day, or is re-run after a failure, cannot nudge the same person twice. APPEND-ONLY —
+/// the unique constraint IS the dedupe, exactly like SlaAlert.
+model FollowUpNudge {
+  id       String   @id @default(cuid())
+  ticketId String
+  /// The firm-local calendar date the nudge was for, as YYYY-MM-DD. A date, not an instant: "today"
+  /// is a property of the desk's clock (src/lib/firm-time.ts), not of the container's.
+  dueOn    String
+  firedAt  DateTime @default(now())
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+
+  @@unique([ticketId, dueOn])
+  @@index([firedAt])
+}
+
+/// Demo only (NEXT_PUBLIC_DEMO_MODE=on): every client email and Slack message the stand-ins received in
+/// place of the firm's mail sender and Slack, for the Outbox screen. Emptied by each reset like every
+/// other table; nothing outside the demo writes it.
+model DemoOutboxMessage {
+  id          String   @id @default(cuid())
+  /// "email" or "slack".
+  transport   String
+  /// The recipient's address, or the Slack channel.
+  destination String
+  title       String
+  payload     Json
+  /// The MessageDelivery the stand-in sender filed this for, so a delivery leased twice is filed once.
+  deliveryId  String?  @unique
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="WM Help Desk">
+  <title>WM Help Desk</title>
+  <rect x="0" y="0" width="512" height="512" rx="114" fill="#0a0a0a"/>
+  <path d="M186 300 L278 300 L194 434 Z" fill="#ffffff"/>
+  <rect x="88" y="112" width="336" height="240" rx="64" fill="#ffffff"/>
+  <path d="M176 232 L230 286 L338 178" fill="none" stroke="#0a0a0a" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

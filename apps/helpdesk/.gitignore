@@ -1,0 +1,85 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+/src/generated/prisma
+
+# Wave A: the local filesystem backend for attachments (used whenever ATTACHMENTS_BUCKET is unset).
+# These are real uploaded files — client statements, voided checks — and never belong in git.
+/.local-attachments/
+
+# Wave A: the legacy help desk history export. Holds UNREDACTED client PII that the legacy help desk never masked; it goes
+# to a retention-locked, access-controlled bucket, never to a repository.
+/scripts/legacy-desk-export/out/
+/legacy-desk-export-out/
+
+# keep the documented example env
+!.env.example
+
+# Wave A: the local filesystem backend for server-written job output (used whenever
+# DUPLICATE_COPY_BUCKET is unset and the nightly duplicate copy is run by hand).
+/.local-object-copies/
+
+# Terraform provider caches (all stacks)
+**/.terraform/
+
+# Help Center static site is fully derived from help-center/export.json (npm run hc:build)
+/help-center/site/
+
+# Wave B: generated PWA assets are COMMITTED, not ignored — a build must not depend on a generator
+# having been run, and a missing icon is a silent 404. Listed here as a note so nobody adds them:
+#   public/manifest.webmanifest, public/icons/**, public/sw.js, public/offline.html
+
+# Wave B: the legacy help desk IMPORT tool's working directory. Holds unredacted client PII straight out of the
+# archive, on its way through sanitizePII into the database — the same reason the export output is
+# ignored above, one direction later.
+/scripts/legacy-desk-import/in/
+/legacy-desk-import-in/
+
+# Wave B: VAPID key material, if an operator ever writes it to a file instead of pasting it. The
+# private key signs push JWTs for the whole desk.
+vapid*.json
+vapid*.pem
+# The Help Center export (npm run hc:export) and its static site (npm run hc:build) are generated from the
+# firm's public support site and kept OUT of git: the raw JSON carries the published phone number and office
+# address, which the security scanner Data scanner classifies as PII on every scan. The durable copy belongs in the
+# retention bucket alongside the legacy help desk archive.
+/help-center/

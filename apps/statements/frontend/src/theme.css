@@ -1,0 +1,151 @@
+/*
+ * Light and dark themes.
+ *
+ * The app's one large component is styled with Tailwind's light palette. Rather than a dark: variant on every
+ * class, the palette itself is swapped while <html> has the "dark" class (public/theme.js sets it before the page
+ * paints, from localStorage "theme" or the visitor's system setting; the portfolio site's hand-off writes that
+ * key):
+ *   - slate, the neutral scale, takes a value tuned to each role it plays: page and card backgrounds, borders,
+ *     muted, secondary and primary text;
+ *   - each colored scale keeps 400-600 (buttons, icons, accents), turns its tints (50-300: badge and banner
+ *     backgrounds and borders) into translucent washes, and its dark shades (700-950: text) into light ones;
+ *   - a white background becomes the card surface; white text and white overlays stay white.
+ * Elements dark in both themes (the header, toasts, the readiness card) use fixed colors or the overrides below.
+ */
+
+/* The sign-in page's warm palette, as variables so both themes can set it. */
+:root {
+  --brand-cream: #FAF7F3;
+  --brand-ink: #1A1A1A;
+  --brand-muted: #8A8580;
+  --brand-faint: #B5B0A8;
+  --brand-glass: rgba(250, 247, 243, 0.85);
+  --brand-line: rgba(26, 26, 26, 0.12);
+  --brand-card: rgba(255, 255, 255, 0.7);
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+  --surface: #121a2b;
+  --surface-hover: #182237;
+
+  --brand-cream: #121110;
+  --brand-ink: #F3EFE8;
+  --brand-muted: #A39E96;
+  --brand-faint: #77726B;
+  --brand-glass: rgba(18, 17, 16, 0.85);
+  --brand-line: rgba(243, 239, 232, 0.14);
+  --brand-card: rgba(255, 255, 255, 0.05);
+
+  --color-slate-50: #0b1120;
+  --color-slate-100: #1a2335;
+  --color-slate-200: #2a3447;
+  --color-slate-300: #3b4659;
+  --color-slate-400: #8391a7;
+  --color-slate-500: #9aa7bb;
+  --color-slate-600: #b8c2d1;
+  --color-slate-700: #d3dae4;
+  --color-slate-800: #e5e9ef;
+  --color-slate-900: #f1f4f8;
+  --color-slate-950: #ffffff;
+}
+
+/* Colored scales: tints become washes of the 500, dark shades become light mixes of the 400. */
+.dark {
+  --color-red-50: color-mix(in oklab, var(--color-red-500) 10%, transparent);
+  --color-red-100: color-mix(in oklab, var(--color-red-500) 16%, transparent);
+  --color-red-200: color-mix(in oklab, var(--color-red-500) 30%, transparent);
+  --color-red-300: color-mix(in oklab, var(--color-red-500) 45%, transparent);
+  --color-red-700: color-mix(in oklab, var(--color-red-400) 70%, white);
+  --color-red-800: color-mix(in oklab, var(--color-red-400) 55%, white);
+  --color-red-900: color-mix(in oklab, var(--color-red-400) 40%, white);
+
+  --color-orange-50: color-mix(in oklab, var(--color-orange-500) 10%, transparent);
+  --color-orange-100: color-mix(in oklab, var(--color-orange-500) 16%, transparent);
+  --color-orange-200: color-mix(in oklab, var(--color-orange-500) 30%, transparent);
+  --color-orange-300: color-mix(in oklab, var(--color-orange-500) 45%, transparent);
+  --color-orange-700: color-mix(in oklab, var(--color-orange-400) 70%, white);
+  --color-orange-800: color-mix(in oklab, var(--color-orange-400) 55%, white);
+  --color-orange-900: color-mix(in oklab, var(--color-orange-400) 40%, white);
+
+  --color-amber-50: color-mix(in oklab, var(--color-amber-500) 10%, transparent);
+  --color-amber-100: color-mix(in oklab, var(--color-amber-500) 16%, transparent);
+  --color-amber-200: color-mix(in oklab, var(--color-amber-500) 30%, transparent);
+  --color-amber-300: color-mix(in oklab, var(--color-amber-500) 45%, transparent);
+  --color-amber-700: color-mix(in oklab, var(--color-amber-400) 70%, white);
+  --color-amber-800: color-mix(in oklab, var(--color-amber-400) 55%, white);
+  --color-amber-900: color-mix(in oklab, var(--color-amber-400) 40%, white);
+
+  --color-yellow-50: color-mix(in oklab, var(--color-yellow-500) 10%, transparent);
+  --color-yellow-100: color-mix(in oklab, var(--color-yellow-500) 16%, transparent);
+  --color-yellow-200: color-mix(in oklab, var(--color-yellow-500) 30%, transparent);
+  --color-yellow-300: color-mix(in oklab, var(--color-yellow-500) 45%, transparent);
+  --color-yellow-700: color-mix(in oklab, var(--color-yellow-400) 70%, white);
+  --color-yellow-800: color-mix(in oklab, var(--color-yellow-400) 55%, white);
+  --color-yellow-900: color-mix(in oklab, var(--color-yellow-400) 40%, white);
+
+  --color-green-50: color-mix(in oklab, var(--color-green-500) 10%, transparent);
+  --color-green-100: color-mix(in oklab, var(--color-green-500) 16%, transparent);
+  --color-green-200: color-mix(in oklab, var(--color-green-500) 30%, transparent);
+  --color-green-300: color-mix(in oklab, var(--color-green-500) 45%, transparent);
+  --color-green-700: color-mix(in oklab, var(--color-green-400) 70%, white);
+  --color-green-800: color-mix(in oklab, var(--color-green-400) 55%, white);
+  --color-green-900: color-mix(in oklab, var(--color-green-400) 40%, white);
+
+  --color-emerald-50: color-mix(in oklab, var(--color-emerald-500) 10%, transparent);
+  --color-emerald-100: color-mix(in oklab, var(--color-emerald-500) 16%, transparent);
+  --color-emerald-200: color-mix(in oklab, var(--color-emerald-500) 30%, transparent);
+  --color-emerald-300: color-mix(in oklab, var(--color-emerald-500) 45%, transparent);
+  --color-emerald-700: color-mix(in oklab, var(--color-emerald-400) 70%, white);
+  --color-emerald-800: color-mix(in oklab, var(--color-emerald-400) 55%, white);
+  --color-emerald-900: color-mix(in oklab, var(--color-emerald-400) 40%, white);
+
+  --color-blue-50: color-mix(in oklab, var(--color-blue-500) 10%, transparent);
+  --color-blue-100: color-mix(in oklab, var(--color-blue-500) 16%, transparent);
+  --color-blue-200: color-mix(in oklab, var(--color-blue-500) 30%, transparent);
+  --color-blue-300: color-mix(in oklab, var(--color-blue-500) 45%, transparent);
+  --color-blue-700: color-mix(in oklab, var(--color-blue-400) 70%, white);
+  --color-blue-800: color-mix(in oklab, var(--color-blue-400) 55%, white);
+  --color-blue-900: color-mix(in oklab, var(--color-blue-400) 40%, white);
+
+  --color-purple-50: color-mix(in oklab, var(--color-purple-500) 10%, transparent);
+  --color-purple-100: color-mix(in oklab, var(--color-purple-500) 16%, transparent);
+  --color-purple-200: color-mix(in oklab, var(--color-purple-500) 30%, transparent);
+  --color-purple-300: color-mix(in oklab, var(--color-purple-500) 45%, transparent);
+  --color-purple-700: color-mix(in oklab, var(--color-purple-400) 70%, white);
+  --color-purple-800: color-mix(in oklab, var(--color-purple-400) 55%, white);
+  --color-purple-900: color-mix(in oklab, var(--color-purple-400) 40%, white);
+
+  --color-rose-50: color-mix(in oklab, var(--color-rose-500) 10%, transparent);
+  --color-rose-100: color-mix(in oklab, var(--color-rose-500) 16%, transparent);
+  --color-rose-200: color-mix(in oklab, var(--color-rose-500) 30%, transparent);
+  --color-rose-300: color-mix(in oklab, var(--color-rose-500) 45%, transparent);
+  --color-rose-700: color-mix(in oklab, var(--color-rose-400) 70%, white);
+  --color-rose-800: color-mix(in oklab, var(--color-rose-400) 55%, white);
+  --color-rose-900: color-mix(in oklab, var(--color-rose-400) 40%, white);
+
+  --color-gray-100: color-mix(in oklab, var(--color-gray-500) 16%, transparent);
+  --color-gray-800: color-mix(in oklab, var(--color-gray-400) 55%, white);
+}
+
+/* The page, and white cards. */
+.dark body { background-color: var(--color-slate-50); }
+.dark .bg-white { background-color: var(--surface); }
+.dark .hover\:bg-white:hover { background-color: var(--surface-hover); }
+
+/* Text in a scale's 600 reads too dark on the dark surfaces: lift it to the 400. */
+.dark .text-red-600, .dark .hover\:text-red-600:hover { color: var(--color-red-400); }
+.dark .text-blue-600, .dark .hover\:text-blue-600:hover { color: var(--color-blue-400); }
+.dark .text-green-600 { color: var(--color-green-400); }
+.dark .text-amber-600 { color: var(--color-amber-400); }
+
+/* Solid uses of a dark shade, which the swap above would turn light. */
+.dark .hover\:bg-blue-700:hover { background-color: color-mix(in oklab, var(--color-blue-600) 82%, black); }
+.dark .hover\:bg-amber-700:hover { background-color: color-mix(in oklab, var(--color-amber-600) 82%, black); }
+.dark .bg-emerald-700 { background-color: color-mix(in oklab, var(--color-emerald-600) 82%, black); }
+
+/* Surfaces that are dark in both themes: the undo toast, the unsupported badge, the hard-block note, overlays. */
+.dark .bg-slate-800, .dark .bg-slate-900 { background-color: #1e293b; }
+.dark .border-slate-900 { border-color: #334155; }
+.dark .bg-slate-900\/50 { background-color: rgb(0 0 0 / 0.6); }

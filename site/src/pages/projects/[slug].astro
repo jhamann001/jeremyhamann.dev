@@ -1,0 +1,96 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Preview from '../../components/Preview.astro';
+import { Image } from 'astro:assets';
+import { projects, DOMAIN, type Project } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((project, i) => ({ params: { slug: project.slug }, props: { project, next: projects[(i + 1) % projects.length] } }));
+}
+interface Props { project: Project; next: Project }
+const { project: p, next } = Astro.props;
+const live = p.status === 'live';
+const demoUrl = `https://${p.host}.${DOMAIN}`;
+const gallery = live ? p.gallery ?? [] : [];
+const toc = [
+  ['overview', 'Overview'], ['problem', 'Problem'], ['built', 'What I built'],
+  ...(gallery.length ? [['screens', 'In the app']] : []),
+  ['decisions', 'Decisions'], ['architecture', 'Architecture'], ['demo', 'The demo'],
+];
+const demoArch: [string, string][] = [['Cloudflare Worker', `${p.host}.${DOMAIN}`], ['Container', 'same app · demo build'], ['Neon Postgres', 'synthetic seed · nightly reset']];
+---
+<Base title={`${p.name} · Jeremy Hamann`} description={p.summary}>
+  <div style={`--c:${p.color}`}>
+    <section class="case-head">
+      <div class="container">
+        <a class="back" href="/#work"><Icon name="arrow-left" size={15} /> All projects</a>
+        <div class="case-kicker">
+          <span class="app-dot"><Icon name={p.icon} size={13} /></span>{p.kicker} · Case study
+          {live ? <span class="badge-live">Live demo</span> : <span class="badge-soon">Demo coming soon</span>}
+        </div>
+        <h1>{p.name}</h1>
+        <p class="sub">{p.summary}</p>
+        <dl class="meta">
+          {p.meta.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+          <div><dt>Links</dt><dd>{live ? <a class="link" data-demo="warm" href={demoUrl}>Live demo <Icon name="arrow-up-right" size={14} /></a> : <span class="link muted">Live demo soon</span>}</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container"><div class="case-preview"><Preview project={p} wide /></div></div>
+
+    <section class="section-case">
+      <div class="container">
+        <div class="case-grid">
+          <nav class="toc" aria-label="On this page">
+            <span>On this page</span>
+            {toc.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
+          </nav>
+          <div>
+            <div class="case-sec" id="overview"><h2>Overview</h2><p>{p.summary}</p></div>
+            <div class="case-sec" id="problem"><h2>The problem</h2><p>{p.problem}</p></div>
+            <div class="case-sec" id="built"><h2>What I built</h2>
+              <ul class="feat">{p.built.map((b) => <li><Icon name="check" /><span>{b}</span></li>)}</ul>
+            </div>
+            {gallery.length > 0 && (
+              <div class="case-sec" id="screens"><h2>In the app</h2>
+                <div class="gallery">
+                  {gallery.map((s) => (
+                    <figure>
+                      <Image class="shot-light" src={s.light} alt={s.alt} widths={[760, 1520]} sizes="(min-width: 1080px) 760px, 100vw" />
+                      <Image class="shot-dark" src={s.dark} alt={s.alt} widths={[760, 1520]} sizes="(min-width: 1080px) 760px, 100vw" />
+                      {s.caption && <figcaption>{s.caption}</figcaption>}
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            )}
+            <div class="case-sec" id="decisions"><h2>Key decisions</h2>
+              <div class="dec">{p.decisions.map(([t, d]) => <div><h3>{t}</h3><p>{d}</p></div>)}</div>
+            </div>
+            <div class="case-sec" id="architecture"><h2>Architecture</h2>
+              <div class="arch">
+                <div class="arch-row"><span class="arch-label">Production</span>
+                  <div class="arch-flow">{p.arch.map(([n, s], i) => <Fragment>{i > 0 && <span class="arch-link" />}<div class="arch-node"><b>{n}</b><span>{s}</span></div></Fragment>)}</div>
+                </div>
+                <div class="arch-row"><span class="arch-label">Public demo</span>
+                  <div class="arch-flow">{demoArch.map(([n, s], i) => <Fragment>{i > 0 && <span class="arch-link" />}<div class="arch-node"><b>{n}</b><span>{s}</span></div></Fragment>)}</div>
+                </div>
+                <p class="stack">{p.stack.join(' · ')}</p>
+              </div>
+            </div>
+            <div class="case-sec" id="demo"><h2>The demo</h2><p>{p.demo}</p>
+              <div class="cta">
+                {live
+                  ? <Fragment><div><h3>See it running</h3><p>Sign in as any demo user. Nothing you do leaves the demo, and it resets every day.</p></div><a class="btn btn-primary" data-demo="warm" href={demoUrl}>Open live demo <Icon name="arrow-up-right" /></a></Fragment>
+                  : <Fragment><div><h3>Live demo in progress</h3><p>This demo is being rebuilt on synthetic data. This page will link to it when it ships.</p></div><span class="badge-soon">Coming soon</span></Fragment>}
+              </div>
+            </div>
+            <div class="next"><a href={`/projects/${next.slug}`}><small>Next project</small><b>{next.name} <Icon name="arrow-right" size={15} /></b></a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

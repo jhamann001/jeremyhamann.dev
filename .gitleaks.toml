@@ -1,0 +1,19 @@
+title = "portfolio"
+
+[extend]
+useDefault = true
+
+# Help desk tests: the RFC 8291 §5 web-push test vectors (published in the RFC) and invented test values.
+# Exact values only, so a new real secret anywhere still fails the check.
+[allowlist]
+description = "Published test vectors and invented test values"
+regexTarget = "secret"
+regexes = [
+  '''^q1dXpw3UpT5VOmu_cf_v6ih07Aems3njxI-JWgLcM94$''',
+  '''^yfWPiYE-n46HLnH0KqZOF1fJJU3MYrct3AELtAQ-oRw$''',
+  '''^BTBZMqHH6r4Tts7J_aSIgg$''',
+  '''^DGv6ra1nlYgDCS1FRnbzlw$''',
+  '''^0oa1234567890abcdef$''',
+  '''^b3f1c0d2e4a5968778695a4b3c2d1e0f1122334455667788990011223344556677$''',
+  '''^wm\.dGlja2V0XzE\.(YWJjZGVmZ2hpamtsbW5v|abcdefghijklmno)$''',
+]

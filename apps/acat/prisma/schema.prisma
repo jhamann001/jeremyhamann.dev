@@ -1,0 +1,726 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+  // ticket: read-only, redacted access to the advisor self-service
+  // transfer status view at /advisor. ADVISOR users cannot reach the
+  // ops dashboard, records page, or admin tools — see src/proxy.ts.
+  ADVISOR
+}
+
+model AllowedUser {
+  id         String    @id @default(cuid())
+  email      String    @unique
+  name       String?
+  role       UserRole  @default(USER)
+  active     Boolean   @default(true)
+  mcpEnabled Boolean   @default(false)
+  invitedBy  String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  lastSeenAt DateTime?
+
+  mcpAuthorizationCodes McpOAuthAuthorizationCode[]
+  mcpConnections        McpConnection[]
+  mcpPersonalTokens     McpPersonalToken[]
+  mcpToolAuditLogs      McpToolAuditLog[]
+
+  @@index([email])
+  @@index([mcpEnabled])
+  @@index([lastSeenAt])
+}
+
+model McpSettings {
+  id        String   @id @default("global")
+  enabled   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model McpOAuthClient {
+  id               String    @id @default(cuid())
+  clientId         String    @unique
+  clientSecretHash String?
+  clientName       String?
+  redirectUris     String[]
+  scopes           String[]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  revokedAt        DateTime?
+
+  authorizationCodes McpOAuthAuthorizationCode[]
+  connections        McpConnection[]
+
+  @@index([revokedAt])
+}
+
+model McpOAuthAuthorizationCode {
+  id            String         @id @default(cuid())
+  codeHash      String         @unique
+  clientId      String
+  client        McpOAuthClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  userEmail     String
+  user          AllowedUser    @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+  redirectUri   String
+  scopes        String[]
+  codeChallenge String
+  expiresAt     DateTime
+  consumedAt    DateTime?
+  createdAt     DateTime       @default(now())
+
+  @@index([clientId])
+  @@index([userEmail])
+  @@index([expiresAt])
+  @@index([consumedAt])
+}
+
+model McpConnection {
+  id         String         @id @default(cuid())
+  userEmail  String
+  user       AllowedUser    @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+  clientId   String
+  client     McpOAuthClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  scopes     String[]
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  expiresAt  DateTime
+  revokedAt  DateTime?
+  lastUsedAt DateTime?
+
+  refreshTokens McpRefreshToken[]
+  accessTokens  McpAccessToken[]
+  toolAuditLogs McpToolAuditLog[]
+
+  @@index([userEmail])
+  @@index([clientId])
+  @@index([expiresAt])
+  @@index([revokedAt])
+}
+
+model McpRefreshToken {
+  id           String        @id @default(cuid())
+  tokenHash    String        @unique
+  prefix       String
+  lastFour     String
+  connectionId String
+  connection   McpConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  expiresAt    DateTime
+  rotatedToId  String?
+  revokedAt    DateTime?
+  reusedAt     DateTime?
+  createdAt    DateTime      @default(now())
+  lastUsedAt   DateTime?
+
+  @@index([connectionId])
+  @@index([expiresAt])
+  @@index([revokedAt])
+}
+
+model McpAccessToken {
+  id           String        @id @default(cuid())
+  tokenHash    String        @unique
+  prefix       String
+  lastFour     String
+  connectionId String
+  connection   McpConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  scopes       String[]
+  expiresAt    DateTime
+  revokedAt    DateTime?
+  createdAt    DateTime      @default(now())
+  lastUsedAt   DateTime?
+
+  @@index([connectionId])
+  @@index([expiresAt])
+  @@index([revokedAt])
+}
+
+model McpPersonalToken {
+  id         String      @id @default(cuid())
+  tokenHash  String      @unique
+  prefix     String
+  lastFour   String
+  name       String
+  userEmail  String
+  user       AllowedUser @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+  scopes     String[]
+  revokedAt  DateTime?
+  createdAt  DateTime    @default(now())
+  lastUsedAt DateTime?
+
+  @@index([userEmail])
+  @@index([tokenHash])
+  @@index([revokedAt])
+}
+
+model McpToolAuditLog {
+  id              String         @id @default(cuid())
+  userEmail       String?
+  user            AllowedUser?   @relation(fields: [userEmail], references: [email], onDelete: SetNull)
+  connectionId    String?
+  connection      McpConnection? @relation(fields: [connectionId], references: [id], onDelete: SetNull)
+  requestId       String?
+  toolName        String
+  argumentSummary String?
+  argumentHash    String?
+  status          String
+  durationMs      Int?
+  error           String?
+  createdAt       DateTime       @default(now())
+
+  @@index([userEmail])
+  @@index([connectionId])
+  @@index([toolName])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum AcatStatus {
+  WaitingForApex
+  PendingAccountOpening
+  WaitingOnClient
+  WaitingForStatement
+  AcatReceived
+  ToCome
+  Submitted
+  PendingReview
+  PendingContraResponse
+  Accepted
+  PendingSettlement
+  PendingBookkeeping
+  Completed
+  Rejected
+  Purged
+  Canceled
+  Deferred
+  Matched
+  Mismatch
+  Pending
+}
+
+enum MapStatus {
+  Mapped
+  Unmapped
+  Pending
+  Expected
+}
+
+enum TransferWorkflow {
+  ACAT
+  MANUAL
+  PAPERWORK
+  DRS
+  RESIDUAL
+  UNCLASSIFIED
+}
+
+enum DataQualityReviewStatus {
+  OPEN
+  IN_REVIEW
+  CLOSED
+}
+
+enum DataQualityResolution {
+  CORRECTED
+  RESOLVED_MANUALLY
+  FALSE_POSITIVE
+  NOT_APPLICABLE
+  ACKNOWLEDGED_UNRESOLVED
+  DUPLICATE
+}
+
+model AcatRecord {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+
+  // Core info
+  clientName     String
+  cedarRidgeUserId String? @map("cedar_ridge_user_id")
+  identityVersion Int @default(0)
+  // Private trigger-owned comparison state. clientLinks is authoritative.
+  identitySetIds String[] @default([]) @map("_identity_set_ids")
+  controlNumber  String?
+  acatTransferId String?
+  direction      String?
+  type           String?
+  accountType    String?
+  status         AcatStatus @default(AcatReceived)
+  wealthAdvisor  String?
+
+  // Accounts & transfer
+  apexAccountId          String
+  statementAccountNumber String?
+  transferringContra     String?
+  dtccNumber             String?
+  statementAmount        Int?
+  methodRequested        String?
+  transferWorkflow       TransferWorkflow @default(UNCLASSIFIED)
+  crwEe                  String?
+
+  // Dates
+  originalClientRequestDate String?
+  opsSubmissionDateToApex   String?
+  apexCompletionDate        String?
+  residualMonitoringRequired Boolean @default(false)
+  residualFollowUpDate       String?
+
+  // Fees
+  feeCharged          String?
+  feeAmount           String?
+  feeMemo             String?
+  feeRequestSubmitted String?
+  feeRequestCompleted String?
+  feeApexTicket       String?
+  feeCreditRequestId  String?
+
+  // Tickets & resources
+  crmTicket      String?
+  apexTicket          String?
+  additionalResources String?
+  tradeRequestId      String?
+  tradeRequestUrl     String?
+  tradeInstructions   String?
+
+  // Other
+  notes                   String?
+  associatedControlNumber String?
+  rejectionReason         String?
+
+  // Legacy / internal fields used by recon engine
+  crmDealId String  @default("")
+  custodianId    String?
+  custodianName  String  @default("")
+  acatDate       String
+  slackAlerted   Boolean @default(false)
+  mappingSource  String  @default("GCP Project API")
+  mappingSyncedAt String?
+  mappingAccountId String?
+  mappingAccountSummary Json?
+  apexSource     String  @default("Pending Upload")
+
+  // Human-confirmed receiving registration used for transfer paperwork.
+  // The generated Client Name - Account Type value remains only a fallback
+  // suggestion until one of these confirmations is saved.
+  verifiedApexAccountTitle   String?
+  verifiedApexAccountTitleAt String?
+  verifiedApexAccountTitleBy String?
+  activeTransferTitleConfirmationId String?
+  activeTransferTitleConfirmation TransferTitleConfirmation? @relation("ActiveTransferTitle", fields: [activeTransferTitleConfirmationId], references: [id], onDelete: SetNull)
+
+  // Recon completion stamp. Set by PATCH /api/acats/[id] when an ACAT
+  // has positions from GCP AND a Apex CSV uploaded AND the resulting
+  // reconciliation rate is >= 90%. When unset and both source signals
+  // are present, the records UI surfaces a "Recon: Needs Review" flag.
+  reconCompletedAt String?
+
+  // Audit
+  lastUpdated String
+  createdBy   String?
+  updatedBy   String?
+
+  // Relations
+  assets    Asset[]
+  auditLogs AuditLog[]
+  documents AcatDocument[]
+  transferTitleConfirmations TransferTitleConfirmation[] @relation("TransferTitleHistory")
+  transferPreparationOperations TransferPreparationOperation[]
+  dataQualityReviews DataQualityReview[]
+  custodian Custodian? @relation(fields: [custodianId], references: [id], onDelete: SetDefault)
+  cedarRidgeClient CedarRidgeClient? @relation(fields: [cedarRidgeUserId], references: [cedarRidgeUserId], onDelete: Restrict, onUpdate: Restrict)
+  clientLinks AcatRecordClient[]
+
+  @@index([status])
+  @@index([clientName])
+  @@index([cedarRidgeUserId])
+  @@index([controlNumber])
+  @@index([deletedAt])
+  @@index([transferWorkflow])
+  @@index([residualMonitoringRequired])
+}
+
+// A transfer can link every verified joint holder, without a primary person.
+model AcatRecordClient {
+  acatRecordId String
+  cedarRidgeUserId String @map("cedar_ridge_user_id")
+  acatRecord AcatRecord @relation(fields: [acatRecordId], references: [id], onDelete: Cascade, onUpdate: Restrict)
+  client CedarRidgeClient @relation(fields: [cedarRidgeUserId], references: [cedarRidgeUserId], onDelete: Restrict, onUpdate: Restrict)
+
+  @@id([acatRecordId, cedarRidgeUserId])
+  @@index([cedarRidgeUserId])
+}
+
+// Customer identities, separate from staff login AllowedUser. Historical
+// identities are retained even when a later source snapshot omits them.
+model CedarRidgeClient {
+  cedarRidgeUserId String @id @map("cedar_ridge_user_id")
+  canonicalName String
+  normalizedName String
+  crmStage String?
+  eligibility String @default("UNKNOWN")
+  source String
+  sourceUpdatedAt DateTime?
+  lastSeenSnapshotId String
+  acatRecords AcatRecord[]
+  acatRecordLinks AcatRecordClient[]
+  memberships CedarRidgeAccountMember[]
+
+  @@index([normalizedName])
+}
+
+model CedarRidgeAccount {
+  investmentAccountId String @id
+  custodian String
+  custodianAccountId String?
+  accountNumber String?
+  normalizedAccountNumber String?
+  status String?
+  sourceUpdatedAt DateTime?
+  isCurrent Boolean @default(true)
+  lastSeenSnapshotId String
+  members CedarRidgeAccountMember[]
+
+  @@unique([custodian, normalizedAccountNumber])
+}
+
+model CedarRidgeAccountMember {
+  investmentAccountId String
+  cedarRidgeUserId String @map("cedar_ridge_user_id")
+  relationshipType String?
+  isCurrent Boolean @default(true)
+  lastSeenSnapshotId String
+  account CedarRidgeAccount @relation(fields: [investmentAccountId], references: [investmentAccountId], onDelete: Restrict, onUpdate: Restrict, map: "CedarRidgeAccountMember_account_fkey")
+  client CedarRidgeClient @relation(fields: [cedarRidgeUserId], references: [cedarRidgeUserId], onDelete: Restrict, onUpdate: Restrict, map: "CedarRidgeAccountMember_client_fkey")
+
+  @@id([investmentAccountId, cedarRidgeUserId])
+  @@index([cedarRidgeUserId])
+}
+
+// Permanent singleton seeded by SQL. FOR SHARE guards identity writes against
+// a concurrent publisher holding FOR UPDATE on the same row.
+model CedarRidgeDirectorySync {
+  id String @id @default("global")
+  installationId String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  attemptGeneration Int @default(0)
+  publishedGeneration Int @default(0)
+  activeSnapshotId String?
+  lastAttemptAt DateTime?
+  lastSuccessAt DateTime?
+  sourceAsOf DateTime?
+  sourceHealth String @default("UNKNOWN")
+  source String?
+  sourceFingerprint String?
+  clientCount Int @default(0)
+  accountCount Int @default(0)
+  membershipCount Int @default(0)
+  lastErrorCode String?
+}
+
+enum AcatDocumentKind {
+  MAPPING_CSV
+  TRANSFER_FORM
+}
+
+// Immutable inputs/outputs. Fetch bytes only through authenticated downloads,
+// never through the records list. Soft-deleted transfers hide their documents.
+model AcatDocument {
+  id            String           @id @default(cuid())
+  acatRecordId  String
+  acatRecord    AcatRecord       @relation(fields: [acatRecordId], references: [id], onDelete: Cascade)
+  kind          AcatDocumentKind
+  filename      String
+  createdAt     DateTime         @default(now())
+  createdBy     String
+  content       Bytes
+  sha256        String
+  byteSize      Int
+  // Account-scoped CSV snapshot, including excluded/undecided holdings.
+  inputCsv      String
+  positionCount Int
+  includedCount Int
+  excludedCount Int
+  undecidedCount Int
+  // New machine-generated packets preserve the complete preparation evidence.
+  preparationSnapshot Json?
+  serviceOrigin String?
+
+  @@index([acatRecordId, createdAt, id])
+}
+
+// Append-only human confirmations. Generic accountType is only a source-change
+// detector; registration is explicitly confirmed by the human against Apex.
+model TransferTitleConfirmation {
+  id String @id @default(cuid())
+  acatRecordId String
+  acatRecord AcatRecord @relation("TransferTitleHistory", fields: [acatRecordId], references: [id], onDelete: Restrict)
+  activeForRecords AcatRecord[] @relation("ActiveTransferTitle")
+  title String
+  registration String
+  receivingAccountFingerprint String
+  sourceAccountType String?
+  sourceIdentityVersion Int
+  sourceRevision String
+  confirmedBy String
+  confirmedAt DateTime @default(now())
+  serviceOrigin String
+
+  @@index([acatRecordId, confirmedAt])
+}
+
+// Committed in the same transaction as its result. A retry cannot create a
+// second confirmation/document, even after a process restart or lost response.
+model TransferPreparationOperation {
+  id String @id @default(cuid())
+  acatRecordId String
+  acatRecord AcatRecord @relation(fields: [acatRecordId], references: [id], onDelete: Restrict)
+  actorEmail String
+  operationId String @db.Uuid
+  kind String
+  requestHash String
+  confirmationId String?
+  documentId String?
+  serviceOrigin String
+  createdAt DateTime @default(now())
+
+  @@unique([acatRecordId, actorEmail, operationId], map: "TransferPreparationOperation_record_actor_operation_key")
+}
+
+model DataQualityReview {
+  id           String                  @id @default(cuid())
+  acatRecordId String
+  acatRecord   AcatRecord              @relation(fields: [acatRecordId], references: [id], onDelete: Cascade)
+  ruleKey      String
+  fingerprint  String
+  status       DataQualityReviewStatus @default(OPEN)
+  resolution   DataQualityResolution?
+  note         String?
+  reviewedBy   String?
+  reviewedAt   DateTime?
+  createdAt    DateTime                @default(now())
+  updatedAt    DateTime                @updatedAt
+
+  @@unique([acatRecordId, ruleKey, fingerprint])
+  @@index([status])
+  @@index([acatRecordId])
+}
+
+model Asset {
+  id           String     @id @default(cuid())
+  acatRecord   AcatRecord @relation(fields: [acatRecordId], references: [id], onDelete: Cascade)
+  acatRecordId String
+
+  symbol                 String
+  description            String
+  cusip                  String?
+  expectedQty            Float     @default(0)
+  actualQty              Float     @default(0)
+  mapStatus              MapStatus @default(Pending)
+  issue                  String?
+  notes                  String?
+  amount                 Float?
+  assetClass             String?
+  settlingLocation       String?
+  settlingLocationReason String?
+  // Null means the operator has not decided yet. Partial-transfer paperwork
+  // may only be generated after every expected holding is explicitly included
+  // or excluded.
+  includeInTransfer      Boolean?
+
+  // Read-only pipeline context. Keep a statement snapshot on each imported
+  // asset so a retained position is not relabeled with a newer statement.
+  // These decisions are independent of includeInTransfer and recon status.
+  mappingTransferStatus    String?
+  mappingTransferNotes     String?
+  mappingTransferring      Boolean?
+  mappingStatementDate     String?
+  mappingStatementAgeDays  Int?
+  mappingStatementIsStale  Boolean?
+  mappingSyncedAt          String?
+
+  @@index([acatRecordId])
+  @@index([cusip])
+}
+
+enum CustodianReviewStatus {
+  NEEDS_SETUP
+  VERIFIED
+}
+
+// ticket: transfer "contra playbook" enums. Only the genuinely single-valued
+// source fields become enums; signature / LOA / medallion / liquidation are
+// multi-value in the Notion source and stay TEXT (see the plan's refinement note).
+enum CustodianTransferType {
+  ACAT_API
+  MANUAL
+  MIXED
+  INTERNAL
+  UNCONFIRMED
+}
+
+enum DocumentationStatus {
+  DOCUMENTED
+  PARTIAL
+  NEEDS_CALL
+}
+
+enum CustodianContactMethod {
+  EMAIL
+  PHONE
+  PORTAL
+  OTHER
+}
+
+model Custodian {
+  id                   String                @id @default(cuid())
+  name                 String                @unique
+  acatFeeAmount        Float                 @default(0)
+  requiresManualReview Boolean               @default(false)
+  avgProcessingDays    Int                   @default(7)
+  contactEmail         String?
+  contactMethod        CustodianContactMethod?
+  contactDetails       String?
+  reviewStatus         CustodianReviewStatus @default(VERIFIED)
+
+  // ticket: contra transfer-playbook fields. All nullable / no default so the
+  // additive migration leaves existing rows untouched until the human-gated
+  // import (scripts/import-custodian-contra.ts) populates them.
+  transferType           CustodianTransferType?
+  documentationStatus    DocumentationStatus?
+  dtcNumber              String?
+  receivingAccountNumber String?
+  signature              String?
+  letterOfAcceptance     String?
+  medallionRequired      String?
+  liquidationMethod      String?
+  returnMethod           String?
+  watchouts              String?
+  paperworkOnFile        Boolean?
+  transfersToDate        Int?
+  recentClients          String?
+  projectionRevision     Int?
+
+  acatRecords AcatRecord[]
+  fees        CustodianFee[]
+  feeScheduleDocuments CustodianFeeScheduleDocument[]
+}
+
+// Stored reference files only. Uploads never parse or change fee rules.
+// Restrict deletion so documents are preserved when custodians are merged.
+model CustodianFeeScheduleDocument {
+  id          String    @id @default(cuid())
+  custodianId String
+  custodian   Custodian @relation(fields: [custodianId], references: [id], onDelete: Restrict)
+  filename    String
+  contentType String
+  content     Bytes?
+  sha256      String
+  byteSize    Int
+  createdAt   DateTime  @default(now())
+  createdBy   String
+
+  @@index([custodianId, createdAt, id])
+  // Non-unique so merging custodians preserves every existing attachment.
+  @@index([custodianId, sha256])
+}
+
+enum CustodianFeeAccountType {
+  ANY
+  IRA
+  BROKERAGE
+}
+
+enum CustodianFeeTransferType {
+  ANY
+  FULL
+  PARTIAL
+}
+
+enum CustodianFeeDirection {
+  ANY
+  IN
+  OUT
+}
+
+model CustodianFee {
+  id            String                   @id @default(cuid())
+  custodianId   String
+  custodian     Custodian                @relation(fields: [custodianId], references: [id], onDelete: Cascade)
+  feeType       String
+  accountType   CustodianFeeAccountType  @default(ANY)
+  transferType  CustodianFeeTransferType @default(ANY)
+  direction     CustodianFeeDirection    @default(ANY)
+  amount        Float?
+  amountText    String?
+  notes         String?
+  documentation String?
+  createdAt     DateTime                 @default(now())
+  updatedAt     DateTime                 @updatedAt
+
+  @@index([custodianId])
+  @@index([custodianId, accountType])
+}
+
+model AuditLog {
+  id           String     @id @default(cuid())
+  acatRecord   AcatRecord @relation(fields: [acatRecordId], references: [id], onDelete: Cascade)
+  acatRecordId String
+  action       String
+  field        String?
+  oldValue     String?
+  newValue     String?
+  performedBy  String?
+  timestamp    DateTime   @default(now())
+
+  @@index([acatRecordId])
+  @@index([timestamp])
+}
+
+model CustodianProjectionState {
+  id              Int      @id @default(1)
+  appliedRevision Int      @default(0)
+  updatedAt       DateTime @updatedAt
+}
+
+model CustodianProjectionReceipt {
+  revision   Int      @id
+  bodySha256 String
+  appliedAt  DateTime @default(now())
+}
+
+// Demo only (DEMO_STAND_INS=on). What the app would have sent to Slack, kept for the Outbox screen.
+model DemoOutboxMessage {
+  id          String   @id @default(cuid())
+  transport   String
+  destination String
+  title       String
+  payload     Json
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// Demo only (DEMO_STAND_INS=on). The fee store's rows, which its stand-in serves over the store's
+// REST rows API. Reseeded each night with the transfers' fee-credit requests.
+model DemoFeeCreditRow {
+  id              Int      @id @default(autoincrement())
+  clientName      String
+  clientUserId    String?
+  feeType         String
+  feeAmount       Float
+  accountNumbers  String
+  waiverReason    String?
+  submissionDate  String
+  status          String   @default("Pending")
+  apexRequest String?
+  userRole        String?
+  createdAt       DateTime @default(now())
+
+  @@index([accountNumbers])
+}

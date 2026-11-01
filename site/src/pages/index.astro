@@ -1,0 +1,194 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Preview from '../components/Preview.astro';
+import { projects } from '../data/projects';
+import { ABOUT, JOBS, LINKS, PROOF, SKILLS } from '../data/profile';
+
+const SEEKING = ['Product', 'Software engineering', 'Ops automation', 'Associate advisor', 'Fintech & wealthtech'];
+const TOOLS = ['Claude Code', 'Cursor', 'Codex', 'Gemini', 'MCP servers', 'n8n'];
+const STEPS: [string, string, string][] = [
+  ['users', 'Start with the work I do every day', 'I still do the ops and trading work myself, so I know where the time goes.'],
+  ['square-terminal', 'Prompt-first build', 'Agents draft the code. I steer, test and keep the scope tight.'],
+  ['eye', 'I review every change', 'Nothing reaches production without me reading it and passing an approval gate.'],
+  ['git-merge', 'Live with it in production', 'I own what I ship and keep improving it with the team that uses it.'],
+];
+---
+<Base
+  title="Jeremy Hamann · Ops and trading background, building AI-first fintech software"
+  description="Jeremy Hamann does brokerage operations and trading work every day and builds the software it runs on. AI-first builder, Series 65, open to product, engineering, ops automation and associate advisor roles in fintech and wealthtech."
+>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Open to new roles<span aria-hidden="true">·</span>Raleigh, NC<span aria-hidden="true">·</span>Remote-friendly</p>
+      <h1>I do the ops work. <span class="h1-soft">I also build the software it runs on.</span></h1>
+      <p class="sub">I’m <strong>Jeremy Hamann</strong>. I’ve spent about three years in wealth management on trading desks and in brokerage operations, and I still do that ops and trading work every day. For the past year I’ve also been the main builder of the internal tools my team runs on. I build AI-first, I know the users because I’m one of them, and I hold an active Series 65.</p>
+      <div class="seeking">
+        <span>Looking for:</span>
+        <ul>{SEEKING.map((s) => <li>{s}</li>)}</ul>
+      </div>
+      <div class="btns">
+        <a class="btn btn-primary" href="#work">View projects <Icon name="arrow-right" /></a>
+        <a class="btn" href={LINKS.resume} download><Icon name="download" /> Download résumé</a>
+        <a class="btn" href={LINKS.linkedin} target="_blank" rel="noopener"><Icon name="linkedin" size={15} /> LinkedIn</a>
+        <a class="btn" href={LINKS.github} target="_blank" rel="noopener"><Icon name="github" /> GitHub</a>
+      </div>
+    </div>
+    <div class="container">
+      <dl class="proof">
+        {PROOF.map((p) => (
+          <div>
+            <dt>{p.value}{p.unit && <small> {p.unit}</small>}</dt>
+            <dd><b>{p.label}</b>{p.sub}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="container">
+      <div class="sec-head">
+        <div><h2>Selected projects</h2><p>Four production systems, rebuilt as public demos. Each has a case study and, as it ships, a live demo.</p></div>
+        <span class="sec-note"><Icon name="lock" size={14} /> All demo data is synthetic and resets nightly</span>
+      </div>
+      <div class="projects">
+        {projects.map((p) => (
+          <article class="proj" style={`--c:${p.color}`}>
+            <Preview project={p} href={`/projects/${p.slug}`} />
+            <div class="proj-body">
+              <div class="proj-title">
+                <span class="app-dot"><Icon name={p.icon} size={13} /></span>
+                <h3><a href={`/projects/${p.slug}`}>{p.name}</a></h3>
+                {p.status === 'live' ? <span class="badge-live">Live</span> : <span class="badge-soon">Demo coming soon</span>}
+              </div>
+              <p>{p.card}</p>
+              {p.production && <p class="in-prod"><b>In production:</b> {p.production}</p>}
+              <div class="stack">{p.stack.join(' · ')}</div>
+              <div class="proj-links">
+                <a class="link" href={`/projects/${p.slug}`}>Case study <Icon name="arrow-right" size={15} /></a>
+                {p.status === 'live'
+                  ? <a class="link" data-demo href={`https://${p.host}.jeremyhamann.dev`}>Live demo <Icon name="arrow-up-right" size={15} /></a>
+                  : <span class="link muted">Live demo soon</span>}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how-i-build">
+    <div class="container">
+      <div class="sec-head"><div><h2>How I build</h2><p>Prompt-first, every day. Fast, but nothing ships that I haven’t read.</p></div></div>
+      <div class="build">
+        <div class="build-main">
+          <p>I build prompt-first in Claude Code and Cursor every day. I’m in the ops and trading work every day, so I see what’s actually broken firsthand. I decide what to build first, and then work with AI agents to ship it.</p>
+          <p>The speed is real, but I read and review everything before it goes out. That’s how one person merged 1,600+ PRs across 5 production apps in about a year without skipping the boring parts: separate environments, CI checks, security scanning and an approval gate on every production deploy.</p>
+          <ul class="tools" aria-label="Tools">{TOOLS.map((t) => <li>{t}</li>)}</ul>
+        </div>
+        <ol class="build-steps">
+          {STEPS.map(([icon, title, text]) => (
+            <li><span class="pi"><Icon name={icon} /></span><div><h3>{title}</h3><p>{text}</p></div></li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="principles">
+    <div class="container">
+      <div class="sec-head"><div><h2>How I work</h2></div></div>
+      <div class="principles">
+        <div class="principle"><span class="pi"><Icon name="scroll-text" /></span><h3>Audit trail by default</h3><p>Every write is attributable and reviewable. When a regulator asks what happened, the answer is a query.</p></div>
+        <div class="principle"><span class="pi"><Icon name="git-compare" /></span><h3>Models assist, rules decide</h3><p>AI handles reading and drafting. Anything that moves money or changes a record goes through deterministic, tested logic.</p></div>
+        <div class="principle"><span class="pi"><Icon name="shield-check" /></span><h3>Small, reversible releases</h3><p>Feature flags, separate environments and an explicit approval before anything reaches production.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="sec-head"><div><h2>Experience</h2><p>Trading desks and brokerage ops. Today I still do the ops work and build the tools for it.</p></div></div>
+      <div class="xp">
+        {JOBS.map((job) => (
+          <div class="xp-row">
+            <div class="xp-when"><b>{job.company}</b><span>{job.place}</span><span class="mono">{job.dates}</span></div>
+            <div class="xp-roles">
+              {job.roles.map((r) => (
+                <div class="xp-role">
+                  <div class="xp-title"><h3>{r.title}</h3>{r.dates && <span class="mono">{r.dates}</span>}</div>
+                  {r.badge && <span class="badge-note">{r.badge}</span>}
+                  {r.org && <p class="org">{r.org}</p>}
+                  <ul>{r.bullets.map((b) => <li>{b}</li>)}</ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="creds">
+        <div class="cred">
+          <span class="pi"><Icon name="circle-check" /></span>
+          <div><h3>Series 65</h3><p>Uniform Investment Adviser Law Examination</p></div>
+          <span class="badge-live">Active</span>
+        </div>
+        <div class="cred">
+          <span class="pi"><Icon name="graduation-cap" /></span>
+          <div><h3>BBA in Finance</h3><p>Bob Jones University</p></div>
+          <span class="mono cred-when">2019 – 2023</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container">
+      <div class="sec-head"><div><h2>About</h2></div></div>
+      <div class="about">
+        <div class="prose">
+          {ABOUT.map((p) => <p>{p}</p>)}
+          <p><strong>What’s next:</strong> I’d love to stay in fintech or wealthtech, in product, engineering, ops automation or an associate advisor role (my Series 65 helps there), but I’m open to the right role outside it too.</p>
+        </div>
+        <dl class="skills">
+          {SKILLS.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="contact">
+        <div>
+          <h2>Let’s talk</h2>
+          <p>I’m looking for my next role in product, engineering, ops automation or as an associate advisor, ideally in fintech or wealthtech. Happy to compare notes on ops engineering and internal tools too.</p>
+          <p class="addr">{LINKS.email}</p>
+          <ul class="facts">
+            <li><Icon name="map-pin" size={15} /> Raleigh, NC · open to remote</li>
+            <li><Icon name="circle-check" size={15} /> Series 65, active</li>
+          </ul>
+        </div>
+        <div class="contact-btns">
+          <button class="btn btn-primary" type="button" id="copy-email" data-email={LINKS.email}><Icon name="mail" /> <span>Copy email</span></button>
+          <a class="btn" href={LINKS.resume} download><Icon name="download" /> Résumé (PDF)</a>
+          <a class="btn" href={LINKS.linkedin} target="_blank" rel="noopener"><Icon name="linkedin" size={15} /> LinkedIn</a>
+          <a class="btn" href={LINKS.github} target="_blank" rel="noopener"><Icon name="github" /> GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+<script>
+  const b = document.getElementById('copy-email') as HTMLButtonElement | null;
+  b?.addEventListener('click', async () => {
+    const label = b.querySelector('span');
+    try {
+      await navigator.clipboard.writeText(b.dataset.email ?? '');
+      if (label) label.textContent = 'Copied';
+    } catch {
+      if (label) label.textContent = 'Select the address to copy';
+    }
+    setTimeout(() => { if (label) label.textContent = 'Copy email'; }, 2400);
+  });
+</script>

@@ -1,0 +1,14 @@
+{
+  "name": "@trade-request/worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy:check": "wrangler deploy --dry-run --containers-rollout=none --outdir .wrangler/dry-run"
+  },
+  "dependencies": {
+    "@cloudflare/containers": "0.3.7"
+  },
+  "devDependencies": {
+    "wrangler": "4.149.0"
+  }
+}

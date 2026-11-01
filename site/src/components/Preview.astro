@@ -1,0 +1,42 @@
+---
+// A live demo's screenshot, framed like an app window, in the visitor's theme. Until a demo ships,
+// a quiet stand-in sketch takes its place.
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import type { Project } from '../data/projects';
+interface Props { project: Project; href?: string; wide?: boolean }
+const { project, href, wide = false } = Astro.props;
+const Tag = href ? 'a' : 'div';
+const shot = project.status === 'live' ? project.hero : undefined;
+// The screenshot is drawn at 118% of the frame's width and cropped, like the sketch.
+const sizes = wide ? '(min-width: 1120px) 1270px, 118vw' : '(min-width: 900px) 620px, 118vw';
+const widths = [640, 1280, 2400];
+// On a case study the screenshot is the first thing on screen, so it loads straight away (both theme
+// versions, since the visitor's theme is only known in the browser); in the home page's cards it waits.
+const loading = wide ? 'eager' : 'lazy';
+---
+<Tag class="preview" href={href} aria-label={href ? `${project.name} case study` : undefined} style={`--c:${project.color}`}>
+  {shot ? (
+    <Fragment>
+      <Image class="shot shot-light" src={shot.light} alt={shot.alt} widths={widths} sizes={sizes} loading={loading} />
+      <Image class="shot shot-dark" src={shot.dark} alt={shot.alt} widths={widths} sizes={sizes} loading={loading} />
+    </Fragment>
+  ) : (
+    <Fragment>
+      <div class="skel" aria-hidden="true">
+        <div class="skel-bar"><i></i><i></i><i></i></div>
+        <div class="skel-body">
+          <div class="skel-side"><u></u><u></u><u></u><u></u><u></u></div>
+          <div class="skel-main">
+            <div class="skel-kpis"><u></u><u></u><u></u></div>
+            <div class="skel-row"><u></u><u></u><u></u></div>
+            <div class="skel-row"><u></u><u></u><u></u></div>
+            <div class="skel-row"><u></u><u></u><u></u></div>
+            <div class="skel-row"><u></u><u></u><u></u></div>
+          </div>
+        </div>
+      </div>
+      <span class="preview-label"><span class="app-dot"><Icon name={project.icon} size={11} /></span>Live demo in progress</span>
+    </Fragment>
+  )}
+</Tag>

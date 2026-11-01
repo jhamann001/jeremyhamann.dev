@@ -1,0 +1,40 @@
+{
+  "name": "trade-request",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:server": "npm run dev --workspace=@trade-request/server",
+    "dev:client": "npm run dev --workspace=@trade-request/client",
+    "predev": "npm run build --workspace=@trade-request/shared",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "build": "npm run build -w @trade-request/shared && npm run build -w @trade-request/server && npm run build -w @trade-request/client",
+    "start": "npm run start --workspace=@trade-request/server",
+    "db:migrate": "npm run migrate --workspace=@trade-request/server",
+    "db:seed": "npm run seed --workspace=@trade-request/server",
+    "docker:build": "docker build -t trade-request .",
+    "docker:run": "docker run -p 8080:8080 --env-file server/.env trade-request",
+    "typecheck": "tsc -b shared server client",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run test -w @trade-request/server && npm run test -w @trade-request/client",
+    "db:migrate:down": "npm run migrate:down --workspace=@trade-request/server",
+    "db:migrate:create": "npm run migrate:create --workspace=@trade-request/server"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "concurrently": "9.2.5",
+    "eslint": "10.8.1",
+    "prettier": "3.9.6",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.67.0"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
+  }
+}

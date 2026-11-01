@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "portfolio-site",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "not_found_handling": "404-page"
+  },
+  "routes": [
+    { "pattern": "jeremyhamann.dev", "custom_domain": true },
+    { "pattern": "www.jeremyhamann.dev", "custom_domain": true }
+  ],
+  "vars": {
+    // "true": search engines may index the site (robots.txt allows it and lists the sitemap). Anything else
+    // keeps them out with robots.txt and an X-Robots-Tag header on every response.
+    "SITE_INDEXABLE": "true"
+  },
+  "observability": { "enabled": true }
+}

@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+sh tools/guard/check-identity.sh
+node tools/guard/check-names.mjs --staged
+node tools/guard/check-data-files.mjs
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit: gitleaks is not installed (brew install gitleaks). Commit refused." >&2
+  exit 1
+fi
+gitleaks git --staged --redact --no-banner --exit-code 1 .

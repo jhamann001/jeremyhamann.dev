@@ -1,0 +1,40 @@
+{
+  "$schema": "../../../node_modules/wrangler/config-schema.json",
+  "name": "statements-demo",
+  "main": "src/index.js",
+  // The app's built scripts and styles, copied out of its image by the deploy (.github/workflows/deploy-statements.yml).
+  // A request that matches one is answered by Cloudflare directly, without this Worker or the container, so pages
+  // load fast and a sleeping container isn't woken for them; anything else, the page itself included, reaches the
+  // Worker, which adds the page's headers and the theme hand-off.
+  "assets": { "directory": "./static" },
+  "compatibility_date": "2026-10-01",
+  "routes": [{ "pattern": "statements.jeremyhamann.dev", "custom_domain": true }],
+  "vars": {
+    "APP_ORIGIN": "https://statements.jeremyhamann.dev"
+  },
+  // Secrets (set by the deploy workflow): DATABASE_URL, SESSION_SECRET, DEMO_RESET_TOKEN and VISITOR_HASH_KEY (the key
+  // the visitor pseudonyms are made with); the last two are new for each deploy.
+  "containers": [
+    {
+      "class_name": "StatementsApp",
+      "image": "../Dockerfile",
+      "image_build_context": "../../..",
+      // One small instance (1/4 vCPU, 1 GiB); it sleeps after 10 idle minutes (see StatementsApp.sleepAfter).
+      "max_instances": 1,
+      "instance_type": "basic"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [{ "name": "STATEMENTS_APP", "class_name": "StatementsApp" }]
+  },
+  "exports": {
+    "StatementsApp": { "type": "durable-object", "storage": "sqlite" }
+  },
+  // Per-visitor ceiling at the edge, before anything reaches the container (counted per Cloudflare location): far
+  // above normal use, so it only stops floods, which would otherwise keep the container awake. Like Trade Request's:
+  // a Vite build loads a handful of files, and those come from the assets above, not through this limit.
+  "ratelimits": [{ "name": "VISITOR_LIMIT", "namespace_id": "1004", "simple": { "limit": 300, "period": 60 } }],
+  // The demo's only scheduled job: the nightly reset.
+  "triggers": { "crons": ["0 7 * * *"] },
+  "observability": { "enabled": true }
+}

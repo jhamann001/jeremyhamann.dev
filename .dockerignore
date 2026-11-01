@@ -1,0 +1,30 @@
+# Docker build context is the repository root (see apps/trade/Dockerfile and apps/acat/Dockerfile). Keep it to what the image uses.
+**/node_modules
+**/dist
+**/.next
+**/test-results
+**/.wrangler
+**/*.tsbuildinfo
+**/coverage
+**/.env
+**/.env.*
+# Local stores of files the dev server writes; the help desk image generates its own seeded attachments.
+**/.local-attachments
+**/.local-object-copies
+.git
+.github
+.githooks
+.claude
+plans
+tools
+**/__tests__
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+# Of the other workspaces, only their package.json (for npm ci) and the synthetic universe.
+site/*
+!site/package.json
+synthetic/*
+!synthetic/package.json
+!synthetic/out

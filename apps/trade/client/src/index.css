@@ -1,0 +1,110 @@
+@import 'tailwindcss';
+
+:root {
+  --bg-page: #f5f4f0;
+  --bg-card: #ffffff;
+  --bg-surface: #f0efeb;
+  --bg-input: #ffffff;
+  --bg-pill: #1e293b;
+  --bg-pill-hover: #0f172a;
+  --text-primary: #1a1a1a;
+  --text-secondary: #555555;
+  --text-muted: #999999;
+  --text-label: #5a7a88;
+  --border: #e8e6e1;
+  --border-light: #f0eee9;
+  --green: #2d7a50;
+  --green-light: #eaf5ef;
+  --red: #c0392b;
+  --red-light: #fdecea;
+  --red-border: #f5c6c2;
+  --yellow: #92650a;
+  --yellow-light: #fdf6e3;
+  --yellow-border: #f5e6a3;
+  /* Drift out-of-tolerance: a clearer amber than the near-white --yellow-light
+     fill, scoped to the drift tab so the app's other --yellow usages are
+     unaffected. Dark theme keeps the existing --yellow treatment below. */
+  --drift-oot-bg: #fbe6a8;
+  --drift-oot-fg: #7a4e06;
+  --blue-muted: #5a8cb5;
+  --blue-light: #edf2f9;
+}
+
+.dark {
+  --bg-page: #0f1117;
+  --bg-card: #1a1d27;
+  --bg-surface: #232733;
+  --bg-input: #232733;
+  --bg-pill: #334155;
+  --bg-pill-hover: #475569;
+  --text-primary: #e8e8e8;
+  --text-secondary: #b0b0b0;
+  --text-muted: #6b7280;
+  --text-label: #7eb8d0;
+  --border: #2e3340;
+  --border-light: #252836;
+  --green: #4ade80;
+  --green-light: #132a1e;
+  --red: #f87171;
+  --red-light: #2a1215;
+  --red-border: #4a1d20;
+  --yellow: #fbbf24;
+  --yellow-light: #2a2210;
+  --yellow-border: #4a3a15;
+  /* Dark theme: keep the existing OOT amber (unchanged from the --yellow look). */
+  --drift-oot-bg: var(--yellow-light);
+  --drift-oot-fg: var(--yellow);
+  --blue-muted: #7db8e0;
+  --blue-light: #121d2e;
+}
+
+body {
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.login-glow-top,
+.login-glow-bottom {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--green-light) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.login-glow-top {
+  top: -30%;
+  right: -15%;
+  width: 500px;
+  height: 500px;
+  opacity: 0.8;
+}
+
+.login-glow-bottom {
+  bottom: -25%;
+  left: -10%;
+  width: 450px;
+  height: 450px;
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

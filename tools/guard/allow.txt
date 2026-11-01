@@ -1,0 +1,19 @@
+# Known false positives for check-names.mjs.
+# Format: <repo-relative path><TAB><term>  (term allowed in that one file only)
+
+# The résumé on the home page names the real firms and platforms Jeremy has worked with; only this file may.
+site/src/data/profile.ts	evergreen
+site/src/data/profile.ts	alphathena
+site/src/data/profile.ts	practifi
+site/src/data/profile.ts	metabase
+site/src/data/profile.ts	zendesk
+site/src/data/profile.ts	always-on-advice
+site/src/data/profile.ts	acat-tracker
+# This file has to name them too.
+tools/guard/allow.txt	evergreen
+tools/guard/allow.txt	alphathena
+tools/guard/allow.txt	practifi
+tools/guard/allow.txt	metabase
+tools/guard/allow.txt	zendesk
+tools/guard/allow.txt	always-on-advice
+tools/guard/allow.txt	acat-tracker

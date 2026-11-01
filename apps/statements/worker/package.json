@@ -1,0 +1,16 @@
+{
+  "name": "@statement-analyzer/worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy:check": "wrangler deploy --dry-run --containers-rollout=none --outdir .wrangler/dry-run",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@cloudflare/containers": "0.3.7"
+  },
+  "devDependencies": {
+    "vitest": "4.1.12",
+    "wrangler": "4.149.0"
+  }
+}

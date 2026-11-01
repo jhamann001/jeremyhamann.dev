@@ -1,0 +1,13 @@
+{
+  "NEXT_PUBLIC_DEMO_MODE": "on",
+  "APP_ENV": "demo",
+  "AUTH_DEV_LOGIN": "true",
+  "TRUSTED_PROXY_HOPS": "1",
+  "APP_BASE_URL": "https://helpdesk.jeremyhamann.dev",
+  "NEXT_PUBLIC_PORTFOLIO_URL": "https://jeremyhamann.dev",
+  "AI_DRAFTING_PROVIDER": "demo",
+  "EMAIL_TRUSTED_AUTHSERV_IDS": "mx.example.com",
+  "MAILBOX_MAP": "{\"service@example.com\": {\"queueKey\": \"CLIENT_SERVICE\", \"brand\": \"CEDAR_RIDGE_WEALTH\"}, \"support@example.net\": {\"queueKey\": \"CLIENT_SERVICE\", \"brand\": \"CEDAR_RIDGE_DIRECT\"}}",
+  "ALLOWED_REQUESTER_DOMAINS": "example.com,example.net",
+  "STAND_INS_PORT": "8090"
+}

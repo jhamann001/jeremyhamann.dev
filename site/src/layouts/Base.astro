@@ -1,0 +1,75 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+// Whether search engines may index the site is the Worker's call (SITE_INDEXABLE in wrangler.jsonc);
+// `noindex` keeps a single page out either way.
+interface Props { title: string; description: string; noindex?: boolean }
+const { title, description, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      try { const t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // Demo links (a[data-demo]) open the demo in this page's theme: its Worker reads ?theme= and starts the
+      // app in it (apps/demo-edge/theme-handoff.js). They also wake the demo's container in the background, so
+      // it is usually running by the time the link is followed: on load for a case study's own demo
+      // (data-demo="warm"), otherwise on hover, focus or touch.
+      const links = () => [...document.querySelectorAll<HTMLAnchorElement>('a[data-demo]')];
+      const darkQuery = matchMedia('(prefers-color-scheme: dark)');
+      const theme = () => document.documentElement.getAttribute('data-theme') ?? (darkQuery.matches ? 'dark' : 'light');
+
+      function setThemes(): void {
+        for (const link of links()) {
+          const url = new URL(link.href);
+          url.searchParams.set('theme', theme());
+          link.href = url.toString();
+        }
+      }
+
+      const woken = new Set<string>();
+      function wake(link: HTMLAnchorElement): void {
+        const origin = new URL(link.href).origin;
+        if (woken.has(origin)) return;
+        woken.add(origin);
+        fetch(`${origin}/api/health`, { mode: 'no-cors', credentials: 'omit', cache: 'no-store' }).catch(() => {});
+      }
+
+      setThemes();
+      new MutationObserver(setThemes).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+      darkQuery.addEventListener('change', setThemes);
+      for (const link of links()) {
+        if (link.dataset.demo === 'warm') wake(link);
+        for (const event of ['pointerenter', 'focus', 'touchstart']) {
+          link.addEventListener(event, () => wake(link), { once: true, passive: true });
+        }
+      }
+    </script>
+  </body>
+</html>

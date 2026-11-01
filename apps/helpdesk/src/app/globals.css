@@ -1,0 +1,305 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+/* wm-helpdesk tokens */
+/* S4-owned block. Only this block may change; nothing above it does. */
+:root {
+  /* CONTRACT-GAP: `@theme inline` above maps `--font-sans` to itself and nothing defines it, so
+     `font-sans` would fall back to the browser default. Bind it to the Geist variables set on <body>. */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --wm-internal-bg: oklch(0.987 0.026 102.2);       /* amber-50 */
+  --wm-internal-border: oklch(0.828 0.189 84.4);    /* amber-400 */
+  --wm-sla-warning: oklch(0.769 0.188 70.1);        /* amber-500 */
+  --wm-sla-breached: var(--destructive);
+  --wm-sla-met: oklch(0.696 0.17 162.5);            /* emerald-500 */
+}
+
+.dark {
+  --wm-internal-bg: oklch(0.279 0.077 45.6 / 30%);  /* amber-950 @ 30% */
+  --wm-internal-border: oklch(0.769 0.188 70.1);    /* amber-500 */
+  --wm-sla-warning: oklch(0.828 0.189 84.4);        /* amber-400 */
+  --wm-sla-breached: var(--destructive);
+  --wm-sla-met: oklch(0.765 0.177 163.2);           /* emerald-400 */
+}
+
+/* ---------- Chart ramp ----------
+   The shadcn starter ships `--chart-1 … --chart-5` as five achromatic greys and ships the SAME five
+   bytes in `:root` and in `.dark` (globals.css:70-74 and :105-109 above, which this block may not
+   edit). `report-chart.tsx` colours a third series `stroke-chart-3` / `bg-chart-3`, and the one
+   report that needs three series — `sla-attainment`, a LINE chart over firstResponsePct,
+   resolutionPct and metPct, all one unit, so `chartableSeries` keeps all three — therefore drew a
+   2 px non-scaling stroke of oklch(0.439 0 0) on a `bg-card` of oklch(0.205 0 0) in dark mode:
+   **2.30:1**, under the 3:1 WCAG 1.4.11 floor for non-text graphics, with the legend dot (`bg-chart-3`)
+   the same. At 360 px the chart is `h-40`, so the stroke is the only thing separating that series.
+
+   Redefined here for BOTH themes, because the grey ramp has two faults, not one:
+
+   1. **Contrast.** Every value below clears 3:1 against `--card`, `--background` AND `--muted` in its
+      own theme (`--muted` is the `ReportRankChart` bar track and the worst case in each direction).
+      Worst measured: 3.41:1 (light `--chart-4` on `--muted`), 4.50:1 (dark `--chart-3` on `--muted`).
+   2. **Hue.** Three shades of grey are three shades of grey in a legend at either theme. The ramp is
+      hue-separated — blue, teal, violet, amber, green — and lightness-separated as well, so it still
+      reads when hue does not (print, greyscale, dichromacy). Series 1 stays `--primary` and a breach
+      stays `--destructive`; those are the two `toneClasses` never takes from this ramp.
+
+   All ten values are inside the sRGB gamut as written, so the browser renders the declared colour
+   rather than a gamut-mapped approximation. `src/app/theme-tokens.test.ts` re-derives every contrast
+   ratio from these declarations and fails the build if one drops under 3:1 or if the two ramps are
+   byte-identical again. Hues stay clear of `--destructive` (~25) and `--wm-sla-*` (amber ~75 is the
+   4th slot, reached only by a five-series report, and never on a surface that also shows an SLA chip). */
+:root {
+  --chart-1: oklch(0.546 0.15 252);   /* blue    #1a72c4 — 4.95:1 on card */
+  --chart-2: oklch(0.595 0.1 195);    /* teal    #0a9191 — 3.84:1 */
+  --chart-3: oklch(0.45 0.2 305);     /* violet  #7024ab — 8.30:1 */
+  --chart-4: oklch(0.62 0.125 75);    /* amber   #b17915 — 3.72:1 */
+  --chart-5: oklch(0.56 0.13 150);    /* green   #2d8949 — 4.39:1 */
+}
+
+.dark {
+  --chart-1: oklch(0.715 0.14 252);   /* blue    #5ca7f8 — 7.10:1 on card */
+  --chart-2: oklch(0.85 0.11 195);    /* teal    #69e4e4 — 11.81:1 */
+  --chart-3: oklch(0.66 0.18 305);    /* violet  #ac70e9 — 5.34:1 (was 2.30:1) */
+  --chart-4: oklch(0.8 0.15 75);      /* amber   #f5ae39 — 9.39:1 */
+  --chart-5: oklch(0.77 0.17 150);    /* green   #53d277 — 9.22:1 */
+}
+
+/* Redaction tokens rendered by S6's MarkdownRenderer (<mark class="wm-redacted">). */
+mark.wm-redacted {
+  background-color: var(--wm-internal-bg);
+  color: inherit;
+  border-radius: 0.2rem;
+  padding: 0 0.2rem;
+  box-shadow: inset 0 0 0 1px var(--wm-internal-border);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+/* ---------- Mobile-first shell ---------- */
+:root {
+  --wm-bottom-bar-h: 3.5rem;                 /* 56px: BottomNav and StickyActionBar share it; <main> reserves it on phones */
+  --wm-tap: 2.75rem;                         /* 44px minimum touch target */
+  --wm-sheet-handle: oklch(0.556 0 0 / 40%); /* bottom-sheet grab handle */
+}
+.dark {
+  --wm-sheet-handle: oklch(0.85 0 0 / 35%);
+}
+
+/* Top-edge offset for anything else that sticks to the top of the DOCUMENT scroll.
+   `Topbar` (src/components/topbar.tsx) is `sticky top-0 z-40`: `pt-safe`, then the non-production
+   environment banner (h-5 / md:h-6), then the identity row (min-h-11 / md:min-h-12). A second element
+   at `top-0` shares y = 0 with it and loses — near-opaque, blurred chrome paints straight over it — so
+   a top-sticky bar uses `sticky top-(--wm-topbar-h)` and a z-index below the topbar's 40 and above the
+   list it floats over. `:has()` drops the banner's height in production, where no banner is rendered.
+   MOBILE_FIRST §7 probe G14 asserts the result against the live DOM. */
+:root {
+  --wm-topbar-row-h: 2.75rem;    /* 44px: the identity row's min-h-11 */
+  --wm-topbar-banner-h: 0rem;    /* production renders no environment banner */
+  --wm-topbar-h: calc(env(safe-area-inset-top, 0px) + var(--wm-topbar-banner-h) + var(--wm-topbar-row-h));
+}
+:root:has([data-env-banner]) {
+  --wm-topbar-banner-h: 1.25rem; /* 20px: the banner's h-5 */
+}
+@media (width >= 48rem) {
+  :root {
+    --wm-topbar-row-h: 3rem;     /* 48px: md:min-h-12 */
+  }
+  :root:has([data-env-banner]) {
+    --wm-topbar-banner-h: 1.5rem; /* 24px: md:h-6 */
+  }
+}
+
+/* Utilities the shell composes; variants work (md:pb-bar-safe, sm:px-safe). */
+@utility pb-safe      { padding-bottom: env(safe-area-inset-bottom, 0px); }
+@utility pt-safe      { padding-top: env(safe-area-inset-top, 0px); }
+@utility pb-bar-safe  { padding-bottom: calc(var(--wm-bottom-bar-h) + env(safe-area-inset-bottom, 0px)); }
+@utility px-safe      { padding-left: max(1rem, env(safe-area-inset-left, 0px)); padding-right: max(1rem, env(safe-area-inset-right, 0px)); }
+
+/* ---------- Phone-only touch ergonomics (< md). Unlayered → wins over utilities. ---------- */
+@media (width < 48rem) {
+  /* 44px minimum height for every shadcn control. Opt out ONLY for inline prose links: data-tap="none" (QA allowlist).
+     command-input is cmdk's search field (its InputGroup is pinned at h-8!; min-height still clamps it). */
+  :where(
+    [data-slot=button], [data-slot=select-trigger], [data-slot=tabs-trigger],
+    [data-slot=dropdown-menu-trigger], [data-slot=popover-trigger],
+    [data-slot=input], [data-slot=input-group], [data-slot=command-input],
+    [data-slot=select-item], [data-slot=dropdown-menu-item], [data-slot=dropdown-menu-checkbox-item],
+    [data-slot=dropdown-menu-radio-item], [data-slot=command-item],
+    [data-slot=sheet-close], [data-slot=dialog-close], [data-slot=alert-dialog-action], [data-slot=alert-dialog-cancel]
+  ):not([data-tap=none]) { min-height: var(--wm-tap); }
+
+  /* Icon-only buttons and the sheet/dialog X need width too. (The X ends up with data-slot="sheet-close"/"dialog-close":
+     the asChild Slot's props are spread after Button's own data-slot.) */
+  :where([data-slot=button][data-size^=icon], [data-slot=sheet-close], [data-slot=dialog-close]):not([data-tap=none]) {
+    min-width: var(--wm-tap);
+  }
+
+  /* shadcn TabsList pins h-8; let the 44px triggers set the height. */
+  [data-slot=tabs-list] { height: auto; }
+
+  /* Checkbox is 16px; its ::after is the hit area (shadcn: after:-inset-x-3 after:-inset-y-2) → widen to 44px. */
+  [data-slot=checkbox]::after { inset: calc((var(--wm-tap) - 1rem) / -2); }
+
+  /* iOS zooms on focus when a text control is < 16px. Covers cmdk's input, datetime-local and any text-sm override. */
+  input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=hidden]),
+  textarea,
+  select { font-size: max(1rem, 1em); }
+
+  /* The 44px X clears the grab handle on bottom sheets. */
+  [data-slot=sheet-content][data-side=bottom] [data-slot=sheet-close] { top: 0.5rem; right: 0.5rem; }
+}
+
+/* The PWA install offer is a THIRD fixed element on the bottom edge (src/components/shell/pwa-install-prompt.tsx).
+   `pb-bar-safe` reserves ONE --wm-bottom-bar-h, which is the bar's height and not the bar plus a card, so the
+   offer floated over the last ~150px of every screen and its subtree took taps meant for the controls under it
+   (fix round 2). While it is on screen it publishes the clearance it still needs on <html>, and <main> grows by
+   exactly that much. A pseudo-element rather than padding: neither the phone `pb-bar-safe` nor the md+ `py-5`
+   has to be restated here, so this cannot drift from the layout, and it is inert at every other moment because
+   the attribute only exists while the offer is rendered. */
+:root[data-wm-install-offer] #main::after {
+  content: "";
+  display: block;
+  height: var(--wm-install-offer-h, 0px);
+}
+
+/* Snap rows (counter carousel, active-filter chips) scroll inside themselves; the page never scrolls sideways. */
+[data-snap-row] { scrollbar-width: none; }
+[data-snap-row]::-webkit-scrollbar { display: none; }
+
+/* Reduced motion: tw-animate-css ships no prefers-reduced-motion handling, so neutralise everything here.
+   Radix Presence sees a 0.01ms animation end at once, so sheets/dialogs still unmount. Spinners go static on purpose. */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* end wm-helpdesk tokens */

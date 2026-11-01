@@ -1,0 +1,40 @@
+# Keep the Docker build context lean and secret-free (docs/ARCHITECTURE.md Decision #57).
+# Env files are NEVER shipped into an image; the build needs none (Decision #43).
+
+# Dependencies / build outputs (rebuilt inside the builder stage)
+node_modules
+.next
+out
+dist
+build
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# Env — never send secrets into the build context (.env.example included: the image has no use for it)
+.env
+.env.*
+
+# VCS / CI / IaC / docs / tests — not needed to build or run the app
+.git
+.gitignore
+.github
+infra
+docs/screenshots
+docs
+coverage
+*.md
+
+# Docker (not needed inside the image)
+Dockerfile
+Dockerfile.*
+.dockerignore
+
+# Editor / OS / misc
+.claude
+.vscode
+.idea
+*.swp
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db

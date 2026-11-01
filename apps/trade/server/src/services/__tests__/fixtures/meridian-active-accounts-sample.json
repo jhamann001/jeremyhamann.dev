@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-05-15T01:00:00.000Z",
+  "firm_id": "test",
+  "account_count": 2,
+  "raw_row_count": 8,
+  "accounts": [
+    {
+      "account_id": 27216,
+      "trading_account_no": "01SYNTHJ7G094TRY2A6R126CB3",
+      "account_title": "Elliot Marsh - Brokerage",
+      "account_type": "NA",
+      "cash": 0.29,
+      "equity": 0.0,
+      "total": 0.29,
+      "household_id": 3027,
+      "household_name": "Marsh + Navarro Family",
+      "sleeves": [],
+      "associations": ["Nic Marsh Portfolio (High Yield MMF)"]
+    },
+    {
+      "account_id": 49938,
+      "trading_account_no": "01SYNTH1QCJEYSZ6CE6AFS1DRV",
+      "account_title": "Henry Calloway - Brokerage",
+      "account_type": "NA non-taxable",
+      "cash": 1234.56,
+      "equity": 88765.44,
+      "total": 90000.0,
+      "household_id": 4112,
+      "household_name": "Calloway Family",
+      "sleeves": [],
+      "associations": []
+    }
+  ]
+}

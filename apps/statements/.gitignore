@@ -1,0 +1,41 @@
+# Secrets & credentials
+.env
+.env.*
+credentials.json
+*.json.bak
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# GCP SDK (should be installed system-wide, not in project)
+google-cloud-sdk/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Cursor IDE
+.cursor/
+
+# Build artifacts
+*.pdf
+*.docx
+
+# Local client-linking browser evidence
+frontend/test-results/
+frontend/playwright-report/
+/test-results/flywheel/

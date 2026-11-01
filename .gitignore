@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.dev.vars
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+coverage/
+# The demos' built static files, copied out of each image at deploy time (apps/*/worker/static/_headers).
+apps/acat/worker/static/_next/
+apps/helpdesk/worker/static/_next/
+apps/trade/worker/static/assets/
+apps/statements/worker/static/assets/

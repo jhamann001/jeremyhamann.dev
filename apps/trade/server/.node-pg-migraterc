@@ -1,0 +1,5 @@
+{
+  "migration-filename-format": "utc",
+  "migrations-dir": "migrations",
+  "template-file-name": "migrations/.template.sql"
+}

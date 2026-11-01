@@ -1,0 +1,20 @@
+# Code and text files diff as text even when they hold a NUL byte (test input for a header-injection
+# check, say). Otherwise git shows "Binary files differ" and the history name check never sees them.
+*.ts diff
+*.tsx diff
+*.mts diff
+*.js diff
+*.mjs diff
+*.cjs diff
+*.jsx diff
+*.json diff
+*.md diff
+*.sql diff
+*.prisma diff
+*.css diff
+*.html diff
+*.txt diff
+*.toml diff
+*.yml diff
+*.yaml diff
+*.sh diff

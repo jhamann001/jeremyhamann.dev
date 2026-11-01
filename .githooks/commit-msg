@@ -1,0 +1,2 @@
+#!/bin/sh
+node tools/guard/check-names.mjs --message "$1"

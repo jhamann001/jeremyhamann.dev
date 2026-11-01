@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: trade_request
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changeme
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  app:
+    build: .
+    ports:
+      - '8080:8080'
+    env_file:
+      - server/.env
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: trade_request
+      DB_USER: postgres
+      DB_PASSWORD: changeme
+      PORT: 8080
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:

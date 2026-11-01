@@ -1,0 +1,6116 @@
+{
+  "meta": {
+    "seed": 20261025,
+    "asOf": "2026-10-23",
+    "priceNote": "Illustrative prices for demo purposes only. Not market data.",
+    "note": "Every person, household, account and number here is invented. Emails use example.com; phone numbers use the reserved 555-01xx range."
+  },
+  "firm": {
+    "name": "Cedar Ridge Wealth",
+    "shortName": "Cedar Ridge"
+  },
+  "clearingFirm": {
+    "id": "apex",
+    "name": "Apex Clearing"
+  },
+  "modelProvider": {
+    "id": "meridian",
+    "name": "Meridian Models"
+  },
+  "custodians": [
+    {
+      "id": "edward-jones",
+      "name": "Edward Jones",
+      "transferType": "ACAT"
+    },
+    {
+      "id": "schwab",
+      "name": "Charles Schwab",
+      "transferType": "ACAT"
+    },
+    {
+      "id": "fidelity",
+      "name": "Fidelity",
+      "transferType": "ACAT"
+    },
+    {
+      "id": "bny",
+      "name": "BNY Investments",
+      "transferType": "Non-ACAT"
+    }
+  ],
+  "staff": [
+    {
+      "id": "helen-carver",
+      "name": "Helen Carver",
+      "role": "client-service",
+      "title": "Client service"
+    },
+    {
+      "id": "marco-ferreira",
+      "name": "Marco Ferreira",
+      "role": "operations",
+      "title": "Operations, money movement"
+    },
+    {
+      "id": "priya-nair",
+      "name": "Priya Nair",
+      "role": "compliance",
+      "title": "Compliance"
+    },
+    {
+      "id": "sam-ortiz",
+      "name": "Sam Ortiz",
+      "role": "advisor",
+      "title": "Advisor"
+    },
+    {
+      "id": "rachel-moss",
+      "name": "Rachel Moss",
+      "role": "advisor",
+      "title": "Advisor"
+    },
+    {
+      "id": "dana-pruitt",
+      "name": "Dana Pruitt",
+      "role": "advisor",
+      "title": "Advisor"
+    },
+    {
+      "id": "ethan-cole",
+      "name": "Ethan Cole",
+      "role": "trader",
+      "title": "Trader"
+    },
+    {
+      "id": "jordan-reyes",
+      "name": "Jordan Reyes",
+      "role": "transfers",
+      "title": "Transfer specialist"
+    }
+  ],
+  "securities": [
+    {
+      "symbol": "VTI",
+      "name": "Vanguard Total Stock Market ETF",
+      "assetClass": "us-equity",
+      "vehicle": "etf",
+      "price": 295
+    },
+    {
+      "symbol": "VXUS",
+      "name": "Vanguard Total International Stock ETF",
+      "assetClass": "intl-equity",
+      "vehicle": "etf",
+      "price": 66.2
+    },
+    {
+      "symbol": "AVUV",
+      "name": "Avantis U.S. Small Cap Value ETF",
+      "assetClass": "us-equity",
+      "vehicle": "etf",
+      "price": 98.75
+    },
+    {
+      "symbol": "VNQ",
+      "name": "Vanguard Real Estate ETF",
+      "assetClass": "real-estate",
+      "vehicle": "etf",
+      "price": 89.4
+    },
+    {
+      "symbol": "BND",
+      "name": "Vanguard Total Bond Market ETF",
+      "assetClass": "us-bond",
+      "vehicle": "etf",
+      "price": 73.1
+    },
+    {
+      "symbol": "AGG",
+      "name": "iShares Core U.S. Aggregate Bond ETF",
+      "assetClass": "us-bond",
+      "vehicle": "etf",
+      "price": 99.4
+    },
+    {
+      "symbol": "VGSH",
+      "name": "Vanguard Short-Term Treasury ETF",
+      "assetClass": "treasury",
+      "vehicle": "etf",
+      "price": 58.7
+    },
+    {
+      "symbol": "SCHR",
+      "name": "Schwab Intermediate-Term U.S. Treasury ETF",
+      "assetClass": "treasury",
+      "vehicle": "etf",
+      "price": 25.1
+    },
+    {
+      "symbol": "VCSH",
+      "name": "Vanguard Short-Term Corporate Bond ETF",
+      "assetClass": "corporate-bond",
+      "vehicle": "etf",
+      "price": 79.3
+    },
+    {
+      "symbol": "VTEB",
+      "name": "Vanguard Tax-Exempt Bond ETF",
+      "assetClass": "muni-bond",
+      "vehicle": "etf",
+      "price": 50.3
+    },
+    {
+      "symbol": "SUB",
+      "name": "iShares Short-Term National Muni Bond ETF",
+      "assetClass": "muni-bond",
+      "vehicle": "etf",
+      "price": 106.1
+    },
+    {
+      "symbol": "SWVXX",
+      "name": "Schwab Value Advantage Money Fund",
+      "assetClass": "cash",
+      "vehicle": "money-market",
+      "price": 1
+    },
+    {
+      "symbol": "VMSXX",
+      "name": "Vanguard Municipal Money Market Fund",
+      "assetClass": "cash",
+      "vehicle": "money-market",
+      "price": 1
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc",
+      "assetClass": "us-equity",
+      "vehicle": "stock",
+      "price": 229.8
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corp",
+      "assetClass": "us-equity",
+      "vehicle": "stock",
+      "price": 429.38
+    },
+    {
+      "symbol": "NVDA",
+      "name": "NVIDIA Corp",
+      "assetClass": "us-equity",
+      "vehicle": "stock",
+      "price": 182.4
+    },
+    {
+      "symbol": "BBGLX",
+      "name": "Bridge Builder Large Cap Growth Fund",
+      "assetClass": "us-equity",
+      "vehicle": "mutual-fund",
+      "price": 31.62,
+      "proprietaryTo": "edward-jones"
+    }
+  ],
+  "models": [
+    {
+      "id": "meridian-income",
+      "name": "Meridian Income",
+      "weights": {
+        "VTI": 0.18,
+        "VXUS": 0.07,
+        "BND": 0.35,
+        "VGSH": 0.15,
+        "VTEB": 0.15,
+        "VCSH": 0.05,
+        "SWVXX": 0.05
+      }
+    },
+    {
+      "id": "meridian-balanced-60-40",
+      "name": "Meridian Balanced 60/40",
+      "weights": {
+        "VTI": 0.38,
+        "VXUS": 0.16,
+        "AVUV": 0.06,
+        "BND": 0.22,
+        "VGSH": 0.08,
+        "VTEB": 0.07,
+        "SWVXX": 0.03
+      }
+    },
+    {
+      "id": "meridian-growth-80-20",
+      "name": "Meridian Growth 80/20",
+      "weights": {
+        "VTI": 0.5,
+        "VXUS": 0.18,
+        "AVUV": 0.08,
+        "VNQ": 0.04,
+        "BND": 0.16,
+        "VGSH": 0.02,
+        "SWVXX": 0.02
+      }
+    }
+  ],
+  "households": [
+    {
+      "id": "alvarez",
+      "name": "Alvarez Family",
+      "advisor": "rachel-moss",
+      "model": "meridian-balanced-60-40",
+      "story": true
+    },
+    {
+      "id": "okafor",
+      "name": "Okafor Household",
+      "advisor": "rachel-moss",
+      "model": "meridian-growth-80-20",
+      "story": true
+    },
+    {
+      "id": "chen-ashby",
+      "name": "Chen–Ashby",
+      "advisor": "sam-ortiz",
+      "model": "meridian-growth-80-20",
+      "story": true
+    },
+    {
+      "id": "patel-trust",
+      "name": "Patel Trust",
+      "advisor": "dana-pruitt",
+      "model": "meridian-balanced-60-40",
+      "story": true
+    },
+    {
+      "id": "lindqvist",
+      "name": "Lindqvist Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-income",
+      "story": true
+    },
+    {
+      "id": "brennan",
+      "name": "Brennan Household",
+      "advisor": "rachel-moss",
+      "model": "meridian-balanced-60-40",
+      "story": true
+    },
+    {
+      "id": "nakamura",
+      "name": "Nakamura Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-balanced-60-40",
+      "story": true
+    },
+    {
+      "id": "morgan",
+      "name": "Morgan Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-income",
+      "story": true
+    },
+    {
+      "id": "rossi",
+      "name": "Rossi Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-growth-80-20",
+      "story": true
+    },
+    {
+      "id": "delgado-trust",
+      "name": "Delgado Family Trust",
+      "advisor": "rachel-moss",
+      "model": "meridian-income",
+      "story": true
+    },
+    {
+      "id": "hayes",
+      "name": "Hayes Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-growth-80-20",
+      "story": false
+    },
+    {
+      "id": "goyette",
+      "name": "Goyette Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-income",
+      "story": false
+    },
+    {
+      "id": "abbott",
+      "name": "Abbott Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-income",
+      "story": false
+    },
+    {
+      "id": "kirlin",
+      "name": "Kirlin Household",
+      "advisor": "rachel-moss",
+      "model": "meridian-income",
+      "story": false
+    },
+    {
+      "id": "rau",
+      "name": "Rau Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-growth-80-20",
+      "story": false
+    },
+    {
+      "id": "mayer",
+      "name": "Mayer Household",
+      "advisor": "rachel-moss",
+      "model": "meridian-growth-80-20",
+      "story": false
+    },
+    {
+      "id": "friesen",
+      "name": "Friesen Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-growth-80-20",
+      "story": false
+    },
+    {
+      "id": "spencer",
+      "name": "Spencer Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-income",
+      "story": false
+    },
+    {
+      "id": "rice",
+      "name": "Rice Household",
+      "advisor": "rachel-moss",
+      "model": "meridian-balanced-60-40",
+      "story": false
+    },
+    {
+      "id": "bode",
+      "name": "Bode Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-income",
+      "story": false
+    },
+    {
+      "id": "schaden",
+      "name": "Schaden Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-growth-80-20",
+      "story": false
+    },
+    {
+      "id": "herman",
+      "name": "Herman Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-balanced-60-40",
+      "story": false
+    },
+    {
+      "id": "carroll",
+      "name": "Carroll Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-balanced-60-40",
+      "story": false
+    },
+    {
+      "id": "schinner",
+      "name": "Schinner Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-balanced-60-40",
+      "story": false
+    },
+    {
+      "id": "ohara",
+      "name": "O'Hara Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-balanced-60-40",
+      "story": false
+    },
+    {
+      "id": "howell",
+      "name": "Howell Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-income",
+      "story": false
+    },
+    {
+      "id": "franey",
+      "name": "Franey Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-growth-80-20",
+      "story": false
+    },
+    {
+      "id": "walker",
+      "name": "Walker Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-balanced-60-40",
+      "story": false
+    },
+    {
+      "id": "kuhlman",
+      "name": "Kuhlman Household",
+      "advisor": "rachel-moss",
+      "model": "meridian-growth-80-20",
+      "story": false
+    },
+    {
+      "id": "nitzsche",
+      "name": "Nitzsche Household",
+      "advisor": "rachel-moss",
+      "model": "meridian-income",
+      "story": false
+    },
+    {
+      "id": "schmeler",
+      "name": "Schmeler Household",
+      "advisor": "rachel-moss",
+      "model": "meridian-balanced-60-40",
+      "story": false
+    },
+    {
+      "id": "crooks",
+      "name": "Crooks Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-growth-80-20",
+      "story": false
+    },
+    {
+      "id": "murray",
+      "name": "Murray Household",
+      "advisor": "rachel-moss",
+      "model": "meridian-balanced-60-40",
+      "story": false
+    },
+    {
+      "id": "harvey",
+      "name": "Harvey Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-income",
+      "story": false
+    },
+    {
+      "id": "cole",
+      "name": "Cole Household",
+      "advisor": "rachel-moss",
+      "model": "meridian-income",
+      "story": false
+    },
+    {
+      "id": "oreilly",
+      "name": "O'Reilly Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-balanced-60-40",
+      "story": false
+    },
+    {
+      "id": "nikolaus",
+      "name": "Nikolaus Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-balanced-60-40",
+      "story": false
+    },
+    {
+      "id": "reichert",
+      "name": "Reichert Household",
+      "advisor": "sam-ortiz",
+      "model": "meridian-income",
+      "story": false
+    },
+    {
+      "id": "adams",
+      "name": "Adams Household",
+      "advisor": "dana-pruitt",
+      "model": "meridian-balanced-60-40",
+      "story": false
+    },
+    {
+      "id": "rosenbaum",
+      "name": "Rosenbaum Household",
+      "advisor": "rachel-moss",
+      "model": "meridian-growth-80-20",
+      "story": false
+    }
+  ],
+  "people": [
+    {
+      "id": "alvarez-lucia",
+      "household": "alvarez",
+      "first": "Lucia",
+      "last": "Alvarez",
+      "email": "lucia.alvarez@example.com",
+      "phone": "(206) 555-0100"
+    },
+    {
+      "id": "alvarez-daniel",
+      "household": "alvarez",
+      "first": "Daniel",
+      "last": "Alvarez",
+      "email": "daniel.alvarez@example.com",
+      "phone": "(303) 555-0101"
+    },
+    {
+      "id": "okafor-kofi",
+      "household": "okafor",
+      "first": "Kofi",
+      "last": "Okafor",
+      "email": "kofi.okafor@example.com",
+      "phone": "(312) 555-0102"
+    },
+    {
+      "id": "okafor-ada",
+      "household": "okafor",
+      "first": "Ada",
+      "last": "Okafor",
+      "email": "ada.okafor@example.com",
+      "phone": "(404) 555-0103"
+    },
+    {
+      "id": "chen-ashby-grace",
+      "household": "chen-ashby",
+      "first": "Grace",
+      "last": "Chen",
+      "email": "grace.chen@example.com",
+      "phone": "(503) 555-0104"
+    },
+    {
+      "id": "chen-ashby-owen",
+      "household": "chen-ashby",
+      "first": "Owen",
+      "last": "Ashby",
+      "email": "owen.ashby@example.com",
+      "phone": "(512) 555-0105"
+    },
+    {
+      "id": "patel-trust-ravi",
+      "household": "patel-trust",
+      "first": "Ravi",
+      "last": "Patel",
+      "email": "ravi.patel@example.com",
+      "phone": "(612) 555-0106"
+    },
+    {
+      "id": "lindqvist-erik",
+      "household": "lindqvist",
+      "first": "Erik",
+      "last": "Lindqvist",
+      "email": "erik.lindqvist@example.com",
+      "phone": "(617) 555-0107"
+    },
+    {
+      "id": "brennan-maeve",
+      "household": "brennan",
+      "first": "Maeve",
+      "last": "Brennan",
+      "email": "maeve.brennan@example.com",
+      "phone": "(704) 555-0108"
+    },
+    {
+      "id": "nakamura-ken",
+      "household": "nakamura",
+      "first": "Ken",
+      "last": "Nakamura",
+      "email": "ken.nakamura@example.com",
+      "phone": "(919) 555-0109"
+    },
+    {
+      "id": "nakamura-emi",
+      "household": "nakamura",
+      "first": "Emi",
+      "last": "Nakamura",
+      "email": "emi.nakamura@example.com",
+      "phone": "(206) 555-0110"
+    },
+    {
+      "id": "morgan-tom",
+      "household": "morgan",
+      "first": "Tom",
+      "last": "Morgan",
+      "email": "tom.morgan@example.com",
+      "phone": "(303) 555-0111"
+    },
+    {
+      "id": "morgan-claire",
+      "household": "morgan",
+      "first": "Claire",
+      "last": "Morgan",
+      "email": "claire.morgan@example.com",
+      "phone": "(312) 555-0112"
+    },
+    {
+      "id": "rossi-anthony",
+      "household": "rossi",
+      "first": "Anthony",
+      "last": "Rossi",
+      "suffix": "Jr.",
+      "email": "anthony.rossi@example.com",
+      "phone": "(404) 555-0113"
+    },
+    {
+      "id": "delgado-trust-marisol",
+      "household": "delgado-trust",
+      "first": "Marisol",
+      "last": "Delgado",
+      "email": "marisol.delgado@example.com",
+      "phone": "(503) 555-0114"
+    },
+    {
+      "id": "hayes-reynold",
+      "household": "hayes",
+      "first": "Reynold",
+      "last": "Hayes",
+      "email": "reynold.hayes@example.com",
+      "phone": "(512) 555-0115"
+    },
+    {
+      "id": "goyette-saul",
+      "household": "goyette",
+      "first": "Saul",
+      "last": "Goyette",
+      "email": "saul.goyette@example.com",
+      "phone": "(612) 555-0116"
+    },
+    {
+      "id": "abbott-josh",
+      "household": "abbott",
+      "first": "Josh",
+      "last": "Abbott",
+      "email": "josh.abbott@example.com",
+      "phone": "(617) 555-0117"
+    },
+    {
+      "id": "kirlin-brandy",
+      "household": "kirlin",
+      "first": "Brandy",
+      "last": "Kirlin",
+      "email": "brandy.kirlin@example.com",
+      "phone": "(704) 555-0118"
+    },
+    {
+      "id": "kirlin-tyreek",
+      "household": "kirlin",
+      "first": "Tyreek",
+      "last": "Kirlin",
+      "email": "tyreek.kirlin@example.com",
+      "phone": "(919) 555-0119"
+    },
+    {
+      "id": "rau-lonie",
+      "household": "rau",
+      "first": "Lonie",
+      "last": "Rau",
+      "email": "lonie.rau@example.com",
+      "phone": "(206) 555-0120"
+    },
+    {
+      "id": "rau-millie",
+      "household": "rau",
+      "first": "Millie",
+      "last": "Rau",
+      "email": "millie.rau@example.com",
+      "phone": "(303) 555-0121"
+    },
+    {
+      "id": "mayer-kamron",
+      "household": "mayer",
+      "first": "Kamron",
+      "last": "Mayer",
+      "email": "kamron.mayer@example.com",
+      "phone": "(312) 555-0122"
+    },
+    {
+      "id": "mayer-lucille",
+      "household": "mayer",
+      "first": "Lucille",
+      "last": "Mayer",
+      "email": "lucille.mayer@example.com",
+      "phone": "(404) 555-0123"
+    },
+    {
+      "id": "friesen-rodney",
+      "household": "friesen",
+      "first": "Rodney",
+      "last": "Friesen",
+      "email": "rodney.friesen@example.com",
+      "phone": "(503) 555-0124"
+    },
+    {
+      "id": "friesen-bryon",
+      "household": "friesen",
+      "first": "Bryon",
+      "last": "Friesen",
+      "email": "bryon.friesen@example.com",
+      "phone": "(512) 555-0125"
+    },
+    {
+      "id": "spencer-gwen",
+      "household": "spencer",
+      "first": "Gwen",
+      "last": "Spencer",
+      "email": "gwen.spencer@example.com",
+      "phone": "(612) 555-0126"
+    },
+    {
+      "id": "rice-stacey",
+      "household": "rice",
+      "first": "Stacey",
+      "last": "Rice",
+      "email": "stacey.rice@example.com",
+      "phone": "(617) 555-0127"
+    },
+    {
+      "id": "bode-elnora",
+      "household": "bode",
+      "first": "Elnora",
+      "last": "Bode",
+      "email": "elnora.bode@example.com",
+      "phone": "(704) 555-0128"
+    },
+    {
+      "id": "schaden-nils",
+      "household": "schaden",
+      "first": "Nils",
+      "last": "Schaden",
+      "email": "nils.schaden@example.com",
+      "phone": "(919) 555-0129"
+    },
+    {
+      "id": "schaden-mabel",
+      "household": "schaden",
+      "first": "Mabel",
+      "last": "Schaden",
+      "email": "mabel.schaden@example.com",
+      "phone": "(206) 555-0130"
+    },
+    {
+      "id": "herman-merlin",
+      "household": "herman",
+      "first": "Merlin",
+      "last": "Herman",
+      "email": "merlin.herman@example.com",
+      "phone": "(303) 555-0131"
+    },
+    {
+      "id": "carroll-bridgette",
+      "household": "carroll",
+      "first": "Bridgette",
+      "last": "Carroll",
+      "email": "bridgette.carroll@example.com",
+      "phone": "(312) 555-0132"
+    },
+    {
+      "id": "schinner-mason",
+      "household": "schinner",
+      "first": "Mason",
+      "last": "Schinner",
+      "email": "mason.schinner@example.com",
+      "phone": "(404) 555-0133"
+    },
+    {
+      "id": "schinner-marion",
+      "household": "schinner",
+      "first": "Marion",
+      "last": "Schinner",
+      "email": "marion.schinner@example.com",
+      "phone": "(503) 555-0134"
+    },
+    {
+      "id": "ohara-leonardo",
+      "household": "ohara",
+      "first": "Leonardo",
+      "last": "O'Hara",
+      "email": "leonardo.ohara@example.com",
+      "phone": "(512) 555-0135"
+    },
+    {
+      "id": "howell-alycia",
+      "household": "howell",
+      "first": "Alycia",
+      "last": "Howell",
+      "email": "alycia.howell@example.com",
+      "phone": "(612) 555-0136"
+    },
+    {
+      "id": "franey-merlin",
+      "household": "franey",
+      "first": "Merlin",
+      "last": "Franey",
+      "email": "merlin.franey@example.com",
+      "phone": "(617) 555-0137"
+    },
+    {
+      "id": "franey-gavin",
+      "household": "franey",
+      "first": "Gavin",
+      "last": "Franey",
+      "email": "gavin.franey@example.com",
+      "phone": "(704) 555-0138"
+    },
+    {
+      "id": "walker-paulette",
+      "household": "walker",
+      "first": "Paulette",
+      "last": "Walker",
+      "email": "paulette.walker@example.com",
+      "phone": "(919) 555-0139"
+    },
+    {
+      "id": "walker-willie",
+      "household": "walker",
+      "first": "Willie",
+      "last": "Walker",
+      "email": "willie.walker@example.com",
+      "phone": "(206) 555-0140"
+    },
+    {
+      "id": "kuhlman-merlin",
+      "household": "kuhlman",
+      "first": "Merlin",
+      "last": "Kuhlman",
+      "email": "merlin.kuhlman@example.com",
+      "phone": "(303) 555-0141"
+    },
+    {
+      "id": "nitzsche-norene",
+      "household": "nitzsche",
+      "first": "Norene",
+      "last": "Nitzsche",
+      "email": "norene.nitzsche@example.com",
+      "phone": "(312) 555-0142"
+    },
+    {
+      "id": "schmeler-ryder",
+      "household": "schmeler",
+      "first": "Ryder",
+      "last": "Schmeler",
+      "email": "ryder.schmeler@example.com",
+      "phone": "(404) 555-0143"
+    },
+    {
+      "id": "crooks-leone",
+      "household": "crooks",
+      "first": "Leone",
+      "last": "Crooks",
+      "email": "leone.crooks@example.com",
+      "phone": "(503) 555-0144"
+    },
+    {
+      "id": "murray-kayden",
+      "household": "murray",
+      "first": "Kayden",
+      "last": "Murray",
+      "email": "kayden.murray@example.com",
+      "phone": "(512) 555-0145"
+    },
+    {
+      "id": "murray-alek",
+      "household": "murray",
+      "first": "Alek",
+      "last": "Murray",
+      "email": "alek.murray@example.com",
+      "phone": "(612) 555-0146"
+    },
+    {
+      "id": "harvey-obie",
+      "household": "harvey",
+      "first": "Obie",
+      "last": "Harvey",
+      "email": "obie.harvey@example.com",
+      "phone": "(617) 555-0147"
+    },
+    {
+      "id": "harvey-malvina",
+      "household": "harvey",
+      "first": "Malvina",
+      "last": "Harvey",
+      "email": "malvina.harvey@example.com",
+      "phone": "(704) 555-0148"
+    },
+    {
+      "id": "cole-neil",
+      "household": "cole",
+      "first": "Neil",
+      "last": "Cole",
+      "email": "neil.cole@example.com",
+      "phone": "(919) 555-0149"
+    },
+    {
+      "id": "cole-chaim",
+      "household": "cole",
+      "first": "Chaim",
+      "last": "Cole",
+      "email": "chaim.cole@example.com",
+      "phone": "(206) 555-0150"
+    },
+    {
+      "id": "oreilly-skyla",
+      "household": "oreilly",
+      "first": "Skyla",
+      "last": "O'Reilly",
+      "email": "skyla.oreilly@example.com",
+      "phone": "(303) 555-0151"
+    },
+    {
+      "id": "nikolaus-emory",
+      "household": "nikolaus",
+      "first": "Emory",
+      "last": "Nikolaus",
+      "email": "emory.nikolaus@example.com",
+      "phone": "(312) 555-0152"
+    },
+    {
+      "id": "reichert-arch",
+      "household": "reichert",
+      "first": "Arch",
+      "last": "Reichert",
+      "email": "arch.reichert@example.com",
+      "phone": "(404) 555-0153"
+    },
+    {
+      "id": "reichert-mylene",
+      "household": "reichert",
+      "first": "Mylene",
+      "last": "Reichert",
+      "email": "mylene.reichert@example.com",
+      "phone": "(503) 555-0154"
+    },
+    {
+      "id": "adams-brennan",
+      "household": "adams",
+      "first": "Brennan",
+      "last": "Adams",
+      "email": "brennan.adams@example.com",
+      "phone": "(512) 555-0155"
+    },
+    {
+      "id": "adams-esta",
+      "household": "adams",
+      "first": "Esta",
+      "last": "Adams",
+      "email": "esta.adams@example.com",
+      "phone": "(612) 555-0156"
+    },
+    {
+      "id": "rosenbaum-reanna",
+      "household": "rosenbaum",
+      "first": "Reanna",
+      "last": "Rosenbaum",
+      "email": "reanna.rosenbaum@example.com",
+      "phone": "(617) 555-0157"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "acct-001",
+      "number": "DEMO-113317",
+      "household": "alvarez",
+      "type": "joint-taxable",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 612400
+    },
+    {
+      "id": "acct-002",
+      "number": "DEMO-128820",
+      "household": "alvarez",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 148900
+    },
+    {
+      "id": "acct-003",
+      "number": "DEMO-134410",
+      "household": "alvarez",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 402150
+    },
+    {
+      "id": "acct-004",
+      "number": "DEMO-142290",
+      "household": "okafor",
+      "type": "joint-taxable",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 412880
+    },
+    {
+      "id": "acct-005",
+      "number": "DEMO-155106",
+      "household": "chen-ashby",
+      "type": "joint-taxable",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 331050
+    },
+    {
+      "id": "acct-006",
+      "number": "DEMO-166630",
+      "household": "patel-trust",
+      "type": "trust",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 1120300
+    },
+    {
+      "id": "acct-007",
+      "number": "DEMO-177714",
+      "household": "lindqvist",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 486200
+    },
+    {
+      "id": "acct-008",
+      "number": "DEMO-187721",
+      "household": "lindqvist",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 58200
+    },
+    {
+      "id": "acct-009",
+      "number": "DEMO-191188",
+      "household": "brennan",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 205770
+    },
+    {
+      "id": "acct-010",
+      "number": "DEMO-201195",
+      "household": "brennan",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 318400
+    },
+    {
+      "id": "acct-011",
+      "number": "DEMO-214402",
+      "household": "nakamura",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 284100
+    },
+    {
+      "id": "acct-012",
+      "number": "DEMO-229031",
+      "household": "morgan",
+      "type": "joint-taxable",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 96450
+    },
+    {
+      "id": "acct-013",
+      "number": "DEMO-232257",
+      "household": "rossi",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 127600
+    },
+    {
+      "id": "acct-014",
+      "number": "DEMO-243840",
+      "household": "delgado-trust",
+      "type": "trust",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 640000
+    },
+    {
+      "id": "acct-015",
+      "number": "DEMO-252785",
+      "household": "hayes",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 711100
+    },
+    {
+      "id": "acct-016",
+      "number": "DEMO-261704",
+      "household": "hayes",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 285150
+    },
+    {
+      "id": "acct-017",
+      "number": "DEMO-279623",
+      "household": "goyette",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 560650
+    },
+    {
+      "id": "acct-018",
+      "number": "DEMO-288542",
+      "household": "goyette",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 753700
+    },
+    {
+      "id": "acct-019",
+      "number": "DEMO-297461",
+      "household": "goyette",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 209250
+    },
+    {
+      "id": "acct-020",
+      "number": "DEMO-306380",
+      "household": "abbott",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 668550
+    },
+    {
+      "id": "acct-021",
+      "number": "DEMO-315299",
+      "household": "abbott",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 961500
+    },
+    {
+      "id": "acct-022",
+      "number": "DEMO-324218",
+      "household": "abbott",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 770900
+    },
+    {
+      "id": "acct-023",
+      "number": "DEMO-333137",
+      "household": "kirlin",
+      "type": "joint-taxable",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 937850
+    },
+    {
+      "id": "acct-024",
+      "number": "DEMO-342056",
+      "household": "kirlin",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 147000
+    },
+    {
+      "id": "acct-025",
+      "number": "DEMO-359975",
+      "household": "kirlin",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 1340550
+    },
+    {
+      "id": "acct-026",
+      "number": "DEMO-368894",
+      "household": "rau",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 894050
+    },
+    {
+      "id": "acct-027",
+      "number": "DEMO-377813",
+      "household": "rau",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 265900
+    },
+    {
+      "id": "acct-028",
+      "number": "DEMO-386732",
+      "household": "mayer",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 729050
+    },
+    {
+      "id": "acct-029",
+      "number": "DEMO-395651",
+      "household": "mayer",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 477800
+    },
+    {
+      "id": "acct-030",
+      "number": "DEMO-404570",
+      "household": "mayer",
+      "type": "joint-taxable",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 1250350
+    },
+    {
+      "id": "acct-031",
+      "number": "DEMO-413489",
+      "household": "friesen",
+      "type": "joint-taxable",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 446000
+    },
+    {
+      "id": "acct-032",
+      "number": "DEMO-422408",
+      "household": "friesen",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 614600
+    },
+    {
+      "id": "acct-033",
+      "number": "DEMO-431327",
+      "household": "friesen",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 1215200
+    },
+    {
+      "id": "acct-034",
+      "number": "DEMO-449246",
+      "household": "spencer",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 29150
+    },
+    {
+      "id": "acct-035",
+      "number": "DEMO-458165",
+      "household": "spencer",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 134900
+    },
+    {
+      "id": "acct-036",
+      "number": "DEMO-467084",
+      "household": "spencer",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 1332350
+    },
+    {
+      "id": "acct-037",
+      "number": "DEMO-476003",
+      "household": "rice",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 1240600
+    },
+    {
+      "id": "acct-038",
+      "number": "DEMO-484922",
+      "household": "rice",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 792800
+    },
+    {
+      "id": "acct-039",
+      "number": "DEMO-493841",
+      "household": "bode",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 1189250
+    },
+    {
+      "id": "acct-040",
+      "number": "DEMO-502760",
+      "household": "bode",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 623050
+    },
+    {
+      "id": "acct-041",
+      "number": "DEMO-511679",
+      "household": "bode",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 1286550
+    },
+    {
+      "id": "acct-042",
+      "number": "DEMO-529598",
+      "household": "schaden",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 1380400
+    },
+    {
+      "id": "acct-043",
+      "number": "DEMO-538517",
+      "household": "schaden",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 106100
+    },
+    {
+      "id": "acct-044",
+      "number": "DEMO-547436",
+      "household": "herman",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 819900
+    },
+    {
+      "id": "acct-045",
+      "number": "DEMO-556355",
+      "household": "herman",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 803050
+    },
+    {
+      "id": "acct-046",
+      "number": "DEMO-565274",
+      "household": "carroll",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 599950
+    },
+    {
+      "id": "acct-047",
+      "number": "DEMO-574193",
+      "household": "carroll",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 1318000
+    },
+    {
+      "id": "acct-048",
+      "number": "DEMO-583112",
+      "household": "schinner",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 291950
+    },
+    {
+      "id": "acct-049",
+      "number": "DEMO-592031",
+      "household": "schinner",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 732900
+    },
+    {
+      "id": "acct-050",
+      "number": "DEMO-609950",
+      "household": "schinner",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 93450
+    },
+    {
+      "id": "acct-051",
+      "number": "DEMO-618869",
+      "household": "ohara",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 1230350
+    },
+    {
+      "id": "acct-052",
+      "number": "DEMO-627788",
+      "household": "ohara",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 1258450
+    },
+    {
+      "id": "acct-053",
+      "number": "DEMO-636707",
+      "household": "ohara",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 1012400
+    },
+    {
+      "id": "acct-054",
+      "number": "DEMO-645626",
+      "household": "howell",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 713950
+    },
+    {
+      "id": "acct-055",
+      "number": "DEMO-654545",
+      "household": "howell",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 887250
+    },
+    {
+      "id": "acct-056",
+      "number": "DEMO-663464",
+      "household": "howell",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 234650
+    },
+    {
+      "id": "acct-057",
+      "number": "DEMO-672383",
+      "household": "franey",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 1349750
+    },
+    {
+      "id": "acct-058",
+      "number": "DEMO-681302",
+      "household": "franey",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 492300
+    },
+    {
+      "id": "acct-059",
+      "number": "DEMO-699221",
+      "household": "franey",
+      "type": "joint-taxable",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 538900
+    },
+    {
+      "id": "acct-060",
+      "number": "DEMO-708140",
+      "household": "walker",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 384700
+    },
+    {
+      "id": "acct-061",
+      "number": "DEMO-717059",
+      "household": "walker",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 460000
+    },
+    {
+      "id": "acct-062",
+      "number": "DEMO-725978",
+      "household": "walker",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 1306500
+    },
+    {
+      "id": "acct-063",
+      "number": "DEMO-734897",
+      "household": "kuhlman",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 802500
+    },
+    {
+      "id": "acct-064",
+      "number": "DEMO-743816",
+      "household": "kuhlman",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 632550
+    },
+    {
+      "id": "acct-065",
+      "number": "DEMO-752735",
+      "household": "nitzsche",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 1250000
+    },
+    {
+      "id": "acct-066",
+      "number": "DEMO-761654",
+      "household": "nitzsche",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 969800
+    },
+    {
+      "id": "acct-067",
+      "number": "DEMO-779573",
+      "household": "schmeler",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 941600
+    },
+    {
+      "id": "acct-068",
+      "number": "DEMO-788492",
+      "household": "schmeler",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 992450
+    },
+    {
+      "id": "acct-069",
+      "number": "DEMO-797411",
+      "household": "crooks",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 477650
+    },
+    {
+      "id": "acct-070",
+      "number": "DEMO-806330",
+      "household": "crooks",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 843750
+    },
+    {
+      "id": "acct-071",
+      "number": "DEMO-815249",
+      "household": "crooks",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 625200
+    },
+    {
+      "id": "acct-072",
+      "number": "DEMO-824168",
+      "household": "murray",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 262050
+    },
+    {
+      "id": "acct-073",
+      "number": "DEMO-833087",
+      "household": "murray",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 907400
+    },
+    {
+      "id": "acct-074",
+      "number": "DEMO-842006",
+      "household": "murray",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 1125600
+    },
+    {
+      "id": "acct-075",
+      "number": "DEMO-859925",
+      "household": "harvey",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 915300
+    },
+    {
+      "id": "acct-076",
+      "number": "DEMO-868844",
+      "household": "harvey",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 620350
+    },
+    {
+      "id": "acct-077",
+      "number": "DEMO-877763",
+      "household": "harvey",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 324350
+    },
+    {
+      "id": "acct-078",
+      "number": "DEMO-886682",
+      "household": "cole",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 829000
+    },
+    {
+      "id": "acct-079",
+      "number": "DEMO-895601",
+      "household": "cole",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 636200
+    },
+    {
+      "id": "acct-080",
+      "number": "DEMO-904520",
+      "household": "cole",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 1258100
+    },
+    {
+      "id": "acct-081",
+      "number": "DEMO-913439",
+      "household": "oreilly",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 177850
+    },
+    {
+      "id": "acct-082",
+      "number": "DEMO-922358",
+      "household": "oreilly",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 1235150
+    },
+    {
+      "id": "acct-083",
+      "number": "DEMO-931277",
+      "household": "oreilly",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 864600
+    },
+    {
+      "id": "acct-084",
+      "number": "DEMO-949196",
+      "household": "nikolaus",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 175150
+    },
+    {
+      "id": "acct-085",
+      "number": "DEMO-958115",
+      "household": "nikolaus",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 113400
+    },
+    {
+      "id": "acct-086",
+      "number": "DEMO-967034",
+      "household": "nikolaus",
+      "type": "sep-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 384750
+    },
+    {
+      "id": "acct-087",
+      "number": "DEMO-975953",
+      "household": "reichert",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 749100
+    },
+    {
+      "id": "acct-088",
+      "number": "DEMO-984872",
+      "household": "reichert",
+      "type": "individual",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 559500
+    },
+    {
+      "id": "acct-089",
+      "number": "DEMO-993791",
+      "household": "reichert",
+      "type": "joint-taxable",
+      "custodian": "apex",
+      "model": "meridian-income",
+      "value": 750150
+    },
+    {
+      "id": "acct-090",
+      "number": "DEMO-102710",
+      "household": "adams",
+      "type": "roth-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 865850
+    },
+    {
+      "id": "acct-091",
+      "number": "DEMO-111629",
+      "household": "adams",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-balanced-60-40",
+      "value": 1176200
+    },
+    {
+      "id": "acct-092",
+      "number": "DEMO-129548",
+      "household": "rosenbaum",
+      "type": "rollover-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 1068300
+    },
+    {
+      "id": "acct-093",
+      "number": "DEMO-138467",
+      "household": "rosenbaum",
+      "type": "traditional-ira",
+      "custodian": "apex",
+      "model": "meridian-growth-80-20",
+      "value": 550050
+    }
+  ],
+  "holdings": [
+    {
+      "account": "acct-001",
+      "symbol": "VTI",
+      "quantity": 788,
+      "value": 232460
+    },
+    {
+      "account": "acct-001",
+      "symbol": "VXUS",
+      "quantity": 1480,
+      "value": 97976
+    },
+    {
+      "account": "acct-001",
+      "symbol": "AVUV",
+      "quantity": 372,
+      "value": 36735
+    },
+    {
+      "account": "acct-001",
+      "symbol": "BND",
+      "quantity": 1843,
+      "value": 134723.3
+    },
+    {
+      "account": "acct-001",
+      "symbol": "VGSH",
+      "quantity": 834,
+      "value": 48955.8
+    },
+    {
+      "account": "acct-001",
+      "symbol": "VTEB",
+      "quantity": 852,
+      "value": 42855.6
+    },
+    {
+      "account": "acct-001",
+      "symbol": "SWVXX",
+      "quantity": 18694.3,
+      "value": 18694.3
+    },
+    {
+      "account": "acct-002",
+      "symbol": "VTI",
+      "quantity": 191,
+      "value": 56345
+    },
+    {
+      "account": "acct-002",
+      "symbol": "VXUS",
+      "quantity": 359,
+      "value": 23765.8
+    },
+    {
+      "account": "acct-002",
+      "symbol": "AVUV",
+      "quantity": 90,
+      "value": 8887.5
+    },
+    {
+      "account": "acct-002",
+      "symbol": "BND",
+      "quantity": 448,
+      "value": 32748.8
+    },
+    {
+      "account": "acct-002",
+      "symbol": "VGSH",
+      "quantity": 202,
+      "value": 11857.4
+    },
+    {
+      "account": "acct-002",
+      "symbol": "VTEB",
+      "quantity": 207,
+      "value": 10412.1
+    },
+    {
+      "account": "acct-002",
+      "symbol": "SWVXX",
+      "quantity": 4883.4,
+      "value": 4883.4
+    },
+    {
+      "account": "acct-003",
+      "symbol": "VTI",
+      "quantity": 518,
+      "value": 152810
+    },
+    {
+      "account": "acct-003",
+      "symbol": "VXUS",
+      "quantity": 971,
+      "value": 64280.2
+    },
+    {
+      "account": "acct-003",
+      "symbol": "AVUV",
+      "quantity": 244,
+      "value": 24095
+    },
+    {
+      "account": "acct-003",
+      "symbol": "BND",
+      "quantity": 1210,
+      "value": 88451
+    },
+    {
+      "account": "acct-003",
+      "symbol": "VGSH",
+      "quantity": 548,
+      "value": 32167.6
+    },
+    {
+      "account": "acct-003",
+      "symbol": "VTEB",
+      "quantity": 559,
+      "value": 28117.7
+    },
+    {
+      "account": "acct-003",
+      "symbol": "SWVXX",
+      "quantity": 12228.5,
+      "value": 12228.5
+    },
+    {
+      "account": "acct-004",
+      "symbol": "VTI",
+      "quantity": 699,
+      "value": 206205
+    },
+    {
+      "account": "acct-004",
+      "symbol": "VXUS",
+      "quantity": 1122,
+      "value": 74276.4
+    },
+    {
+      "account": "acct-004",
+      "symbol": "AVUV",
+      "quantity": 334,
+      "value": 32982.5
+    },
+    {
+      "account": "acct-004",
+      "symbol": "VNQ",
+      "quantity": 184,
+      "value": 16449.6
+    },
+    {
+      "account": "acct-004",
+      "symbol": "BND",
+      "quantity": 903,
+      "value": 66009.3
+    },
+    {
+      "account": "acct-004",
+      "symbol": "VGSH",
+      "quantity": 140,
+      "value": 8218
+    },
+    {
+      "account": "acct-004",
+      "symbol": "SWVXX",
+      "quantity": 8739.2,
+      "value": 8739.2
+    },
+    {
+      "account": "acct-005",
+      "symbol": "VTI",
+      "quantity": 561,
+      "value": 165495
+    },
+    {
+      "account": "acct-005",
+      "symbol": "VXUS",
+      "quantity": 900,
+      "value": 59580
+    },
+    {
+      "account": "acct-005",
+      "symbol": "AVUV",
+      "quantity": 268,
+      "value": 26465
+    },
+    {
+      "account": "acct-005",
+      "symbol": "VNQ",
+      "quantity": 148,
+      "value": 13231.2
+    },
+    {
+      "account": "acct-005",
+      "symbol": "BND",
+      "quantity": 724,
+      "value": 52924.4
+    },
+    {
+      "account": "acct-005",
+      "symbol": "VGSH",
+      "quantity": 112,
+      "value": 6574.4
+    },
+    {
+      "account": "acct-005",
+      "symbol": "SWVXX",
+      "quantity": 6780,
+      "value": 6780
+    },
+    {
+      "account": "acct-006",
+      "symbol": "VTI",
+      "quantity": 1443,
+      "value": 425685
+    },
+    {
+      "account": "acct-006",
+      "symbol": "VXUS",
+      "quantity": 2707,
+      "value": 179203.4
+    },
+    {
+      "account": "acct-006",
+      "symbol": "AVUV",
+      "quantity": 680,
+      "value": 67150
+    },
+    {
+      "account": "acct-006",
+      "symbol": "BND",
+      "quantity": 3371,
+      "value": 246420.1
+    },
+    {
+      "account": "acct-006",
+      "symbol": "VGSH",
+      "quantity": 1526,
+      "value": 89576.2
+    },
+    {
+      "account": "acct-006",
+      "symbol": "VTEB",
+      "quantity": 1559,
+      "value": 78417.7
+    },
+    {
+      "account": "acct-006",
+      "symbol": "SWVXX",
+      "quantity": 33847.6,
+      "value": 33847.6
+    },
+    {
+      "account": "acct-007",
+      "symbol": "VTI",
+      "quantity": 296,
+      "value": 87320
+    },
+    {
+      "account": "acct-007",
+      "symbol": "VXUS",
+      "quantity": 514,
+      "value": 34026.8
+    },
+    {
+      "account": "acct-007",
+      "symbol": "BND",
+      "quantity": 2327,
+      "value": 170103.7
+    },
+    {
+      "account": "acct-007",
+      "symbol": "VGSH",
+      "quantity": 1242,
+      "value": 72905.4
+    },
+    {
+      "account": "acct-007",
+      "symbol": "VTEB",
+      "quantity": 1449,
+      "value": 72884.7
+    },
+    {
+      "account": "acct-007",
+      "symbol": "VCSH",
+      "quantity": 306,
+      "value": 24265.8
+    },
+    {
+      "account": "acct-007",
+      "symbol": "SWVXX",
+      "quantity": 24693.6,
+      "value": 24693.6
+    },
+    {
+      "account": "acct-008",
+      "symbol": "VTI",
+      "quantity": 35,
+      "value": 10325
+    },
+    {
+      "account": "acct-008",
+      "symbol": "VXUS",
+      "quantity": 61,
+      "value": 4038.2
+    },
+    {
+      "account": "acct-008",
+      "symbol": "BND",
+      "quantity": 278,
+      "value": 20321.8
+    },
+    {
+      "account": "acct-008",
+      "symbol": "VGSH",
+      "quantity": 148,
+      "value": 8687.6
+    },
+    {
+      "account": "acct-008",
+      "symbol": "VTEB",
+      "quantity": 173,
+      "value": 8701.9
+    },
+    {
+      "account": "acct-008",
+      "symbol": "VCSH",
+      "quantity": 36,
+      "value": 2854.8
+    },
+    {
+      "account": "acct-008",
+      "symbol": "SWVXX",
+      "quantity": 3270.7,
+      "value": 3270.7
+    },
+    {
+      "account": "acct-009",
+      "symbol": "VTI",
+      "quantity": 265,
+      "value": 78175
+    },
+    {
+      "account": "acct-009",
+      "symbol": "VXUS",
+      "quantity": 497,
+      "value": 32901.4
+    },
+    {
+      "account": "acct-009",
+      "symbol": "AVUV",
+      "quantity": 125,
+      "value": 12343.75
+    },
+    {
+      "account": "acct-009",
+      "symbol": "BND",
+      "quantity": 619,
+      "value": 45248.9
+    },
+    {
+      "account": "acct-009",
+      "symbol": "VGSH",
+      "quantity": 280,
+      "value": 16436
+    },
+    {
+      "account": "acct-009",
+      "symbol": "VTEB",
+      "quantity": 286,
+      "value": 14385.8
+    },
+    {
+      "account": "acct-009",
+      "symbol": "SWVXX",
+      "quantity": 6279.15,
+      "value": 6279.15
+    },
+    {
+      "account": "acct-010",
+      "symbol": "VTI",
+      "quantity": 410,
+      "value": 120950
+    },
+    {
+      "account": "acct-010",
+      "symbol": "VXUS",
+      "quantity": 769,
+      "value": 50907.8
+    },
+    {
+      "account": "acct-010",
+      "symbol": "AVUV",
+      "quantity": 193,
+      "value": 19058.75
+    },
+    {
+      "account": "acct-010",
+      "symbol": "BND",
+      "quantity": 958,
+      "value": 70029.8
+    },
+    {
+      "account": "acct-010",
+      "symbol": "VGSH",
+      "quantity": 433,
+      "value": 25417.1
+    },
+    {
+      "account": "acct-010",
+      "symbol": "VTEB",
+      "quantity": 443,
+      "value": 22282.9
+    },
+    {
+      "account": "acct-010",
+      "symbol": "SWVXX",
+      "quantity": 9753.65,
+      "value": 9753.65
+    },
+    {
+      "account": "acct-011",
+      "symbol": "VTI",
+      "quantity": 365,
+      "value": 107675
+    },
+    {
+      "account": "acct-011",
+      "symbol": "VXUS",
+      "quantity": 686,
+      "value": 45413.2
+    },
+    {
+      "account": "acct-011",
+      "symbol": "AVUV",
+      "quantity": 172,
+      "value": 16985
+    },
+    {
+      "account": "acct-011",
+      "symbol": "BND",
+      "quantity": 855,
+      "value": 62500.5
+    },
+    {
+      "account": "acct-011",
+      "symbol": "VGSH",
+      "quantity": 387,
+      "value": 22716.9
+    },
+    {
+      "account": "acct-011",
+      "symbol": "VTEB",
+      "quantity": 395,
+      "value": 19868.5
+    },
+    {
+      "account": "acct-011",
+      "symbol": "SWVXX",
+      "quantity": 8940.9,
+      "value": 8940.9
+    },
+    {
+      "account": "acct-012",
+      "symbol": "VTI",
+      "quantity": 58,
+      "value": 17110
+    },
+    {
+      "account": "acct-012",
+      "symbol": "VXUS",
+      "quantity": 101,
+      "value": 6686.2
+    },
+    {
+      "account": "acct-012",
+      "symbol": "BND",
+      "quantity": 461,
+      "value": 33699.1
+    },
+    {
+      "account": "acct-012",
+      "symbol": "VGSH",
+      "quantity": 246,
+      "value": 14440.2
+    },
+    {
+      "account": "acct-012",
+      "symbol": "VTEB",
+      "quantity": 287,
+      "value": 14436.1
+    },
+    {
+      "account": "acct-012",
+      "symbol": "VCSH",
+      "quantity": 60,
+      "value": 4758
+    },
+    {
+      "account": "acct-012",
+      "symbol": "SWVXX",
+      "quantity": 5320.4,
+      "value": 5320.4
+    },
+    {
+      "account": "acct-013",
+      "symbol": "VTI",
+      "quantity": 216,
+      "value": 63720
+    },
+    {
+      "account": "acct-013",
+      "symbol": "VXUS",
+      "quantity": 346,
+      "value": 22905.2
+    },
+    {
+      "account": "acct-013",
+      "symbol": "AVUV",
+      "quantity": 103,
+      "value": 10171.25
+    },
+    {
+      "account": "acct-013",
+      "symbol": "VNQ",
+      "quantity": 57,
+      "value": 5095.8
+    },
+    {
+      "account": "acct-013",
+      "symbol": "BND",
+      "quantity": 279,
+      "value": 20394.9
+    },
+    {
+      "account": "acct-013",
+      "symbol": "VGSH",
+      "quantity": 43,
+      "value": 2524.1
+    },
+    {
+      "account": "acct-013",
+      "symbol": "SWVXX",
+      "quantity": 2788.75,
+      "value": 2788.75
+    },
+    {
+      "account": "acct-014",
+      "symbol": "VTI",
+      "quantity": 390,
+      "value": 115050
+    },
+    {
+      "account": "acct-014",
+      "symbol": "VXUS",
+      "quantity": 676,
+      "value": 44751.2
+    },
+    {
+      "account": "acct-014",
+      "symbol": "BND",
+      "quantity": 3064,
+      "value": 223978.4
+    },
+    {
+      "account": "acct-014",
+      "symbol": "VGSH",
+      "quantity": 1635,
+      "value": 95974.5
+    },
+    {
+      "account": "acct-014",
+      "symbol": "VTEB",
+      "quantity": 1908,
+      "value": 95972.4
+    },
+    {
+      "account": "acct-014",
+      "symbol": "VCSH",
+      "quantity": 403,
+      "value": 31957.9
+    },
+    {
+      "account": "acct-014",
+      "symbol": "SWVXX",
+      "quantity": 32315.6,
+      "value": 32315.6
+    },
+    {
+      "account": "acct-015",
+      "symbol": "VTI",
+      "quantity": 1205,
+      "value": 355475
+    },
+    {
+      "account": "acct-015",
+      "symbol": "VXUS",
+      "quantity": 1933,
+      "value": 127964.6
+    },
+    {
+      "account": "acct-015",
+      "symbol": "AVUV",
+      "quantity": 576,
+      "value": 56880
+    },
+    {
+      "account": "acct-015",
+      "symbol": "VNQ",
+      "quantity": 318,
+      "value": 28429.2
+    },
+    {
+      "account": "acct-015",
+      "symbol": "BND",
+      "quantity": 1556,
+      "value": 113743.6
+    },
+    {
+      "account": "acct-015",
+      "symbol": "VGSH",
+      "quantity": 242,
+      "value": 14205.4
+    },
+    {
+      "account": "acct-015",
+      "symbol": "SWVXX",
+      "quantity": 14402.2,
+      "value": 14402.2
+    },
+    {
+      "account": "acct-016",
+      "symbol": "VTI",
+      "quantity": 483,
+      "value": 142485
+    },
+    {
+      "account": "acct-016",
+      "symbol": "VXUS",
+      "quantity": 775,
+      "value": 51305
+    },
+    {
+      "account": "acct-016",
+      "symbol": "AVUV",
+      "quantity": 231,
+      "value": 22811.25
+    },
+    {
+      "account": "acct-016",
+      "symbol": "VNQ",
+      "quantity": 127,
+      "value": 11353.8
+    },
+    {
+      "account": "acct-016",
+      "symbol": "BND",
+      "quantity": 624,
+      "value": 45614.4
+    },
+    {
+      "account": "acct-016",
+      "symbol": "VGSH",
+      "quantity": 97,
+      "value": 5693.9
+    },
+    {
+      "account": "acct-016",
+      "symbol": "SWVXX",
+      "quantity": 5886.65,
+      "value": 5886.65
+    },
+    {
+      "account": "acct-017",
+      "symbol": "VTI",
+      "quantity": 342,
+      "value": 100890
+    },
+    {
+      "account": "acct-017",
+      "symbol": "VXUS",
+      "quantity": 592,
+      "value": 39190.4
+    },
+    {
+      "account": "acct-017",
+      "symbol": "BND",
+      "quantity": 2684,
+      "value": 196200.4
+    },
+    {
+      "account": "acct-017",
+      "symbol": "VGSH",
+      "quantity": 1432,
+      "value": 84058.4
+    },
+    {
+      "account": "acct-017",
+      "symbol": "VTEB",
+      "quantity": 1671,
+      "value": 84051.3
+    },
+    {
+      "account": "acct-017",
+      "symbol": "VCSH",
+      "quantity": 353,
+      "value": 27992.9
+    },
+    {
+      "account": "acct-017",
+      "symbol": "SWVXX",
+      "quantity": 28266.6,
+      "value": 28266.6
+    },
+    {
+      "account": "acct-018",
+      "symbol": "VTI",
+      "quantity": 459,
+      "value": 135405
+    },
+    {
+      "account": "acct-018",
+      "symbol": "VXUS",
+      "quantity": 796,
+      "value": 52695.2
+    },
+    {
+      "account": "acct-018",
+      "symbol": "BND",
+      "quantity": 3608,
+      "value": 263744.8
+    },
+    {
+      "account": "acct-018",
+      "symbol": "VGSH",
+      "quantity": 1925,
+      "value": 112997.5
+    },
+    {
+      "account": "acct-018",
+      "symbol": "VTEB",
+      "quantity": 2247,
+      "value": 113024.1
+    },
+    {
+      "account": "acct-018",
+      "symbol": "VCSH",
+      "quantity": 475,
+      "value": 37667.5
+    },
+    {
+      "account": "acct-018",
+      "symbol": "SWVXX",
+      "quantity": 38165.9,
+      "value": 38165.9
+    },
+    {
+      "account": "acct-019",
+      "symbol": "VTI",
+      "quantity": 127,
+      "value": 37465
+    },
+    {
+      "account": "acct-019",
+      "symbol": "VXUS",
+      "quantity": 221,
+      "value": 14630.2
+    },
+    {
+      "account": "acct-019",
+      "symbol": "BND",
+      "quantity": 1001,
+      "value": 73173.1
+    },
+    {
+      "account": "acct-019",
+      "symbol": "VGSH",
+      "quantity": 534,
+      "value": 31345.8
+    },
+    {
+      "account": "acct-019",
+      "symbol": "VTEB",
+      "quantity": 624,
+      "value": 31387.2
+    },
+    {
+      "account": "acct-019",
+      "symbol": "VCSH",
+      "quantity": 131,
+      "value": 10388.3
+    },
+    {
+      "account": "acct-019",
+      "symbol": "SWVXX",
+      "quantity": 10860.4,
+      "value": 10860.4
+    },
+    {
+      "account": "acct-020",
+      "symbol": "VTI",
+      "quantity": 407,
+      "value": 120065
+    },
+    {
+      "account": "acct-020",
+      "symbol": "VXUS",
+      "quantity": 706,
+      "value": 46737.2
+    },
+    {
+      "account": "acct-020",
+      "symbol": "BND",
+      "quantity": 3200,
+      "value": 233920
+    },
+    {
+      "account": "acct-020",
+      "symbol": "VGSH",
+      "quantity": 1708,
+      "value": 100259.6
+    },
+    {
+      "account": "acct-020",
+      "symbol": "VTEB",
+      "quantity": 1993,
+      "value": 100247.9
+    },
+    {
+      "account": "acct-020",
+      "symbol": "VCSH",
+      "quantity": 421,
+      "value": 33385.3
+    },
+    {
+      "account": "acct-020",
+      "symbol": "SWVXX",
+      "quantity": 33935,
+      "value": 33935
+    },
+    {
+      "account": "acct-021",
+      "symbol": "VTI",
+      "quantity": 586,
+      "value": 172870
+    },
+    {
+      "account": "acct-021",
+      "symbol": "VXUS",
+      "quantity": 1016,
+      "value": 67259.2
+    },
+    {
+      "account": "acct-021",
+      "symbol": "BND",
+      "quantity": 4603,
+      "value": 336479.3
+    },
+    {
+      "account": "acct-021",
+      "symbol": "VGSH",
+      "quantity": 2456,
+      "value": 144167.2
+    },
+    {
+      "account": "acct-021",
+      "symbol": "VTEB",
+      "quantity": 2867,
+      "value": 144210.1
+    },
+    {
+      "account": "acct-021",
+      "symbol": "VCSH",
+      "quantity": 606,
+      "value": 48055.8
+    },
+    {
+      "account": "acct-021",
+      "symbol": "SWVXX",
+      "quantity": 48458.4,
+      "value": 48458.4
+    },
+    {
+      "account": "acct-022",
+      "symbol": "VTI",
+      "quantity": 470,
+      "value": 138650
+    },
+    {
+      "account": "acct-022",
+      "symbol": "VXUS",
+      "quantity": 815,
+      "value": 53953
+    },
+    {
+      "account": "acct-022",
+      "symbol": "BND",
+      "quantity": 3691,
+      "value": 269812.1
+    },
+    {
+      "account": "acct-022",
+      "symbol": "VGSH",
+      "quantity": 1969,
+      "value": 115580.3
+    },
+    {
+      "account": "acct-022",
+      "symbol": "VTEB",
+      "quantity": 2298,
+      "value": 115589.4
+    },
+    {
+      "account": "acct-022",
+      "symbol": "VCSH",
+      "quantity": 486,
+      "value": 38539.8
+    },
+    {
+      "account": "acct-022",
+      "symbol": "SWVXX",
+      "quantity": 38775.4,
+      "value": 38775.4
+    },
+    {
+      "account": "acct-023",
+      "symbol": "VTI",
+      "quantity": 572,
+      "value": 168740
+    },
+    {
+      "account": "acct-023",
+      "symbol": "VXUS",
+      "quantity": 991,
+      "value": 65604.2
+    },
+    {
+      "account": "acct-023",
+      "symbol": "BND",
+      "quantity": 4490,
+      "value": 328219
+    },
+    {
+      "account": "acct-023",
+      "symbol": "VGSH",
+      "quantity": 2396,
+      "value": 140645.2
+    },
+    {
+      "account": "acct-023",
+      "symbol": "VTEB",
+      "quantity": 2796,
+      "value": 140638.8
+    },
+    {
+      "account": "acct-023",
+      "symbol": "VCSH",
+      "quantity": 591,
+      "value": 46866.3
+    },
+    {
+      "account": "acct-023",
+      "symbol": "SWVXX",
+      "quantity": 47136.5,
+      "value": 47136.5
+    },
+    {
+      "account": "acct-024",
+      "symbol": "VTI",
+      "quantity": 89,
+      "value": 26255
+    },
+    {
+      "account": "acct-024",
+      "symbol": "VXUS",
+      "quantity": 155,
+      "value": 10261
+    },
+    {
+      "account": "acct-024",
+      "symbol": "BND",
+      "quantity": 703,
+      "value": 51389.3
+    },
+    {
+      "account": "acct-024",
+      "symbol": "VGSH",
+      "quantity": 375,
+      "value": 22012.5
+    },
+    {
+      "account": "acct-024",
+      "symbol": "VTEB",
+      "quantity": 438,
+      "value": 22031.4
+    },
+    {
+      "account": "acct-024",
+      "symbol": "VCSH",
+      "quantity": 92,
+      "value": 7295.6
+    },
+    {
+      "account": "acct-024",
+      "symbol": "SWVXX",
+      "quantity": 7755.2,
+      "value": 7755.2
+    },
+    {
+      "account": "acct-025",
+      "symbol": "VTI",
+      "quantity": 817,
+      "value": 241015
+    },
+    {
+      "account": "acct-025",
+      "symbol": "VXUS",
+      "quantity": 1417,
+      "value": 93805.4
+    },
+    {
+      "account": "acct-025",
+      "symbol": "BND",
+      "quantity": 6418,
+      "value": 469155.8
+    },
+    {
+      "account": "acct-025",
+      "symbol": "VGSH",
+      "quantity": 3425,
+      "value": 201047.5
+    },
+    {
+      "account": "acct-025",
+      "symbol": "VTEB",
+      "quantity": 3997,
+      "value": 201049.1
+    },
+    {
+      "account": "acct-025",
+      "symbol": "VCSH",
+      "quantity": 845,
+      "value": 67008.5
+    },
+    {
+      "account": "acct-025",
+      "symbol": "SWVXX",
+      "quantity": 67468.7,
+      "value": 67468.7
+    },
+    {
+      "account": "acct-026",
+      "symbol": "VTI",
+      "quantity": 1515,
+      "value": 446925
+    },
+    {
+      "account": "acct-026",
+      "symbol": "VXUS",
+      "quantity": 2430,
+      "value": 160866
+    },
+    {
+      "account": "acct-026",
+      "symbol": "AVUV",
+      "quantity": 724,
+      "value": 71495
+    },
+    {
+      "account": "acct-026",
+      "symbol": "VNQ",
+      "quantity": 400,
+      "value": 35760
+    },
+    {
+      "account": "acct-026",
+      "symbol": "BND",
+      "quantity": 1956,
+      "value": 142983.6
+    },
+    {
+      "account": "acct-026",
+      "symbol": "VGSH",
+      "quantity": 304,
+      "value": 17844.8
+    },
+    {
+      "account": "acct-026",
+      "symbol": "SWVXX",
+      "quantity": 18175.6,
+      "value": 18175.6
+    },
+    {
+      "account": "acct-027",
+      "symbol": "VTI",
+      "quantity": 450,
+      "value": 132750
+    },
+    {
+      "account": "acct-027",
+      "symbol": "VXUS",
+      "quantity": 722,
+      "value": 47796.4
+    },
+    {
+      "account": "acct-027",
+      "symbol": "AVUV",
+      "quantity": 215,
+      "value": 21231.25
+    },
+    {
+      "account": "acct-027",
+      "symbol": "VNQ",
+      "quantity": 118,
+      "value": 10549.2
+    },
+    {
+      "account": "acct-027",
+      "symbol": "BND",
+      "quantity": 581,
+      "value": 42471.1
+    },
+    {
+      "account": "acct-027",
+      "symbol": "VGSH",
+      "quantity": 90,
+      "value": 5283
+    },
+    {
+      "account": "acct-027",
+      "symbol": "SWVXX",
+      "quantity": 5819.05,
+      "value": 5819.05
+    },
+    {
+      "account": "acct-028",
+      "symbol": "VTI",
+      "quantity": 1235,
+      "value": 364325
+    },
+    {
+      "account": "acct-028",
+      "symbol": "VXUS",
+      "quantity": 1982,
+      "value": 131208.4
+    },
+    {
+      "account": "acct-028",
+      "symbol": "AVUV",
+      "quantity": 590,
+      "value": 58262.5
+    },
+    {
+      "account": "acct-028",
+      "symbol": "VNQ",
+      "quantity": 326,
+      "value": 29144.4
+    },
+    {
+      "account": "acct-028",
+      "symbol": "BND",
+      "quantity": 1595,
+      "value": 116594.5
+    },
+    {
+      "account": "acct-028",
+      "symbol": "VGSH",
+      "quantity": 248,
+      "value": 14557.6
+    },
+    {
+      "account": "acct-028",
+      "symbol": "SWVXX",
+      "quantity": 14957.6,
+      "value": 14957.6
+    },
+    {
+      "account": "acct-029",
+      "symbol": "VTI",
+      "quantity": 809,
+      "value": 238655
+    },
+    {
+      "account": "acct-029",
+      "symbol": "VXUS",
+      "quantity": 1299,
+      "value": 85993.8
+    },
+    {
+      "account": "acct-029",
+      "symbol": "AVUV",
+      "quantity": 387,
+      "value": 38216.25
+    },
+    {
+      "account": "acct-029",
+      "symbol": "VNQ",
+      "quantity": 213,
+      "value": 19042.2
+    },
+    {
+      "account": "acct-029",
+      "symbol": "BND",
+      "quantity": 1045,
+      "value": 76389.5
+    },
+    {
+      "account": "acct-029",
+      "symbol": "VGSH",
+      "quantity": 162,
+      "value": 9509.4
+    },
+    {
+      "account": "acct-029",
+      "symbol": "SWVXX",
+      "quantity": 9993.85,
+      "value": 9993.85
+    },
+    {
+      "account": "acct-030",
+      "symbol": "VTI",
+      "quantity": 2119,
+      "value": 625105
+    },
+    {
+      "account": "acct-030",
+      "symbol": "VXUS",
+      "quantity": 3399,
+      "value": 225013.8
+    },
+    {
+      "account": "acct-030",
+      "symbol": "AVUV",
+      "quantity": 1012,
+      "value": 99935
+    },
+    {
+      "account": "acct-030",
+      "symbol": "VNQ",
+      "quantity": 559,
+      "value": 49974.6
+    },
+    {
+      "account": "acct-030",
+      "symbol": "BND",
+      "quantity": 2736,
+      "value": 200001.6
+    },
+    {
+      "account": "acct-030",
+      "symbol": "VGSH",
+      "quantity": 426,
+      "value": 25006.2
+    },
+    {
+      "account": "acct-030",
+      "symbol": "SWVXX",
+      "quantity": 25313.8,
+      "value": 25313.8
+    },
+    {
+      "account": "acct-031",
+      "symbol": "VTI",
+      "quantity": 755,
+      "value": 222725
+    },
+    {
+      "account": "acct-031",
+      "symbol": "VXUS",
+      "quantity": 1212,
+      "value": 80234.4
+    },
+    {
+      "account": "acct-031",
+      "symbol": "AVUV",
+      "quantity": 361,
+      "value": 35648.75
+    },
+    {
+      "account": "acct-031",
+      "symbol": "VNQ",
+      "quantity": 199,
+      "value": 17790.6
+    },
+    {
+      "account": "acct-031",
+      "symbol": "BND",
+      "quantity": 976,
+      "value": 71345.6
+    },
+    {
+      "account": "acct-031",
+      "symbol": "VGSH",
+      "quantity": 151,
+      "value": 8863.7
+    },
+    {
+      "account": "acct-031",
+      "symbol": "SWVXX",
+      "quantity": 9391.95,
+      "value": 9391.95
+    },
+    {
+      "account": "acct-032",
+      "symbol": "VTI",
+      "quantity": 1041,
+      "value": 307095
+    },
+    {
+      "account": "acct-032",
+      "symbol": "VXUS",
+      "quantity": 1671,
+      "value": 110620.2
+    },
+    {
+      "account": "acct-032",
+      "symbol": "AVUV",
+      "quantity": 497,
+      "value": 49078.75
+    },
+    {
+      "account": "acct-032",
+      "symbol": "VNQ",
+      "quantity": 274,
+      "value": 24495.6
+    },
+    {
+      "account": "acct-032",
+      "symbol": "BND",
+      "quantity": 1345,
+      "value": 98319.5
+    },
+    {
+      "account": "acct-032",
+      "symbol": "VGSH",
+      "quantity": 209,
+      "value": 12268.3
+    },
+    {
+      "account": "acct-032",
+      "symbol": "SWVXX",
+      "quantity": 12722.65,
+      "value": 12722.65
+    },
+    {
+      "account": "acct-033",
+      "symbol": "VTI",
+      "quantity": 2059,
+      "value": 607405
+    },
+    {
+      "account": "acct-033",
+      "symbol": "VXUS",
+      "quantity": 3304,
+      "value": 218724.8
+    },
+    {
+      "account": "acct-033",
+      "symbol": "AVUV",
+      "quantity": 984,
+      "value": 97170
+    },
+    {
+      "account": "acct-033",
+      "symbol": "VNQ",
+      "quantity": 543,
+      "value": 48544.2
+    },
+    {
+      "account": "acct-033",
+      "symbol": "BND",
+      "quantity": 2659,
+      "value": 194372.9
+    },
+    {
+      "account": "acct-033",
+      "symbol": "VGSH",
+      "quantity": 414,
+      "value": 24301.8
+    },
+    {
+      "account": "acct-033",
+      "symbol": "SWVXX",
+      "quantity": 24681.3,
+      "value": 24681.3
+    },
+    {
+      "account": "acct-034",
+      "symbol": "VTI",
+      "quantity": 17,
+      "value": 5015
+    },
+    {
+      "account": "acct-034",
+      "symbol": "VXUS",
+      "quantity": 30,
+      "value": 1986
+    },
+    {
+      "account": "acct-034",
+      "symbol": "BND",
+      "quantity": 139,
+      "value": 10160.9
+    },
+    {
+      "account": "acct-034",
+      "symbol": "VGSH",
+      "quantity": 74,
+      "value": 4343.8
+    },
+    {
+      "account": "acct-034",
+      "symbol": "VTEB",
+      "quantity": 86,
+      "value": 4325.8
+    },
+    {
+      "account": "acct-034",
+      "symbol": "VCSH",
+      "quantity": 18,
+      "value": 1427.4
+    },
+    {
+      "account": "acct-034",
+      "symbol": "SWVXX",
+      "quantity": 1891.1,
+      "value": 1891.1
+    },
+    {
+      "account": "acct-035",
+      "symbol": "VTI",
+      "quantity": 82,
+      "value": 24190
+    },
+    {
+      "account": "acct-035",
+      "symbol": "VXUS",
+      "quantity": 142,
+      "value": 9400.4
+    },
+    {
+      "account": "acct-035",
+      "symbol": "BND",
+      "quantity": 645,
+      "value": 47149.5
+    },
+    {
+      "account": "acct-035",
+      "symbol": "VGSH",
+      "quantity": 344,
+      "value": 20192.8
+    },
+    {
+      "account": "acct-035",
+      "symbol": "VTEB",
+      "quantity": 402,
+      "value": 20220.6
+    },
+    {
+      "account": "acct-035",
+      "symbol": "VCSH",
+      "quantity": 85,
+      "value": 6740.5
+    },
+    {
+      "account": "acct-035",
+      "symbol": "SWVXX",
+      "quantity": 7006.2,
+      "value": 7006.2
+    },
+    {
+      "account": "acct-036",
+      "symbol": "VTI",
+      "quantity": 812,
+      "value": 239540
+    },
+    {
+      "account": "acct-036",
+      "symbol": "VXUS",
+      "quantity": 1408,
+      "value": 93209.6
+    },
+    {
+      "account": "acct-036",
+      "symbol": "BND",
+      "quantity": 6379,
+      "value": 466304.9
+    },
+    {
+      "account": "acct-036",
+      "symbol": "VGSH",
+      "quantity": 3404,
+      "value": 199814.8
+    },
+    {
+      "account": "acct-036",
+      "symbol": "VTEB",
+      "quantity": 3973,
+      "value": 199841.9
+    },
+    {
+      "account": "acct-036",
+      "symbol": "VCSH",
+      "quantity": 840,
+      "value": 66612
+    },
+    {
+      "account": "acct-036",
+      "symbol": "SWVXX",
+      "quantity": 67026.8,
+      "value": 67026.8
+    },
+    {
+      "account": "acct-037",
+      "symbol": "VTI",
+      "quantity": 1598,
+      "value": 471410
+    },
+    {
+      "account": "acct-037",
+      "symbol": "VXUS",
+      "quantity": 2998,
+      "value": 198467.6
+    },
+    {
+      "account": "acct-037",
+      "symbol": "AVUV",
+      "quantity": 753,
+      "value": 74358.75
+    },
+    {
+      "account": "acct-037",
+      "symbol": "BND",
+      "quantity": 3733,
+      "value": 272882.3
+    },
+    {
+      "account": "acct-037",
+      "symbol": "VGSH",
+      "quantity": 1690,
+      "value": 99203
+    },
+    {
+      "account": "acct-037",
+      "symbol": "VTEB",
+      "quantity": 1726,
+      "value": 86817.8
+    },
+    {
+      "account": "acct-037",
+      "symbol": "SWVXX",
+      "quantity": 37460.55,
+      "value": 37460.55
+    },
+    {
+      "account": "acct-038",
+      "symbol": "VTI",
+      "quantity": 1021,
+      "value": 301195
+    },
+    {
+      "account": "acct-038",
+      "symbol": "VXUS",
+      "quantity": 1916,
+      "value": 126839.2
+    },
+    {
+      "account": "acct-038",
+      "symbol": "AVUV",
+      "quantity": 481,
+      "value": 47498.75
+    },
+    {
+      "account": "acct-038",
+      "symbol": "BND",
+      "quantity": 2385,
+      "value": 174343.5
+    },
+    {
+      "account": "acct-038",
+      "symbol": "VGSH",
+      "quantity": 1080,
+      "value": 63396
+    },
+    {
+      "account": "acct-038",
+      "symbol": "VTEB",
+      "quantity": 1103,
+      "value": 55480.9
+    },
+    {
+      "account": "acct-038",
+      "symbol": "SWVXX",
+      "quantity": 24046.65,
+      "value": 24046.65
+    },
+    {
+      "account": "acct-039",
+      "symbol": "VTI",
+      "quantity": 725,
+      "value": 213875
+    },
+    {
+      "account": "acct-039",
+      "symbol": "VXUS",
+      "quantity": 1257,
+      "value": 83213.4
+    },
+    {
+      "account": "acct-039",
+      "symbol": "BND",
+      "quantity": 5694,
+      "value": 416231.4
+    },
+    {
+      "account": "acct-039",
+      "symbol": "VGSH",
+      "quantity": 3038,
+      "value": 178330.6
+    },
+    {
+      "account": "acct-039",
+      "symbol": "VTEB",
+      "quantity": 3546,
+      "value": 178363.8
+    },
+    {
+      "account": "acct-039",
+      "symbol": "VCSH",
+      "quantity": 749,
+      "value": 59395.7
+    },
+    {
+      "account": "acct-039",
+      "symbol": "SWVXX",
+      "quantity": 59840.1,
+      "value": 59840.1
+    },
+    {
+      "account": "acct-040",
+      "symbol": "VTI",
+      "quantity": 380,
+      "value": 112100
+    },
+    {
+      "account": "acct-040",
+      "symbol": "VXUS",
+      "quantity": 658,
+      "value": 43559.6
+    },
+    {
+      "account": "acct-040",
+      "symbol": "BND",
+      "quantity": 2983,
+      "value": 218057.3
+    },
+    {
+      "account": "acct-040",
+      "symbol": "VGSH",
+      "quantity": 1592,
+      "value": 93450.4
+    },
+    {
+      "account": "acct-040",
+      "symbol": "VTEB",
+      "quantity": 1858,
+      "value": 93457.4
+    },
+    {
+      "account": "acct-040",
+      "symbol": "VCSH",
+      "quantity": 392,
+      "value": 31085.6
+    },
+    {
+      "account": "acct-040",
+      "symbol": "SWVXX",
+      "quantity": 31339.7,
+      "value": 31339.7
+    },
+    {
+      "account": "acct-041",
+      "symbol": "VTI",
+      "quantity": 785,
+      "value": 231575
+    },
+    {
+      "account": "acct-041",
+      "symbol": "VXUS",
+      "quantity": 1360,
+      "value": 90032
+    },
+    {
+      "account": "acct-041",
+      "symbol": "BND",
+      "quantity": 6159,
+      "value": 450222.9
+    },
+    {
+      "account": "acct-041",
+      "symbol": "VGSH",
+      "quantity": 3287,
+      "value": 192946.9
+    },
+    {
+      "account": "acct-041",
+      "symbol": "VTEB",
+      "quantity": 3836,
+      "value": 192950.8
+    },
+    {
+      "account": "acct-041",
+      "symbol": "VCSH",
+      "quantity": 811,
+      "value": 64312.3
+    },
+    {
+      "account": "acct-041",
+      "symbol": "SWVXX",
+      "quantity": 64510.1,
+      "value": 64510.1
+    },
+    {
+      "account": "acct-042",
+      "symbol": "VTI",
+      "quantity": 2339,
+      "value": 690005
+    },
+    {
+      "account": "acct-042",
+      "symbol": "VXUS",
+      "quantity": 3753,
+      "value": 248448.6
+    },
+    {
+      "account": "acct-042",
+      "symbol": "AVUV",
+      "quantity": 1118,
+      "value": 110402.5
+    },
+    {
+      "account": "acct-042",
+      "symbol": "VNQ",
+      "quantity": 617,
+      "value": 55159.8
+    },
+    {
+      "account": "acct-042",
+      "symbol": "BND",
+      "quantity": 3021,
+      "value": 220835.1
+    },
+    {
+      "account": "acct-042",
+      "symbol": "VGSH",
+      "quantity": 470,
+      "value": 27589
+    },
+    {
+      "account": "acct-042",
+      "symbol": "SWVXX",
+      "quantity": 27960,
+      "value": 27960
+    },
+    {
+      "account": "acct-043",
+      "symbol": "VTI",
+      "quantity": 179,
+      "value": 52805
+    },
+    {
+      "account": "acct-043",
+      "symbol": "VXUS",
+      "quantity": 288,
+      "value": 19065.6
+    },
+    {
+      "account": "acct-043",
+      "symbol": "AVUV",
+      "quantity": 85,
+      "value": 8393.75
+    },
+    {
+      "account": "acct-043",
+      "symbol": "VNQ",
+      "quantity": 47,
+      "value": 4201.8
+    },
+    {
+      "account": "acct-043",
+      "symbol": "BND",
+      "quantity": 232,
+      "value": 16959.2
+    },
+    {
+      "account": "acct-043",
+      "symbol": "VGSH",
+      "quantity": 36,
+      "value": 2113.2
+    },
+    {
+      "account": "acct-043",
+      "symbol": "SWVXX",
+      "quantity": 2561.45,
+      "value": 2561.45
+    },
+    {
+      "account": "acct-044",
+      "symbol": "VTI",
+      "quantity": 1056,
+      "value": 311520
+    },
+    {
+      "account": "acct-044",
+      "symbol": "VXUS",
+      "quantity": 1981,
+      "value": 131142.2
+    },
+    {
+      "account": "acct-044",
+      "symbol": "AVUV",
+      "quantity": 498,
+      "value": 49177.5
+    },
+    {
+      "account": "acct-044",
+      "symbol": "BND",
+      "quantity": 2467,
+      "value": 180337.7
+    },
+    {
+      "account": "acct-044",
+      "symbol": "VGSH",
+      "quantity": 1117,
+      "value": 65567.9
+    },
+    {
+      "account": "acct-044",
+      "symbol": "VTEB",
+      "quantity": 1141,
+      "value": 57392.3
+    },
+    {
+      "account": "acct-044",
+      "symbol": "SWVXX",
+      "quantity": 24762.4,
+      "value": 24762.4
+    },
+    {
+      "account": "acct-045",
+      "symbol": "VTI",
+      "quantity": 1034,
+      "value": 305030
+    },
+    {
+      "account": "acct-045",
+      "symbol": "VXUS",
+      "quantity": 1940,
+      "value": 128428
+    },
+    {
+      "account": "acct-045",
+      "symbol": "AVUV",
+      "quantity": 487,
+      "value": 48091.25
+    },
+    {
+      "account": "acct-045",
+      "symbol": "BND",
+      "quantity": 2416,
+      "value": 176609.6
+    },
+    {
+      "account": "acct-045",
+      "symbol": "VGSH",
+      "quantity": 1094,
+      "value": 64217.8
+    },
+    {
+      "account": "acct-045",
+      "symbol": "VTEB",
+      "quantity": 1117,
+      "value": 56185.1
+    },
+    {
+      "account": "acct-045",
+      "symbol": "SWVXX",
+      "quantity": 24488.25,
+      "value": 24488.25
+    },
+    {
+      "account": "acct-046",
+      "symbol": "VTI",
+      "quantity": 772,
+      "value": 227740
+    },
+    {
+      "account": "acct-046",
+      "symbol": "VXUS",
+      "quantity": 1450,
+      "value": 95990
+    },
+    {
+      "account": "acct-046",
+      "symbol": "AVUV",
+      "quantity": 364,
+      "value": 35945
+    },
+    {
+      "account": "acct-046",
+      "symbol": "BND",
+      "quantity": 1805,
+      "value": 131945.5
+    },
+    {
+      "account": "acct-046",
+      "symbol": "VGSH",
+      "quantity": 817,
+      "value": 47957.9
+    },
+    {
+      "account": "acct-046",
+      "symbol": "VTEB",
+      "quantity": 834,
+      "value": 41950.2
+    },
+    {
+      "account": "acct-046",
+      "symbol": "SWVXX",
+      "quantity": 18421.4,
+      "value": 18421.4
+    },
+    {
+      "account": "acct-047",
+      "symbol": "VTI",
+      "quantity": 1697,
+      "value": 500615
+    },
+    {
+      "account": "acct-047",
+      "symbol": "VXUS",
+      "quantity": 3185,
+      "value": 210847
+    },
+    {
+      "account": "acct-047",
+      "symbol": "AVUV",
+      "quantity": 800,
+      "value": 79000
+    },
+    {
+      "account": "acct-047",
+      "symbol": "BND",
+      "quantity": 3966,
+      "value": 289914.6
+    },
+    {
+      "account": "acct-047",
+      "symbol": "VGSH",
+      "quantity": 1796,
+      "value": 105425.2
+    },
+    {
+      "account": "acct-047",
+      "symbol": "VTEB",
+      "quantity": 1834,
+      "value": 92250.2
+    },
+    {
+      "account": "acct-047",
+      "symbol": "SWVXX",
+      "quantity": 39948,
+      "value": 39948
+    },
+    {
+      "account": "acct-048",
+      "symbol": "VTI",
+      "quantity": 376,
+      "value": 110920
+    },
+    {
+      "account": "acct-048",
+      "symbol": "VXUS",
+      "quantity": 705,
+      "value": 46671
+    },
+    {
+      "account": "acct-048",
+      "symbol": "AVUV",
+      "quantity": 177,
+      "value": 17478.75
+    },
+    {
+      "account": "acct-048",
+      "symbol": "BND",
+      "quantity": 878,
+      "value": 64181.8
+    },
+    {
+      "account": "acct-048",
+      "symbol": "VGSH",
+      "quantity": 397,
+      "value": 23303.9
+    },
+    {
+      "account": "acct-048",
+      "symbol": "VTEB",
+      "quantity": 406,
+      "value": 20421.8
+    },
+    {
+      "account": "acct-048",
+      "symbol": "SWVXX",
+      "quantity": 8972.75,
+      "value": 8972.75
+    },
+    {
+      "account": "acct-049",
+      "symbol": "VTI",
+      "quantity": 944,
+      "value": 278480
+    },
+    {
+      "account": "acct-049",
+      "symbol": "VXUS",
+      "quantity": 1771,
+      "value": 117240.2
+    },
+    {
+      "account": "acct-049",
+      "symbol": "AVUV",
+      "quantity": 445,
+      "value": 43943.75
+    },
+    {
+      "account": "acct-049",
+      "symbol": "BND",
+      "quantity": 2205,
+      "value": 161185.5
+    },
+    {
+      "account": "acct-049",
+      "symbol": "VGSH",
+      "quantity": 998,
+      "value": 58582.6
+    },
+    {
+      "account": "acct-049",
+      "symbol": "VTEB",
+      "quantity": 1019,
+      "value": 51255.7
+    },
+    {
+      "account": "acct-049",
+      "symbol": "SWVXX",
+      "quantity": 22212.25,
+      "value": 22212.25
+    },
+    {
+      "account": "acct-050",
+      "symbol": "VTI",
+      "quantity": 120,
+      "value": 35400
+    },
+    {
+      "account": "acct-050",
+      "symbol": "VXUS",
+      "quantity": 225,
+      "value": 14895
+    },
+    {
+      "account": "acct-050",
+      "symbol": "AVUV",
+      "quantity": 56,
+      "value": 5530
+    },
+    {
+      "account": "acct-050",
+      "symbol": "BND",
+      "quantity": 281,
+      "value": 20541.1
+    },
+    {
+      "account": "acct-050",
+      "symbol": "VGSH",
+      "quantity": 127,
+      "value": 7454.9
+    },
+    {
+      "account": "acct-050",
+      "symbol": "VTEB",
+      "quantity": 130,
+      "value": 6539
+    },
+    {
+      "account": "acct-050",
+      "symbol": "SWVXX",
+      "quantity": 3090,
+      "value": 3090
+    },
+    {
+      "account": "acct-051",
+      "symbol": "VTI",
+      "quantity": 1584,
+      "value": 467280
+    },
+    {
+      "account": "acct-051",
+      "symbol": "VXUS",
+      "quantity": 2973,
+      "value": 196812.6
+    },
+    {
+      "account": "acct-051",
+      "symbol": "AVUV",
+      "quantity": 747,
+      "value": 73766.25
+    },
+    {
+      "account": "acct-051",
+      "symbol": "BND",
+      "quantity": 3702,
+      "value": 270616.2
+    },
+    {
+      "account": "acct-051",
+      "symbol": "VGSH",
+      "quantity": 1676,
+      "value": 98381.2
+    },
+    {
+      "account": "acct-051",
+      "symbol": "VTEB",
+      "quantity": 1712,
+      "value": 86113.6
+    },
+    {
+      "account": "acct-051",
+      "symbol": "SWVXX",
+      "quantity": 37380.15,
+      "value": 37380.15
+    },
+    {
+      "account": "acct-052",
+      "symbol": "VTI",
+      "quantity": 1621,
+      "value": 478195
+    },
+    {
+      "account": "acct-052",
+      "symbol": "VXUS",
+      "quantity": 3041,
+      "value": 201314.2
+    },
+    {
+      "account": "acct-052",
+      "symbol": "AVUV",
+      "quantity": 764,
+      "value": 75445
+    },
+    {
+      "account": "acct-052",
+      "symbol": "BND",
+      "quantity": 3787,
+      "value": 276829.7
+    },
+    {
+      "account": "acct-052",
+      "symbol": "VGSH",
+      "quantity": 1715,
+      "value": 100670.5
+    },
+    {
+      "account": "acct-052",
+      "symbol": "VTEB",
+      "quantity": 1751,
+      "value": 88075.3
+    },
+    {
+      "account": "acct-052",
+      "symbol": "SWVXX",
+      "quantity": 37920.3,
+      "value": 37920.3
+    },
+    {
+      "account": "acct-053",
+      "symbol": "VTI",
+      "quantity": 1304,
+      "value": 384680
+    },
+    {
+      "account": "acct-053",
+      "symbol": "VXUS",
+      "quantity": 2446,
+      "value": 161925.2
+    },
+    {
+      "account": "acct-053",
+      "symbol": "AVUV",
+      "quantity": 615,
+      "value": 60731.25
+    },
+    {
+      "account": "acct-053",
+      "symbol": "BND",
+      "quantity": 3046,
+      "value": 222662.6
+    },
+    {
+      "account": "acct-053",
+      "symbol": "VGSH",
+      "quantity": 1379,
+      "value": 80947.3
+    },
+    {
+      "account": "acct-053",
+      "symbol": "VTEB",
+      "quantity": 1408,
+      "value": 70822.4
+    },
+    {
+      "account": "acct-053",
+      "symbol": "SWVXX",
+      "quantity": 30631.25,
+      "value": 30631.25
+    },
+    {
+      "account": "acct-054",
+      "symbol": "VTI",
+      "quantity": 435,
+      "value": 128325
+    },
+    {
+      "account": "acct-054",
+      "symbol": "VXUS",
+      "quantity": 754,
+      "value": 49914.8
+    },
+    {
+      "account": "acct-054",
+      "symbol": "BND",
+      "quantity": 3418,
+      "value": 249855.8
+    },
+    {
+      "account": "acct-054",
+      "symbol": "VGSH",
+      "quantity": 1824,
+      "value": 107068.8
+    },
+    {
+      "account": "acct-054",
+      "symbol": "VTEB",
+      "quantity": 2129,
+      "value": 107088.7
+    },
+    {
+      "account": "acct-054",
+      "symbol": "VCSH",
+      "quantity": 450,
+      "value": 35685
+    },
+    {
+      "account": "acct-054",
+      "symbol": "SWVXX",
+      "quantity": 36011.9,
+      "value": 36011.9
+    },
+    {
+      "account": "acct-055",
+      "symbol": "VTI",
+      "quantity": 541,
+      "value": 159595
+    },
+    {
+      "account": "acct-055",
+      "symbol": "VXUS",
+      "quantity": 938,
+      "value": 62095.6
+    },
+    {
+      "account": "acct-055",
+      "symbol": "BND",
+      "quantity": 4248,
+      "value": 310528.8
+    },
+    {
+      "account": "acct-055",
+      "symbol": "VGSH",
+      "quantity": 2267,
+      "value": 133072.9
+    },
+    {
+      "account": "acct-055",
+      "symbol": "VTEB",
+      "quantity": 2645,
+      "value": 133043.5
+    },
+    {
+      "account": "acct-055",
+      "symbol": "VCSH",
+      "quantity": 559,
+      "value": 44328.7
+    },
+    {
+      "account": "acct-055",
+      "symbol": "SWVXX",
+      "quantity": 44585.5,
+      "value": 44585.5
+    },
+    {
+      "account": "acct-056",
+      "symbol": "VTI",
+      "quantity": 143,
+      "value": 42185
+    },
+    {
+      "account": "acct-056",
+      "symbol": "VXUS",
+      "quantity": 248,
+      "value": 16417.6
+    },
+    {
+      "account": "acct-056",
+      "symbol": "BND",
+      "quantity": 1123,
+      "value": 82091.3
+    },
+    {
+      "account": "acct-056",
+      "symbol": "VGSH",
+      "quantity": 599,
+      "value": 35161.3
+    },
+    {
+      "account": "acct-056",
+      "symbol": "VTEB",
+      "quantity": 699,
+      "value": 35159.7
+    },
+    {
+      "account": "acct-056",
+      "symbol": "VCSH",
+      "quantity": 147,
+      "value": 11657.1
+    },
+    {
+      "account": "acct-056",
+      "symbol": "SWVXX",
+      "quantity": 11978,
+      "value": 11978
+    },
+    {
+      "account": "acct-057",
+      "symbol": "VTI",
+      "quantity": 2287,
+      "value": 674665
+    },
+    {
+      "account": "acct-057",
+      "symbol": "VXUS",
+      "quantity": 3670,
+      "value": 242954
+    },
+    {
+      "account": "acct-057",
+      "symbol": "AVUV",
+      "quantity": 1093,
+      "value": 107933.75
+    },
+    {
+      "account": "acct-057",
+      "symbol": "VNQ",
+      "quantity": 603,
+      "value": 53908.2
+    },
+    {
+      "account": "acct-057",
+      "symbol": "BND",
+      "quantity": 2954,
+      "value": 215937.4
+    },
+    {
+      "account": "acct-057",
+      "symbol": "VGSH",
+      "quantity": 459,
+      "value": 26943.3
+    },
+    {
+      "account": "acct-057",
+      "symbol": "SWVXX",
+      "quantity": 27408.35,
+      "value": 27408.35
+    },
+    {
+      "account": "acct-058",
+      "symbol": "VTI",
+      "quantity": 834,
+      "value": 246030
+    },
+    {
+      "account": "acct-058",
+      "symbol": "VXUS",
+      "quantity": 1338,
+      "value": 88575.6
+    },
+    {
+      "account": "acct-058",
+      "symbol": "AVUV",
+      "quantity": 398,
+      "value": 39302.5
+    },
+    {
+      "account": "acct-058",
+      "symbol": "VNQ",
+      "quantity": 220,
+      "value": 19668
+    },
+    {
+      "account": "acct-058",
+      "symbol": "BND",
+      "quantity": 1077,
+      "value": 78728.7
+    },
+    {
+      "account": "acct-058",
+      "symbol": "VGSH",
+      "quantity": 167,
+      "value": 9802.9
+    },
+    {
+      "account": "acct-058",
+      "symbol": "SWVXX",
+      "quantity": 10192.3,
+      "value": 10192.3
+    },
+    {
+      "account": "acct-059",
+      "symbol": "VTI",
+      "quantity": 913,
+      "value": 269335
+    },
+    {
+      "account": "acct-059",
+      "symbol": "VXUS",
+      "quantity": 1465,
+      "value": 96983
+    },
+    {
+      "account": "acct-059",
+      "symbol": "AVUV",
+      "quantity": 436,
+      "value": 43055
+    },
+    {
+      "account": "acct-059",
+      "symbol": "VNQ",
+      "quantity": 241,
+      "value": 21545.4
+    },
+    {
+      "account": "acct-059",
+      "symbol": "BND",
+      "quantity": 1179,
+      "value": 86184.9
+    },
+    {
+      "account": "acct-059",
+      "symbol": "VGSH",
+      "quantity": 183,
+      "value": 10742.1
+    },
+    {
+      "account": "acct-059",
+      "symbol": "SWVXX",
+      "quantity": 11054.6,
+      "value": 11054.6
+    },
+    {
+      "account": "acct-060",
+      "symbol": "VTI",
+      "quantity": 495,
+      "value": 146025
+    },
+    {
+      "account": "acct-060",
+      "symbol": "VXUS",
+      "quantity": 929,
+      "value": 61499.8
+    },
+    {
+      "account": "acct-060",
+      "symbol": "AVUV",
+      "quantity": 233,
+      "value": 23008.75
+    },
+    {
+      "account": "acct-060",
+      "symbol": "BND",
+      "quantity": 1157,
+      "value": 84576.7
+    },
+    {
+      "account": "acct-060",
+      "symbol": "VGSH",
+      "quantity": 524,
+      "value": 30758.8
+    },
+    {
+      "account": "acct-060",
+      "symbol": "VTEB",
+      "quantity": 535,
+      "value": 26910.5
+    },
+    {
+      "account": "acct-060",
+      "symbol": "SWVXX",
+      "quantity": 11920.45,
+      "value": 11920.45
+    },
+    {
+      "account": "acct-061",
+      "symbol": "VTI",
+      "quantity": 592,
+      "value": 174640
+    },
+    {
+      "account": "acct-061",
+      "symbol": "VXUS",
+      "quantity": 1111,
+      "value": 73548.2
+    },
+    {
+      "account": "acct-061",
+      "symbol": "AVUV",
+      "quantity": 279,
+      "value": 27551.25
+    },
+    {
+      "account": "acct-061",
+      "symbol": "BND",
+      "quantity": 1384,
+      "value": 101170.4
+    },
+    {
+      "account": "acct-061",
+      "symbol": "VGSH",
+      "quantity": 626,
+      "value": 36746.2
+    },
+    {
+      "account": "acct-061",
+      "symbol": "VTEB",
+      "quantity": 640,
+      "value": 32192
+    },
+    {
+      "account": "acct-061",
+      "symbol": "SWVXX",
+      "quantity": 14151.95,
+      "value": 14151.95
+    },
+    {
+      "account": "acct-062",
+      "symbol": "VTI",
+      "quantity": 1682,
+      "value": 496190
+    },
+    {
+      "account": "acct-062",
+      "symbol": "VXUS",
+      "quantity": 3157,
+      "value": 208993.4
+    },
+    {
+      "account": "acct-062",
+      "symbol": "AVUV",
+      "quantity": 793,
+      "value": 78308.75
+    },
+    {
+      "account": "acct-062",
+      "symbol": "BND",
+      "quantity": 3932,
+      "value": 287429.2
+    },
+    {
+      "account": "acct-062",
+      "symbol": "VGSH",
+      "quantity": 1780,
+      "value": 104486
+    },
+    {
+      "account": "acct-062",
+      "symbol": "VTEB",
+      "quantity": 1818,
+      "value": 91445.4
+    },
+    {
+      "account": "acct-062",
+      "symbol": "SWVXX",
+      "quantity": 39647.25,
+      "value": 39647.25
+    },
+    {
+      "account": "acct-063",
+      "symbol": "VTI",
+      "quantity": 1360,
+      "value": 401200
+    },
+    {
+      "account": "acct-063",
+      "symbol": "VXUS",
+      "quantity": 2182,
+      "value": 144448.4
+    },
+    {
+      "account": "acct-063",
+      "symbol": "AVUV",
+      "quantity": 650,
+      "value": 64187.5
+    },
+    {
+      "account": "acct-063",
+      "symbol": "VNQ",
+      "quantity": 359,
+      "value": 32094.6
+    },
+    {
+      "account": "acct-063",
+      "symbol": "BND",
+      "quantity": 1756,
+      "value": 128363.6
+    },
+    {
+      "account": "acct-063",
+      "symbol": "VGSH",
+      "quantity": 273,
+      "value": 16025.1
+    },
+    {
+      "account": "acct-063",
+      "symbol": "SWVXX",
+      "quantity": 16180.8,
+      "value": 16180.8
+    },
+    {
+      "account": "acct-064",
+      "symbol": "VTI",
+      "quantity": 1072,
+      "value": 316240
+    },
+    {
+      "account": "acct-064",
+      "symbol": "VXUS",
+      "quantity": 1719,
+      "value": 113797.8
+    },
+    {
+      "account": "acct-064",
+      "symbol": "AVUV",
+      "quantity": 512,
+      "value": 50560
+    },
+    {
+      "account": "acct-064",
+      "symbol": "VNQ",
+      "quantity": 283,
+      "value": 25300.2
+    },
+    {
+      "account": "acct-064",
+      "symbol": "BND",
+      "quantity": 1384,
+      "value": 101170.4
+    },
+    {
+      "account": "acct-064",
+      "symbol": "VGSH",
+      "quantity": 215,
+      "value": 12620.5
+    },
+    {
+      "account": "acct-064",
+      "symbol": "SWVXX",
+      "quantity": 12861.1,
+      "value": 12861.1
+    },
+    {
+      "account": "acct-065",
+      "symbol": "VTI",
+      "quantity": 762,
+      "value": 224790
+    },
+    {
+      "account": "acct-065",
+      "symbol": "VXUS",
+      "quantity": 1321,
+      "value": 87450.2
+    },
+    {
+      "account": "acct-065",
+      "symbol": "BND",
+      "quantity": 5984,
+      "value": 437430.4
+    },
+    {
+      "account": "acct-065",
+      "symbol": "VGSH",
+      "quantity": 3194,
+      "value": 187487.8
+    },
+    {
+      "account": "acct-065",
+      "symbol": "VTEB",
+      "quantity": 3727,
+      "value": 187468.1
+    },
+    {
+      "account": "acct-065",
+      "symbol": "VCSH",
+      "quantity": 788,
+      "value": 62488.4
+    },
+    {
+      "account": "acct-065",
+      "symbol": "SWVXX",
+      "quantity": 62885.1,
+      "value": 62885.1
+    },
+    {
+      "account": "acct-066",
+      "symbol": "VTI",
+      "quantity": 591,
+      "value": 174345
+    },
+    {
+      "account": "acct-066",
+      "symbol": "VXUS",
+      "quantity": 1025,
+      "value": 67855
+    },
+    {
+      "account": "acct-066",
+      "symbol": "BND",
+      "quantity": 4643,
+      "value": 339403.3
+    },
+    {
+      "account": "acct-066",
+      "symbol": "VGSH",
+      "quantity": 2478,
+      "value": 145458.6
+    },
+    {
+      "account": "acct-066",
+      "symbol": "VTEB",
+      "quantity": 2892,
+      "value": 145467.6
+    },
+    {
+      "account": "acct-066",
+      "symbol": "VCSH",
+      "quantity": 611,
+      "value": 48452.3
+    },
+    {
+      "account": "acct-066",
+      "symbol": "SWVXX",
+      "quantity": 48818.2,
+      "value": 48818.2
+    },
+    {
+      "account": "acct-067",
+      "symbol": "VTI",
+      "quantity": 1212,
+      "value": 357540
+    },
+    {
+      "account": "acct-067",
+      "symbol": "VXUS",
+      "quantity": 2275,
+      "value": 150605
+    },
+    {
+      "account": "acct-067",
+      "symbol": "AVUV",
+      "quantity": 572,
+      "value": 56485
+    },
+    {
+      "account": "acct-067",
+      "symbol": "BND",
+      "quantity": 2833,
+      "value": 207092.3
+    },
+    {
+      "account": "acct-067",
+      "symbol": "VGSH",
+      "quantity": 1283,
+      "value": 75312.1
+    },
+    {
+      "account": "acct-067",
+      "symbol": "VTEB",
+      "quantity": 1310,
+      "value": 65893
+    },
+    {
+      "account": "acct-067",
+      "symbol": "SWVXX",
+      "quantity": 28672.6,
+      "value": 28672.6
+    },
+    {
+      "account": "acct-068",
+      "symbol": "VTI",
+      "quantity": 1278,
+      "value": 377010
+    },
+    {
+      "account": "acct-068",
+      "symbol": "VXUS",
+      "quantity": 2398,
+      "value": 158747.6
+    },
+    {
+      "account": "acct-068",
+      "symbol": "AVUV",
+      "quantity": 603,
+      "value": 59546.25
+    },
+    {
+      "account": "acct-068",
+      "symbol": "BND",
+      "quantity": 2986,
+      "value": 218276.6
+    },
+    {
+      "account": "acct-068",
+      "symbol": "VGSH",
+      "quantity": 1352,
+      "value": 79362.4
+    },
+    {
+      "account": "acct-068",
+      "symbol": "VTEB",
+      "quantity": 1381,
+      "value": 69464.3
+    },
+    {
+      "account": "acct-068",
+      "symbol": "SWVXX",
+      "quantity": 30042.85,
+      "value": 30042.85
+    },
+    {
+      "account": "acct-069",
+      "symbol": "VTI",
+      "quantity": 809,
+      "value": 238655
+    },
+    {
+      "account": "acct-069",
+      "symbol": "VXUS",
+      "quantity": 1298,
+      "value": 85927.6
+    },
+    {
+      "account": "acct-069",
+      "symbol": "AVUV",
+      "quantity": 386,
+      "value": 38117.5
+    },
+    {
+      "account": "acct-069",
+      "symbol": "VNQ",
+      "quantity": 213,
+      "value": 19042.2
+    },
+    {
+      "account": "acct-069",
+      "symbol": "BND",
+      "quantity": 1045,
+      "value": 76389.5
+    },
+    {
+      "account": "acct-069",
+      "symbol": "VGSH",
+      "quantity": 162,
+      "value": 9509.4
+    },
+    {
+      "account": "acct-069",
+      "symbol": "SWVXX",
+      "quantity": 10008.8,
+      "value": 10008.8
+    },
+    {
+      "account": "acct-070",
+      "symbol": "VTI",
+      "quantity": 1430,
+      "value": 421850
+    },
+    {
+      "account": "acct-070",
+      "symbol": "VXUS",
+      "quantity": 2294,
+      "value": 151862.8
+    },
+    {
+      "account": "acct-070",
+      "symbol": "AVUV",
+      "quantity": 683,
+      "value": 67446.25
+    },
+    {
+      "account": "acct-070",
+      "symbol": "VNQ",
+      "quantity": 377,
+      "value": 33703.8
+    },
+    {
+      "account": "acct-070",
+      "symbol": "BND",
+      "quantity": 1846,
+      "value": 134942.6
+    },
+    {
+      "account": "acct-070",
+      "symbol": "VGSH",
+      "quantity": 287,
+      "value": 16846.9
+    },
+    {
+      "account": "acct-070",
+      "symbol": "SWVXX",
+      "quantity": 17097.65,
+      "value": 17097.65
+    },
+    {
+      "account": "acct-071",
+      "symbol": "VTI",
+      "quantity": 1059,
+      "value": 312405
+    },
+    {
+      "account": "acct-071",
+      "symbol": "VXUS",
+      "quantity": 1699,
+      "value": 112473.8
+    },
+    {
+      "account": "acct-071",
+      "symbol": "AVUV",
+      "quantity": 506,
+      "value": 49967.5
+    },
+    {
+      "account": "acct-071",
+      "symbol": "VNQ",
+      "quantity": 279,
+      "value": 24942.6
+    },
+    {
+      "account": "acct-071",
+      "symbol": "BND",
+      "quantity": 1368,
+      "value": 100000.8
+    },
+    {
+      "account": "acct-071",
+      "symbol": "VGSH",
+      "quantity": 213,
+      "value": 12503.1
+    },
+    {
+      "account": "acct-071",
+      "symbol": "SWVXX",
+      "quantity": 12907.2,
+      "value": 12907.2
+    },
+    {
+      "account": "acct-072",
+      "symbol": "VTI",
+      "quantity": 337,
+      "value": 99415
+    },
+    {
+      "account": "acct-072",
+      "symbol": "VXUS",
+      "quantity": 633,
+      "value": 41904.6
+    },
+    {
+      "account": "acct-072",
+      "symbol": "AVUV",
+      "quantity": 159,
+      "value": 15701.25
+    },
+    {
+      "account": "acct-072",
+      "symbol": "BND",
+      "quantity": 788,
+      "value": 57602.8
+    },
+    {
+      "account": "acct-072",
+      "symbol": "VGSH",
+      "quantity": 357,
+      "value": 20955.9
+    },
+    {
+      "account": "acct-072",
+      "symbol": "VTEB",
+      "quantity": 364,
+      "value": 18309.2
+    },
+    {
+      "account": "acct-072",
+      "symbol": "SWVXX",
+      "quantity": 8161.25,
+      "value": 8161.25
+    },
+    {
+      "account": "acct-073",
+      "symbol": "VTI",
+      "quantity": 1168,
+      "value": 344560
+    },
+    {
+      "account": "acct-073",
+      "symbol": "VXUS",
+      "quantity": 2193,
+      "value": 145176.6
+    },
+    {
+      "account": "acct-073",
+      "symbol": "AVUV",
+      "quantity": 551,
+      "value": 54411.25
+    },
+    {
+      "account": "acct-073",
+      "symbol": "BND",
+      "quantity": 2730,
+      "value": 199563
+    },
+    {
+      "account": "acct-073",
+      "symbol": "VGSH",
+      "quantity": 1236,
+      "value": 72553.2
+    },
+    {
+      "account": "acct-073",
+      "symbol": "VTEB",
+      "quantity": 1262,
+      "value": 63478.6
+    },
+    {
+      "account": "acct-073",
+      "symbol": "SWVXX",
+      "quantity": 27657.35,
+      "value": 27657.35
+    },
+    {
+      "account": "acct-074",
+      "symbol": "VTI",
+      "quantity": 1449,
+      "value": 427455
+    },
+    {
+      "account": "acct-074",
+      "symbol": "VXUS",
+      "quantity": 2720,
+      "value": 180064
+    },
+    {
+      "account": "acct-074",
+      "symbol": "AVUV",
+      "quantity": 683,
+      "value": 67446.25
+    },
+    {
+      "account": "acct-074",
+      "symbol": "BND",
+      "quantity": 3387,
+      "value": 247589.7
+    },
+    {
+      "account": "acct-074",
+      "symbol": "VGSH",
+      "quantity": 1534,
+      "value": 90045.8
+    },
+    {
+      "account": "acct-074",
+      "symbol": "VTEB",
+      "quantity": 1566,
+      "value": 78769.8
+    },
+    {
+      "account": "acct-074",
+      "symbol": "SWVXX",
+      "quantity": 34229.45,
+      "value": 34229.45
+    },
+    {
+      "account": "acct-075",
+      "symbol": "VTI",
+      "quantity": 558,
+      "value": 164610
+    },
+    {
+      "account": "acct-075",
+      "symbol": "VXUS",
+      "quantity": 967,
+      "value": 64015.4
+    },
+    {
+      "account": "acct-075",
+      "symbol": "BND",
+      "quantity": 4382,
+      "value": 320324.2
+    },
+    {
+      "account": "acct-075",
+      "symbol": "VGSH",
+      "quantity": 2338,
+      "value": 137240.6
+    },
+    {
+      "account": "acct-075",
+      "symbol": "VTEB",
+      "quantity": 2729,
+      "value": 137268.7
+    },
+    {
+      "account": "acct-075",
+      "symbol": "VCSH",
+      "quantity": 577,
+      "value": 45756.1
+    },
+    {
+      "account": "acct-075",
+      "symbol": "SWVXX",
+      "quantity": 46085,
+      "value": 46085
+    },
+    {
+      "account": "acct-076",
+      "symbol": "VTI",
+      "quantity": 378,
+      "value": 111510
+    },
+    {
+      "account": "acct-076",
+      "symbol": "VXUS",
+      "quantity": 655,
+      "value": 43361
+    },
+    {
+      "account": "acct-076",
+      "symbol": "BND",
+      "quantity": 2970,
+      "value": 217107
+    },
+    {
+      "account": "acct-076",
+      "symbol": "VGSH",
+      "quantity": 1585,
+      "value": 93039.5
+    },
+    {
+      "account": "acct-076",
+      "symbol": "VTEB",
+      "quantity": 1849,
+      "value": 93004.7
+    },
+    {
+      "account": "acct-076",
+      "symbol": "VCSH",
+      "quantity": 391,
+      "value": 31006.3
+    },
+    {
+      "account": "acct-076",
+      "symbol": "SWVXX",
+      "quantity": 31321.5,
+      "value": 31321.5
+    },
+    {
+      "account": "acct-077",
+      "symbol": "VTI",
+      "quantity": 197,
+      "value": 58115
+    },
+    {
+      "account": "acct-077",
+      "symbol": "VXUS",
+      "quantity": 342,
+      "value": 22640.4
+    },
+    {
+      "account": "acct-077",
+      "symbol": "BND",
+      "quantity": 1552,
+      "value": 113451.2
+    },
+    {
+      "account": "acct-077",
+      "symbol": "VGSH",
+      "quantity": 828,
+      "value": 48603.6
+    },
+    {
+      "account": "acct-077",
+      "symbol": "VTEB",
+      "quantity": 967,
+      "value": 48640.1
+    },
+    {
+      "account": "acct-077",
+      "symbol": "VCSH",
+      "quantity": 204,
+      "value": 16177.2
+    },
+    {
+      "account": "acct-077",
+      "symbol": "SWVXX",
+      "quantity": 16722.5,
+      "value": 16722.5
+    },
+    {
+      "account": "acct-078",
+      "symbol": "VTI",
+      "quantity": 505,
+      "value": 148975
+    },
+    {
+      "account": "acct-078",
+      "symbol": "VXUS",
+      "quantity": 876,
+      "value": 57991.2
+    },
+    {
+      "account": "acct-078",
+      "symbol": "BND",
+      "quantity": 3969,
+      "value": 290133.9
+    },
+    {
+      "account": "acct-078",
+      "symbol": "VGSH",
+      "quantity": 2118,
+      "value": 124326.6
+    },
+    {
+      "account": "acct-078",
+      "symbol": "VTEB",
+      "quantity": 2472,
+      "value": 124341.6
+    },
+    {
+      "account": "acct-078",
+      "symbol": "VCSH",
+      "quantity": 522,
+      "value": 41394.6
+    },
+    {
+      "account": "acct-078",
+      "symbol": "SWVXX",
+      "quantity": 41837.1,
+      "value": 41837.1
+    },
+    {
+      "account": "acct-079",
+      "symbol": "VTI",
+      "quantity": 388,
+      "value": 114460
+    },
+    {
+      "account": "acct-079",
+      "symbol": "VXUS",
+      "quantity": 672,
+      "value": 44486.4
+    },
+    {
+      "account": "acct-079",
+      "symbol": "BND",
+      "quantity": 3046,
+      "value": 222662.6
+    },
+    {
+      "account": "acct-079",
+      "symbol": "VGSH",
+      "quantity": 1625,
+      "value": 95387.5
+    },
+    {
+      "account": "acct-079",
+      "symbol": "VTEB",
+      "quantity": 1897,
+      "value": 95419.1
+    },
+    {
+      "account": "acct-079",
+      "symbol": "VCSH",
+      "quantity": 401,
+      "value": 31799.3
+    },
+    {
+      "account": "acct-079",
+      "symbol": "SWVXX",
+      "quantity": 31985.1,
+      "value": 31985.1
+    },
+    {
+      "account": "acct-080",
+      "symbol": "VTI",
+      "quantity": 767,
+      "value": 226265
+    },
+    {
+      "account": "acct-080",
+      "symbol": "VXUS",
+      "quantity": 1330,
+      "value": 88046
+    },
+    {
+      "account": "acct-080",
+      "symbol": "BND",
+      "quantity": 6023,
+      "value": 440281.3
+    },
+    {
+      "account": "acct-080",
+      "symbol": "VGSH",
+      "quantity": 3214,
+      "value": 188661.8
+    },
+    {
+      "account": "acct-080",
+      "symbol": "VTEB",
+      "quantity": 3751,
+      "value": 188675.3
+    },
+    {
+      "account": "acct-080",
+      "symbol": "VCSH",
+      "quantity": 793,
+      "value": 62884.9
+    },
+    {
+      "account": "acct-080",
+      "symbol": "SWVXX",
+      "quantity": 63285.7,
+      "value": 63285.7
+    },
+    {
+      "account": "acct-081",
+      "symbol": "VTI",
+      "quantity": 229,
+      "value": 67555
+    },
+    {
+      "account": "acct-081",
+      "symbol": "VXUS",
+      "quantity": 429,
+      "value": 28399.8
+    },
+    {
+      "account": "acct-081",
+      "symbol": "AVUV",
+      "quantity": 108,
+      "value": 10665
+    },
+    {
+      "account": "acct-081",
+      "symbol": "BND",
+      "quantity": 535,
+      "value": 39108.5
+    },
+    {
+      "account": "acct-081",
+      "symbol": "VGSH",
+      "quantity": 242,
+      "value": 14205.4
+    },
+    {
+      "account": "acct-081",
+      "symbol": "VTEB",
+      "quantity": 247,
+      "value": 12424.1
+    },
+    {
+      "account": "acct-081",
+      "symbol": "SWVXX",
+      "quantity": 5492.2,
+      "value": 5492.2
+    },
+    {
+      "account": "acct-082",
+      "symbol": "VTI",
+      "quantity": 1591,
+      "value": 469345
+    },
+    {
+      "account": "acct-082",
+      "symbol": "VXUS",
+      "quantity": 2985,
+      "value": 197607
+    },
+    {
+      "account": "acct-082",
+      "symbol": "AVUV",
+      "quantity": 750,
+      "value": 74062.5
+    },
+    {
+      "account": "acct-082",
+      "symbol": "BND",
+      "quantity": 3717,
+      "value": 271712.7
+    },
+    {
+      "account": "acct-082",
+      "symbol": "VGSH",
+      "quantity": 1683,
+      "value": 98792.1
+    },
+    {
+      "account": "acct-082",
+      "symbol": "VTEB",
+      "quantity": 1718,
+      "value": 86415.4
+    },
+    {
+      "account": "acct-082",
+      "symbol": "SWVXX",
+      "quantity": 37215.3,
+      "value": 37215.3
+    },
+    {
+      "account": "acct-083",
+      "symbol": "VTI",
+      "quantity": 1113,
+      "value": 328335
+    },
+    {
+      "account": "acct-083",
+      "symbol": "VXUS",
+      "quantity": 2089,
+      "value": 138291.8
+    },
+    {
+      "account": "acct-083",
+      "symbol": "AVUV",
+      "quantity": 525,
+      "value": 51843.75
+    },
+    {
+      "account": "acct-083",
+      "symbol": "BND",
+      "quantity": 2602,
+      "value": 190206.2
+    },
+    {
+      "account": "acct-083",
+      "symbol": "VGSH",
+      "quantity": 1178,
+      "value": 69148.6
+    },
+    {
+      "account": "acct-083",
+      "symbol": "VTEB",
+      "quantity": 1203,
+      "value": 60510.9
+    },
+    {
+      "account": "acct-083",
+      "symbol": "SWVXX",
+      "quantity": 26263.75,
+      "value": 26263.75
+    },
+    {
+      "account": "acct-084",
+      "symbol": "VTI",
+      "quantity": 225,
+      "value": 66375
+    },
+    {
+      "account": "acct-084",
+      "symbol": "VXUS",
+      "quantity": 423,
+      "value": 28002.6
+    },
+    {
+      "account": "acct-084",
+      "symbol": "AVUV",
+      "quantity": 106,
+      "value": 10467.5
+    },
+    {
+      "account": "acct-084",
+      "symbol": "BND",
+      "quantity": 527,
+      "value": 38523.7
+    },
+    {
+      "account": "acct-084",
+      "symbol": "VGSH",
+      "quantity": 238,
+      "value": 13970.6
+    },
+    {
+      "account": "acct-084",
+      "symbol": "VTEB",
+      "quantity": 243,
+      "value": 12222.9
+    },
+    {
+      "account": "acct-084",
+      "symbol": "SWVXX",
+      "quantity": 5587.7,
+      "value": 5587.7
+    },
+    {
+      "account": "acct-085",
+      "symbol": "VTI",
+      "quantity": 146,
+      "value": 43070
+    },
+    {
+      "account": "acct-085",
+      "symbol": "VXUS",
+      "quantity": 274,
+      "value": 18138.8
+    },
+    {
+      "account": "acct-085",
+      "symbol": "AVUV",
+      "quantity": 68,
+      "value": 6715
+    },
+    {
+      "account": "acct-085",
+      "symbol": "BND",
+      "quantity": 341,
+      "value": 24927.1
+    },
+    {
+      "account": "acct-085",
+      "symbol": "VGSH",
+      "quantity": 154,
+      "value": 9039.8
+    },
+    {
+      "account": "acct-085",
+      "symbol": "VTEB",
+      "quantity": 157,
+      "value": 7897.1
+    },
+    {
+      "account": "acct-085",
+      "symbol": "SWVXX",
+      "quantity": 3612.2,
+      "value": 3612.2
+    },
+    {
+      "account": "acct-086",
+      "symbol": "VTI",
+      "quantity": 495,
+      "value": 146025
+    },
+    {
+      "account": "acct-086",
+      "symbol": "VXUS",
+      "quantity": 929,
+      "value": 61499.8
+    },
+    {
+      "account": "acct-086",
+      "symbol": "AVUV",
+      "quantity": 233,
+      "value": 23008.75
+    },
+    {
+      "account": "acct-086",
+      "symbol": "BND",
+      "quantity": 1157,
+      "value": 84576.7
+    },
+    {
+      "account": "acct-086",
+      "symbol": "VGSH",
+      "quantity": 524,
+      "value": 30758.8
+    },
+    {
+      "account": "acct-086",
+      "symbol": "VTEB",
+      "quantity": 535,
+      "value": 26910.5
+    },
+    {
+      "account": "acct-086",
+      "symbol": "SWVXX",
+      "quantity": 11970.45,
+      "value": 11970.45
+    },
+    {
+      "account": "acct-087",
+      "symbol": "VTI",
+      "quantity": 457,
+      "value": 134815
+    },
+    {
+      "account": "acct-087",
+      "symbol": "VXUS",
+      "quantity": 792,
+      "value": 52430.4
+    },
+    {
+      "account": "acct-087",
+      "symbol": "BND",
+      "quantity": 3586,
+      "value": 262136.6
+    },
+    {
+      "account": "acct-087",
+      "symbol": "VGSH",
+      "quantity": 1914,
+      "value": 112351.8
+    },
+    {
+      "account": "acct-087",
+      "symbol": "VTEB",
+      "quantity": 2233,
+      "value": 112319.9
+    },
+    {
+      "account": "acct-087",
+      "symbol": "VCSH",
+      "quantity": 472,
+      "value": 37429.6
+    },
+    {
+      "account": "acct-087",
+      "symbol": "SWVXX",
+      "quantity": 37616.7,
+      "value": 37616.7
+    },
+    {
+      "account": "acct-088",
+      "symbol": "VTI",
+      "quantity": 341,
+      "value": 100595
+    },
+    {
+      "account": "acct-088",
+      "symbol": "VXUS",
+      "quantity": 591,
+      "value": 39124.2
+    },
+    {
+      "account": "acct-088",
+      "symbol": "BND",
+      "quantity": 2678,
+      "value": 195761.8
+    },
+    {
+      "account": "acct-088",
+      "symbol": "VGSH",
+      "quantity": 1429,
+      "value": 83882.3
+    },
+    {
+      "account": "acct-088",
+      "symbol": "VTEB",
+      "quantity": 1668,
+      "value": 83900.4
+    },
+    {
+      "account": "acct-088",
+      "symbol": "VCSH",
+      "quantity": 352,
+      "value": 27913.6
+    },
+    {
+      "account": "acct-088",
+      "symbol": "SWVXX",
+      "quantity": 28322.7,
+      "value": 28322.7
+    },
+    {
+      "account": "acct-089",
+      "symbol": "VTI",
+      "quantity": 457,
+      "value": 134815
+    },
+    {
+      "account": "acct-089",
+      "symbol": "VXUS",
+      "quantity": 793,
+      "value": 52496.6
+    },
+    {
+      "account": "acct-089",
+      "symbol": "BND",
+      "quantity": 3591,
+      "value": 262502.1
+    },
+    {
+      "account": "acct-089",
+      "symbol": "VGSH",
+      "quantity": 1916,
+      "value": 112469.2
+    },
+    {
+      "account": "acct-089",
+      "symbol": "VTEB",
+      "quantity": 2237,
+      "value": 112521.1
+    },
+    {
+      "account": "acct-089",
+      "symbol": "VCSH",
+      "quantity": 472,
+      "value": 37429.6
+    },
+    {
+      "account": "acct-089",
+      "symbol": "SWVXX",
+      "quantity": 37916.4,
+      "value": 37916.4
+    },
+    {
+      "account": "acct-090",
+      "symbol": "VTI",
+      "quantity": 1115,
+      "value": 328925
+    },
+    {
+      "account": "acct-090",
+      "symbol": "VXUS",
+      "quantity": 2092,
+      "value": 138490.4
+    },
+    {
+      "account": "acct-090",
+      "symbol": "AVUV",
+      "quantity": 526,
+      "value": 51942.5
+    },
+    {
+      "account": "acct-090",
+      "symbol": "BND",
+      "quantity": 2605,
+      "value": 190425.5
+    },
+    {
+      "account": "acct-090",
+      "symbol": "VGSH",
+      "quantity": 1180,
+      "value": 69266
+    },
+    {
+      "account": "acct-090",
+      "symbol": "VTEB",
+      "quantity": 1204,
+      "value": 60561.2
+    },
+    {
+      "account": "acct-090",
+      "symbol": "SWVXX",
+      "quantity": 26239.4,
+      "value": 26239.4
+    },
+    {
+      "account": "acct-091",
+      "symbol": "VTI",
+      "quantity": 1515,
+      "value": 446925
+    },
+    {
+      "account": "acct-091",
+      "symbol": "VXUS",
+      "quantity": 2842,
+      "value": 188140.4
+    },
+    {
+      "account": "acct-091",
+      "symbol": "AVUV",
+      "quantity": 714,
+      "value": 70507.5
+    },
+    {
+      "account": "acct-091",
+      "symbol": "BND",
+      "quantity": 3539,
+      "value": 258700.9
+    },
+    {
+      "account": "acct-091",
+      "symbol": "VGSH",
+      "quantity": 1602,
+      "value": 94037.4
+    },
+    {
+      "account": "acct-091",
+      "symbol": "VTEB",
+      "quantity": 1636,
+      "value": 82290.8
+    },
+    {
+      "account": "acct-091",
+      "symbol": "SWVXX",
+      "quantity": 35598,
+      "value": 35598
+    },
+    {
+      "account": "acct-092",
+      "symbol": "VTI",
+      "quantity": 1810,
+      "value": 533950
+    },
+    {
+      "account": "acct-092",
+      "symbol": "VXUS",
+      "quantity": 2904,
+      "value": 192244.8
+    },
+    {
+      "account": "acct-092",
+      "symbol": "AVUV",
+      "quantity": 865,
+      "value": 85418.75
+    },
+    {
+      "account": "acct-092",
+      "symbol": "VNQ",
+      "quantity": 477,
+      "value": 42643.8
+    },
+    {
+      "account": "acct-092",
+      "symbol": "BND",
+      "quantity": 2338,
+      "value": 170907.8
+    },
+    {
+      "account": "acct-092",
+      "symbol": "VGSH",
+      "quantity": 363,
+      "value": 21308.1
+    },
+    {
+      "account": "acct-092",
+      "symbol": "SWVXX",
+      "quantity": 21826.75,
+      "value": 21826.75
+    },
+    {
+      "account": "acct-093",
+      "symbol": "VTI",
+      "quantity": 932,
+      "value": 274940
+    },
+    {
+      "account": "acct-093",
+      "symbol": "VXUS",
+      "quantity": 1495,
+      "value": 98969
+    },
+    {
+      "account": "acct-093",
+      "symbol": "AVUV",
+      "quantity": 445,
+      "value": 43943.75
+    },
+    {
+      "account": "acct-093",
+      "symbol": "VNQ",
+      "quantity": 246,
+      "value": 21992.4
+    },
+    {
+      "account": "acct-093",
+      "symbol": "BND",
+      "quantity": 1203,
+      "value": 87939.3
+    },
+    {
+      "account": "acct-093",
+      "symbol": "VGSH",
+      "quantity": 187,
+      "value": 10976.9
+    },
+    {
+      "account": "acct-093",
+      "symbol": "SWVXX",
+      "quantity": 11288.65,
+      "value": 11288.65
+    }
+  ],
+  "stories": {
+    "helpdesk": [
+      {
+        "id": "HD-2479",
+        "household": "alvarez",
+        "requester": "Lucia Alvarez",
+        "queue": "money-movement",
+        "priority": "urgent",
+        "subject": "Wire to title company for Friday closing",
+        "assignee": "marco-ferreira",
+        "links": [
+          "TR-1046"
+        ]
+      },
+      {
+        "id": "HD-2476",
+        "household": "chen-ashby",
+        "requester": "Grace Chen",
+        "queue": "client-service",
+        "priority": "high",
+        "subject": "Can't sign in after changing phones",
+        "assignee": null
+      },
+      {
+        "id": "HD-2481",
+        "household": "okafor",
+        "requester": "Ada Okafor",
+        "queue": "client-service",
+        "priority": "normal",
+        "subject": "Update beneficiary on Roth IRA",
+        "assignee": "helen-carver"
+      },
+      {
+        "id": "HD-2465",
+        "household": "patel-trust",
+        "requester": "Ravi Patel",
+        "queue": "operations",
+        "priority": "normal",
+        "subject": "Transfer from Edward Jones still pending",
+        "assignee": "marco-ferreira",
+        "links": [
+          "T-305"
+        ]
+      },
+      {
+        "id": "HD-2470",
+        "household": "lindqvist",
+        "requester": "Erik Lindqvist",
+        "queue": "money-movement",
+        "priority": "high",
+        "subject": "2026 required minimum distribution",
+        "assignee": "marco-ferreira",
+        "links": [
+          "TR-1038"
+        ]
+      },
+      {
+        "id": "HD-2474",
+        "household": "brennan",
+        "requester": "Maeve Brennan",
+        "queue": "client-service",
+        "priority": "normal",
+        "subject": "Question about Q3 advisory fee",
+        "assignee": "helen-carver"
+      },
+      {
+        "id": "HD-2463",
+        "household": "morgan",
+        "requester": "Tom Morgan",
+        "queue": "compliance-review",
+        "priority": "high",
+        "subject": "Complaint flagged for review",
+        "assignee": "priya-nair"
+      },
+      {
+        "id": "HD-2468",
+        "household": "nakamura",
+        "requester": "Ken Nakamura",
+        "queue": "client-service",
+        "priority": "low",
+        "subject": "Statement shows old mailing address",
+        "assignee": "helen-carver"
+      }
+    ],
+    "trade": [
+      {
+        "id": "TR-1046",
+        "household": "alvarez",
+        "type": "raise-cash",
+        "amount": 85000,
+        "status": "new",
+        "advisor": "rachel-moss",
+        "links": [
+          "HD-2479"
+        ]
+      },
+      {
+        "id": "TR-1045",
+        "household": "okafor",
+        "type": "rebalance-to-model",
+        "amount": null,
+        "status": "in-review",
+        "advisor": "rachel-moss",
+        "model": "meridian-growth-80-20"
+      },
+      {
+        "id": "TR-1043",
+        "household": "patel-trust",
+        "type": "model-change",
+        "amount": null,
+        "status": "approved",
+        "advisor": "dana-pruitt",
+        "model": "meridian-balanced-60-40"
+      },
+      {
+        "id": "TR-1041",
+        "household": "brennan",
+        "type": "tax-loss-harvest",
+        "amount": null,
+        "status": "executing",
+        "advisor": "rachel-moss"
+      },
+      {
+        "id": "TR-1038",
+        "household": "lindqvist",
+        "type": "raise-cash",
+        "amount": 42300,
+        "status": "done",
+        "advisor": "dana-pruitt",
+        "links": [
+          "HD-2470"
+        ]
+      }
+    ],
+    "transfers": [
+      {
+        "id": "T-311",
+        "household": "nakamura",
+        "from": "schwab",
+        "value": 284100,
+        "stage": "paperwork",
+        "daysInStage": 3,
+        "flag": "Joint owner signature missing"
+      },
+      {
+        "id": "T-312",
+        "household": "morgan",
+        "from": "bny",
+        "value": 96450,
+        "stage": "paperwork",
+        "daysInStage": 1,
+        "flag": "Non-ACAT, medallion signature needed"
+      },
+      {
+        "id": "T-305",
+        "household": "patel-trust",
+        "from": "edward-jones",
+        "value": 1120300,
+        "stage": "submitted",
+        "daysInStage": 2,
+        "control": "CTL-10433"
+      },
+      {
+        "id": "T-304",
+        "household": "brennan",
+        "from": "schwab",
+        "value": 205770,
+        "stage": "submitted",
+        "daysInStage": 1,
+        "control": "CTL-10431"
+      },
+      {
+        "id": "T-298",
+        "household": "okafor",
+        "from": "edward-jones",
+        "value": 412880,
+        "stage": "in-transfer",
+        "daysInStage": 4,
+        "control": "CTL-10421",
+        "flag": "Partial: 1 fund sells first",
+        "statement": "s1"
+      },
+      {
+        "id": "T-301",
+        "household": "lindqvist",
+        "from": "fidelity",
+        "value": 58200,
+        "stage": "in-transfer",
+        "daysInStage": 2,
+        "control": "CTL-10427"
+      },
+      {
+        "id": "T-287",
+        "household": "alvarez",
+        "from": "schwab",
+        "value": 743900,
+        "stage": "completed",
+        "completed": "2026-10-16",
+        "control": "CTL-10398"
+      },
+      {
+        "id": "T-280",
+        "household": "chen-ashby",
+        "from": "edward-jones",
+        "value": 331050,
+        "stage": "completed",
+        "completed": "2026-10-09",
+        "control": "CTL-10385"
+      },
+      {
+        "id": "T-299",
+        "household": "rossi",
+        "from": "fidelity",
+        "value": 127600,
+        "stage": "exception",
+        "daysInStage": 5,
+        "control": "CTL-10423",
+        "flag": "Rejected: name mismatch (Jr.)"
+      }
+    ],
+    "statements": [
+      {
+        "id": "s1",
+        "household": "okafor",
+        "custodian": "edward-jones",
+        "periodEnd": "2026-09-30",
+        "precheck": "ready",
+        "accounts": [
+          {
+            "label": "Joint WROS",
+            "suffix": "7781",
+            "total": 412880.4,
+            "positions": [
+              {
+                "symbol": "VTI",
+                "quantity": "812",
+                "value": 236616.8
+              },
+              {
+                "symbol": "MSFT",
+                "quantity": "100",
+                "value": 42938
+              },
+              {
+                "symbol": "AAPL",
+                "quantity": "140",
+                "value": 32172
+              },
+              {
+                "symbol": "BND",
+                "quantity": "420",
+                "value": 30702
+              },
+              {
+                "symbol": "BBGLX",
+                "quantity": "2104.330",
+                "value": 66538.91
+              },
+              {
+                "symbol": "CASH",
+                "quantity": "",
+                "value": 3912.69
+              }
+            ]
+          },
+          {
+            "label": "Roth IRA",
+            "suffix": "7790",
+            "total": 121644.12,
+            "positions": [
+              {
+                "symbol": "VXUS",
+                "quantity": "1050",
+                "value": 69510
+              },
+              {
+                "symbol": "AVUV",
+                "quantity": "310",
+                "value": 30612.5
+              },
+              {
+                "symbol": "CASH",
+                "quantity": "",
+                "value": 21521.62
+              }
+            ]
+          },
+          {
+            "label": "Individual",
+            "suffix": "7802",
+            "total": 52715.66,
+            "positions": [
+              {
+                "symbol": "NVDA",
+                "quantity": "260",
+                "value": 47424
+              },
+              {
+                "symbol": "AAPL 270115C00250000",
+                "description": "AAPL Jan 2027 250 call",
+                "quantity": "2 contracts",
+                "value": 3140
+              },
+              {
+                "symbol": "CASH",
+                "quantity": "",
+                "value": 2151.66
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "s2",
+        "household": "delgado-trust",
+        "custodian": "schwab",
+        "periodEnd": "2026-08-31",
+        "precheck": "unsupported-account-type",
+        "accountKinds": [
+          "Revocable trust"
+        ]
+      },
+      {
+        "id": "s3",
+        "household": "nakamura",
+        "custodian": "schwab",
+        "periodEnd": "2026-03-31",
+        "precheck": "stale",
+        "accountKinds": [
+          "Traditional IRA"
+        ]
+      },
+      {
+        "id": "s4",
+        "household": "brennan",
+        "custodian": "schwab",
+        "periodEnd": "2026-09-30",
+        "precheck": "ready",
+        "accountKinds": [
+          "Individual",
+          "Rollover IRA"
+        ]
+      },
+      {
+        "id": "s5",
+        "household": "morgan",
+        "custodian": "bny",
+        "periodEnd": "2026-09-30",
+        "precheck": "ready",
+        "accountKinds": [
+          "Joint"
+        ]
+      },
+      {
+        "id": "s6",
+        "household": "lindqvist",
+        "custodian": "fidelity",
+        "periodEnd": "2026-09-30",
+        "precheck": "ready",
+        "accountKinds": [
+          "Individual"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,357 @@
+@import "tailwindcss";
+
+/* =========================================================================
+   CEDAR_RIDGE THEME TOKENS
+   Light and dark variants scoped per [data-theme]. next-themes sets the
+   attribute on <html> via ThemeProvider in app/layout.tsx.
+   ========================================================================= */
+
+[data-theme="light"] {
+  /* Surfaces */
+  --bg: #f8f7f4;
+  --bg-raised: #fdfcfa;
+  --bg-card: #ffffff;
+  --bg-hover: #f1efe9;
+  --cream: #f8f7f4;
+
+  /* Text */
+  --foreground: #1a1d1b;
+  --muted: #6b6f6c;
+  --muted-strong: #3d4140;
+  --muted-faint: #9aa09d;
+
+  /* Borders */
+  --card-border: #e8e4dc;
+  --border-strong: #cfc9bd;
+
+  /* Translucent fills */
+  --fill-1: rgba(26, 29, 27, 0.03);
+  --fill-2: rgba(26, 29, 27, 0.06);
+  --fill-3: rgba(26, 29, 27, 0.12);
+  --fill-4: rgba(26, 29, 27, 0.24);
+  --fill-5: rgba(26, 29, 27, 0.48);
+
+  /* Inversion (flips across themes - signature Cedar Ridge look) */
+  --invert-bg: #1a1d1b;
+  --invert-text: #f8f7f4;
+  --invert-fill: rgba(248, 247, 244, 0.12);
+
+  /* Semantic accents */
+  --accent: #3b6fa0;
+  --accent-hover: #2f5a82;
+  --accent-light: #eaf1f8;
+  --accent-border: #c9dbec;
+
+  --success: #2d8a5e;
+  --success-bg: #eaf5ef;
+  --success-border: #c7e3d3;
+
+  --warning: #a17e2e;
+  --warning-bg: #faf3e0;
+  --warning-border: #ebdcb1;
+
+  --danger: #b83c3c;
+  --danger-bg: #fbecec;
+  --danger-border: #eec7c7;
+
+  --info: #3b6fa0;
+  --info-bg: #eaf1f8;
+  --info-border: #c9dbec;
+
+  /* Panels */
+  --panel-bg: #ffffff;
+  --panel-backdrop: rgba(20, 22, 20, 0.32);
+
+  /* Back-compat aliases (used throughout existing codebase) */
+  --background: var(--bg);
+  --sidebar-bg: var(--bg-raised);
+  --sidebar-border: var(--card-border);
+  --card-bg: var(--bg-card);
+  --surface: var(--bg-raised);
+
+  /* 16 status hues (bg / fg / dot / edge) */
+  --status-slate-bg: #f1f5f9;     --status-slate-fg: #334155;   --status-slate-dot: #64748b;   --status-slate-edge: #cbd5e1;
+  --status-blue-bg: #eff6ff;      --status-blue-fg: #1d4ed8;    --status-blue-dot: #3b82f6;    --status-blue-edge: #bfdbfe;
+  --status-amber-bg: #fffbeb;     --status-amber-fg: #b45309;   --status-amber-dot: #f59e0b;   --status-amber-edge: #fde68a;
+  --status-sky-bg: #f0f9ff;       --status-sky-fg: #0369a1;     --status-sky-dot: #0ea5e9;     --status-sky-edge: #bae6fd;
+  --status-indigo-bg: #eef2ff;    --status-indigo-fg: #4338ca;  --status-indigo-dot: #6366f1;  --status-indigo-edge: #c7d2fe;
+  --status-violet-bg: #f5f3ff;    --status-violet-fg: #6d28d9;  --status-violet-dot: #8b5cf6;  --status-violet-edge: #ddd6fe;
+  --status-cyan-bg: #ecfeff;      --status-cyan-fg: #0e7490;    --status-cyan-dot: #06b6d4;    --status-cyan-edge: #a5f3fc;
+  --status-teal-bg: #f0fdfa;      --status-teal-fg: #0f766e;    --status-teal-dot: #14b8a6;    --status-teal-edge: #99f6e4;
+  --status-emerald-bg: #ecfdf5;   --status-emerald-fg: #047857; --status-emerald-dot: #10b981; --status-emerald-edge: #a7f3d0;
+  --status-lime-bg: #f7fee7;      --status-lime-fg: #4d7c0f;    --status-lime-dot: #84cc16;    --status-lime-edge: #d9f99d;
+  --status-purple-bg: #faf5ff;    --status-purple-fg: #7e22ce;  --status-purple-dot: #a855f7;  --status-purple-edge: #e9d5ff;
+  --status-green-bg: #f0fdf4;     --status-green-fg: #15803d;   --status-green-dot: #22c55e;   --status-green-edge: #bbf7d0;
+  --status-red-bg: #fef2f2;       --status-red-fg: #b91c1c;     --status-red-dot: #ef4444;     --status-red-edge: #fecaca;
+  --status-gray-bg: #f4f4f4;      --status-gray-fg: #3f3f46;    --status-gray-dot: #9ca3af;    --status-gray-edge: #d4d4d4;
+  --status-orange-bg: #fff7ed;    --status-orange-fg: #c2410c;  --status-orange-dot: #f97316;  --status-orange-edge: #fed7aa;
+  --status-yellow-bg: #fefce8;    --status-yellow-fg: #a16207;  --status-yellow-dot: #eab308;  --status-yellow-edge: #fef08a;
+}
+
+[data-theme="dark"] {
+  /* Surfaces */
+  --bg: #0a0a0a;
+  --bg-raised: #141414;
+  --bg-card: #1a1a1a;
+  --bg-hover: #222222;
+  --cream: #1a1a1a;
+
+  /* Text */
+  --foreground: #eceae4;
+  --muted: #9a9a94;
+  --muted-strong: #c5c3bd;
+  --muted-faint: #6a6a66;
+
+  /* Borders */
+  --card-border: #2a2a2a;
+  --border-strong: #3a3a3a;
+
+  /* Translucent fills */
+  --fill-1: rgba(236, 234, 228, 0.04);
+  --fill-2: rgba(236, 234, 228, 0.08);
+  --fill-3: rgba(236, 234, 228, 0.14);
+  --fill-4: rgba(236, 234, 228, 0.24);
+  --fill-5: rgba(236, 234, 228, 0.48);
+
+  /* Inversion (flips across themes) */
+  --invert-bg: #eceae4;
+  --invert-text: #0a0a0a;
+  --invert-fill: rgba(10, 10, 10, 0.12);
+
+  /* Semantic accents */
+  --accent: #6fa3d3;
+  --accent-hover: #8ab6dd;
+  --accent-light: rgba(111, 163, 211, 0.14);
+  --accent-border: rgba(111, 163, 211, 0.3);
+
+  --success: #5fc08a;
+  --success-bg: rgba(95, 192, 138, 0.12);
+  --success-border: rgba(95, 192, 138, 0.3);
+
+  --warning: #d4b15c;
+  --warning-bg: rgba(212, 177, 92, 0.12);
+  --warning-border: rgba(212, 177, 92, 0.3);
+
+  --danger: #e07070;
+  --danger-bg: rgba(224, 112, 112, 0.14);
+  --danger-border: rgba(224, 112, 112, 0.32);
+
+  --info: #6fa3d3;
+  --info-bg: rgba(111, 163, 211, 0.14);
+  --info-border: rgba(111, 163, 211, 0.3);
+
+  /* Panels */
+  --panel-bg: #1a1a1a;
+  --panel-backdrop: rgba(0, 0, 0, 0.6);
+
+  /* Back-compat aliases */
+  --background: var(--bg);
+  --sidebar-bg: var(--bg-raised);
+  --sidebar-border: var(--card-border);
+  --card-bg: var(--bg-card);
+  --surface: var(--bg-raised);
+
+  /* 16 status hues tuned for dark surfaces (bg uses alpha of 500, fg uses 300, edge uses alpha 500) */
+  --status-slate-bg: rgba(100, 116, 139, 0.16);    --status-slate-fg: #cbd5e1;    --status-slate-dot: #94a3b8;   --status-slate-edge: rgba(100, 116, 139, 0.35);
+  --status-blue-bg: rgba(59, 130, 246, 0.16);      --status-blue-fg: #93c5fd;     --status-blue-dot: #60a5fa;    --status-blue-edge: rgba(59, 130, 246, 0.35);
+  --status-amber-bg: rgba(245, 158, 11, 0.16);     --status-amber-fg: #fcd34d;    --status-amber-dot: #fbbf24;   --status-amber-edge: rgba(245, 158, 11, 0.35);
+  --status-sky-bg: rgba(14, 165, 233, 0.16);       --status-sky-fg: #7dd3fc;      --status-sky-dot: #38bdf8;     --status-sky-edge: rgba(14, 165, 233, 0.35);
+  --status-indigo-bg: rgba(99, 102, 241, 0.16);    --status-indigo-fg: #a5b4fc;   --status-indigo-dot: #818cf8;  --status-indigo-edge: rgba(99, 102, 241, 0.35);
+  --status-violet-bg: rgba(139, 92, 246, 0.16);    --status-violet-fg: #c4b5fd;   --status-violet-dot: #a78bfa;  --status-violet-edge: rgba(139, 92, 246, 0.35);
+  --status-cyan-bg: rgba(6, 182, 212, 0.16);       --status-cyan-fg: #67e8f9;     --status-cyan-dot: #22d3ee;    --status-cyan-edge: rgba(6, 182, 212, 0.35);
+  --status-teal-bg: rgba(20, 184, 166, 0.16);      --status-teal-fg: #5eead4;     --status-teal-dot: #2dd4bf;    --status-teal-edge: rgba(20, 184, 166, 0.35);
+  --status-emerald-bg: rgba(16, 185, 129, 0.16);   --status-emerald-fg: #6ee7b7;  --status-emerald-dot: #34d399; --status-emerald-edge: rgba(16, 185, 129, 0.35);
+  --status-lime-bg: rgba(132, 204, 22, 0.16);      --status-lime-fg: #bef264;     --status-lime-dot: #a3e635;    --status-lime-edge: rgba(132, 204, 22, 0.35);
+  --status-purple-bg: rgba(168, 85, 247, 0.16);    --status-purple-fg: #d8b4fe;   --status-purple-dot: #c084fc;  --status-purple-edge: rgba(168, 85, 247, 0.35);
+  --status-green-bg: rgba(34, 197, 94, 0.16);      --status-green-fg: #86efac;    --status-green-dot: #4ade80;   --status-green-edge: rgba(34, 197, 94, 0.35);
+  --status-red-bg: rgba(239, 68, 68, 0.16);        --status-red-fg: #fca5a5;      --status-red-dot: #f87171;     --status-red-edge: rgba(239, 68, 68, 0.35);
+  --status-gray-bg: rgba(156, 163, 175, 0.14);     --status-gray-fg: #d4d4d4;     --status-gray-dot: #a3a3a3;    --status-gray-edge: rgba(156, 163, 175, 0.32);
+  --status-orange-bg: rgba(249, 115, 22, 0.16);    --status-orange-fg: #fdba74;   --status-orange-dot: #fb923c;  --status-orange-edge: rgba(249, 115, 22, 0.35);
+  --status-yellow-bg: rgba(234, 179, 8, 0.16);     --status-yellow-fg: #fde68a;   --status-yellow-dot: #facc15;  --status-yellow-edge: rgba(234, 179, 8, 0.35);
+}
+
+/* Fallback (no data-theme yet): use light */
+:root {
+  color-scheme: light dark;
+}
+
+@theme inline {
+  /* Surfaces */
+  --color-background: var(--bg);
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-bg-card: var(--bg-card);
+  --color-bg-hover: var(--bg-hover);
+  --color-cream: var(--cream);
+
+  /* Text */
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-muted-faint: var(--muted-faint);
+
+  /* Borders */
+  --color-card-border: var(--card-border);
+  --color-border-strong: var(--border-strong);
+
+  /* Fills */
+  --color-fill-1: var(--fill-1);
+  --color-fill-2: var(--fill-2);
+  --color-fill-3: var(--fill-3);
+  --color-fill-4: var(--fill-4);
+  --color-fill-5: var(--fill-5);
+
+  /* Inversion */
+  --color-invert-bg: var(--invert-bg);
+  --color-invert-text: var(--invert-text);
+  --color-invert-fill: var(--invert-fill);
+
+  /* Accents */
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-light: var(--accent-light);
+  --color-accent-border: var(--accent-border);
+
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-success-border: var(--success-border);
+
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-border: var(--warning-border);
+
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-danger-border: var(--danger-border);
+
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+  --color-info-border: var(--info-border);
+
+  /* Panels */
+  --color-panel-bg: var(--panel-bg);
+  --color-panel-backdrop: var(--panel-backdrop);
+
+  /* Back-compat */
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-card-bg: var(--card-bg);
+  --color-surface: var(--surface);
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-serif);
+}
+
+body {
+  background: var(--bg);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--fill-3) transparent;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes drawerIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(-8px) scale(0.96); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-border); }
+  50% { box-shadow: 0 0 0 6px transparent; }
+}
+
+@keyframes progressBar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out both;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.2s ease-out both;
+}
+
+.animate-drawer-in {
+  animation: drawerIn 0.25s cubic-bezier(0.32, 0.72, 0.24, 1) both;
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.3s ease-out both;
+}
+
+.animate-toast-in {
+  animation: toastIn 0.25s ease-out both;
+}
+
+.animate-toast-out {
+  animation: toastOut 0.2s ease-in both;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.form-input {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--card-border);
+  background: var(--bg-card);
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+}
+
+.form-input::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-border);
+}
+
+input, select, textarea {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+button {
+  transition: all 0.15s ease;
+}
+
+tr {
+  transition: background-color 0.1s ease;
+}
