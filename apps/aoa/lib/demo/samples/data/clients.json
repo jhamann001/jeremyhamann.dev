@@ -1,0 +1,3060 @@
+{
+  "clients": {
+    "003DM0000001001YAA": {
+      "name": "Lucia Alvarez",
+      "showcase": false,
+      "risk": {
+        "score": 14,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Lena Alvarez",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "04/16/1986",
+          "acct": "Joint",
+          "num": "••••3317"
+        },
+        {
+          "name": "Jonah Alvarez",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "09/11/1993",
+          "acct": "Joint",
+          "num": "••••3317"
+        },
+        {
+          "name": "Daniel Alvarez",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "01/13/1952",
+          "acct": "Roth IRA",
+          "num": "••••8820"
+        },
+        {
+          "name": "Daniel Alvarez",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "01/13/1952",
+          "acct": "Traditional IRA",
+          "num": "••••4410"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Daniel; two adult children, Lena and Jonah",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Hands-off; trusts the model",
+        "Worry": "A downturn just before retirement",
+        "Themes": "Household planning, Tax-free growth, Retirement income"
+      }
+    },
+    "003DM0000001002YAA": {
+      "name": "Daniel Alvarez",
+      "showcase": false,
+      "risk": {
+        "score": 14,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Lena Alvarez",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "04/16/1986",
+          "acct": "Joint",
+          "num": "••••3317"
+        },
+        {
+          "name": "Jonah Alvarez",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "09/11/1993",
+          "acct": "Joint",
+          "num": "••••3317"
+        },
+        {
+          "name": "Lucia Alvarez",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "04/18/1955",
+          "acct": "SEP IRA",
+          "num": "••••8129"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Lucia; two adult children, Lena and Jonah",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Hands-off; trusts the model",
+        "Worry": "A downturn just before retirement",
+        "Themes": "Household planning, Tax-free growth, Retirement income"
+      }
+    },
+    "003DM0000001003YAA": {
+      "name": "Kofi Okafor",
+      "showcase": true,
+      "risk": {
+        "score": 19,
+        "tolerance": "Growth"
+      },
+      "bene": [
+        {
+          "name": "Amara Okafor",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "04/18/2001",
+          "acct": "Joint",
+          "num": "••••2290"
+        },
+        {
+          "name": "Tobi Okafor",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "09/02/2004",
+          "acct": "Joint",
+          "num": "••••2290"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Ada; two adult children, Amara and Tobi",
+        "Goals": "Bring the Edward Jones accounts under one plan; retire around 62",
+        "Communication": "Email for updates; a call for decisions",
+        "Behavior": "Holds winners; reluctant to sell NVDA",
+        "Worry": "Taxes on the concentrated NVDA position",
+        "Themes": "Consolidation, concentrated stock, tax efficiency"
+      },
+      "prep": {
+        "advisor": "Rachel Moss",
+        "aum": "$501K",
+        "tenure": "3 years",
+        "riskProfile": "Growth (19/25)",
+        "lastMeeting": {
+          "daysAgo": 21,
+          "label": "Statement review call"
+        },
+        "recentSignals": [
+          "Asked by email when the Edward Jones accounts will show up",
+          "Joint account in transfer: positions settling, the Bridge Builder fund sold first",
+          "Rebalance request REQ-00001045 waiting in the trade desk's review"
+        ],
+        "openItems": [
+          "Release the rebalance into Growth 80/20 once the transfer settles",
+          "Start paperwork for the Edward Jones Roth IRA and individual account",
+          "Agree a plan for the NVDA position before the individual account moves"
+        ],
+        "talkingPoints": "Transfer timing: what has landed and what is still selling\nThe rebalance into Meridian Growth 80/20 and when it runs\nNVDA: hold, trim or gift before the individual account moves\nNext transfers: Ada's Roth IRA and Kofi's individual account",
+        "notes": "Kofi asks about timing by email; Ada handles the paperwork. Invite both."
+      },
+      "dualView": {
+        "label": "Consolidating from Edward Jones",
+        "description": "A partial transfer in flight, a rebalance waiting on it, and two accounts still to move.",
+        "meetingLabel": "Transfer kickoff follow-up · sample agenda",
+        "tenure": "3 years",
+        "brief": "The Edward Jones joint account is in transfer. Every position but the Bridge Builder fund arrives in kind; that fund is sold first and comes over as cash. REQ-00001045 rebalances into Meridian Growth 80/20 once it settles, so lead with timing, then agree what happens to the NVDA position in Kofi's Edward Jones individual account before it moves.",
+        "realTime": [
+          {
+            "daysAgo": 0,
+            "text": "Rebalance request REQ-00001045 waiting in the trade desk's review",
+            "source": "Trade Request · in review"
+          },
+          {
+            "daysAgo": 3,
+            "text": "Ada told the transfer is pending settlement; Bridge Builder fund sells first",
+            "source": "CRM call log"
+          },
+          {
+            "daysAgo": 3,
+            "text": "Replied to Kofi's question on transfer timing",
+            "source": "Email"
+          },
+          {
+            "daysAgo": 4,
+            "text": "Edward Jones joint account moved to In transfer (CTL-10421)",
+            "source": "Transfer Tracker"
+          },
+          {
+            "daysAgo": 9,
+            "text": "Roth IRA beneficiary form sent to Ada; ticket HD-2481 open",
+            "source": "Help desk"
+          }
+        ],
+        "historical": [
+          {
+            "daysAgo": 21,
+            "text": "September Edward Jones statement reviewed: three accounts to bring over",
+            "source": "CRM call log"
+          },
+          {
+            "daysAgo": 1124,
+            "text": "Ada's SEP IRA invested in Meridian Growth 80/20 (REQ-00000901)",
+            "source": "Trade Request"
+          },
+          {
+            "daysAgo": 1130,
+            "text": "Household's first account opened: Ada's SEP IRA",
+            "source": "Custodian account record"
+          }
+        ],
+        "insights": [
+          {
+            "tone": "opportunity",
+            "title": "Rebalance the day it settles",
+            "body": "REQ-00001045 is waiting in review. Releasing it as soon as positions settle keeps the joint account off its model for the shortest time.",
+            "status": "Meeting priority",
+            "provenance": "Synthesized from REQ-00001045 + transfer CTL-10421"
+          },
+          {
+            "tone": "risk",
+            "title": "Concentrated NVDA position",
+            "body": "260 NVDA shares are about 90% of Kofi's Edward Jones individual account. The trade desk's exclusion stops the firm adding more; agree a plan before that account moves.",
+            "status": "Open item",
+            "provenance": "Synthesized from held-away holdings + client exclusion"
+          },
+          {
+            "tone": "context",
+            "title": "Ada runs the paperwork",
+            "body": "Ada took the transfer call and has the beneficiary form; Kofi follows up on timing by email. Copy both on the recap.",
+            "status": "Communication",
+            "provenance": "Synthesized from call log + email"
+          },
+          {
+            "tone": "healthy",
+            "title": "Partial transfer on schedule",
+            "body": "Four days in transfer is inside the usual window, and only the Bridge Builder fund needs selling at Edward Jones.",
+            "status": "On track",
+            "provenance": "Synthesized from the Transfer Tracker record"
+          }
+        ]
+      }
+    },
+    "003DM0000001004YAA": {
+      "name": "Ada Okafor",
+      "showcase": true,
+      "risk": {
+        "score": 19,
+        "tolerance": "Growth"
+      },
+      "bene": [
+        {
+          "name": "Kofi Okafor",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "07/22/1971",
+          "acct": "SEP IRA",
+          "num": "••••3926"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Kofi; two adult children, Amara and Tobi",
+        "Goals": "Steady retirement saving from her consulting income",
+        "Communication": "Phone; prefers to handle forms herself",
+        "Behavior": "Detail-oriented; reads every form before signing",
+        "Worry": "Leaving the right beneficiaries on every account",
+        "Themes": "Self-employed retirement saving, beneficiary planning"
+      },
+      "prep": {
+        "advisor": "Rachel Moss",
+        "aum": "$501K",
+        "tenure": "3 years",
+        "riskProfile": "Growth (19/25)",
+        "lastMeeting": {
+          "daysAgo": 3,
+          "label": "Transfer update call"
+        },
+        "recentSignals": [
+          "Roth IRA beneficiary form sent nine days ago, not yet signed",
+          "Edward Jones Roth IRA linked through Plaid: $121,644, about 18% in cash",
+          "SEP IRA on Meridian Growth 80/20 since its first contribution"
+        ],
+        "openItems": [
+          "Signed Roth IRA beneficiary form (HD-2481)",
+          "Plan the Roth IRA's move after the joint account settles",
+          "This year's SEP IRA contribution"
+        ],
+        "talkingPoints": "Roth IRA beneficiaries: Amara and Tobi, 50/50\nMoving the Roth IRA once the joint account settles\nSEP IRA contribution for this tax year",
+        "notes": "Reads every form closely; walk through the beneficiary form line by line."
+      },
+      "dualView": {
+        "label": "Beneficiaries before the next transfer",
+        "description": "A three-year SEP IRA client with a Roth IRA still at Edward Jones and a form to sign.",
+        "meetingLabel": "Beneficiary and transfer check-in · sample agenda",
+        "tenure": "3 years",
+        "brief": "Ada's SEP IRA has been with the firm for three years on Meridian Growth 80/20. Her Edward Jones Roth IRA moves after the joint account settles, and the beneficiary form for it is still unsigned (HD-2481). Get the form signed so the new designation is in place when the Roth IRA arrives.",
+        "realTime": [
+          {
+            "daysAgo": 1,
+            "text": "Edward Jones Roth IRA refreshed through Plaid: $121,644",
+            "source": "Plaid held-away account"
+          },
+          {
+            "daysAgo": 3,
+            "text": "Took the call on the Edward Jones transfer's status",
+            "source": "CRM call log"
+          },
+          {
+            "daysAgo": 9,
+            "text": "Beneficiary designation form sent for the Roth IRA",
+            "source": "Email"
+          },
+          {
+            "daysAgo": 9,
+            "text": "Help desk ticket HD-2481 opened: update beneficiary on Roth IRA",
+            "source": "Help desk"
+          }
+        ],
+        "historical": [
+          {
+            "daysAgo": 21,
+            "text": "September statement reviewed: the Roth IRA moves after the joint account",
+            "source": "CRM call log"
+          },
+          {
+            "daysAgo": 1124,
+            "text": "SEP IRA invested in Meridian Growth 80/20 (REQ-00000901)",
+            "source": "Trade Request"
+          },
+          {
+            "daysAgo": 1130,
+            "text": "Opened a SEP IRA for her consulting income",
+            "source": "Custodian account record"
+          }
+        ],
+        "insights": [
+          {
+            "tone": "opportunity",
+            "title": "Move the Roth IRA next",
+            "body": "The Edward Jones Roth IRA ($121,644, about 18% in cash) can follow the joint account. Starting its paperwork now saves a second kickoff.",
+            "status": "Meeting priority",
+            "provenance": "Synthesized from Plaid holdings + the September statement"
+          },
+          {
+            "tone": "risk",
+            "title": "Beneficiary form unsigned",
+            "body": "HD-2481 has been open nine days. Until the signed form is back, the Roth IRA keeps its current designation.",
+            "status": "Open item",
+            "provenance": "Synthesized from help desk + email"
+          },
+          {
+            "tone": "context",
+            "title": "Self-employed saver",
+            "body": "Ada funds the SEP IRA from consulting income. A tax year's contribution can go in up to that year's filing deadline.",
+            "status": "Planning",
+            "provenance": "Synthesized from account records"
+          },
+          {
+            "tone": "healthy",
+            "title": "SEP IRA on model",
+            "body": "The SEP IRA has stayed on Meridian Growth 80/20 since its first contribution three years ago.",
+            "status": "On track",
+            "provenance": "Synthesized from REQ-00000901 + positions"
+          }
+        ]
+      }
+    },
+    "003DM0000001005YAA": {
+      "name": "Grace Chen",
+      "showcase": false,
+      "risk": {
+        "score": 19,
+        "tolerance": "Growth"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Rowan Chen",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "10/22/1988",
+          "acct": "Joint",
+          "num": "••••5106"
+        },
+        {
+          "name": "Silas Chen",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "03/08/1991",
+          "acct": "Joint",
+          "num": "••••5106"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Owen; two adult children, Rowan and Silas",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Taxes as the portfolio grows",
+        "Themes": "Household planning, Tax-free growth"
+      }
+    },
+    "003DM0000001006YAA": {
+      "name": "Owen Ashby",
+      "showcase": false,
+      "risk": {
+        "score": 19,
+        "tolerance": "Growth"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Rowan Chen",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "10/22/1988",
+          "acct": "Joint",
+          "num": "••••5106"
+        },
+        {
+          "name": "Silas Chen",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "03/08/1991",
+          "acct": "Joint",
+          "num": "••••5106"
+        },
+        {
+          "name": "Grace Chen",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "03/14/1973",
+          "acct": "Roth IRA",
+          "num": "••••5103"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Grace; two adult children, Rowan and Silas",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "Taxes as the portfolio grows",
+        "Themes": "Household planning, Tax-free growth"
+      }
+    },
+    "003DM0000001007YAA": {
+      "name": "Ravi Patel",
+      "showcase": false,
+      "risk": {
+        "score": 12,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [],
+      "portrait": {
+        "Family": "Single; two adult children, Isla and Amelia",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "Paying more tax than needed",
+        "Themes": "Estate planning"
+      }
+    },
+    "003DM0000001008YAA": {
+      "name": "Erik Lindqvist",
+      "showcase": true,
+      "risk": {
+        "score": 7,
+        "tolerance": "Moderately conservative"
+      },
+      "bene": [
+        {
+          "name": "Linnea Lindqvist",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/11/1979",
+          "acct": "Traditional IRA",
+          "num": "••••7714"
+        },
+        {
+          "name": "Johan Lindqvist",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "10/30/1982",
+          "acct": "Traditional IRA",
+          "num": "••••7714"
+        },
+        {
+          "name": "Linnea Lindqvist",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "02/11/1979",
+          "acct": "Individual",
+          "num": "••••7721"
+        },
+        {
+          "name": "Johan Lindqvist",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "10/30/1982",
+          "acct": "Individual",
+          "num": "••••7721"
+        }
+      ],
+      "portrait": {
+        "Family": "Widowed; two adult children, Linnea and Johan",
+        "Goals": "Reliable income from the IRA; leave the rest to his children",
+        "Communication": "Email; short and to the point",
+        "Behavior": "Steady; doesn't react to market swings",
+        "Worry": "Taking the required distribution late or with the wrong withholding",
+        "Themes": "Required distributions, consolidation, legacy"
+      },
+      "prep": {
+        "advisor": "Dana Pruitt",
+        "aum": "$544K",
+        "tenure": "2 years",
+        "riskProfile": "Moderately conservative (7/25)",
+        "lastMeeting": {
+          "daysAgo": 6,
+          "label": "RMD confirmation call"
+        },
+        "recentSignals": [
+          "This year's RMD sent with 10% federal withholding (REQ-00001038)",
+          "Fidelity transfer accepted; settlement expected in a few days",
+          "$50 IRA maintenance fee charged in error and credited"
+        ],
+        "openItems": [
+          "Invest the Fidelity account in Meridian Income once it lands",
+          "Set next year's RMD date and withholding",
+          "Check the next statement for the maintenance fee"
+        ],
+        "talkingPoints": "Confirm this year's distribution arrived as expected\nInvest the Fidelity account in Meridian Income\nNext year's RMD timing and withholding\nBeneficiaries: Linnea and Johan on both accounts",
+        "notes": "Prefers email follow-ups; keep the meeting short."
+      },
+      "dualView": {
+        "label": "Distribution year, one firm",
+        "description": "A retiree's required distribution done, a small account moving in, and a fee error put right.",
+        "meetingLabel": "Annual review · sample agenda",
+        "tenure": "2 years",
+        "brief": "This year's required minimum distribution is done: REQ-00001038 raised $42,300 and it went out with 10% federal withholding. The Fidelity account is in transfer. Confirm next year's distribution plan and the $50 fee credit, then invest the Fidelity account in Meridian Income when it lands.",
+        "realTime": [
+          {
+            "daysAgo": 1,
+            "text": "Raise-cash request REQ-00001038 completed: $42,300 for the RMD",
+            "source": "Trade Request · completed"
+          },
+          {
+            "daysAgo": 2,
+            "text": "Fidelity transfer accepted (CTL-10427); settlement in a few days",
+            "source": "Transfer Tracker"
+          },
+          {
+            "daysAgo": 5,
+            "text": "RMD distributed with 10% federal withholding",
+            "source": "CRM task"
+          },
+          {
+            "daysAgo": 6,
+            "text": "Confirmed the RMD amount by phone",
+            "source": "CRM call log"
+          },
+          {
+            "daysAgo": 7,
+            "text": "Asked for this year's RMD, same withholding as last year",
+            "source": "Email"
+          }
+        ],
+        "historical": [
+          {
+            "daysAgo": 21,
+            "text": "IRA maintenance fee charged in error; $50 credited",
+            "source": "Operations fee request"
+          },
+          {
+            "daysAgo": 1024,
+            "text": "Traditional IRA invested in Meridian Income (REQ-00000902)",
+            "source": "Trade Request"
+          },
+          {
+            "daysAgo": 1028,
+            "text": "Traditional IRA opened with an employer-plan rollover",
+            "source": "Custodian account record"
+          }
+        ],
+        "insights": [
+          {
+            "tone": "opportunity",
+            "title": "Set next year's RMD now",
+            "body": "Erik takes his required distribution from the Traditional IRA every year. Fixing the date and withholding at this review avoids a year-end rush.",
+            "status": "Meeting priority",
+            "provenance": "Synthesized from REQ-00001038 + call log"
+          },
+          {
+            "tone": "risk",
+            "title": "Fee error already once this year",
+            "body": "The $50 IRA maintenance fee was charged in error and credited. Check the next statement so it doesn't come back.",
+            "status": "Watch",
+            "provenance": "Synthesized from the operations fee request"
+          },
+          {
+            "tone": "context",
+            "title": "Consolidating at one firm",
+            "body": "The Fidelity individual account ($58,200) is in transfer. Once it lands, the RMD, the tax report and the beneficiaries are in one place.",
+            "status": "Context",
+            "provenance": "Synthesized from the Transfer Tracker record"
+          },
+          {
+            "tone": "healthy",
+            "title": "This year's distribution is done",
+            "body": "The RMD went out with the withholding Erik asked for, and the task is closed.",
+            "status": "On track",
+            "provenance": "Synthesized from CRM task + trade request"
+          }
+        ]
+      }
+    },
+    "003DM0000001009YAA": {
+      "name": "Maeve Brennan",
+      "showcase": true,
+      "risk": {
+        "score": 15,
+        "tolerance": "Moderate"
+      },
+      "bene": [
+        {
+          "name": "Niamh Brennan",
+          "rel": "Child",
+          "pct": 100,
+          "dob": "06/09/1996",
+          "acct": "Rollover IRA",
+          "num": "••••1195"
+        },
+        {
+          "name": "Niamh Brennan",
+          "rel": "Child (TOD)",
+          "pct": 100,
+          "dob": "06/09/1996",
+          "acct": "Individual",
+          "num": "••••1188"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; one adult daughter, Niamh",
+        "Goals": "Retire at 60 with the rollover IRA and the Schwab account working together",
+        "Communication": "Email; wants the numbers in writing",
+        "Behavior": "Analytical; checks every statement line",
+        "Worry": "Fees and taxes eating into returns",
+        "Themes": "Tax-loss harvesting, fee transparency, consolidation"
+      },
+      "prep": {
+        "advisor": "Rachel Moss",
+        "aum": "$524K",
+        "tenure": "3 years",
+        "riskProfile": "Moderate (15/25)",
+        "lastMeeting": {
+          "daysAgo": 8,
+          "label": "Tax-loss harvesting call"
+        },
+        "recentSignals": [
+          "Questioned the Q3 advisory fee (HD-2474)",
+          "Service-guarantee waiver for Q3 waiting for approval",
+          "Tax-loss harvest in the bond funds executing (REQ-00001041)",
+          "Schwab individual account submitted for transfer"
+        ],
+        "openItems": [
+          "Send the written Q3 fee explanation",
+          "Decision on the Q3 fee waiver",
+          "Show the harvest against her realized-gains budget"
+        ],
+        "talkingPoints": "Q3 fee: the average daily balance, the household tier and the waiver\nLosses harvested so far and the realized-gains budget\nSchwab transfer timing",
+        "notes": "Send the fee math before the meeting; she will have read it."
+      },
+      "dualView": {
+        "label": "Fees, taxes and a transfer",
+        "description": "A fee question, a pending waiver, a harvest executing and a Schwab account on its way.",
+        "meetingLabel": "Tax planning · sample agenda",
+        "tenure": "3 years",
+        "brief": "Maeve questioned the Q3 advisory fee (HD-2474), and a one-quarter service-guarantee waiver for the delayed rebalance is waiting for approval. The tax-loss harvest in the bond funds is executing (REQ-00001041), and the Schwab individual account was submitted for transfer. Send the written fee explanation first, then show the harvest against her realized-gains budget.",
+        "realTime": [
+          {
+            "daysAgo": 0,
+            "text": "Tax-loss harvest REQ-00001041 executing: selling the bond funds",
+            "source": "Trade Request · executing"
+          },
+          {
+            "daysAgo": 1,
+            "text": "Schwab individual account submitted for transfer (CTL-10431)",
+            "source": "Transfer Tracker"
+          },
+          {
+            "daysAgo": 2,
+            "text": "Service-guarantee waiver for Q3 requested, awaiting approval",
+            "source": "Operations fee request"
+          },
+          {
+            "daysAgo": 3,
+            "text": "Walked through the Q3 fee: average daily balance and tier",
+            "source": "CRM call log"
+          },
+          {
+            "daysAgo": 3,
+            "text": "Help desk ticket HD-2474 opened: question about the Q3 fee",
+            "source": "Help desk"
+          }
+        ],
+        "historical": [
+          {
+            "daysAgo": 8,
+            "text": "Agreed to harvest bond-fund losses before year end",
+            "source": "CRM call log"
+          },
+          {
+            "daysAgo": 640,
+            "text": "Rollover IRA invested in Meridian Balanced 60/40 (REQ-00000903)",
+            "source": "Trade Request"
+          },
+          {
+            "daysAgo": 645,
+            "text": "Rollover IRA opened for her former employer's 401(k)",
+            "source": "Custodian account record"
+          }
+        ],
+        "insights": [
+          {
+            "tone": "risk",
+            "title": "Fee trust is on the line",
+            "body": "A fee question and a pending waiver in the same week. Answer in writing first; she asked for the math.",
+            "status": "Open item",
+            "provenance": "Synthesized from help desk + fee request"
+          },
+          {
+            "tone": "opportunity",
+            "title": "Harvest keeps the year in budget",
+            "body": "Losses harvested in the bond funds offset gains realized elsewhere this year, keeping her under the realized-gains budget.",
+            "status": "Meeting priority",
+            "provenance": "Synthesized from REQ-00001041 + tax budget"
+          },
+          {
+            "tone": "context",
+            "title": "California resident",
+            "body": "Her trade requests carry California residence, and realized gains face state tax as well, so the budget matters more.",
+            "status": "Context",
+            "provenance": "Synthesized from trade request records"
+          },
+          {
+            "tone": "healthy",
+            "title": "Rollover IRA on model",
+            "body": "The Rollover IRA has stayed on Meridian Balanced 60/40 since it was funded.",
+            "status": "On track",
+            "provenance": "Synthesized from REQ-00000903 + positions"
+          }
+        ]
+      }
+    },
+    "003DM0000001010YAA": {
+      "name": "Ken Nakamura",
+      "showcase": false,
+      "risk": {
+        "score": 15,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Emi Nakamura",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "06/14/1974",
+          "acct": "Traditional IRA",
+          "num": "••••4402"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Emi; two adult children, Iris and Amelia",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "A downturn just before retirement",
+        "Themes": "Retirement income, Tax-free growth"
+      }
+    },
+    "003DM0000001011YAA": {
+      "name": "Emi Nakamura",
+      "showcase": false,
+      "risk": {
+        "score": 15,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Ken Nakamura",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "05/08/1972",
+          "acct": "Roth IRA",
+          "num": "••••8383"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Ken; two adult children, Iris and Amelia",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Detail-oriented; reads every statement",
+        "Worry": "A downturn just before retirement",
+        "Themes": "Retirement income, Tax-free growth"
+      }
+    },
+    "003DM0000001012YAA": {
+      "name": "Tom Morgan",
+      "showcase": false,
+      "risk": {
+        "score": 7,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Jonah Morgan",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "07/23/1998",
+          "acct": "Joint",
+          "num": "••••9031"
+        },
+        {
+          "name": "Nora Morgan",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "03/16/1989",
+          "acct": "Joint",
+          "num": "••••9031"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Claire; two adult children, Jonah and Nora",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Outliving savings",
+        "Themes": "Household planning, Tax-free growth"
+      }
+    },
+    "003DM0000001013YAA": {
+      "name": "Claire Morgan",
+      "showcase": false,
+      "risk": {
+        "score": 7,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Jonah Morgan",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "07/23/1998",
+          "acct": "Joint",
+          "num": "••••9031"
+        },
+        {
+          "name": "Nora Morgan",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "03/16/1989",
+          "acct": "Joint",
+          "num": "••••9031"
+        },
+        {
+          "name": "Tom Morgan",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "12/05/1951",
+          "acct": "Roth IRA",
+          "num": "••••0975"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Tom; two adult children, Jonah and Nora",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "Outliving savings",
+        "Themes": "Household planning, Tax-free growth"
+      }
+    },
+    "003DM0000001014YAA": {
+      "name": "Anthony Rossi",
+      "showcase": false,
+      "risk": {
+        "score": 21,
+        "tolerance": "Aggressive"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Miles Rossi",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "01/17/1999",
+          "acct": "Individual",
+          "num": "••••2257"
+        },
+        {
+          "name": "Maya Rossi",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "02/18/1989",
+          "acct": "Individual",
+          "num": "••••2257"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Miles and Maya",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "Concentration in a few holdings",
+        "Themes": "Tax-efficient investing"
+      }
+    },
+    "003DM0000001015YAA": {
+      "name": "Marisol Delgado",
+      "showcase": false,
+      "risk": {
+        "score": 6,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [],
+      "portrait": {
+        "Family": "Single; two adult children, Owen and Hazel",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Outliving savings",
+        "Themes": "Estate planning"
+      }
+    },
+    "003DM0000001016YAA": {
+      "name": "Reynold Hayes",
+      "showcase": false,
+      "risk": {
+        "score": 19,
+        "tolerance": "Growth"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Elena Hayes",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "06/19/1983",
+          "acct": "Individual",
+          "num": "••••2785"
+        },
+        {
+          "name": "Nora Hayes",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "08/01/1987",
+          "acct": "Individual",
+          "num": "••••2785"
+        },
+        {
+          "name": "Elena Hayes",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "06/19/1983",
+          "acct": "Rollover IRA",
+          "num": "••••1704"
+        },
+        {
+          "name": "Nora Hayes",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "08/01/1987",
+          "acct": "Rollover IRA",
+          "num": "••••1704"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Elena and Nora",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Email; quarterly calls",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Taxes as the portfolio grows",
+        "Themes": "Tax-efficient investing, Retirement income"
+      }
+    },
+    "003DM0000001017YAA": {
+      "name": "Saul Goyette",
+      "showcase": false,
+      "risk": {
+        "score": 6,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Nora Goyette",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "06/24/1989",
+          "acct": "Roth IRA",
+          "num": "••••9623"
+        },
+        {
+          "name": "Isla Goyette",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "07/16/2002",
+          "acct": "Roth IRA",
+          "num": "••••9623"
+        },
+        {
+          "name": "Nora Goyette",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "06/24/1989",
+          "acct": "Traditional IRA",
+          "num": "••••8542"
+        },
+        {
+          "name": "Isla Goyette",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "07/16/2002",
+          "acct": "Traditional IRA",
+          "num": "••••8542"
+        },
+        {
+          "name": "Nora Goyette",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "06/24/1989",
+          "acct": "Rollover IRA",
+          "num": "••••7461"
+        },
+        {
+          "name": "Isla Goyette",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "07/16/2002",
+          "acct": "Rollover IRA",
+          "num": "••••7461"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Nora and Isla",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Hands-off; trusts the model",
+        "Worry": "Outliving savings",
+        "Themes": "Tax-free growth, Retirement income"
+      }
+    },
+    "003DM0000001018YAA": {
+      "name": "Josh Abbott",
+      "showcase": false,
+      "risk": {
+        "score": 7,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Maya Abbott",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "11/01/1980",
+          "acct": "Individual",
+          "num": "••••6380"
+        },
+        {
+          "name": "Nora Abbott",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "08/25/1997",
+          "acct": "Individual",
+          "num": "••••6380"
+        },
+        {
+          "name": "Maya Abbott",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "11/01/1980",
+          "acct": "SEP IRA",
+          "num": "••••5299"
+        },
+        {
+          "name": "Nora Abbott",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "08/25/1997",
+          "acct": "SEP IRA",
+          "num": "••••5299"
+        },
+        {
+          "name": "Maya Abbott",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "11/01/1980",
+          "acct": "Traditional IRA",
+          "num": "••••4218"
+        },
+        {
+          "name": "Nora Abbott",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "08/25/1997",
+          "acct": "Traditional IRA",
+          "num": "••••4218"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Maya and Nora",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Hands-off; trusts the model",
+        "Worry": "Outliving savings",
+        "Themes": "Tax-efficient investing, Self-employed retirement saving, Retirement income"
+      }
+    },
+    "003DM0000001019YAA": {
+      "name": "Brandy Kirlin",
+      "showcase": false,
+      "risk": {
+        "score": 6,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Hazel Kirlin",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "09/14/1987",
+          "acct": "Joint",
+          "num": "••••3137"
+        },
+        {
+          "name": "Rowan Kirlin",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "05/08/1987",
+          "acct": "Joint",
+          "num": "••••3137"
+        },
+        {
+          "name": "Tyreek Kirlin",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "09/06/1971",
+          "acct": "Roth IRA",
+          "num": "••••2056"
+        },
+        {
+          "name": "Tyreek Kirlin",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "09/06/1971",
+          "acct": "SEP IRA",
+          "num": "••••9975"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Tyreek; two adult children, Hazel and Rowan",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Hands-off; trusts the model",
+        "Worry": "Outliving savings",
+        "Themes": "Household planning, Tax-free growth, Self-employed retirement saving"
+      }
+    },
+    "003DM0000001020YAA": {
+      "name": "Tyreek Kirlin",
+      "showcase": false,
+      "risk": {
+        "score": 6,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Hazel Kirlin",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "09/14/1987",
+          "acct": "Joint",
+          "num": "••••3137"
+        },
+        {
+          "name": "Rowan Kirlin",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "05/08/1987",
+          "acct": "Joint",
+          "num": "••••3137"
+        },
+        {
+          "name": "Brandy Kirlin",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "01/11/1961",
+          "acct": "Traditional IRA",
+          "num": "••••5851"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Brandy; two adult children, Hazel and Rowan",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Detail-oriented; reads every statement",
+        "Worry": "Outliving savings",
+        "Themes": "Household planning, Tax-free growth, Self-employed retirement saving"
+      }
+    },
+    "003DM0000001021YAA": {
+      "name": "Lonie Rau",
+      "showcase": false,
+      "risk": {
+        "score": 21,
+        "tolerance": "Aggressive"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Millie Rau",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "01/01/1957",
+          "acct": "Traditional IRA",
+          "num": "••••8894"
+        },
+        {
+          "name": "Millie Rau",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "01/01/1957",
+          "acct": "Rollover IRA",
+          "num": "••••7813"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Millie; two adult children, Hazel and Elena",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "Taxes as the portfolio grows",
+        "Themes": "Retirement income, Tax-free growth"
+      }
+    },
+    "003DM0000001022YAA": {
+      "name": "Millie Rau",
+      "showcase": false,
+      "risk": {
+        "score": 21,
+        "tolerance": "Aggressive"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Lonie Rau",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "07/24/1962",
+          "acct": "Roth IRA",
+          "num": "••••9712"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Lonie; two adult children, Hazel and Elena",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Taxes as the portfolio grows",
+        "Themes": "Retirement income, Tax-free growth"
+      }
+    },
+    "003DM0000001023YAA": {
+      "name": "Kamron Mayer",
+      "showcase": false,
+      "risk": {
+        "score": 19,
+        "tolerance": "Growth"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Maya Mayer",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "02/24/1983",
+          "acct": "Individual",
+          "num": "••••6732"
+        },
+        {
+          "name": "Lena Mayer",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "02/17/1993",
+          "acct": "Individual",
+          "num": "••••6732"
+        },
+        {
+          "name": "Lucille Mayer",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "12/12/1966",
+          "acct": "SEP IRA",
+          "num": "••••5651"
+        },
+        {
+          "name": "Maya Mayer",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "02/24/1983",
+          "acct": "Joint",
+          "num": "••••4570"
+        },
+        {
+          "name": "Lena Mayer",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "02/17/1993",
+          "acct": "Joint",
+          "num": "••••4570"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Lucille; two adult children, Maya and Lena",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Email; quarterly calls",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Concentration in a few holdings",
+        "Themes": "Tax-efficient investing, Self-employed retirement saving, Household planning"
+      }
+    },
+    "003DM0000001024YAA": {
+      "name": "Lucille Mayer",
+      "showcase": false,
+      "risk": {
+        "score": 19,
+        "tolerance": "Growth"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Maya Mayer",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "02/24/1983",
+          "acct": "Joint",
+          "num": "••••4570"
+        },
+        {
+          "name": "Lena Mayer",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "02/17/1993",
+          "acct": "Joint",
+          "num": "••••4570"
+        },
+        {
+          "name": "Kamron Mayer",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "08/07/1955",
+          "acct": "Roth IRA",
+          "num": "••••9659"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Kamron; two adult children, Maya and Lena",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Hands-off; trusts the model",
+        "Worry": "Taxes as the portfolio grows",
+        "Themes": "Tax-efficient investing, Self-employed retirement saving, Household planning"
+      }
+    },
+    "003DM0000001025YAA": {
+      "name": "Rodney Friesen",
+      "showcase": false,
+      "risk": {
+        "score": 21,
+        "tolerance": "Aggressive"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Noah Friesen",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "12/04/1998",
+          "acct": "Joint",
+          "num": "••••3489"
+        },
+        {
+          "name": "Isla Friesen",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "05/01/1993",
+          "acct": "Joint",
+          "num": "••••3489"
+        },
+        {
+          "name": "Bryon Friesen",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "09/21/1973",
+          "acct": "Traditional IRA",
+          "num": "••••2408"
+        },
+        {
+          "name": "Bryon Friesen",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "09/21/1973",
+          "acct": "Rollover IRA",
+          "num": "••••1327"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Bryon; two adult children, Noah and Isla",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Detail-oriented; reads every statement",
+        "Worry": "Concentration in a few holdings",
+        "Themes": "Household planning, Retirement income, Tax-free growth"
+      }
+    },
+    "003DM0000001026YAA": {
+      "name": "Bryon Friesen",
+      "showcase": false,
+      "risk": {
+        "score": 21,
+        "tolerance": "Aggressive"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Noah Friesen",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "12/04/1998",
+          "acct": "Joint",
+          "num": "••••3489"
+        },
+        {
+          "name": "Isla Friesen",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "05/01/1993",
+          "acct": "Joint",
+          "num": "••••3489"
+        },
+        {
+          "name": "Rodney Friesen",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "03/20/1970",
+          "acct": "Roth IRA",
+          "num": "••••5204"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Rodney; two adult children, Noah and Isla",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "Concentration in a few holdings",
+        "Themes": "Household planning, Retirement income, Tax-free growth"
+      }
+    },
+    "003DM0000001027YAA": {
+      "name": "Gwen Spencer",
+      "showcase": false,
+      "risk": {
+        "score": 7,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Lena Spencer",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "06/18/1987",
+          "acct": "Roth IRA",
+          "num": "••••9246"
+        },
+        {
+          "name": "Theo Spencer",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "01/13/1992",
+          "acct": "Roth IRA",
+          "num": "••••9246"
+        },
+        {
+          "name": "Lena Spencer",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "06/18/1987",
+          "acct": "Traditional IRA",
+          "num": "••••8165"
+        },
+        {
+          "name": "Theo Spencer",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "01/13/1992",
+          "acct": "Traditional IRA",
+          "num": "••••8165"
+        },
+        {
+          "name": "Lena Spencer",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "06/18/1987",
+          "acct": "Rollover IRA",
+          "num": "••••7084"
+        },
+        {
+          "name": "Theo Spencer",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "01/13/1992",
+          "acct": "Rollover IRA",
+          "num": "••••7084"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Lena and Theo",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Email; quarterly calls",
+        "Behavior": "Hands-off; trusts the model",
+        "Worry": "Inflation eroding income",
+        "Themes": "Tax-free growth, Retirement income"
+      }
+    },
+    "003DM0000001028YAA": {
+      "name": "Stacey Rice",
+      "showcase": false,
+      "risk": {
+        "score": 12,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Hazel Rice",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "11/09/1995",
+          "acct": "Traditional IRA",
+          "num": "••••6003"
+        },
+        {
+          "name": "Nora Rice",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "09/14/1989",
+          "acct": "Traditional IRA",
+          "num": "••••6003"
+        },
+        {
+          "name": "Hazel Rice",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "11/09/1995",
+          "acct": "Rollover IRA",
+          "num": "••••4922"
+        },
+        {
+          "name": "Nora Rice",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "09/14/1989",
+          "acct": "Rollover IRA",
+          "num": "••••4922"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Hazel and Nora",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Paying more tax than needed",
+        "Themes": "Retirement income"
+      }
+    },
+    "003DM0000001029YAA": {
+      "name": "Elnora Bode",
+      "showcase": false,
+      "risk": {
+        "score": 7,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Miles Bode",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/18/1996",
+          "acct": "SEP IRA",
+          "num": "••••3841"
+        },
+        {
+          "name": "Owen Bode",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "12/08/1985",
+          "acct": "SEP IRA",
+          "num": "••••3841"
+        },
+        {
+          "name": "Miles Bode",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/18/1996",
+          "acct": "Rollover IRA",
+          "num": "••••2760"
+        },
+        {
+          "name": "Owen Bode",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "12/08/1985",
+          "acct": "Rollover IRA",
+          "num": "••••2760"
+        },
+        {
+          "name": "Miles Bode",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "02/18/1996",
+          "acct": "Individual",
+          "num": "••••1679"
+        },
+        {
+          "name": "Owen Bode",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "12/08/1985",
+          "acct": "Individual",
+          "num": "••••1679"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Miles and Owen",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Detail-oriented; reads every statement",
+        "Worry": "Inflation eroding income",
+        "Themes": "Self-employed retirement saving, Retirement income, Tax-efficient investing"
+      }
+    },
+    "003DM0000001030YAA": {
+      "name": "Nils Schaden",
+      "showcase": false,
+      "risk": {
+        "score": 21,
+        "tolerance": "Aggressive"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Mabel Schaden",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "07/23/1972",
+          "acct": "Roth IRA",
+          "num": "••••9598"
+        },
+        {
+          "name": "Mabel Schaden",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "07/23/1972",
+          "acct": "Traditional IRA",
+          "num": "••••8517"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Mabel; two adult children, Isla and Rowan",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Email; quarterly calls",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Taxes as the portfolio grows",
+        "Themes": "Tax-free growth, Retirement income, Self-employed retirement saving"
+      }
+    },
+    "003DM0000001031YAA": {
+      "name": "Mabel Schaden",
+      "showcase": false,
+      "risk": {
+        "score": 21,
+        "tolerance": "Aggressive"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Nils Schaden",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "06/12/1962",
+          "acct": "SEP IRA",
+          "num": "••••1504"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Nils; two adult children, Isla and Rowan",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "Taxes as the portfolio grows",
+        "Themes": "Tax-free growth, Retirement income, Self-employed retirement saving"
+      }
+    },
+    "003DM0000001032YAA": {
+      "name": "Merlin Herman",
+      "showcase": false,
+      "risk": {
+        "score": 12,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Nora Herman",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "01/21/1990",
+          "acct": "Traditional IRA",
+          "num": "••••7436"
+        },
+        {
+          "name": "Rowan Herman",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/01/1986",
+          "acct": "Traditional IRA",
+          "num": "••••7436"
+        },
+        {
+          "name": "Nora Herman",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "01/21/1990",
+          "acct": "SEP IRA",
+          "num": "••••6355"
+        },
+        {
+          "name": "Rowan Herman",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/01/1986",
+          "acct": "SEP IRA",
+          "num": "••••6355"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Nora and Rowan",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "A downturn just before retirement",
+        "Themes": "Retirement income, Self-employed retirement saving"
+      }
+    },
+    "003DM0000001033YAA": {
+      "name": "Bridgette Carroll",
+      "showcase": false,
+      "risk": {
+        "score": 14,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Clara Carroll",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "02/07/1985",
+          "acct": "Individual",
+          "num": "••••5274"
+        },
+        {
+          "name": "Maya Carroll",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "01/21/1994",
+          "acct": "Individual",
+          "num": "••••5274"
+        },
+        {
+          "name": "Clara Carroll",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/07/1985",
+          "acct": "Roth IRA",
+          "num": "••••4193"
+        },
+        {
+          "name": "Maya Carroll",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "01/21/1994",
+          "acct": "Roth IRA",
+          "num": "••••4193"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Clara and Maya",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "A downturn just before retirement",
+        "Themes": "Tax-efficient investing, Tax-free growth"
+      }
+    },
+    "003DM0000001034YAA": {
+      "name": "Mason Schinner",
+      "showcase": false,
+      "risk": {
+        "score": 15,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Theo Schinner",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "10/24/1989",
+          "acct": "Individual",
+          "num": "••••3112"
+        },
+        {
+          "name": "Miles Schinner",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "06/23/1989",
+          "acct": "Individual",
+          "num": "••••3112"
+        },
+        {
+          "name": "Marion Schinner",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "06/15/1965",
+          "acct": "Traditional IRA",
+          "num": "••••2031"
+        },
+        {
+          "name": "Marion Schinner",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "06/15/1965",
+          "acct": "Rollover IRA",
+          "num": "••••9950"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Marion; two adult children, Theo and Miles",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "Paying more tax than needed",
+        "Themes": "Tax-efficient investing, Retirement income, Tax-free growth"
+      }
+    },
+    "003DM0000001035YAA": {
+      "name": "Marion Schinner",
+      "showcase": false,
+      "risk": {
+        "score": 15,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Mason Schinner",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "03/28/1950",
+          "acct": "Roth IRA",
+          "num": "••••7866"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Mason; two adult children, Theo and Miles",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Email; quarterly calls",
+        "Behavior": "Detail-oriented; reads every statement",
+        "Worry": "Paying more tax than needed",
+        "Themes": "Tax-efficient investing, Retirement income, Tax-free growth"
+      }
+    },
+    "003DM0000001036YAA": {
+      "name": "Leonardo O'Hara",
+      "showcase": false,
+      "risk": {
+        "score": 12,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Maya O'Hara",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "09/19/1986",
+          "acct": "Traditional IRA",
+          "num": "••••8869"
+        },
+        {
+          "name": "Rowan O'Hara",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "07/13/1997",
+          "acct": "Traditional IRA",
+          "num": "••••8869"
+        },
+        {
+          "name": "Maya O'Hara",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "09/19/1986",
+          "acct": "SEP IRA",
+          "num": "••••7788"
+        },
+        {
+          "name": "Rowan O'Hara",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "07/13/1997",
+          "acct": "SEP IRA",
+          "num": "••••7788"
+        },
+        {
+          "name": "Maya O'Hara",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "09/19/1986",
+          "acct": "Roth IRA",
+          "num": "••••6707"
+        },
+        {
+          "name": "Rowan O'Hara",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "07/13/1997",
+          "acct": "Roth IRA",
+          "num": "••••6707"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Maya and Rowan",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Paying more tax than needed",
+        "Themes": "Retirement income, Self-employed retirement saving, Tax-free growth"
+      }
+    },
+    "003DM0000001037YAA": {
+      "name": "Alycia Howell",
+      "showcase": false,
+      "risk": {
+        "score": 6,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Nora Howell",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "03/27/1995",
+          "acct": "Rollover IRA",
+          "num": "••••5626"
+        },
+        {
+          "name": "Ruby Howell",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "10/02/1978",
+          "acct": "Rollover IRA",
+          "num": "••••5626"
+        },
+        {
+          "name": "Nora Howell",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "03/27/1995",
+          "acct": "Individual",
+          "num": "••••4545"
+        },
+        {
+          "name": "Ruby Howell",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "10/02/1978",
+          "acct": "Individual",
+          "num": "••••4545"
+        },
+        {
+          "name": "Nora Howell",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "03/27/1995",
+          "acct": "Roth IRA",
+          "num": "••••3464"
+        },
+        {
+          "name": "Ruby Howell",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "10/02/1978",
+          "acct": "Roth IRA",
+          "num": "••••3464"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Nora and Ruby",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Email; quarterly calls",
+        "Behavior": "Hands-off; trusts the model",
+        "Worry": "Outliving savings",
+        "Themes": "Retirement income, Tax-efficient investing, Tax-free growth"
+      }
+    },
+    "003DM0000001038YAA": {
+      "name": "Merlin Franey",
+      "showcase": false,
+      "risk": {
+        "score": 18,
+        "tolerance": "Growth"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Gavin Franey",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "04/18/1957",
+          "acct": "SEP IRA",
+          "num": "••••2383"
+        },
+        {
+          "name": "Gavin Franey",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "04/18/1957",
+          "acct": "Rollover IRA",
+          "num": "••••1302"
+        },
+        {
+          "name": "Isla Franey",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "11/06/1997",
+          "acct": "Joint",
+          "num": "••••9221"
+        },
+        {
+          "name": "Rowan Franey",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "05/28/1996",
+          "acct": "Joint",
+          "num": "••••9221"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Gavin; two adult children, Isla and Rowan",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Taxes as the portfolio grows",
+        "Themes": "Self-employed retirement saving, Retirement income, Household planning"
+      }
+    },
+    "003DM0000001039YAA": {
+      "name": "Gavin Franey",
+      "showcase": false,
+      "risk": {
+        "score": 18,
+        "tolerance": "Growth"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Isla Franey",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "11/06/1997",
+          "acct": "Joint",
+          "num": "••••9221"
+        },
+        {
+          "name": "Rowan Franey",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "05/28/1996",
+          "acct": "Joint",
+          "num": "••••9221"
+        },
+        {
+          "name": "Merlin Franey",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "11/27/1956",
+          "acct": "Roth IRA",
+          "num": "••••9184"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Merlin; two adult children, Isla and Rowan",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Detail-oriented; reads every statement",
+        "Worry": "Concentration in a few holdings",
+        "Themes": "Self-employed retirement saving, Retirement income, Household planning"
+      }
+    },
+    "003DM0000001040YAA": {
+      "name": "Paulette Walker",
+      "showcase": false,
+      "risk": {
+        "score": 15,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Willie Walker",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "10/07/1967",
+          "acct": "Roth IRA",
+          "num": "••••8140"
+        },
+        {
+          "name": "Willie Walker",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "10/07/1967",
+          "acct": "SEP IRA",
+          "num": "••••7059"
+        },
+        {
+          "name": "Willie Walker",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "10/07/1967",
+          "acct": "Traditional IRA",
+          "num": "••••5978"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Willie; two adult children, Ezra and Clara",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "Paying more tax than needed",
+        "Themes": "Tax-free growth, Self-employed retirement saving, Retirement income"
+      }
+    },
+    "003DM0000001041YAA": {
+      "name": "Willie Walker",
+      "showcase": false,
+      "risk": {
+        "score": 15,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Paulette Walker",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "02/18/1967",
+          "acct": "Rollover IRA",
+          "num": "••••3533"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Paulette; two adult children, Ezra and Clara",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "A downturn just before retirement",
+        "Themes": "Tax-free growth, Self-employed retirement saving, Retirement income"
+      }
+    },
+    "003DM0000001042YAA": {
+      "name": "Merlin Kuhlman",
+      "showcase": false,
+      "risk": {
+        "score": 21,
+        "tolerance": "Aggressive"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Maya Kuhlman",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "03/17/1998",
+          "acct": "SEP IRA",
+          "num": "••••4897"
+        },
+        {
+          "name": "Silas Kuhlman",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "07/20/1994",
+          "acct": "SEP IRA",
+          "num": "••••4897"
+        },
+        {
+          "name": "Maya Kuhlman",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "03/17/1998",
+          "acct": "Individual",
+          "num": "••••3816"
+        },
+        {
+          "name": "Silas Kuhlman",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "07/20/1994",
+          "acct": "Individual",
+          "num": "••••3816"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Maya and Silas",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Email; quarterly calls",
+        "Behavior": "Detail-oriented; reads every statement",
+        "Worry": "Concentration in a few holdings",
+        "Themes": "Self-employed retirement saving, Tax-efficient investing"
+      }
+    },
+    "003DM0000001043YAA": {
+      "name": "Norene Nitzsche",
+      "showcase": false,
+      "risk": {
+        "score": 9,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Nora Nitzsche",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "01/21/1981",
+          "acct": "SEP IRA",
+          "num": "••••2735"
+        },
+        {
+          "name": "Lena Nitzsche",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "01/04/2001",
+          "acct": "SEP IRA",
+          "num": "••••2735"
+        },
+        {
+          "name": "Nora Nitzsche",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "01/21/1981",
+          "acct": "Rollover IRA",
+          "num": "••••1654"
+        },
+        {
+          "name": "Lena Nitzsche",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "01/04/2001",
+          "acct": "Rollover IRA",
+          "num": "••••1654"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Nora and Lena",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "Outliving savings",
+        "Themes": "Self-employed retirement saving, Retirement income"
+      }
+    },
+    "003DM0000001044YAA": {
+      "name": "Ryder Schmeler",
+      "showcase": false,
+      "risk": {
+        "score": 14,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Maya Schmeler",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "10/28/2002",
+          "acct": "Rollover IRA",
+          "num": "••••9573"
+        },
+        {
+          "name": "Miles Schmeler",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "10/11/1989",
+          "acct": "Rollover IRA",
+          "num": "••••9573"
+        },
+        {
+          "name": "Maya Schmeler",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "10/28/2002",
+          "acct": "SEP IRA",
+          "num": "••••8492"
+        },
+        {
+          "name": "Miles Schmeler",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "10/11/1989",
+          "acct": "SEP IRA",
+          "num": "••••8492"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Maya and Miles",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "A downturn just before retirement",
+        "Themes": "Retirement income, Self-employed retirement saving"
+      }
+    },
+    "003DM0000001045YAA": {
+      "name": "Leone Crooks",
+      "showcase": false,
+      "risk": {
+        "score": 18,
+        "tolerance": "Growth"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Theo Crooks",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "12/26/1987",
+          "acct": "Roth IRA",
+          "num": "••••7411"
+        },
+        {
+          "name": "Elena Crooks",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "04/14/1999",
+          "acct": "Roth IRA",
+          "num": "••••7411"
+        },
+        {
+          "name": "Theo Crooks",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "12/26/1987",
+          "acct": "Traditional IRA",
+          "num": "••••6330"
+        },
+        {
+          "name": "Elena Crooks",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "04/14/1999",
+          "acct": "Traditional IRA",
+          "num": "••••6330"
+        },
+        {
+          "name": "Theo Crooks",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "12/26/1987",
+          "acct": "Rollover IRA",
+          "num": "••••5249"
+        },
+        {
+          "name": "Elena Crooks",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "04/14/1999",
+          "acct": "Rollover IRA",
+          "num": "••••5249"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Theo and Elena",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Long-term; low reactivity to volatility",
+        "Worry": "Concentration in a few holdings",
+        "Themes": "Tax-free growth, Retirement income"
+      }
+    },
+    "003DM0000001046YAA": {
+      "name": "Kayden Murray",
+      "showcase": false,
+      "risk": {
+        "score": 13,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Alek Murray",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "08/13/1954",
+          "acct": "Rollover IRA",
+          "num": "••••4168"
+        },
+        {
+          "name": "Alek Murray",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "08/13/1954",
+          "acct": "Roth IRA",
+          "num": "••••3087"
+        },
+        {
+          "name": "Alek Murray",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "08/13/1954",
+          "acct": "SEP IRA",
+          "num": "••••2006"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Alek; two adult children, Iris and Elena",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "A downturn just before retirement",
+        "Themes": "Retirement income, Tax-free growth, Self-employed retirement saving"
+      }
+    },
+    "003DM0000001047YAA": {
+      "name": "Alek Murray",
+      "showcase": false,
+      "risk": {
+        "score": 13,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Kayden Murray",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "12/28/1968",
+          "acct": "Traditional IRA",
+          "num": "••••6314"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Kayden; two adult children, Iris and Elena",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Detail-oriented; reads every statement",
+        "Worry": "Paying more tax than needed",
+        "Themes": "Retirement income, Tax-free growth, Self-employed retirement saving"
+      }
+    },
+    "003DM0000001048YAA": {
+      "name": "Obie Harvey",
+      "showcase": false,
+      "risk": {
+        "score": 6,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Malvina Harvey",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "08/14/1951",
+          "acct": "Rollover IRA",
+          "num": "••••9925"
+        },
+        {
+          "name": "Clara Harvey",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "11/24/2002",
+          "acct": "Individual",
+          "num": "••••8844"
+        },
+        {
+          "name": "Rowan Harvey",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "10/27/1992",
+          "acct": "Individual",
+          "num": "••••8844"
+        },
+        {
+          "name": "Malvina Harvey",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "08/14/1951",
+          "acct": "Roth IRA",
+          "num": "••••7763"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Malvina; two adult children, Clara and Rowan",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Inflation eroding income",
+        "Themes": "Retirement income, Tax-efficient investing, Tax-free growth"
+      }
+    },
+    "003DM0000001049YAA": {
+      "name": "Malvina Harvey",
+      "showcase": false,
+      "risk": {
+        "score": 6,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Obie Harvey",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "06/22/1960",
+          "acct": "Traditional IRA",
+          "num": "••••3800"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Obie; two adult children, Clara and Rowan",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Hands-off; trusts the model",
+        "Worry": "Outliving savings",
+        "Themes": "Retirement income, Tax-efficient investing, Tax-free growth"
+      }
+    },
+    "003DM0000001050YAA": {
+      "name": "Neil Cole",
+      "showcase": false,
+      "risk": {
+        "score": 6,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Chaim Cole",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "11/09/1970",
+          "acct": "Traditional IRA",
+          "num": "••••6682"
+        },
+        {
+          "name": "Chaim Cole",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "11/09/1970",
+          "acct": "Rollover IRA",
+          "num": "••••5601"
+        },
+        {
+          "name": "Owen Cole",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "05/17/1984",
+          "acct": "Individual",
+          "num": "••••4520"
+        },
+        {
+          "name": "Callum Cole",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "03/10/1978",
+          "acct": "Individual",
+          "num": "••••4520"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Chaim; two adult children, Owen and Callum",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Hands-off; trusts the model",
+        "Worry": "Outliving savings",
+        "Themes": "Retirement income, Tax-efficient investing, Tax-free growth"
+      }
+    },
+    "003DM0000001051YAA": {
+      "name": "Chaim Cole",
+      "showcase": false,
+      "risk": {
+        "score": 6,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Neil Cole",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "09/22/1970",
+          "acct": "Roth IRA",
+          "num": "••••1419"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Neil; two adult children, Owen and Callum",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Inflation eroding income",
+        "Themes": "Retirement income, Tax-efficient investing, Tax-free growth"
+      }
+    },
+    "003DM0000001052YAA": {
+      "name": "Skyla O'Reilly",
+      "showcase": false,
+      "risk": {
+        "score": 13,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Owen O'Reilly",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "03/12/1985",
+          "acct": "SEP IRA",
+          "num": "••••3439"
+        },
+        {
+          "name": "Maya O'Reilly",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "05/15/2002",
+          "acct": "SEP IRA",
+          "num": "••••3439"
+        },
+        {
+          "name": "Owen O'Reilly",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "03/12/1985",
+          "acct": "Individual",
+          "num": "••••2358"
+        },
+        {
+          "name": "Maya O'Reilly",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "05/15/2002",
+          "acct": "Individual",
+          "num": "••••2358"
+        },
+        {
+          "name": "Owen O'Reilly",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "03/12/1985",
+          "acct": "Rollover IRA",
+          "num": "••••1277"
+        },
+        {
+          "name": "Maya O'Reilly",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "05/15/2002",
+          "acct": "Rollover IRA",
+          "num": "••••1277"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Owen and Maya",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Paying more tax than needed",
+        "Themes": "Self-employed retirement saving, Tax-efficient investing, Retirement income"
+      }
+    },
+    "003DM0000001053YAA": {
+      "name": "Emory Nikolaus",
+      "showcase": false,
+      "risk": {
+        "score": 13,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Miles Nikolaus",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/10/1985",
+          "acct": "Roth IRA",
+          "num": "••••9196"
+        },
+        {
+          "name": "Amelia Nikolaus",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/04/1981",
+          "acct": "Roth IRA",
+          "num": "••••9196"
+        },
+        {
+          "name": "Miles Nikolaus",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/10/1985",
+          "acct": "Rollover IRA",
+          "num": "••••8115"
+        },
+        {
+          "name": "Amelia Nikolaus",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/04/1981",
+          "acct": "Rollover IRA",
+          "num": "••••8115"
+        },
+        {
+          "name": "Miles Nikolaus",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/10/1985",
+          "acct": "SEP IRA",
+          "num": "••••7034"
+        },
+        {
+          "name": "Amelia Nikolaus",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "02/04/1981",
+          "acct": "SEP IRA",
+          "num": "••••7034"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Miles and Amelia",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Detail-oriented; reads every statement",
+        "Worry": "A downturn just before retirement",
+        "Themes": "Tax-free growth, Retirement income, Self-employed retirement saving"
+      }
+    },
+    "003DM0000001054YAA": {
+      "name": "Arch Reichert",
+      "showcase": false,
+      "risk": {
+        "score": 7,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Mylene Reichert",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "12/17/1968",
+          "acct": "Rollover IRA",
+          "num": "••••5953"
+        },
+        {
+          "name": "Ezra Reichert",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "06/13/1983",
+          "acct": "Individual",
+          "num": "••••4872"
+        },
+        {
+          "name": "Nora Reichert",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "07/16/2001",
+          "acct": "Individual",
+          "num": "••••4872"
+        },
+        {
+          "name": "Ezra Reichert",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "06/13/1983",
+          "acct": "Joint",
+          "num": "••••3791"
+        },
+        {
+          "name": "Nora Reichert",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "07/16/2001",
+          "acct": "Joint",
+          "num": "••••3791"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Mylene; two adult children, Ezra and Nora",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Inflation eroding income",
+        "Themes": "Retirement income, Tax-efficient investing, Household planning"
+      }
+    },
+    "003DM0000001055YAA": {
+      "name": "Mylene Reichert",
+      "showcase": false,
+      "risk": {
+        "score": 7,
+        "tolerance": "Moderately conservative"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Ezra Reichert",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "06/13/1983",
+          "acct": "Joint",
+          "num": "••••3791"
+        },
+        {
+          "name": "Nora Reichert",
+          "rel": "Child (TOD)",
+          "pct": 50,
+          "dob": "07/16/2001",
+          "acct": "Joint",
+          "num": "••••3791"
+        },
+        {
+          "name": "Arch Reichert",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "06/15/1960",
+          "acct": "Roth IRA",
+          "num": "••••0878"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Arch; two adult children, Ezra and Nora",
+        "Goals": "Dependable income in retirement",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Detail-oriented; reads every statement",
+        "Worry": "Outliving savings",
+        "Themes": "Retirement income, Tax-efficient investing, Household planning"
+      }
+    },
+    "003DM0000001056YAA": {
+      "name": "Brennan Adams",
+      "showcase": false,
+      "risk": {
+        "score": 15,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Esta Adams",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "02/01/1954",
+          "acct": "Roth IRA",
+          "num": "••••2710"
+        },
+        {
+          "name": "Esta Adams",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "02/01/1954",
+          "acct": "Rollover IRA",
+          "num": "••••1629"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Esta; two adult children, Owen and Rowan",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Text for quick questions; meets twice a year",
+        "Behavior": "Hands-off; trusts the model",
+        "Worry": "A downturn just before retirement",
+        "Themes": "Tax-free growth, Retirement income"
+      }
+    },
+    "003DM0000001057YAA": {
+      "name": "Esta Adams",
+      "showcase": false,
+      "risk": {
+        "score": 15,
+        "tolerance": "Moderate"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Brennan Adams",
+          "rel": "Spouse",
+          "pct": 100,
+          "dob": "08/05/1968",
+          "acct": "Traditional IRA",
+          "num": "••••7438"
+        }
+      ],
+      "portrait": {
+        "Family": "Married to Brennan; two adult children, Owen and Rowan",
+        "Goals": "Steady growth with volatility kept in check",
+        "Communication": "Phone first; email for documents",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Paying more tax than needed",
+        "Themes": "Tax-free growth, Retirement income"
+      }
+    },
+    "003DM0000001058YAA": {
+      "name": "Reanna Rosenbaum",
+      "showcase": false,
+      "risk": {
+        "score": 21,
+        "tolerance": "Aggressive"
+      },
+      "prep": null,
+      "dualView": null,
+      "bene": [
+        {
+          "name": "Ruby Rosenbaum",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "04/03/1989",
+          "acct": "Rollover IRA",
+          "num": "••••9548"
+        },
+        {
+          "name": "Owen Rosenbaum",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "08/01/1992",
+          "acct": "Rollover IRA",
+          "num": "••••9548"
+        },
+        {
+          "name": "Ruby Rosenbaum",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "04/03/1989",
+          "acct": "Traditional IRA",
+          "num": "••••8467"
+        },
+        {
+          "name": "Owen Rosenbaum",
+          "rel": "Child",
+          "pct": 50,
+          "dob": "08/01/1992",
+          "acct": "Traditional IRA",
+          "num": "••••8467"
+        }
+      ],
+      "portrait": {
+        "Family": "Single; two adult children, Ruby and Owen",
+        "Goals": "Long-term growth toward retirement",
+        "Communication": "Portal messages; prefers written follow-ups",
+        "Behavior": "Checks the portfolio weekly; asks before big moves",
+        "Worry": "Taxes as the portfolio grows",
+        "Themes": "Retirement income"
+      }
+    }
+  },
+  "showcase": [
+    {
+      "id": "003DM0000001003YAA",
+      "name": "Kofi Okafor"
+    },
+    {
+      "id": "003DM0000001004YAA",
+      "name": "Ada Okafor"
+    },
+    {
+      "id": "003DM0000001008YAA",
+      "name": "Erik Lindqvist"
+    },
+    {
+      "id": "003DM0000001009YAA",
+      "name": "Maeve Brennan"
+    }
+  ]
+}

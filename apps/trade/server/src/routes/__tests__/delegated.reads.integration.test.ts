@@ -1,4 +1,4 @@
-// Direct-service contract tests for reads through the Ops Portal delegated surface
+// Direct-service contract tests for reads through the advisor platform delegated surface
 // (/api/ops-portal), against a real Postgres with migrations applied: the firm-wide
 // queue, search and Load more (epic AC-4, AC-5, AC-28), the export-scale list,
 // counts, detail, checklist, pickers, standing-exclusion reads, the
@@ -839,7 +839,7 @@ describe.skipIf(!DATABASE_URL)('OPS_PORTAL delegated reads — queue, pickers, r
       expect(rows[0].n).toBe(50);
     });
 
-    it('lists up to 100, the same whatever the Ops Portal role', async () => {
+    it('lists up to 100, the same whatever the advisor platform role', async () => {
       const bodies = [];
       for (const role of ROLES) {
         const res = await api('get', '/notifications?limit=100', BELL_OWNER, role);

@@ -1,0 +1,58 @@
+import { readFileSync } from "node:fs";
+import { describe, expect, it } from "vitest";
+import { markCase } from "./acat-book-flywheel";
+
+describe("old custodian client removed", () => {
+  it("reads the three client files and keeps the timing module import", () => {
+    const library = readFileSync("lib/data/custodian-library.ts", "utf8");
+    const admin = readFileSync("lib/data/custodian-admin.ts", "utf8");
+    const actions = readFileSync("app/(authenticated)/acat-tracking/custodian-admin-actions.ts", "utf8");
+    const timing = readFileSync("lib/data/custodian-timing.ts", "utf8");
+    const libraryTest = readFileSync("test/custodian-library.test.ts", "utf8");
+    const actionsTest = readFileSync("test/custodian-admin-actions.test.ts", "utf8");
+    const spec = readFileSync("test/e2e/custodian-library.spec.ts", "utf8");
+    expect(library).toContain("export async function getCustodianLibrary");
+    expect(library).toContain("readCustodianAuthorityProfiles");
+    expect(library).toContain("feeSchedules");
+    expect(library).toContain("custodian-timing");
+    expect(library).not.toContain("/api/machine/custodians");
+    expect(library).toContain("export async function custodianTrackerClient");
+    const dispatch = readFileSync("lib/data/custodian-projection-dispatch.ts", "utf8");
+    expect(dispatch).toContain('import { custodianTrackerClient } from "@/lib/data/custodian-library"');
+    expect(admin).toContain("export async function");
+    expect(admin).not.toContain("/api/machine/custodians/admin");
+    expect(admin).not.toContain("writeCustodianAdmin");
+    expect(actions).toContain("saveCustodianAuthority");
+    expect(actions).toContain("authorityRefusalMessage");
+    expect(actions).toContain("saveCustodianFeeSchedule");
+    expect(actions).toContain("downloadCustodianFeeSchedule");
+    expect(actions).toContain("export async function createCustodian");
+    expect(actions).not.toContain("writeCustodianAdmin");
+    expect(actionsTest).toContain("avgProcessingDays");
+    expect(actionsTest).toContain("create returns the saved local custodian name");
+    expect(actionsTest).not.toContain("custodianTrackerClient");
+    expect(actionsTest).not.toContain("/api/machine/custodians/admin");
+    expect(actionsTest).not.toContain("traceCustodianAdmin");
+    expect(actionsTest).not.toContain("a refused write emits a JSON trace");
+    expect(actionsTest).not.toContain("an invalid tracker response");
+    expect(actionsTest).not.toContain("a tracker failure returns a retryable failure");
+    expect(timing).toContain("readObservedCustodianTiming");
+    expect(timing).toContain("/api/machine/custodians");
+    expect(libraryTest).not.toContain("flag off keeps the tracker custodian request");
+    expect(libraryTest).not.toContain("getIdTokenClient");
+    expect(libraryTest).toContain('describe("live read-only custodian library"');
+    expect(libraryTest).toContain("saved profile fee and file are what the library returns");
+    expect(libraryTest).toContain("schedule.pdf");
+    expect(actionsTest).toContain("name-only and mark-reviewed saves preserve the fee id");
+    expect(actionsTest).toContain("read switch off returns the library-off refusal for profile writes");
+    expect(actionsTest).not.toContain("writeCustodianAdmin");
+    expect(libraryTest).toContain("observedCompletedTransfers).toBe(0)");
+    expect(libraryTest).toContain('markCase("custodian-library", "timing failure sets a zero completed count")');
+    expect(actionsTest).toContain('markCase("custodian-admin-actions", "create returns the saved local custodian name")');
+    expect(actionsTest).toContain('markCase("custodian-admin-actions", "read switch off returns the library-off refusal for profile writes")');
+    expect(spec).toContain('markCase("custodian-library-e2e", "missing observed timing still shows the custodian profile")');
+    // One import splits into two parts. A second import would make this 3.
+    expect(spec.split('import { markCase } from "../acat-book-flywheel"').length).toBe(2);
+    markCase("custodian-old-client-removed", "reads the three client files and keeps the timing module import");
+  });
+});

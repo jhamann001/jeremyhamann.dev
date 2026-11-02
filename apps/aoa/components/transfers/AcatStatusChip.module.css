@@ -1,0 +1,16 @@
+/* Compact ACAT status chip on a transfer card (transfer-centric board, step 1).
+   Sits in the card footer beside the owner pill / days. Kept small — an at-a-
+   glance indicator; the card deep-links to the full ACAT detail. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.label {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+  text-transform: uppercase;
+}

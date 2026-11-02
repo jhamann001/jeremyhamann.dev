@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="aoa">
+  <!--
+    Always-On-Advice app mark: an "aoa" monogram in example.org's mark language.
+    Black square (near-square corners) + white bold lowercase "aoa", geometric sans-serif.
+
+    SOURCE OF TRUTH: this single SVG is the one place the mark is defined. All raster
+    assets (favicon.ico, apple-icon.png, icon-192/512.png) are generated FROM this file
+    by scripts/generate-icons.mjs. To change the mark, edit this SVG and re-run:
+        node scripts/generate-icons.mjs
+
+    The letters are stored as vector paths (extracted from Arial Bold) rather than <text>
+    so the mark renders identically in every browser and in the rasterizer, with no
+    dependency on an installed font.
+  -->
+  <rect width="512" height="512" rx="54" fill="#000000"/>
+  <g fill="#ffffff">
+    <path d="M357 738 102 784Q145 938 250.0 1012.0Q355 1086 562 1086Q750 1086 842.0 1041.5Q934 997 971.5 928.5Q1009 860 1009 677L1006 349Q1006 209 1019.5 142.5Q1033 76 1070 0H792Q781 28 765 83Q758 108 755 116Q683 46 601.0 11.0Q519 -24 426 -24Q262 -24 167.5 65.0Q73 154 73 290Q73 380 116.0 450.5Q159 521 236.5 558.5Q314 596 460 624Q657 661 733 693V721Q733 802 693.0 836.5Q653 871 542 871Q467 871 425.0 841.5Q383 812 357 738ZM733 510Q679 492 562.0 467.0Q445 442 409 418Q354 379 354 319Q354 260 398.0 217.0Q442 174 510 174Q586 174 655 224Q706 262 722 317Q733 353 733 454Z" transform="translate(38.400 323.803) scale(0.128415 -0.128415)"/>
+    <path d="M82 546Q82 686 151.0 817.0Q220 948 346.5 1017.0Q473 1086 629 1086Q870 1086 1024.0 929.5Q1178 773 1178 534Q1178 293 1022.5 134.5Q867 -24 631 -24Q485 -24 352.5 42.0Q220 108 151.0 235.5Q82 363 82 546ZM370 531Q370 373 445.0 289.0Q520 205 630 205Q740 205 814.5 289.0Q889 373 889 533Q889 689 814.5 773.0Q740 857 630 857Q520 857 445.0 773.0Q370 689 370 531Z" transform="translate(175.676 323.803) scale(0.128415 -0.128415)"/>
+    <path d="M357 738 102 784Q145 938 250.0 1012.0Q355 1086 562 1086Q750 1086 842.0 1041.5Q934 997 971.5 928.5Q1009 860 1009 677L1006 349Q1006 209 1019.5 142.5Q1033 76 1070 0H792Q781 28 765 83Q758 108 755 116Q683 46 601.0 11.0Q519 -24 426 -24Q262 -24 167.5 65.0Q73 154 73 290Q73 380 116.0 450.5Q159 521 236.5 558.5Q314 596 460 624Q657 661 733 693V721Q733 802 693.0 836.5Q653 871 542 871Q467 871 425.0 841.5Q383 812 357 738ZM733 510Q679 492 562.0 467.0Q445 442 409 418Q354 379 354 319Q354 260 398.0 217.0Q442 174 510 174Q586 174 655 224Q706 262 722 317Q733 353 733 454Z" transform="translate(327.335 323.803) scale(0.128415 -0.128415)"/>
+  </g>
+</svg>

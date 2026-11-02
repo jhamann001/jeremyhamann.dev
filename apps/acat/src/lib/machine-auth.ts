@@ -169,7 +169,7 @@ const SEGMENT = "[^/]+";
 const PROD_WRITE_SA = "ops-portal-run@ops-portal.iam.gserviceaccount.com";
 const DEV_WRITE_SA = "ops-portal-dev-run@ops-portal-dev.iam.gserviceaccount.com";
 
-/** Both Ops Portal identities, same env var as ACAT writes. Unset defaults to both.
+/** Both advisor platform identities, same env var as ACAT writes. Unset defaults to both.
  * A set value that drops the prod identity rejects every caller. */
 function custodianWriteAccounts(): Set<string> | null {
   const raw = process.env.MACHINE_AUTH_ALLOWED_SAS?.trim();
@@ -236,8 +236,8 @@ export async function verifyDashboardCaller(
 }
 
 /** ticket transfer-drawer contract. The suggestion read follows the existing
- * read policy (production allow-list or the scoped Ops Portal dev reader). Every
- * mutation accepts only the exact production Ops Portal identity: the production
+ * read policy (production allow-list or the scoped advisor platform dev reader). Every
+ * mutation accepts only the exact production advisor platform identity: the production
  * allow-list variable can also list the dev identity, so membership alone is
  * not enough. Handlers pass a literal access value, never request input. */
 export async function verifyDrawerCaller(

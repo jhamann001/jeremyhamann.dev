@@ -1,0 +1,18 @@
+.stack { display: grid; gap: 18px; max-width: 1120px; margin-top: 22px; }
+.notice { padding: 16px 18px; border: 1px solid var(--gold); border-radius: var(--radius-sm); background: var(--gold-soft); color: var(--ink-2); font-size: 13px; line-height: 1.7; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; padding-top: 16px; }
+.field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.label { font-size: 13px; font-weight: 600; }
+.input { width: 100%; box-sizing: border-box; min-height: 42px; padding: 9px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); color: var(--ink); font: inherit; font-size: 14px; }
+.input:focus-visible, .confirm input:focus-visible, .summary:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.input:disabled { opacity: .65; }
+.hint { color: var(--muted); font-size: 12px; line-height: 1.6; font-weight: 400; }
+.summary { cursor: pointer; font-size: 16px; font-weight: 600; padding: 3px 0; }
+.confirm { display: flex; gap: 10px; align-items: flex-start; margin-top: 22px; font-size: 13px; line-height: 1.6; }
+.confirm input { margin-top: 4px; }
+.checklist { margin: 10px 0; padding-left: 20px; font-size: 13px; line-height: 1.8; }
+.errors { border: 1px solid var(--red); border-radius: var(--radius-sm); padding: 14px 30px; background: var(--red-soft); color: var(--red); font-size: 13px; line-height: 1.7; }
+.fieldError { color: var(--red); font-size: 12px; line-height: 1.6; }
+.success { color: var(--green); font-size: 13px; }
+.actions { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+@media (max-width: 700px) { .grid { grid-template-columns: 1fr; } .actions { flex-direction: column; align-items: stretch; } }

@@ -10,7 +10,7 @@
  * API's authorization subject, `changeRequesterEmail` audits every change to it, and `assertPiiLight`
  * refuses to let a bare `@` into a Slack line for the same reason.
  *
- * Fix: the header prefers `requesterExternalId`, an opaque Ops Portal person pointer that answers the same
+ * Fix: the header prefers `requesterExternalId`, an opaque advisor platform person pointer that answers the same
  * question and means nothing outside the database. `requesterEmail` stays a predicate — a ticket with
  * no linked person has nothing else to filter on, and `/api/tickets/export` supports it — so the
  * residual exposure is closed operationally.

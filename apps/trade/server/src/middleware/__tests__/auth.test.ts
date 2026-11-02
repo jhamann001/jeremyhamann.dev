@@ -93,9 +93,9 @@ describe('requireRole', () => {
   });
 });
 
-// The Ops Portal delegated branch (TRW-01): only requireDelegatedCaller sets
+// The advisor platform delegated branch (TRW-01): only requireDelegatedCaller sets
 // authChannel = 'opsPortal', and only together with req.user.
-describe('requireAuth / requireRole — Ops Portal delegated channel', () => {
+describe('requireAuth / requireRole — the advisor platform delegated channel', () => {
   function delegated(user: AuthUser | undefined) {
     const mocks = makeMocks(user, false);
     (mocks.req as Request & { authChannel?: string }).authChannel = 'opsPortal';

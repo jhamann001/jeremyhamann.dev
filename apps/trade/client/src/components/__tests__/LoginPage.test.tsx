@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { LoginPage } from '../LoginPage';
+import { signInReturnPath } from '../../utils/signInPath';
 
 const mocks = vi.hoisted(() => ({
   useAuth: vi.fn(),
@@ -127,6 +128,25 @@ describe('LoginPage', () => {
       fireEvent.click(await screen.findByRole('button', { name: /rachel moss/i }));
       await waitFor(() => expect(mocks.signInAsPersona).toHaveBeenCalledWith('rachel.moss@example.com', undefined));
       await waitFor(() => expect(window.location.href).toBe('/'));
+    });
+
+    it('signs in and stays on the request link it was opened on (a link from another demo)', async () => {
+      mocks.signInAsPersona.mockResolvedValue({});
+      Object.defineProperty(window, 'location', {
+        configurable: true,
+        writable: true,
+        value: { href: 'http://localhost/queue/REQ-00001045', pathname: '/queue/REQ-00001045', search: '' },
+      });
+      render(<LoginPage />);
+      fireEvent.click(await screen.findByRole('button', { name: /ethan cole/i }));
+      await waitFor(() => expect(window.location.href).toBe('/queue/REQ-00001045'));
+    });
+
+    it('returns only to a path on this site, and never to the sign-in page', () => {
+      expect(signInReturnPath({ pathname: '/queue/REQ-00001045', search: '?x=1' })).toBe('/queue/REQ-00001045?x=1');
+      expect(signInReturnPath({ pathname: '/login', search: '?error=unauthorized' })).toBe('/');
+      expect(signInReturnPath({ pathname: '//evil.example/x', search: '' })).toBe('/');
+      expect(signInReturnPath({ pathname: '', search: '' })).toBe('/');
     });
 
     it('finishes an MCP connection by sending the browser back to the MCP client', async () => {

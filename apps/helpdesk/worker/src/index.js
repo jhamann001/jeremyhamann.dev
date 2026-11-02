@@ -5,10 +5,12 @@
 // the container (wrangler.jsonc, assets).
 //
 // The daily reset does not run here. The ledger's tables refuse UPDATE and DELETE even to the app, so the reset
-// runs as the database owner from GitHub Actions (.github/workflows/reset-helpdesk.yml).
+// runs as the database owner from GitHub Actions (.github/workflows/reset-helpdesk.yml). At 14:00 UTC this
+// Worker's cron asks GitHub to start it, because GitHub starts scheduled runs hours late (demo-edge/reset-dispatch.js).
 
 import { Container, getContainer } from '@cloudflare/containers';
 import demoConfig from '../../demo-config.json';
+import { dispatchReset } from '../../../demo-edge/reset-dispatch.js';
 import { cookieTheme, themeRedirect, withTheme } from '../../../demo-edge/theme-handoff.js';
 import { retireStaleContainer } from './container-settings.js';
 import { bodyWithinLimit, forwardableHeaders, PRIVATE_PATHS, routedPath, visitorKey, visitorPseudonym } from './rules.js';
@@ -107,5 +109,10 @@ export default {
     out.headers.set('X-Robots-Tag', 'noindex, nofollow');
     const theme = cookieTheme(request);
     return theme ? withTheme(out, theme, THEME) : out;
+  },
+
+  // Daily at 14:00 UTC, the time the sign-in page gives: start the reset workflow now.
+  async scheduled(_controller, env, ctx) {
+    ctx.waitUntil(dispatchReset(env, 'reset-helpdesk.yml'));
   },
 };

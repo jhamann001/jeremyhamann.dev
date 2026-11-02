@@ -27,7 +27,7 @@ async function createApp() {
   return app;
 }
 
-// Real cedar_ridge_user_id format: `user-` prefix + uuid (what Ops Portal actually sends).
+// Real cedar_ridge_user_id format: `user-` prefix + uuid (what the advisor platform actually sends).
 const ID_A = 'user-11111111-1111-1111-1111-111111111111';
 const ID_B = 'user-22222222-2222-2222-2222-222222222222';
 const FULL_ACCOUNT = 'APEX-87654321';
@@ -517,7 +517,7 @@ describe('GET /api/machine/trade-requests', () => {
 
   it('returns 400 for a BARE uuid (missing the user- prefix)', async () => {
     // Regression guard for the original bug: the id must be `user-<uuid>`, not a
-    // bare UUID. A bare uuid is exactly what Ops Portal never sends and must be rejected.
+    // bare UUID. A bare uuid is exactly what the advisor platform never sends and must be rejected.
     const app = await createApp();
     const res = await request(app).get(
       '/api/machine/trade-requests?cedar_ridge_user_id=11111111-1111-1111-1111-111111111111',
@@ -528,7 +528,7 @@ describe('GET /api/machine/trade-requests', () => {
   });
 
   it('accepts a real user-<uuid> cedar_ridge_user_id (200)', async () => {
-    // The format Ops Portal actually sends (e.g. user-ae66b3c8-...). Regression guard:
+    // The format the advisor platform actually sends (e.g. user-ae66b3c8-...). Regression guard:
     // this used to 400 under the bare-uuid validator.
     mockPool.query.mockResolvedValueOnce({ rows: [makeRow()] });
     const app = await createApp();

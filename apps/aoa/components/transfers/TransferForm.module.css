@@ -1,0 +1,87 @@
+/* Transfer create/edit form (T3) — the DealForm field idiom, tokens only. */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+}
+.field input:focus,
+.field select:focus {
+  border-color: var(--green);
+  outline: none;
+}
+.field input::placeholder {
+  color: var(--faint);
+}
+
+.inputBad,
+.field .inputBad {
+  border-color: var(--red);
+}
+
+/* Brief attention pulse when the ACAT field is deep-linked from the detail
+   CTA (?focus=acat). Fades on its own; pure affordance, no state. */
+.acatHighlight,
+.field .acatHighlight {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-line);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.hint {
+  font-size: 11.5px;
+  color: var(--faint);
+}
+
+.error {
+  font-size: 11.5px;
+  color: var(--red);
+}
+
+.banner {
+  padding: 10px 12px;
+  border: 1px solid var(--red);
+  border-radius: var(--radius-sm);
+  background: var(--red-soft);
+}
+.banner p {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--red);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}

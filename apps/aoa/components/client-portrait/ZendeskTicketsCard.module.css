@@ -1,0 +1,40 @@
+.card { composes: card from "../ui/Card.module.css"; overflow: hidden; }
+.summary { display: flex; align-items: center; gap: 12px; min-height: 62px; padding: 14px 16px; cursor: pointer; list-style: none; }
+.summary::-webkit-details-marker, .ticketSummary::-webkit-details-marker { display: none; }
+.summary:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; border-radius: 8px; }
+.summary h2 { margin: 0; font-size: 15px; font-weight: 600; }
+.count { color: var(--faint); font-size: 12.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.disclosure { margin-left: auto; color: var(--muted); font-size: 17px; }
+.card[open] .disclosure { font-size: 0; }
+.card[open] .disclosure::after { content: "−"; font-size: 17px; }
+.body { padding: 0 16px 16px; }
+.sub, .empty { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+.list { display: grid; gap: 10px; max-height: 320px; overflow-y: auto; }
+.ticket { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.ticketSummary { display: flex; align-items: center; gap: 9px; padding: 12px 14px; cursor: pointer; list-style: none; }
+.subjectLink { min-width: 0; color: var(--green); font-weight: 600; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-decoration: none; }
+.subjectLink:hover { text-decoration: underline; }
+.subjectLink:focus-visible { border-radius: 3px; outline: 2px solid var(--green); outline-offset: 2px; }
+.date { color: var(--muted); font-size: 12px; }
+.ticketAction { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: 12px; font-weight: 600; white-space: nowrap; }
+.hideLabel { display: none; }
+.ticketChevron { display: inline-block; font-size: 15px; line-height: 1; transition: transform 160ms ease; }
+.ticket[open] .viewLabel { display: none; }
+.ticket[open] .hideLabel { display: inline; }
+.ticket[open] .ticketChevron { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) {
+  .ticketChevron { transition: none; }
+}
+.conversation { border-top: 1px solid var(--line); padding: 14px; background: color-mix(in srgb, var(--surface) 92%, var(--ink) 8%); }
+.meta { display: flex; gap: 12px; flex-wrap: wrap; color: var(--muted); font-size: 12px; margin-bottom: 12px; }
+.meta a { color: var(--accent); margin-left: auto; }
+.comments { display: grid; gap: 10px; list-style: none; margin: 0; padding: 0; }
+.comment { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; }
+.commentHead { display: flex; gap: 10px; justify-content: space-between; color: var(--muted); font-size: 12px; }
+.comment p { margin: 7px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; line-height: 1.5; }
+@media (max-width: 700px) {
+  .ticketSummary { align-items: flex-start; flex-wrap: wrap; }
+  .subjectLink { flex-basis: 100%; white-space: normal; }
+  .date { margin-left: auto; }
+  .ticketAction { margin-left: 0; }
+}

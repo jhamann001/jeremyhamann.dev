@@ -29,7 +29,7 @@ const MACHINE_READ_LIMIT = { maxTokens: 120, interval: 60_000 };
  * WHY A SEPARATE ROUTE: the `[acatTransferId]` read keys on `acatTransferId`,
  * which is NULLABLE and NON-UNIQUE — many real records share a placeholder
  * ("N/A") or null value, so a by-acatTransferId findFirst returns the single
- * newest match for every one of them (the Ops Portal ACAT Tracking drawer bug). The
+ * newest match for every one of them (the advisor platform ACAT Tracking drawer bug). The
  * record `id` is the reliable per-record key: `findUnique` on it returns EXACTLY
  * that record or nothing. The `by-record` static segment sits alongside the
  * dynamic `[acatTransferId]` segment, so there is no routing ambiguity.

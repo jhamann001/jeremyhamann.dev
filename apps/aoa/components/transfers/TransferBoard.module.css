@@ -1,0 +1,27 @@
+.lanes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(192px, 1fr));
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-top: 4px;
+}
+
+/* "Show completed" toggle row (ticket) — right-aligned, muted, above the lanes. */
+.boardHead {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 10px 0 2px;
+}
+.showCompleted {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.showCompleted input {
+  cursor: pointer;
+}

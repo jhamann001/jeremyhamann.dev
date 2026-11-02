@@ -1,5 +1,5 @@
 /**
- * Okta group-claim configuration and Ops Portal group-name mapping — pure and edge-safe, layer L1
+ * Okta group-claim configuration and the advisor platform group-name mapping — pure and edge-safe, layer L1
  *.
  *
  * Imports only `@/types/domain` and `@/lib/rbac`; `process.env` is read LITERALLY (no env module) so the same
@@ -16,7 +16,7 @@
  * The map does NOT rely on the Okta claim filter being narrow: only names whose `<code>-` prefix is
  * in OKTA_APP_CODES are eligible (`IT-Admin`, `Slack-Admin`, `WMHD-Ops` grant nothing), `admin` must be the WHOLE
  * role name (`OPSPORTAL-Client Service Admin` is client service, not admin), an access-level suffix `Read Only` /
- * `Viewer` grants nothing (§b scopes by access level, unlike Ops Portal), and a scalar claim value is never mapped (a
+ * `Viewer` grants nothing (§b scopes by access level, unlike the advisor platform), and a scalar claim value is never mapped (a
  * claim mis-pointed at `email` or `name` yields no groups instead of minting roles from mailboxes).
  */
 import type { OktaGroup } from "@/types/domain";
@@ -47,7 +47,7 @@ export const OKTA_APP_CODES: readonly string[] = ["opsportal"];
 
 /**
  * Access-level markers that grant nothing. §b scopes by access level, so `OPSPORTAL-Ops Read Only` must
- * NOT become `ops_team` (WRITE on OPERATIONS, any→any moves); Ops Portal ignores the suffix only because its RLS scopes
+ * NOT become `ops_team` (WRITE on OPERATIONS, any→any moves); the advisor platform ignores the suffix only because its RLS scopes
  * by function. Tested against the normalised ROLE part; `\b` is safe because the input is `[a-z0-9 ]*`.
  */
 const READ_ONLY_ROLE = /\bread ?only\b|\bviewer\b|\breadonly\b/;
@@ -159,15 +159,15 @@ export type OktaGroupRule = Readonly<{
 }>;
 
 /**
- * Ops Portal group-name → help-desk group rules (#59). Every rule whose pattern matches the ROLE part of
+ * The advisor platform group-name → help-desk group rules (#59). Every rule whose pattern matches the ROLE part of
  * an eligible `<code>-<Role>` name contributes its groups (union, like the RBAC model); a name matching no rule is
  * dropped. Token semantics follow OPS_PORTAL's own mapper, tightened where §b's access-level model differs from OPS_PORTAL's:
- *   admin (the WHOLE role name)          → ALL FOUR (an Ops Portal admin is a full operator plus compliance — isDualRole flags it);
+ *   admin (the WHOLE role name)          → ALL FOUR (an advisor platform admin is a full operator plus compliance — isDualRole flags it);
  *                                          `client service admin` is client service, `advisor admin assistant` is advisors
  *   ops | operations                     → ops_team
  *   "client service(s)"                  → client_services   (no `cs` shorthand: a two-letter token is too loose)
  *   advisor | advisors                   → advisors          (NOT "advisory")
- *   compliance                           → compliance_officers (no such Ops Portal group exists yet — create `OPSPORTAL-Compliance`)
+ *   compliance                           → compliance_officers (no such advisor platform group exists yet — create `OPSPORTAL-Compliance`)
  * A role part carrying `read only` / `viewer` grants nothing before any rule runs (READ_ONLY_ROLE). Exact internal
  * values (`ops_team`, …) never reach these rules: `mapOktaGroupNames` keeps them as-is first.
  */
@@ -185,7 +185,7 @@ export function isReadOnlyRoleName(role: string): boolean {
 }
 
 /**
- * Groups granted by ONE raw group name: the exact internal value, or the union of every matching Ops Portal rule over
+ * Groups granted by ONE raw group name: the exact internal value, or the union of every matching advisor platform rule over
  * the role part of an eligible `<code>-<Role>` name. Unprefixed names, foreign app codes, empty role parts and
  * read-only markers all yield `[]`.
  */
@@ -204,7 +204,7 @@ function groupsForName(name: string): readonly OktaGroup[] {
  * Maps a raw Okta groups claim (string[] | string | anything else) onto the internal groups: array elements that
  * are exact internal values pass through (parseGroups semantics), OPS-PORTAL-style names are normalised and matched by
  * OPS_PORTAL_GROUP_MAP, everything else is dropped silently. A BARE STRING is kept only when it is itself an exact
- * internal value and is never run through the Ops Portal map: a claim mis-pointed at a scalar such as
+ * internal value and is never run through the advisor platform map: a claim mis-pointed at a scalar such as
  * `email` or `name` must yield no groups, not roles minted from a mailbox. Deduplicated, ordered per OKTA_GROUPS.
  * Never throws — any unexpected failure yields `[]` (no access), never a partial or stale list.
  */

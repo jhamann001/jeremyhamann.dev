@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-// A first-time Ops Portal user is not provisioned while the service is frozen (ticket).
+// A first-time advisor platform user is not provisioned while the service is frozen (ticket).
 const { mockPool, readStateMock } = vi.hoisted(() => {
   process.env.GOOGLE_CLIENT_ID = 'test-id';
   process.env.GOOGLE_CLIENT_SECRET = 'test-secret';

@@ -1,0 +1,41 @@
+.tile {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+}
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+.value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 4px;
+  line-height: 1.1;
+}
+.caption {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.35;
+}
+.ok { border-left: 3px solid var(--status-ok); }
+.ok .value { color: var(--status-ok); }
+.caution { border-left: 3px solid var(--status-caution); }
+.caution .value { color: var(--status-caution); }
+.attention { border-left: 3px solid var(--status-attention); }
+.attention .value { color: var(--status-attention); }
+.danger { border-left: 3px solid var(--status-danger); }
+.danger .value { color: var(--status-danger); }
+.info { border-left: 3px solid var(--status-info); }
+.info .value { color: var(--status-info); }
+.rollover { border-left: 3px solid var(--status-rollover); }
+.rollover .value { color: var(--status-rollover); }
+.blocked { border-left: 3px solid var(--status-blocked); }
+.blocked .value { color: var(--status-blocked); }
+.neutral { border-left: 3px solid var(--status-neutral); }
+.neutral .value { color: var(--status-neutral); }

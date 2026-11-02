@@ -141,7 +141,7 @@ const phoneSchema = z.string().trim().regex(/^\+[1-9]\d{7,14}$/, "Phone must be 
 /** An upstream identifier: an RFC 5322 Message-ID, an n8n execution id, a client-app request id. */
 const externalIdSchema = z.string().trim().min(1).max(EXTERNAL_ID_MAX);
 
-/** An opaque Ops Portal pointer: an id, never an account number and never a name. */
+/** An opaque advisor platform pointer: an id, never an account number and never a name. */
 const pointerSchema = z.string().trim().min(1).max(128);
 
 export const ingestTicketSchema: z.ZodType<IngestTicketInput, unknown> = z
@@ -916,7 +916,7 @@ export type RequesterMessageOutcome = {
  * follow-up when it cannot. Kept here rather than in each route so the two client
  * channels and S2's email intake cannot implement Decision #70 three different ways.
  *
- * The follow-up inherits the closed ticket's subject, requester, brand, category and Ops Portal pointers —
+ * The follow-up inherits the closed ticket's subject, requester, brand, category and the advisor platform pointers —
  * everything except its status and its history. `externalId` is consumed by the follow-up's receipt,
  * so a retry of the same upstream message still returns the same (new) ticket.
  */
@@ -1168,7 +1168,7 @@ export async function addStaffMessageCore(input: IngestMessageInput, call: Inges
 }
 
 // ---------------------------------------------------------------------------
-// Ops Portal mirror export (GET /api/export/tickets)
+// The advisor platform mirror export (GET /api/export/tickets)
 // ---------------------------------------------------------------------------
 
 export const EXPORT_DEFAULT_LIMIT = 100;
@@ -1266,7 +1266,7 @@ const EXPORT_TICKET_SELECT = {
 } as const;
 
 /**
- * One page of the Ops Portal mirror. PUBLIC channel only, sanitized bodies, stable `(updatedAt, id)` keyset
+ * One page of the advisor platform mirror. PUBLIC channel only, sanitized bodies, stable `(updatedAt, id)` keyset
  * cursor over the matching index.
  *
  * Three structural guarantees, not three filters that happen to be applied:

@@ -5,7 +5,7 @@ import logger from '../lib/logger.js';
 import { AppError } from '../middleware/errorHandler.js';
 
 export const MCP_ACCESS_REFUSED =
-  'Your Ops Portal role does not include Trade Request access, so Trade Request tools are unavailable to you.';
+  'Your advisor platform role does not include Trade Request access, so Trade Request tools are unavailable to you.';
 
 export class McpAccessRefusedError extends AppError {
   constructor() {
@@ -30,10 +30,10 @@ interface SelectionRow {
 /**
  * Chooses where this MCP call reads Trade Request records (ticket). Unconfigured: the local database, no query.
  * Configured: one read of OPS_PORTAL's serving state, the caller's access row and their Trade Request identity; OPS-PORTAL-served
- * reads Ops Portal and refuses a caller whose Ops Portal role grants no Trade Request access; standalone-served reads locally.
- * Any failure to read Ops Portal refuses the call (never a silent fallback to local records).
+ * reads the advisor platform and refuses a caller whose advisor platform role grants no Trade Request access; standalone-served reads locally.
+ * Any failure to read the advisor platform refuses the call (never a silent fallback to local records).
  *
- * While OPS-PORTAL-served the caller's role follows the epic's mapping of the current Ops Portal role (ADMIN or OPERATIONS →
+ * While OPS-PORTAL-served the caller's role follows the epic's mapping of the current advisor platform role (ADMIN or OPERATIONS →
  * trader, anything else → advisor), read from `mcp_access.trader_role` (OPS_PORTAL migration
  * 20261101120000_trade_request_schema).
  */

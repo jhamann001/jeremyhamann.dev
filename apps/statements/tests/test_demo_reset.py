@@ -119,6 +119,22 @@ def test_the_reset_clears_what_visitors_added(seeded):
     assert _one(conn, "SELECT MAX(run_number) FROM households WHERE source_folder_id = 'sample-okafor'")[0] == 2
 
 
+def test_every_run_keeps_the_id_the_other_demos_link_to(seeded):
+    conn, _ = seeded
+
+    def runs():
+        with conn.cursor() as cur:
+            cur.execute("SELECT id::text, source_folder_id, run_number FROM households ORDER BY 1")
+            return cur.fetchall()
+    first = runs()
+    assert len(first) == 48
+    assert all(i == demo_reset.demo_run_id(folder, n) for i, folder, n in first)
+    # Okafor's latest run, as the advisor platform's demo stores it (its seed derives the same id).
+    assert ("f5d084fb-f428-4bcb-a1f5-b68a6fd6863c", "sample-okafor", 2) in first
+    demo_reset.reset_demo(conn, now=NOW)
+    assert runs() == first
+
+
 @pytest.mark.parametrize("fail_at", ["pipeline", "edits"])
 def test_a_failed_reset_keeps_yesterdays_data(seeded, monkeypatch, fail_at):
     conn, _ = seeded

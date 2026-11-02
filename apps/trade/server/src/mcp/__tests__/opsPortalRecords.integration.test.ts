@@ -162,7 +162,7 @@ describe.skipIf(!DATABASE_URL)('MCP reads from an OPS-PORTAL-shaped database (Po
     expect(opsPortal.isError).toBe(true);
   });
 
-  it('refuses callers whose Ops Portal role grants no Trade Request access while OPS-PORTAL-served', async () => {
+  it('refuses callers whose advisor platform role grants no Trade Request access while OPS-PORTAL-served', async () => {
     await setServing('opsPortal');
     for (const email of ['vic.viewer@example.test', 'nobody@example.test']) {
       const result = await tool('get_request_counts', email)({}, {});
@@ -192,7 +192,7 @@ describe.skipIf(!DATABASE_URL)('MCP reads from an OPS-PORTAL-shaped database (Po
     expect(rows[0].n).toBe(0);
   });
 
-  it('refuses with the unavailable message, never local records, when Ops Portal is unreachable', async () => {
+  it('refuses with the unavailable message, never local records, when the advisor platform is unreachable', async () => {
     await setServing('standalone');
     process.env.OPS_PORTAL_RECORDS_DB_PORT = '1';
     const spy = vi.spyOn(localPool as unknown as pg.Pool, 'query');
@@ -243,7 +243,7 @@ describe.skipIf(!DATABASE_URL)('MCP reads from an OPS-PORTAL-shaped database (Po
     }
   });
 
-  it('reads the local records when the Ops Portal settings are absent, whatever Ops Portal reports', async () => {
+  it('reads the local records when the advisor platform settings are absent, whatever the advisor platform reports', async () => {
     await setServing('opsPortal');
     delete process.env.OPS_PORTAL_RECORDS_DB_HOST;
     const result = await tool('get_request')({ id: 'REQ-LOCAL0001' }, {});

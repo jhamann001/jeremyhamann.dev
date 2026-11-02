@@ -1,0 +1,282 @@
+.topbar {
+  height: 62px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 30px;
+  flex-shrink: 0;
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 7px 12px;
+  max-width: 380px;
+  flex: 1;
+  color: var(--muted);
+}
+.search input {
+  border: 0;
+  background: none;
+  outline: none;
+  flex: 1;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--ink);
+}
+.spacer {
+  flex: 1;
+}
+.roleChip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.who {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.role {
+  font-size: 11px;
+  color: var(--muted);
+}
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 12px;
+}
+.iconBtn:hover {
+  background: var(--sidebar-hover);
+  color: var(--ink);
+}
+.notifications {
+  position: relative;
+}
+.notifications > summary {
+  list-style: none;
+}
+.notifications > summary::-webkit-details-marker {
+  display: none;
+}
+.notificationCount {
+  min-width: 17px;
+  height: 17px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--red);
+  color: white;
+  font-size: 10px;
+  font-weight: 750;
+  line-height: 17px;
+  text-align: center;
+}
+.notificationPanel {
+  position: absolute;
+  z-index: 80;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(380px, calc(100vw - 32px));
+  /* The shell clips at the viewport (.app is overflow: hidden), so the panel
+     must end 16px above the bottom edge; NotificationPanel measures the top. */
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - var(--notification-panel-top, 74px) - 16px);
+  max-height: calc(100dvh - var(--notification-panel-top, 74px) - 16px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: var(--shadow-lg);
+}
+.notificationBody {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-top: 3.25rem;
+}
+.notificationHeader {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  flex: none;
+  background: var(--panel);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 12.5px;
+}
+.notificationHeader span {
+  color: var(--muted);
+  font-size: 11px;
+}
+.notificationEmpty {
+  padding: 18px 14px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.notificationItem {
+  display: grid;
+  gap: 5px;
+  padding: 14px;
+  border-left: 3px solid var(--gold);
+}
+.notificationItem + .notificationItem {
+  border-top: 1px solid var(--line);
+}
+.notificationItem:hover {
+  background: var(--sidebar-hover);
+}
+.notificationItem strong {
+  color: var(--ink);
+  font-size: 12.5px;
+}
+.notificationItem span {
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+.notificationItem small {
+  color: var(--green-2);
+  font-size: 11px;
+  font-weight: 700;
+}
+.notificationItem.red {
+  border-left-color: var(--red);
+}
+.notificationItem.amber {
+  border-left-color: var(--gold);
+}
+.notificationSection + * {
+  border-top: 1px solid var(--line);
+}
+.notificationHeading {
+  padding: 12px 14px 0;
+}
+.notificationSection .notificationEmpty {
+  padding-top: 8px;
+}
+.bellGroupHeading {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--panel);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 14px 8px;
+}
+.bellItem {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.bellItem span {
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+.bellItem time {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+.bellItem:hover {
+  background: var(--sidebar-hover);
+}
+.bellUnread {
+  background: var(--blue-soft);
+  color: var(--ink);
+  font-weight: 600;
+}
+.bellRead {
+  color: var(--muted);
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    height: auto;
+    min-height: 62px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 16px;
+  }
+  .search {
+    flex-basis: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+  .search input {
+    min-width: 0;
+  }
+  .spacer {
+    display: none;
+  }
+  .roleChip {
+    flex: 1 1 120px;
+    min-width: 0;
+  }
+  .who {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .notifications {
+    position: static;
+  }
+  .notificationPanel {
+    top: auto;
+    right: 16px;
+    margin-top: 12px;
+  }
+  .notificationBody {
+    max-height: min(70dvh, 560px);
+    overflow-y: auto;
+  }
+  .notificationBody .notificationItem,
+  .notificationBody .bellItem,
+  .bellGroupHeading button {
+    min-height: 44px;
+  }
+}

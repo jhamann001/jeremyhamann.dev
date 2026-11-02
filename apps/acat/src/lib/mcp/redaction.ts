@@ -177,7 +177,7 @@ export function redactAcatForMachine(record: {
   };
 }
 
-// Server-to-server projection for a machine caller's LIST view (e.g. the Ops Portal
+// Server-to-server projection for a machine caller's LIST view (e.g. the advisor platform
 // "In Transfer" lane). Sibling to `redactAcatForMachine` but shaped for a
 // lane row rather than a full record:
 //

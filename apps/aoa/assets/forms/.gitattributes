@@ -1,0 +1,2 @@
+# Preserve custodian template bytes; PDF streams are not source text.
+*.pdf binary

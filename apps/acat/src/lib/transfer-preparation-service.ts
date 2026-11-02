@@ -201,7 +201,7 @@ export function paperworkRequirementValues(
 export function buildPreparation(source: TransferSource, templateHash: string, documents: DocumentSummary[] = []): TransferFormPreparation {
   const rec = sourceRecommendation(source);
   const valid = validTitleConfirmation(source);
-  // Clearing the binding does not erase provenance. Keep the immutable Ops Portal
+  // Clearing the binding does not erase provenance. Keep the immutable advisor platform
   // confirmation visible (and invalid) while its exact mirrored title/actor/time
   // remain unchanged. A subsequent browser title edit is genuinely legacy data.
   const previous = source.transferTitleConfirmations[0];

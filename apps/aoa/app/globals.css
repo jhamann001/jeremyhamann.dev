@@ -1,0 +1,168 @@
+:root { /* light (default) — Cedar Ridge editorial */
+  --bg:#f4f1ea; --panel:#ffffff;
+  --ink:#1c1a16; --ink-2:#4d473e; --muted:#6c6457; --faint:#79715f;
+  --line:#e8e3d8; --line-2:#ddd7ca;
+  --green:#2f5d4d; --green-2:#3a7560; --green-soft:rgba(47,93,77,.09); --green-line:rgba(47,93,77,.22);
+  --gold:#b08a35; --gold-soft:rgba(176,138,53,.14);
+  --blue:#2c5f73; --blue-soft:rgba(44,95,115,.08);
+  --amber:#b4690e; --amber-soft:rgba(180,105,14,.08);
+  --red:#c53030; --red-soft:rgba(197,48,48,.08);
+  /* Status tones: each --status-X must stay >= 4.5:1 against --status-X-bg, --panel and --bg. */
+  --status-ok:#2c5a49; --status-ok-bg:#e3eee8;
+  --status-caution:#76560f; --status-caution-bg:#f5ecd3;
+  --status-attention:#8a4407; --status-attention-bg:#f8e5d3;
+  --status-danger:#9b2323; --status-danger-bg:#f8e0de;
+  --status-info:#22566b; --status-info-bg:#e0ecf1;
+  --status-rollover:#4a3d8c; --status-rollover-bg:#e9e6f6;
+  --status-blocked:#6b2a5b; --status-blocked-bg:#f3e3ef;
+  --status-neutral:#57524a; --status-neutral-bg:#ece9e2;
+  /* ACAT book status hues (epic hue list). */
+  --acat-slate:#1e293b; --acat-slate-bg:#f1f5f9; --acat-blue:#1e40af; --acat-blue-bg:#dbeafe; --acat-amber:#92400e; --acat-amber-bg:#fef3c7;
+  --acat-sky:#075985; --acat-sky-bg:#e0f2fe; --acat-indigo:#3730a3; --acat-indigo-bg:#e0e7ff; --acat-violet:#5b21b6; --acat-violet-bg:#ede9fe;
+  --acat-cyan:#155e75; --acat-cyan-bg:#cffafe; --acat-teal:#115e59; --acat-teal-bg:#ccfbf1; --acat-emerald:#065f46; --acat-emerald-bg:#d1fae5;
+  --acat-lime:#3f6212; --acat-lime-bg:#ecfccb; --acat-purple:#6b21a8; --acat-purple-bg:#f3e8ff; --acat-green:#166534; --acat-green-bg:#dcfce7;
+  --acat-red:#991b1b; --acat-red-bg:#fee2e2; --acat-gray:#374151; --acat-gray-bg:#f3f4f6; --acat-orange:#9a3412; --acat-orange-bg:#ffedd5;
+  --acat-yellow:#854d0e; --acat-yellow-bg:#fef9c3; --acat-unknown:#57524a; --acat-unknown-bg:#ece9e2;
+  --sidebar-bg:#fbf9f5; --sidebar-text:#524c43; --sidebar-hover:rgba(47,93,77,.07); --sidebar-foot-line:#e8e3d8;
+  --input-bg:#f4f1ea; --scrollbar-thumb:#d8d2c5;
+  --radius:14px; --radius-sm:10px;
+  --shadow:0 1px 2px rgba(40,34,20,.04),0 6px 22px rgba(40,34,20,.05);
+  --shadow-lg:0 16px 48px rgba(40,34,20,.12);
+}
+
+html.dark {
+  --bg:#14110c; --panel:#1d1812;
+  --ink:#ece7df; --ink-2:#c2bbae; --muted:#8d857a; --faint:#5e584e;
+  --line:#2f2a22; --line-2:#3b352b;
+  --green:#5a9b82; --green-2:#6fb097; --green-soft:rgba(90,155,130,.15); --green-line:rgba(90,155,130,.30);
+  --gold:#c9a85a; --gold-soft:rgba(201,168,90,.16);
+  --blue:#2c5f73; --blue-soft:rgba(44,95,115,.2);
+  --amber:#b4690e; --amber-soft:rgba(180,105,14,.15);
+  --red:#9b2c2c; --red-soft:rgba(155,44,44,.15);
+  --status-ok:#8fd0b4; --status-ok-bg:#1e3a2f;
+  --status-caution:#e8c874; --status-caution-bg:#3a3018;
+  --status-attention:#f2a964; --status-attention-bg:#3f2914;
+  --status-danger:#f39c9c; --status-danger-bg:#4a1e1e;
+  --status-info:#8cc8dd; --status-info-bg:#163440;
+  --status-rollover:#bdb4f2; --status-rollover-bg:#2c2850;
+  --status-blocked:#e8a9d8; --status-blocked-bg:#43213b;
+  --status-neutral:#c9c2b5; --status-neutral-bg:#2f2a22;
+  /* ACAT book status hues (epic hue list). */
+  --acat-slate:#cbd5e1; --acat-slate-bg:#1e293b; --acat-blue:#93c5fd; --acat-blue-bg:#172554; --acat-amber:#fcd34d; --acat-amber-bg:#451a03;
+  --acat-sky:#7dd3fc; --acat-sky-bg:#082f49; --acat-indigo:#a5b4fc; --acat-indigo-bg:#1e1b4b; --acat-violet:#c4b5fd; --acat-violet-bg:#2e1065;
+  --acat-cyan:#67e8f9; --acat-cyan-bg:#083344; --acat-teal:#5eead4; --acat-teal-bg:#042f2e; --acat-emerald:#6ee7b7; --acat-emerald-bg:#022c22;
+  --acat-lime:#bef264; --acat-lime-bg:#1a2e05; --acat-purple:#d8b4fe; --acat-purple-bg:#3b0764; --acat-green:#86efac; --acat-green-bg:#052e16;
+  --acat-red:#fca5a5; --acat-red-bg:#450a0a; --acat-gray:#d1d5db; --acat-gray-bg:#1f2937; --acat-orange:#fdba74; --acat-orange-bg:#431407;
+  --acat-yellow:#fde047; --acat-yellow-bg:#422006; --acat-unknown:#c9c2b5; --acat-unknown-bg:#2f2a22;
+  --sidebar-bg:#14110c; --sidebar-text:#c2bbae; --sidebar-hover:rgba(255,255,255,.05); --sidebar-foot-line:#2f2a22;
+  --input-bg:#241f18; --scrollbar-thumb:#3b352b;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.5);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2 { font-family: var(--font-serif), Georgia, serif; letter-spacing: -.01em; }
+h1 { font-size: 30px; font-weight: 500; line-height: 1.15; }
+h2 { font-size: 16px; font-weight: 500; }
+code, .mono { font-family: var(--font-mono), ui-monospace, monospace; }
+a { color: var(--green); text-decoration: none; }
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--green-soft); border-radius: 4px; }
+
+/* Transitional scaffold utilities — re-pointed at tokens; A5 removes them. */
+.wrap { max-width: 880px; margin: 0 auto; padding: 48px 24px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); }
+.btn {
+  display: inline-flex; align-items: center; gap: 7px; padding: 9px 15px;
+  border-radius: 9999px; background: var(--ink); color: var(--bg);
+  font-weight: 600; font-size: 13px; border: 0; cursor: pointer; text-decoration: none;
+}
+.muted { color: var(--muted); }
+
+/* --- Print-to-PDF for a meeting-prep brief (AI_MEETING_PREP) ----------------
+   "Export PDF" (components/prep/print-brief.ts) stamps data-printing="brief" on
+   <body>, stamps data-print-ancestor on every ancestor of the brief, and calls
+   window.print(). These rules then reduce the page to the [data-print-root]
+   subtree: the brief, its client name, the meeting date/time, the generated-at +
+   model provenance line and the internal-draft footer — and nothing else.
+
+   display:none (not visibility:hidden) for the chrome, because hidden elements
+   still occupy layout and would push the brief down the page. And the ancestor
+   chain is FLATTENED to static blocks: the brief lives inside a fixed-position
+   slide-over, and a fixed/absolute box does not paginate — a two-page brief
+   would be clipped to page one. Flattened, it flows in normal document order.
+
+   Keyed on the body stamp, so a plain Cmd-P still prints the whole page. */
+@media print {
+  html:has(body[data-printing="brief"]),
+  body[data-printing="brief"] {
+    height: auto !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+  /* Everything that is not on the path to the brief leaves the layout. */
+  body[data-printing="brief"] [data-print-ancestor]
+    > *:not([data-print-ancestor]):not([data-print-root]) {
+    display: none !important;
+  }
+  /* …including the panel's own buttons and close control. */
+  body[data-printing="brief"] [data-print-hide] {
+    display: none !important;
+  }
+  /* Flatten the chain from <body> down to the brief. */
+  body[data-printing="brief"] [data-print-ancestor] {
+    display: block !important;
+    position: static !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    transform: none !important;
+    inset: auto !important;
+  }
+  body[data-printing="brief"] [data-print-root] {
+    display: block !important;
+    position: static !important;
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+  /* The panel body scrolls on screen; on paper it must flow across pages. */
+  body[data-printing="brief"] [data-print-root] * {
+    overflow: visible !important;
+    max-height: none !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+  body[data-printing="brief"] [data-print-root] h2,
+  body[data-printing="brief"] [data-print-root] h3 {
+    break-after: avoid;
+  }
+  @page {
+    margin: 0.6in;
+  }
+}

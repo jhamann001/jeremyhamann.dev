@@ -2,8 +2,9 @@
 # start on a fresh desk whose SLA clocks run through their day. The help desk's ledger tables refuse UPDATE and
 # DELETE even to the app, so the reset runs here, as the database owner, in one transaction
 # (apps/helpdesk/prisma/demo-reset.ts): a failed reset leaves yesterday's desk in place. It then runs seven of
-# the desk's jobs once. GitHub can start scheduled runs late at busy times; the sign-in page says "daily at
-# 14:00 UTC", and a late reset only means slightly older data.
+# the desk's jobs once. The sign-in page says "daily at 14:00 UTC", but GitHub starts this repository's scheduled
+# runs hours late, so the Worker's 14:00 cron starts this workflow instead (apps/demo-edge/reset-dispatch.js), and
+# the schedule below is only the fallback.
 name: Reset WM Help Desk demo
 
 on:
@@ -13,6 +14,7 @@ on:
 
 permissions:
   contents: read
+  actions: read # the fallback's check for a reset that already ran
 
 # The deploy runs the same reset; never both at once.
 concurrency:
@@ -30,19 +32,38 @@ jobs:
       run:
         working-directory: apps/helpdesk
     steps:
+      # The Worker's cron starts this workflow on time; this schedule is the fallback, and GitHub starts it hours
+      # late. It skips itself when a reset already ran in the last 20 hours.
+      - name: Skip a late scheduled run when today's reset already ran
+        id: due
+        if: github.event_name == 'schedule'
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          since=$(date -u -d '20 hours ago' +%Y-%m-%dT%H:%M:%SZ)
+          done=$(gh run list -R "$GITHUB_REPOSITORY" --workflow reset-helpdesk.yml --status success --created ">=$since" --json databaseId --jq length)
+          echo "Successful resets since $since: $done"
+          if [ "$done" -gt 0 ]; then echo "skip=true" >> "$GITHUB_OUTPUT"; fi
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.due.outputs.skip != 'true'
         with:
           persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        if: steps.due.outputs.skip != 'true'
         with:
           node-version: 24
           cache: npm
           cache-dependency-path: apps/helpdesk/package-lock.json
       - run: npm ci
+        if: steps.due.outputs.skip != 'true'
       - run: npx prisma generate
+        if: steps.due.outputs.skip != 'true'
       - name: Load the demo settings (no secrets; the same ones the Worker hands the container)
+        if: steps.due.outputs.skip != 'true'
         run: node scripts/demo-env.mjs >> "$GITHUB_ENV"
       - name: Reset (one retry a minute later; the first query also wakes the database)
+        if: steps.due.outputs.skip != 'true'
         env:
           HELPDESK_DATABASE_URL: ${{ secrets.HELPDESK_DATABASE_URL }}
         run: |

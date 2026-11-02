@@ -15,7 +15,8 @@
     "apps/acat/worker",
     "apps/helpdesk/worker",
     "apps/statements/frontend",
-    "apps/statements/worker"
+    "apps/statements/worker",
+    "apps/aoa/worker"
   ],
   "engines": {
     "node": ">=22.12.0"

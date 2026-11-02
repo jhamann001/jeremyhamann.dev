@@ -901,7 +901,7 @@ describe('PUT /requests/:id', () => {
     expect(calls.some((c) => String(c[0]).startsWith('INSERT INTO audit_logs'))).toBe(false);
   });
 
-  it('TRW-02: requires expectedUpdatedAt on an Ops Portal resubmission before reading the request', async () => {
+  it('TRW-02: requires expectedUpdatedAt on an advisor platform resubmission before reading the request', async () => {
     const res = await request(createApp(advisorUser, { authChannel: 'opsPortal' }))
       .put('/requests/REQ-12345678')
       .send(resubmitPayload);

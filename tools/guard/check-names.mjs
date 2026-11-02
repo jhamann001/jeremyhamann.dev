@@ -11,6 +11,7 @@
 //   --history         every commit on every branch: message and diff. A commit that predates a term
 //                     and can't be rewritten is excused for that term only, in history-allow.txt.
 //                     A file's allow.txt entries hold for its diffs too; commit messages have none.
+//                     An entry ending in "/" covers a whole folder (allow.txt says which, and why).
 //   --message <file>  a commit message file (commit-msg hook)
 //
 // Hits are reported with the term masked, so a CI log never repeats a real name.
@@ -180,11 +181,24 @@ function isBinary(path, text) {
   return text.length > 0 && odd / text.length > 0.01;
 }
 
-function scanText(label, path, text) {
+// An allow.txt entry names one file, or a whole folder when its path ends in "/" (the term is allowed in
+// every file under it, and in those files' own paths).
+function allowed(file, term) {
+  if (!file) return false;
+  const key = (p) => `${p}\t${term}`.toLowerCase();
+  if (allow.has(key(file))) return true;
+  for (let i = file.indexOf('/'); i !== -1; i = file.indexOf('/', i + 1)) {
+    if (allow.has(key(file.slice(0, i + 1)))) return true;
+  }
+  return false;
+}
+
+// `allowPath` is the file whose allow entries apply when that isn't `path`: a file's own name in a path list.
+function scanText(label, path, text, allowPath = path) {
   if (isBinary(path, text)) return;
   const lines = text.replace(INTEGRITY, 'sha-hash').split('\n');
   let commit = null; // in --history, the commit the current line belongs to
-  let file = path; // in --history, the file whose diff the current line is in (null in a commit message)
+  let file = allowPath; // in --history, the file whose diff the current line is in (null in a commit message)
   for (let i = 0; i < lines.length; i++) {
     const header = mode === '--history' && /^commit ([0-9a-f]{40})$/.exec(lines[i]);
     if (header) [commit, file] = [header[1], null];
@@ -192,7 +206,7 @@ function scanText(label, path, text) {
     if (diff) file = diff[1];
     for (const { term, forms, hash } of patterns) {
       if (commit && historyAllow.has(`${commit} ${hash}`)) continue;
-      if (matches(lines[i], forms, mode !== '--history') && !(file && allow.has(`${file}\t${term}`.toLowerCase()))) {
+      if (matches(lines[i], forms, mode !== '--history') && !allowed(file, term)) {
         hits.push(`${label}${path ? `${path}:${i + 1}` : `line ${i + 1}`}  [${mask(term)}]`);
       }
     }
@@ -202,11 +216,11 @@ function scanText(label, path, text) {
 const mode = process.argv[2];
 if (mode === '--staged') {
   const files = git('diff', '--cached', '--name-only', '--diff-filter=ACMR', '-z').split('\0').filter(Boolean);
-  scanText('path ', null, files.join('\n'));
+  for (const f of files) scanText(`path ${f} `, null, f, f);
   for (const f of files) scanText('', f, git('show', `:${f}`));
 } else if (mode === '--all') {
   const files = git('ls-files', '-z').split('\0').filter(Boolean);
-  scanText('path ', null, files.join('\n'));
+  for (const f of files) scanText(`path ${f} `, null, f, f);
   for (const f of files) if (existsSync(f)) scanText('', f, readFileSync(f, 'utf8'));
 } else if (mode === '--history') {
   let log = '';

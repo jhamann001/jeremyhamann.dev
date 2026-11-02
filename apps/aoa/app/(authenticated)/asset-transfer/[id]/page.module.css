@@ -1,0 +1,167 @@
+/* /asset-transfer/[id] detail layout (T3) — tokens only, both themes. */
+
+.backLink {
+  font-size: 13px;
+  color: var(--muted);
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.toolbar {
+  margin-bottom: 16px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 18px;
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* No-rail variant: when the page has nothing for the 320px side column (no
+   Temperature context), the main column takes the full width instead of
+   leaving a stranded gap. */
+.columnsSingle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.name {
+  margin: 0;
+  font-size: 24px;
+}
+
+.household {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.figures {
+  display: flex;
+  gap: 28px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.figureLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.figureValue {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.sourceNote { margin: 0; font-size: 12px; color: var(--muted); }
+
+.stepper {
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.headerMeta {
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--faint);
+}
+
+.headerPill {
+  margin-left: 10px;
+}
+
+/* Full Funding Picture hub — the full-width integration section rendered
+   AFTER the .columns grid closes (visually last at every breakpoint). */
+.hub {
+  /* In the main column now (owner move) — the .main flex gap handles spacing,
+     so no margin-top. Still a column wrapper for the card + unlinked CTA. */
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Archived ("Removed from the board") notice — read-only state banner, the
+   DealDetail.archivedNote idiom (feat/transfer-archive-falloff). */
+.archivedNote {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--red-soft);
+}
+
+/* Needs-review banner (transfer-syncflag-surface) — the archivedNote idiom in
+   warning (amber) tone: the reconciler flagged this transfer for a human call
+   (sync_flag), and the resolution buttons live inside the banner. */
+.reviewNote {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--amber-soft);
+}
+.reviewText {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.reviewLabel {
+  color: var(--amber);
+  font-weight: 700;
+}
+.reviewActions {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+}
+/* The archive button ships its own page-bottom divider (wrap: margin/padding/
+   border-top) — inside the banner's actions row that divider is noise, so the
+   row resets it on its direct children (both buttons' wraps are plain divs). */
+.reviewActions > div {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}

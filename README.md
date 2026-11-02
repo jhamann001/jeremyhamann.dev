@@ -4,7 +4,7 @@ Jeremy Hamann's portfolio site and the demo apps it links to. Live at **jeremyha
 
 Every demo runs on one invented advisory firm, **Cedar Ridge Wealth**. Every person, household, account and account number in this repo is synthetic. The custodians are real: Apex is the clearing firm, and the Transfer Tracker's custodian library carries each delivering firm's real DTC number, requirements and published fees.
 
-Live demos: **Trade Request** at [trade.jeremyhamann.dev](https://trade.jeremyhamann.dev), the **Transfer Tracker** at [transfers.jeremyhamann.dev](https://transfers.jeremyhamann.dev), the **WM Help Desk** at [helpdesk.jeremyhamann.dev](https://helpdesk.jeremyhamann.dev) and the **Statement Analyzer** at [statements.jeremyhamann.dev](https://statements.jeremyhamann.dev).
+Live demos: **Always-On-Advice**, the advisor platform the next three run inside, at [aoa.jeremyhamann.dev](https://aoa.jeremyhamann.dev), **Trade Request** at [trade.jeremyhamann.dev](https://trade.jeremyhamann.dev), the **Transfer Tracker** at [transfers.jeremyhamann.dev](https://transfers.jeremyhamann.dev), the **WM Help Desk** at [helpdesk.jeremyhamann.dev](https://helpdesk.jeremyhamann.dev) and the **Statement Analyzer** at [statements.jeremyhamann.dev](https://statements.jeremyhamann.dev).
 
 This public repository is a snapshot of the reviewed code, updated with each release. Day-to-day work, CI and deploys run in a private working repository, so the workflows here don't run.
 

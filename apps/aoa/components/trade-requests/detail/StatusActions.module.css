@@ -1,0 +1,41 @@
+/* Reviewer status actions in the request footer — tokens only, both themes. */
+
+.buttons { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.buttons .caution { background: var(--status-caution-bg); color: var(--status-caution); }
+.buttons .danger { background: var(--status-danger-bg); color: var(--status-danger); }
+.buttons .ok { background: var(--status-ok); color: var(--status-ok-bg); }
+
+.form { display: flex; flex-direction: column; gap: 8px; width: min(560px, calc(100vw - 96px)); }
+.warning {
+  padding: 8px 12px;
+  border: 1px solid var(--status-caution);
+  border-radius: var(--radius-sm);
+  background: var(--status-caution-bg);
+  color: var(--status-caution);
+  font-size: 13px;
+}
+.warningLink {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.warningLink:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.label { font-size: 13px; font-weight: 700; color: var(--ink); }
+.input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+}
+.input:focus { border-color: var(--green); outline: none; }
+.input::placeholder { color: var(--faint); }
+.formButtons { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }

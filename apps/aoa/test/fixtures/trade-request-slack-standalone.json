@@ -1,0 +1,54 @@
+{
+  "newRequestSingle": {
+    "channel": "CFIXTURE",
+    "text": "*New Trade Request* `REQ-00000001`\nClient: *Sample &lt;Family&gt; &amp; Co* | Type: Initial Funding | Priority: Standard\nAccounts: `ACCT-1`, `ACCT-2`\nSubmitted by: Pat Advisor | Value: $1,234,567\nNotes: Use &lt;cash&gt; &amp; rebalance\nView request: https://standalone.example/queue/REQ-00000001"
+  },
+  "newRequestHousehold": {
+    "channel": "CFIXTURE",
+    "text": "*New Trade Request* `REQ-00000002`\nClient: *Alpha, Beta* | Type: Rebalance | Priority: Urgent\nAccounts: `ACCT-3`\nSubmitted by: Pat Advisor | Value: $0\nView request: https://standalone.example/queue/REQ-00000002"
+  },
+  "statusDm": {
+    "channel": "U0WKHNENF9",
+    "text": "Request `REQ-00000001` for *Sample* updated to: *Approved*\nNote: Looks good\nUpdated by: Tia Trader"
+  },
+  "statusNeedsInfoChannel": {
+    "channel": "CFIXTURE",
+    "text": "Request `REQ-00000001` for *Sample* updated to: *Needs Info*\nNote: No additional notes\nUpdated by: Tia Trader\n\nPlease review and edit your request: https://standalone.example/edit/REQ-00000001"
+  },
+  "exclusionAdded": {
+    "channel": "CFIXTURE",
+    "text": "*Exclusion added* for *Sample*\nTicker: `TSLA` | Kind: client | Side: DNB\nReason: Values &lt;ESG&gt;\nChanged by: Pat Advisor"
+  },
+  "exclusionRemovedNoReason": {
+    "channel": "CFIXTURE",
+    "text": "*Exclusion removed* for *Sample*\nTicker: `XOM` | Kind: advisor | Side: DNB+DNS\nChanged by: Pat Advisor"
+  },
+  "batchMixed": {
+    "channel": "CFIXTURE",
+    "text": "*3 exclusions updated* for *Sample*\nAdded:\n- `AAPL` (client, DNB) — r1\nRemoved:\n- `MSFT` (advisor, DNS)\nChanged:\n- `NVDA` (client): DNB → DNB+DNS\nChanged by: Pat Advisor"
+  },
+  "batchAddedTwo": {
+    "channel": "CFIXTURE",
+    "text": "*2 exclusions added* for *Sample*\nAdded:\n- `AAPL` (client, DNB)\n- `GOOG` (client, DNS)\nChanged by: Pat Advisor"
+  },
+  "batchChangedOne": {
+    "channel": "CFIXTURE",
+    "text": "*Exclusion updated* for *Sample*\nChanged:\n- `NVDA` (client): DNB+DNS → DNS\nChanged by: Pat Advisor"
+  },
+  "batchAddedOne": {
+    "channel": "CFIXTURE",
+    "text": "*Exclusion added* for *Sample*\nAdded:\n- `AAPL` (client, DNB) — solo\nChanged by: Pat Advisor"
+  },
+  "batchRemovedOne": {
+    "channel": "CFIXTURE",
+    "text": "*Exclusion removed* for *Sample*\nRemoved:\n- `MSFT` (advisor, DNS)\nChanged by: Pat Advisor"
+  },
+  "batchRemovedTwo": {
+    "channel": "CFIXTURE",
+    "text": "*2 exclusions removed* for *Sample*\nRemoved:\n- `MSFT` (advisor, DNS) — old\n- `IBM` (client, DNB+DNS)\nChanged by: Pat Advisor"
+  },
+  "batchChangedTwo": {
+    "channel": "CFIXTURE",
+    "text": "*2 exclusions updated* for *Sample*\nChanged:\n- `NVDA` (client): DNB+DNS → DNS\n- `AMD` (advisor): DNB → DNB+DNS\nChanged by: Pat Advisor"
+  }
+}

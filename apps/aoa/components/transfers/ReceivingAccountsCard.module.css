@@ -1,0 +1,104 @@
+/* ReceivingAccountsCard (T3) — tokens only, both themes. */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.error {
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: var(--red);
+  background: var(--red-soft);
+  border: 1px solid var(--red);
+  border-radius: var(--radius-sm);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.markerOpen,
+.markerToOpen {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 11px;
+  border: 1px solid var(--line-2);
+}
+.markerOpen {
+  border-color: var(--green-line);
+  background: var(--green-soft);
+  color: var(--green);
+}
+.markerToOpen {
+  color: var(--faint);
+  background: var(--panel);
+}
+
+.text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* S6: "· from linked asset map" tag on the derived read-only row. */
+.fromMap {
+  font-weight: 400;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.status {
+  font-size: 11px;
+  color: var(--faint);
+}
+
+/* Initial-Funding check pill (+ create link) on the derived receiving row. */
+.funding {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.fundingCta {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent, #1f7a4d);
+  text-decoration: none;
+}
+.fundingCta:hover {
+  text-decoration: underline;
+}
+
+.empty {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--faint);
+}

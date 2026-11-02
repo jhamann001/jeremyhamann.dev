@@ -1,0 +1,48 @@
+/* Deal detail dialog — tokens only, both themes. */
+
+.dialog {
+  margin: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  max-width: min(720px, calc(100vw - 32px));
+  width: 100%;
+  max-height: calc(100vh - 48px);
+}
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.panel {
+  position: relative;
+  background: var(--panel);
+  /* A native <dialog> renders in the browser top layer and does NOT inherit
+     the app's body color — headings inside computed to UA-default black,
+     unreadable in dark mode. Re-assert the text token here. */
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 24px 28px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+}
+.close:hover {
+  color: var(--green);
+  border-color: var(--green-line);
+}

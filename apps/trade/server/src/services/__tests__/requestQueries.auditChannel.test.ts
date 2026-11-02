@@ -30,7 +30,7 @@ function auditRow(extra: Partial<DbAuditLogRow>): DbAuditLogRow {
 }
 
 describe('mapRowToRequest audit channel', () => {
-  it('maps an Ops Portal audit row to an entry marked opsPortal', () => {
+  it('maps an advisor platform audit row to an entry marked opsPortal', () => {
     const request = mapRowToRequest(row, [auditRow({ channel: 'opsPortal' })]);
     expect(request.auditLog[0].channel).toBe('opsPortal');
   });

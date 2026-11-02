@@ -1,4 +1,4 @@
-// Direct-service contract tests for writes through the Ops Portal delegated surface
+// Direct-service contract tests for writes through the advisor platform delegated surface
 // (/api/ops-portal), against a real Postgres with migrations applied (TRW-02: epic
 // AC-7, AC-12, AC-21, AC-44, AC-59, AC-128, AC-129, plus standing-exclusion
 // creator attribution and the duplicate-suppression log line).

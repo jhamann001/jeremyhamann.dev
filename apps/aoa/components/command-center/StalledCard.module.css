@@ -1,0 +1,146 @@
+/* Stalled & at risk card rows + inline P2 panels. Tokens only, both themes.
+   Inline-panel chrome mirrors decision-center/InlinePanel.module.css. */
+.row {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.rowHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.rowMain {
+  min-width: 0;
+}
+.what {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.meta {
+  margin-top: 4px;
+}
+.age {
+  font-size: 12px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.rowActions {
+  display: flex;
+  gap: 7px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.empty {
+  padding: 10px 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* Inline snooze / create-task panels */
+.inline {
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.inlineTitle {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.textarea,
+.dateInput,
+.select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+}
+.textarea {
+  resize: vertical;
+}
+.dateInput {
+  max-width: 200px;
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+.note {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* Expandable Resolved section (mockup :3713) */
+.resolvedSection {
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding-top: 8px;
+}
+.resolvedToggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 4px 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.resolvedList {
+  margin-top: 8px;
+}
+.resolvedRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  opacity: 0.6;
+}
+.resolvedWhat {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.resolvedMeta {
+  margin-top: 2px;
+  font-size: 11.5px;
+  color: var(--faint);
+}

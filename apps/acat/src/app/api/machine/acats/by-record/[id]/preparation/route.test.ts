@@ -53,7 +53,7 @@ beforeEach(() => {
 });
 afterEach(() => vi.unstubAllEnvs());
 
-describe("dedicated Ops Portal preparation machine boundary", () => {
+describe("dedicated advisor platform preparation machine boundary", () => {
   it.each(methods)("fails closed when disabled for $name", async ({ invoke }) => {
     vi.stubEnv("OPS_PORTAL_TRANSFER_FORMS_ENABLED", "false"); const response = await invoke();
     expect(response.status).toBe(503); expect(await response.json()).toEqual({ error: "disabled" });

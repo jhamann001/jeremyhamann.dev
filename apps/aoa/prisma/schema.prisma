@@ -1,0 +1,2184 @@
+// Always-On Advice — APP-OWNED schema (Prisma manages this).
+//
+// Data-class separation (see docs/build-considerations.md):
+//   - app-owned (HERE): users/sessions, roles, audit log, deals, transfers
+//     (lifecycle + tasks/decisions/accounts), decisions, tax budgets,
+//     reminders, nudges, illustrations. The app is the source of truth;
+//     ingestion NEVER writes here.
+//   - mirror (NOT here): ingested copies of Salesforce/Apex/Plaid/etc.,
+//     managed by hand-authored SQL migrations and written only by the app's
+//     ingest endpoints running as ingest_rw; n8n POSTs to the endpoints and
+//     never touches the DB (Phase D ADR-1/ADR-2). App reads them read-only.
+//     Kept in a separate Postgres schema with RLS.
+//
+// RLS policies (book-of-business scoping by Okta-group→role) live in the
+// hand-authored SQL migrations under prisma/migrations/
+// (mirror_roles_grants_rls + mirror_account_ingest), applied alongside Prisma.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  // Runtime: least-privilege role (app_rw) — RLS is enforced against it.
+  url       = env("DATABASE_URL")
+  // Migrations/introspection: owner role (aoa) that can create schemas/roles.
+  directUrl = env("DIRECT_DATABASE_URL")
+  // Prisma manages app + audit. `mirror` is written only by ingest_rw via the
+  // app's ingest endpoints and created via raw SQL in the hand-authored
+  // migrations, so it is intentionally NOT listed here.
+  schemas   = ["app", "audit"]
+}
+
+enum Role {
+  ADMIN
+  OPERATIONS
+  ADVISOR
+  CLIENT_SERVICE
+  VIEWER
+
+  @@schema("app")
+}
+
+// ---- Auth.js (NextAuth) adapter models ----
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(VIEWER)
+  createdAt     DateTime  @default(now())
+  accounts      Account[]
+  sessions      Session[]
+
+  @@schema("app")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@schema("app")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@schema("app")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@schema("app")
+}
+
+// ---- App-owned: deals pipeline (Phase Deals, TDD ticket) ----
+
+// Curated pipeline stages (ADR-3), in pipeline order. Sourced from the report's
+// "AoA - New Stage" column on import; picked directly on the D3 form.
+enum DealStage {
+  POTENTIAL
+  COMMITTED
+  FUNDING
+  WON
+  LOST
+
+  @@schema("app")
+}
+
+// Row provenance (ADR-2): every deal has exactly one producer. APP = entered in
+// AOA (sf_deal_id null); IMPORT = the one-time curated-report import (carries
+// the real Salesforce deal id, the future sync's dedupe/link key).
+enum DealSource {
+  APP
+  IMPORT
+
+  @@schema("app")
+}
+
+// app.deal — the first app-owned BUSINESS table (TDD §3 column contract).
+// Fields are snake_case DB-native (the D2 seam raw-SQL + DealRow idiom, like
+// mirror.*). RLS (all-roles read, write-gated, no DELETE, owner-role bypass for
+// seed/import, fail-closed GUCs) is hand-authored in the app_deal migration —
+// Prisma cannot model policies (ADR-4). Household linkage is a self-contained
+// string pair — deliberately NO FK into n8n-owned mirror.household (ADR-7).
+// NOTE: no owner_email column — it arrives with the future book-scoping
+// migration (ADR-4); owner_name/owner_sf_user_id keep that path data-complete.
+model Deal {
+  id                 String     @id @default(cuid())
+  source             DealSource
+  // Unique-with-NULLs: Postgres treats NULLs as distinct, so unlimited APP rows
+  // coexist while imported ids stay unique — the import's idempotent upsert key
+  // and the Stage 2 union's dedupe key (ADR-2).
+  sf_deal_id         String?    @unique
+  name               String
+  client_first_name  String
+  client_last_name   String
+  household_name     String?
+  household_sf_id    String?
+  // The individual client's 18-char SF Contact id ("Person: Contact ID" in the
+  // CRM deals report) — matches mirror.client.sf_id directly (same width),
+  // so the Client Portrait can show a client's own deals (tkt-deals-client-link).
+  client_sf_id       String?
+  amount             Decimal    @db.Decimal(14, 2)
+  stage              DealStage
+  stage_raw          String? // raw CRM stage, import-only provenance (ADR-3)
+  created_date       DateTime   @db.Date
+  close_date         DateTime?  @db.Date
+  last_activity_date DateTime?  @db.Date
+  owner_name         String? // null = unassigned (renders as em-dash)
+  owner_sf_user_id   String?
+  secondary_owner    String?
+  person_aum         Decimal?   @db.Decimal(14, 2)
+  potential_aum      Decimal?   @db.Decimal(14, 2)
+  cedar_ridge_user_id  String? // nullable — prospects lack it; bridges to Apex
+  statements         Boolean    @default(true)
+  // Ops-owned "asset mapper run" flag (deal-card-mirror S1). Default false
+  // (mapping is an action that gets done). WRITE-ISOLATED: only the
+  // setDealAssetMapped toggle writes it — never createDeal/updateDeal, the deal
+  // form, or the ingest mapper — so a form save or sync never resets it.
+  asset_mapped       Boolean    @default(false)
+  plaid_linked       Boolean    @default(false)
+  account_last4      String?
+  account_type       String? // funding type in the UI (D8); column name kept — no rename migration
+  transferring_firm  String?
+  // D8 mockup parity (WO ticket): 401(k)-Rollover companions (null for every
+  // other funding type — the server actions clear them), win/loss provenance,
+  // and the archive reason captured by the D7 confirm step.
+  employer           String?
+  rolling_into       String?
+  lost_from          String? // prior stage when the deal last went LOST
+  archived_reason    String?
+  // Append-only stage timeline: [{stage, from, at, by}] — written in the SAME
+  // transaction as the stage write + audit row (ADR-5 extended to D8).
+  stage_history      Json       @default("[]")
+  created_by         String? // actor email convenience; canonical trail in audit.AuditLog
+  updated_by         String?
+  created_at         DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime   @updatedAt @db.Timestamptz(6)
+  // D7 soft delete (WO ticket): archived deals leave the pipeline (table,
+  // KPIs, search, export) but the row + audit trail always survive — hard
+  // DELETE stays revoked (D1 grant). archived_by = actor email, the same
+  // convenience convention as created_by/updated_by (the canonical trail is
+  // deal.archive / deal.restore in audit."AuditLog").
+  archived_at        DateTime?  @db.Timestamptz(6)
+  archived_by        String?
+
+  @@index([stage])
+  @@index([household_sf_id])
+  @@index([client_sf_id])
+  @@map("deal")
+  @@schema("app")
+}
+
+// ---- App-owned: asset-transfer lifecycle (Phase Asset Transfer, TDD ticket) ----
+
+// Lifecycle lanes in board order (ADR-2). Gates are advisory captions + derived
+// satisfaction (lib/data/transfer-basis.ts) — soft, never blocking (locked,
+// the owner 2026-07-02); transitions are audited, not gated.
+enum TransferStage {
+  DISCOVERY // INERT (ticket Slice 1): removed from process/UI; kept in enum — PG can't drop an in-use enum value. Rows migrated to DECISION.
+  DECISION
+  ACCOUNTS_OPEN // INERT (ticket Slice 1): see above. Rows migrated to DECISION (accounts_opened_at_apex backfill lands in Slice 2).
+  IN_TRANSFER
+  FUNDED
+
+  @@schema("app")
+}
+
+// Row provenance (ADR-1): this phase writes only APP (AOA is the system of
+// record for the pre-funding lifecycle). IMPORT is reserved so a later backfill
+// (transfer-tracker history, CRM) links instead of duplicating; a backfill
+// would add its natural-key column then.
+enum TransferSource {
+  APP
+  IMPORT
+
+  @@schema("app")
+}
+
+// Structured owner (ADR-7) — no user FK (app users are Okta-provisioned);
+// owner_name is display-only. "Bouncing back to the advisor" is DERIVED, never
+// stored: owner_kind = ADVISOR AND stage != FUNDED (locked, the owner 2026-07-02).
+enum TransferOwner {
+  OPERATIONS
+  CLIENT_SERVICE
+  ADVISOR
+
+  @@schema("app")
+}
+
+// The human call per position (ADR-3). The recommendation is derived at read
+// time by recommendPosition(value, cost_basis) — never a column.
+enum TransferDecisionChoice {
+  BRING_IN
+  LEAVE_GIFT
+  UNDECIDED
+
+  @@schema("app")
+}
+
+enum TransferAccountStatus {
+  TO_OPEN
+  OPEN
+
+  @@schema("app")
+}
+
+// Funding rail for a transfer (ticket Slice 2; split for ticket).
+// ACAT_FULL/ACAT_PARTIAL are the only rails that read the tracker's redacted
+// asset map (S5); DRS is a separate securities-transfer rail.
+// Nullable on the Transfer model — set by the Decision
+// checklist card (S2) or the deal→transfer sync (S4).
+enum FundingType {
+  ACAT_FULL // securities transfer — full account (reads the tracker asset map)
+  ACAT_PARTIAL // securities transfer — partial (reads the tracker asset map)
+  CHECK
+  WIRE
+  ACH
+  MANUAL // manual/journal transfer
+  DRS // Direct Registration System transfer; not an ACAT
+
+  @@schema("app")
+}
+
+// app.transfer — one stateful record per in-flight asset transfer (TDD §3).
+// Fields snake_case DB-native (the deals raw-SQL seam idiom). RLS (all-roles
+// read, write-gated, no DELETE, owner-role bypass for the seed, fail-closed
+// GUCs) is hand-authored in the app_transfer migration on this table AND all
+// three children (ADR-4). Client/household linkage is self-contained sf_id
+// strings — deliberately NO FK into n8n-owned mirror.* (ADR-6): client_sf_id is
+// the nudge-composition + Phase D join key; household_sf_id keys the deal
+// rollup today. No recommendation / temperature / bouncing columns — all
+// derived or Phase E seams.
+model Transfer {
+  id                       String                        @id @default(cuid())
+  source                   TransferSource
+  client_first_name        String
+  client_last_name         String
+  client_sf_id             String?
+  household_name           String?
+  household_sf_id          String?
+  value                    Decimal                       @db.Decimal(14, 2)
+  stage                    TransferStage                 @default(DECISION) // ticket Slice 1: was DISCOVERY (now inert)
+  // Reset on every stage transition (T3); days-in-stage is derived at read
+  // time (T2) — never a stored counter (ADR-2).
+  stage_entered_at         DateTime                      @default(now()) @db.Timestamptz(6)
+  owner_kind               TransferOwner                 @default(OPERATIONS)
+  owner_name               String? // named individual, display only (ADR-7)
+  next_step                String? // human-entered "Next step → owner" rem row
+  next_step_owner          String?
+  pending_nudge            String? // label only; the action composes Smart Nudges (ADR-8)
+  // Link to the Transfer Tracker's acat_transfer record (ticket). Nullable —
+  // set/cleared by hand until a transfer actually has an ACAT in flight; when
+  // present, the detail page reads live status from the tracker's OIDC-gated
+  // machine endpoint (lib/data/acat-status.ts). No index/RLS change: a new
+  // nullable column inherits app.transfer's FORCE-RLS policies + table grants.
+  acat_transfer_id         String?
+  // ticket Slice 2 — deal-sourced lifecycle columns (migration
+  // 20260717000000_transfer_deal_sourced). Funding rail + the four first-class
+  // gate inputs (§1.5d: typed columns, NOT free-text TransferTask rows, so the
+  // S3 hard gate queries them reliably); all four booleans default false (inert
+  // until the Decision checklist card or a later slice writes them).
+  funding_type             FundingType?
+  // Funded corrections change reporting without rewriting the approved execution route.
+  recorded_funding_type    FundingType?
+  funding_method_revision  Int                           @default(0)
+  // A DRS route selected while In transfer must finish its preparation before Funded.
+  drs_method_change_pending Boolean                      @default(false)
+  funding_route_change_pending Boolean                   @default(false)
+  accounts_opened_at_apex  Boolean                       @default(false)
+  funding_plan_complete    Boolean                       @default(false)
+  // A funding plan is a draft in the browser until Operations explicitly
+  // approves it. These fields identify the current approved version; immutable
+  // plan snapshots live in the restricted child approval history below.
+  funding_plan_version     Int                           @default(0)
+  funding_plan_approved_at DateTime?                     @db.Timestamptz(6)
+  funding_plan_approved_by String?
+  funding_initiated        Boolean                       @default(false)
+  cash_in_flight           Boolean                       @default(false)
+  // Deal linkage: deal_id is the S4 sync's idempotent key (partial-unique index
+  // is hand-authored in the migration — Prisma's DSL can't express a partial
+  // @@unique, so NO @@unique is declared here; `prisma migrate dev` reports it
+  // as expected drift). deal_sf_id is the display/rollup key (@@index below).
+  deal_id                  String?
+  deal_sf_id               String?
+  transferring_firm        String? // seeded from app.deal.transferring_firm (S4)
+  delivering_custodian_id  String?
+  delivering_custodian     CustodianProfile?             @relation(fields: [delivering_custodian_id], references: [id], onDelete: Restrict)
+  // Soft-archive (the deal D7 pattern) — written by the S4 sync on LOST /
+  // withdrawn-commitment deals; never a hard DELETE (no DELETE grant anywhere).
+  archived_at              DateTime?                     @db.Timestamptz(6)
+  archived_by              String?
+  archived_reason          String?
+  sync_flag                String? // §1.5b marker (e.g. "uncommitted_review") for ops
+  // Owner-approved (beyond the blueprint's literal S2 column list): keys ACAT
+  // linking/gate/asset-map on the tracker's record PK, robust to
+  // acatTransferId="N/A". Threaded through types/seam/seed in S2; consumed by
+  // S3/S5.
+  acat_record_id           String?
+  // ACAT reconciliation concurrency and explicit manual override state.
+  // The database advances the version for substantive matching/link changes.
+  acat_link_version        Int                           @default(0)
+  acat_auto_link_hold       Boolean                       @default(false)
+  acat_link_provenance      String?
+  acat_link_decision_id     String?
+  // Asset-map link (rework S3): the ONE asset-mapping account this transfer is
+  // funded by, keyed on the durable folder-scoped account key
+  // (source_folder_id + custodian + account_number — the mirror.acat_asset_map_
+  // account_link key). All nullable; a partial UNIQUE index over the three
+  // (WHERE asset_map_folder_id IS NOT NULL) enforces one-transfer-per-account
+  // and is hand-authored in the migration (Prisma can't express a partial
+  // @@unique — the deal_id precedent), so NO @@unique is declared here; expect
+  // `prisma migrate dev` to report it as drift. Ops-written behind a flag.
+  asset_map_folder_id      String?
+  asset_map_custodian      String?
+  asset_map_account_number String?
+  // S5: registration type (e.g. "Roth IRA") — part of the durable key so two
+  // numberless same-custodian accounts (Traditional vs Roth) stay distinct.
+  asset_map_account_type   String?
+  client_requested_on      DateTime?                     @db.Date
+  client_request_source    String?
+  source_account_type      String?
+  source_account_last4     String?
+  source_account_title     String?
+  receiving_account_type   String?
+  receiving_account_title  String?
+  created_by               String? // actor email convenience; canonical trail in audit.AuditLog
+  updated_by               String?
+  created_at               DateTime                      @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime                      @updatedAt @db.Timestamptz(6)
+  tasks                    TransferTask[]
+  decisions                TransferDecision[]
+  accounts                 TransferAccount[]
+  position_flags           TransferPositionFlag[]
+  funding_plan_approvals   TransferFundingPlanApproval[]
+  funding_method_corrections TransferFundingMethodCorrection[]
+  decision_cases           DecisionCase[]
+  decision_tasks           DecisionTask[]
+  slack_closeout           TransferSlackCloseout?
+  slack_items              TransferSlackItem[]
+  statements               TransferStatement[]
+  statement_documents      TransferStatementDocument[]
+  account_matches          TransferAccountMatch[]
+  mailings                 TransferMailing[]
+  form_reviews             TransferFormReview[]
+  sent_packets             TransferSentPacket[]
+  returned_signatures      TransferReturnedSignature[]
+  app_authorizations       TransferAppAuthorization[]
+  drs_service_requests     TransferDrsServiceRequest[]
+  mailed_paperwork         TransferMailedPaperwork[]
+  submissions              TransferSubmission[]
+  tracking_updates         TransferTrackingUpdate[]
+  receipts                 TransferReceipt[]
+  check_tickets            TransferCheckTicket[]
+  ach_initiations          TransferAchInitiation[]
+  fee_reimbursements       TransferFeeReimbursement[]
+  investment_links         TransferInvestmentLink[]
+  residuals                TransferResidual[]
+  acat_rejections          TransferAcatRejection[]
+  outcomes                 TransferOutcome[]
+  corrections              TransferCorrection[]
+  stage_changes            TransferStageChange[]
+
+  @@index([stage])
+  @@index([household_sf_id])
+  @@index([client_sf_id])
+  @@index([deal_sf_id])
+  @@index([delivering_custodian_id])
+  @@map("transfer")
+  @@schema("app")
+}
+
+// Server-only reconciliation evidence; narrower Operations/ingest RLS than
+// ordinary transfer reads. Prepared facts are immutable in the migration.
+model AcatLinkRun {
+  id               String             @id @default(cuid())
+  mode             String
+  status           String             @default("PREPARED")
+  contract_version Int
+  rule_version     String
+  installation_id  String
+  source_scope     String
+  source_boundary  Json
+  source_digest    String
+  source_count     Int
+  source_complete  Boolean
+  target_boundary  DateTime           @db.Timestamptz(6)
+  target_digest    String
+  target_count     Int
+  manifest_digest  String
+  idempotency_key  String             @unique
+  created_by       String?
+  created_role     String
+  created_at       DateTime           @default(now()) @db.Timestamptz(6)
+  updated_at       DateTime           @updatedAt @db.Timestamptz(6)
+  summary          Json
+  decisions        AcatLinkDecision[]
+
+  @@index([created_at])
+  @@map("acat_link_run")
+  @@schema("app")
+}
+
+model AcatLinkDecision {
+  id                          String                @id @default(cuid())
+  run_id                      String
+  decision_key                String
+  record_id                   String?
+  transfer_id                 String?
+  reason                      String
+  action                      String
+  rule_version                String
+  evidence_digest             String
+  expected_target_version     Int?
+  target_evidence_digest      String?
+  source_candidate_set_digest String
+  payload                     Json
+  disposition                 String                @default("PENDING")
+  review_version              Int                   @default(0)
+  reviewed_by                 String?
+  reviewed_at                 DateTime?             @db.Timestamptz(6)
+  review_reason               String?
+  outcome                     String                @default("PENDING")
+  applied_version             Int?
+  application_id              String?               @unique
+  applied_at                  DateTime?             @db.Timestamptz(6)
+  created_at                  DateTime              @default(now()) @db.Timestamptz(6)
+  updated_at                  DateTime              @updatedAt @db.Timestamptz(6)
+  run                         AcatLinkRun           @relation(fields: [run_id], references: [id], onDelete: Restrict)
+  review_events               AcatLinkReviewEvent[]
+
+  @@unique([run_id, decision_key])
+  @@index([transfer_id, record_id])
+  @@index([outcome, disposition])
+  @@map("acat_link_decision")
+  @@schema("app")
+}
+
+model AcatLinkReviewEvent {
+  id          String           @id @default(cuid())
+  decision_id String
+  revision    Int
+  action      String
+  reason      String?
+  actor_email String
+  created_at  DateTime         @default(now()) @db.Timestamptz(6)
+  decision    AcatLinkDecision @relation(fields: [decision_id], references: [id], onDelete: Restrict)
+
+  @@unique([decision_id, revision])
+  @@map("acat_link_review_event")
+  @@schema("app")
+}
+
+// ---- App-owned: unified decision workflow -------------------------------
+//
+// A decision case is the durable handoff for unresolved judgment or missing
+// clarification. It may point to an operational workstream (Asset Transfer in
+// this first slice), but manual/general decisions use the same record. Draft UI
+// clicks are intentionally absent: only case creation and a finalized resolution
+// are stored. Narrative fields stay in these FORCE-RLS tables and out of the
+// generic row-change audit; redacted business events + the append-only event
+// child carry the review trail.
+enum DecisionCaseSource {
+  MANUAL
+  ASSET_TRANSFER
+
+  @@schema("app")
+}
+
+enum DecisionCaseStatus {
+  OPEN
+  SNOOZED
+  RESOLVED
+
+  @@schema("app")
+}
+
+enum DecisionOwnerTeam {
+  OPERATIONS
+  CLIENT_SERVICE
+  ADVISORY
+  TRADE_DESK
+
+  @@schema("app")
+}
+
+enum DecisionTaskStatus {
+  TODO
+  IN_PROGRESS
+  BLOCKED
+  DONE
+
+  @@schema("app")
+}
+
+enum DecisionTaskPriority {
+  LOW
+  NORMAL
+  HIGH
+
+  @@schema("app")
+}
+
+model DecisionCase {
+  id                 String              @id @default(cuid())
+  source             DecisionCaseSource
+  source_key         String              @unique @db.VarChar(191)
+  source_label       String?             @db.VarChar(180)
+  source_version     Int                 @default(1)
+  source_fingerprint String?             @db.Char(64)
+  source_snapshot    Json                @default("{}")
+  transfer_id        String?
+  transfer           Transfer?           @relation(fields: [transfer_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  client_name        String?             @db.VarChar(180)
+  household_name     String?             @db.VarChar(180)
+  household_sf_id    String?             @db.VarChar(64)
+  category           String              @default("Unclassified") @db.VarChar(64)
+  question           String              @db.VarChar(500)
+  context            String              @default("") @db.VarChar(1000)
+  owner_team         DecisionOwnerTeam
+  status             DecisionCaseStatus  @default(OPEN)
+  blocks_transfer    Boolean             @default(false)
+  resolution_code    String?             @db.VarChar(64)
+  resolution_summary String?             @db.VarChar(1000)
+  version            Int                 @default(0)
+  resolved_by        String?             @db.VarChar(320)
+  resolved_at        DateTime?           @db.Timestamptz(6)
+  created_by         String?             @db.VarChar(320)
+  created_at         DateTime            @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime            @updatedAt @db.Timestamptz(6)
+  tasks              DecisionTask[]
+  events             DecisionCaseEvent[]
+
+  @@index([status, created_at(sort: Desc)])
+  @@index([owner_team, status])
+  @@index([transfer_id, status])
+  @@map("decision_case")
+  @@schema("app")
+}
+
+model DecisionTask {
+  id             String               @id @default(cuid())
+  source_key     String?              @unique @db.VarChar(191)
+  decision_id    String?
+  decision       DecisionCase?        @relation(fields: [decision_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  transfer_id    String?
+  transfer       Transfer?            @relation(fields: [transfer_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  parent_task_id String?
+  parent         DecisionTask?        @relation("DecisionTaskTree", fields: [parent_task_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  children       DecisionTask[]       @relation("DecisionTaskTree")
+  task_key       String               @db.VarChar(96)
+  title          String               @db.VarChar(220)
+  owner_team     DecisionOwnerTeam
+  status         DecisionTaskStatus   @default(TODO)
+  priority       DecisionTaskPriority @default(NORMAL)
+  sort_order     Int                  @default(0)
+  completed_by   String?              @db.VarChar(320)
+  completed_at   DateTime?            @db.Timestamptz(6)
+  created_by     String?              @db.VarChar(320)
+  created_at     DateTime             @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime             @updatedAt @db.Timestamptz(6)
+
+  @@unique([decision_id, task_key])
+  @@index([transfer_id, status])
+  @@index([owner_team, status])
+  @@index([parent_task_id])
+  @@map("decision_task")
+  @@schema("app")
+}
+
+model DecisionCaseEvent {
+  id           BigInt              @id @default(autoincrement())
+  decision_id  String
+  decision     DecisionCase        @relation(fields: [decision_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  action       String              @db.VarChar(48)
+  actor_email  String?             @db.VarChar(320)
+  actor_role   String?             @db.VarChar(32)
+  from_status  DecisionCaseStatus?
+  to_status    DecisionCaseStatus?
+  note_present Boolean             @default(false)
+  detail       Json                @default("{}")
+  at           DateTime            @default(now()) @db.Timestamptz(6)
+
+  @@index([decision_id, at(sort: Desc)])
+  @@index([at(sort: Desc)])
+  @@map("decision_case_event")
+  @@schema("app")
+}
+
+// Immutable, Operations-restricted funding-plan approval history. Snapshot +
+// optional note stay off app.transfer because its generic row-change trigger
+// copies changed values into audit.row_change. One redacted explicit audit event
+// records each approval insert.
+model TransferFundingPlanApproval {
+  id           String      @id @default(cuid())
+  transfer_id  String
+  transfer     Transfer    @relation(fields: [transfer_id], references: [id])
+  version      Int
+  funding_type FundingType
+  snapshot     Json
+  note         String?
+  approved_by  String?
+  approved_at  DateTime    @default(now()) @db.Timestamptz(6)
+
+  @@unique([transfer_id, version])
+  @@index([transfer_id])
+  @@map("transfer_funding_plan_approval")
+  @@schema("app")
+}
+
+// Append-only Operations history; narrative and work snapshots never enter generic audit.
+model TransferFundingMethodCorrection {
+  id                      String        @id @default(cuid())
+  transfer_id             String
+  transfer                Transfer      @relation(fields: [transfer_id], references: [id])
+  revision                Int
+  kind                    String
+  previous_funding_type   FundingType?
+  funding_type            FundingType
+  stage                   TransferStage
+  base_plan_version       Int
+  plan_version            Int
+  reason                  String
+  affected_work_snapshot  Json
+  changed_by              String
+  changed_at              DateTime      @default(now()) @db.Timestamptz(6)
+
+  @@unique([transfer_id, revision])
+  @@index([transfer_id])
+  @@map("transfer_funding_method_correction")
+  @@schema("app")
+}
+
+// app.transfer_task — the checklist (ADR-3). New records get the stage's
+// DEFAULT_TASKS template (lib/data/transfer-types.ts); tasks are added, never
+// deleted (uncheck instead — the uniform no-DELETE story). FK is RESTRICT (the
+// Prisma default) — Cascade deliberately not used; nothing deletes anyway.
+model TransferTask {
+  id            String    @id @default(cuid())
+  transfer_id   String
+  transfer      Transfer  @relation(fields: [transfer_id], references: [id])
+  title         String
+  sort_order    Int
+  done          Boolean   @default(false)
+  // deal-card mirror S2: ops override for the SYNCED titles ("Collect statements"
+  // → deal.statements, "Run asset mapper" → deal.asset_mapped). NULL = follow the
+  // deal (live mirror); true/false = ops toggled the card and it sticks (one-way —
+  // the toggle writes this, never the deal). Non-synced tasks leave it NULL and
+  // use `done`. See resolveTaskDone (transfer-types.ts).
+  override_done Boolean?
+  completed_at  DateTime? @db.Timestamptz(6)
+  completed_by  String? // stamped on toggle-done, cleared on un-toggle (T3)
+  // Asset Transfer workspace task status (Ready / Waiting / Completed), kept
+  // separate from the funding stage. Backfilled from `done` by the migration.
+  status        String    @default("Ready")
+  // Owning team: Client Service, Operations, or Operations / Client Service.
+  team          String?
+  // Follow-up person and date; separate from the owning team.
+  assigned_to   String?
+  follow_up_on  DateTime? @db.Date
+  created_at    DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime  @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_task")
+  @@schema("app")
+}
+
+// app.transfer_statement — ATW-02 statement acceptance (AC-20, AC-21). The
+// latest row decides; a replacement inserts a new row. No DELETE.
+model TransferStatement {
+  id             String                     @id @default(cuid())
+  transfer_id    String
+  transfer       Transfer                   @relation(fields: [transfer_id], references: [id])
+  accepted       Boolean
+  document_id    String?
+  document       TransferStatementDocument? @relation(fields: [document_id, transfer_id], references: [id, transfer_id], onDelete: Restrict, onUpdate: Cascade, map: "transfer_statement_document_id_fkey")
+  statement_date DateTime?                  @db.Date
+  review_status  String?
+  created_at     DateTime                   @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime                   @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@index([document_id])
+  @@map("transfer_statement")
+  @@schema("app")
+}
+
+// app.transfer_statement_document — the client's prior-custodian statement
+// file (ticket). Bytes stay in Cloud SQL like the custodian fee-schedule
+// documents. No DELETE; no row-change trigger, so the bytes never reach audit.
+model TransferStatementDocument {
+  id           String              @id
+  transfer_id  String
+  transfer     Transfer            @relation(fields: [transfer_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  filename     String
+  content_type String
+  content      Bytes
+  sha256       String
+  byte_size    Int
+  created_at   DateTime            @default(now()) @db.Timestamptz(6)
+  created_by   String
+  reviews      TransferStatement[]
+
+  @@unique([id, transfer_id], map: "transfer_statement_document_id_transfer_key")
+  @@index([transfer_id])
+  @@map("transfer_statement_document")
+  @@schema("app")
+}
+
+// app.transfer_account_match — ATW-02 delivering and receiving account types
+// (AC-23). The latest row decides. No DELETE.
+model TransferAccountMatch {
+  id                      String   @id @default(cuid())
+  transfer_id             String
+  transfer                Transfer @relation(fields: [transfer_id], references: [id])
+  delivering_account_type String
+  receiving_account_type  String
+  created_at              DateTime @default(now()) @db.Timestamptz(6)
+  updated_at              DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_account_match")
+  @@schema("app")
+}
+
+// app.transfer_mailing — ATW-05 paperwork mailing (AC-41..AC-45). Client and
+// accounts on the report are read from Transfer and TransferAccount, never
+// copied here. `journey` is one of the four AC-41 strings. No DELETE.
+model TransferMailing {
+  id          String   @id @default(cuid())
+  transfer_id String
+  transfer    Transfer @relation(fields: [transfer_id], references: [id])
+  reason      String
+  contents    String
+  // The mockup's envelope checkboxes; empty on mailings recorded before them.
+  content_items String[] @default([])
+  contents_note String?
+  journey     String
+  postage     Decimal? @db.Decimal(10, 2)
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @updatedAt @db.Timestamptz(6)
+  legs        TransferMailingLeg[]
+
+  @@index([transfer_id])
+  @@map("transfer_mailing")
+  @@schema("app")
+}
+
+// One journey leg of a mailing with its carrier, tracking and dates.
+model TransferMailingLeg {
+  id              String          @id @default(cuid())
+  mailing_id      String
+  mailing         TransferMailing @relation(fields: [mailing_id], references: [id])
+  leg_number      Int
+  from_stop       String
+  to_stop         String
+  carrier         String?
+  tracking_number String?
+  mailed_on       DateTime?       @db.Date
+  received_on     DateTime?       @db.Date
+  created_at      DateTime        @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime        @updatedAt @db.Timestamptz(6)
+
+  @@unique([mailing_id, leg_number])
+  @@map("transfer_mailing_leg")
+  @@schema("app")
+}
+
+// app.transfer_decision — the basis-aware decision table (ADR-3). Position
+// rows are Phase D's data (statement/custodian ingest hydrates them); until
+// then they are seeded synthetic. The DECISION write is real; the
+// recommendation is derived (recommendPosition), never stored.
+model TransferDecision {
+  id          String                 @id @default(cuid())
+  transfer_id String
+  transfer    Transfer               @relation(fields: [transfer_id], references: [id])
+  symbol      String
+  description String
+  value       Decimal                @db.Decimal(14, 2)
+  cost_basis  Decimal?               @db.Decimal(14, 2)
+  decision    TransferDecisionChoice @default(UNDECIDED)
+  decided_by  String?
+  decided_at  DateTime?              @db.Timestamptz(6)
+  // ATW-03 (AC-28, AC-29): written by approveFundingPlan from the asset-map
+  // status. A liquidation instruction never clears ineligible.
+  cannot_transfer_in_kind Boolean    @default(false)
+  ineligible              Boolean    @default(false)
+  liquidation_instruction Boolean    @default(false)
+  created_at  DateTime               @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime               @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_decision")
+  @@schema("app")
+}
+
+// Partial-ACAT "is transferring" decision, AOA-owned, per (transfer, symbol).
+// Overrides the linked asset-map position's pipeline `transferring` flag (which
+// AOA can only read); a row's existence = ops set it, absence = follow the
+// pipeline default. Sticky, one-way (never written back to the mirror).
+model TransferPositionFlag {
+  id              String    @id @default(cuid())
+  transfer_id     String
+  transfer        Transfer  @relation(fields: [transfer_id], references: [id])
+  symbol          String
+  is_transferring Boolean
+  decided_by      String?
+  decided_at      DateTime? @db.Timestamptz(6)
+  created_at      DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime  @updatedAt @db.Timestamptz(6)
+
+  @@unique([transfer_id, symbol])
+  @@map("transfer_position_flag")
+  @@schema("app")
+}
+
+// Slack closeout checklist (SLACK_TRANSFER_CLOSEOUT) — a transfer CHILD, one row
+// per transfer, seeded on entry into IN_TRANSFER. Holds the posted Slack message ref
+// (channel + ts) and the overall status; the per-item state is transfer_slack_item.
+// Seeded by app_rw (in setStage); the n8n callback (ingest_rw) updates the message
+// ref + status. NOT auto-audited (rides the parent — allowlisted in
+// KNOWN_UNAUDITED); completion writes the explicit writeAudit(TRANSFER_SLACK_CLOSEOUT).
+model TransferSlackCloseout {
+  id           String    @id @default(cuid())
+  transfer_id  String    @unique
+  transfer     Transfer  @relation(fields: [transfer_id], references: [id])
+  channel      String?
+  message_ts   String?
+  status       String    @default("PENDING")
+  posted_at    DateTime? @db.Timestamptz(6)
+  completed_at DateTime? @db.Timestamptz(6)
+  created_at   DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime  @updatedAt @db.Timestamptz(6)
+
+  // transfer_id is @unique (1:1) → that unique index covers the lookups; no
+  // separate @@index (matches the migration + the TransferPositionFlag precedent).
+  @@map("transfer_slack_closeout")
+  @@schema("app")
+}
+
+// Slack closeout checklist ITEM (SLACK_TRANSFER_CLOSEOUT) — N per transfer,
+// seeded from SLACK_CLOSEOUT_TEMPLATE at IN_TRANSFER entry (labels snapshotted, ADR-3).
+// The n8n callback (ingest_rw) flips `done` as ops tick boxes in Slack.
+model TransferSlackItem {
+  id          String    @id @default(cuid())
+  transfer_id String
+  transfer    Transfer  @relation(fields: [transfer_id], references: [id])
+  item_key    String
+  label       String
+  sort        Int
+  done        Boolean   @default(false)
+  done_by     String?
+  done_at     DateTime? @db.Timestamptz(6)
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime  @updatedAt @db.Timestamptz(6)
+
+  @@unique([transfer_id, item_key])
+  @@index([transfer_id])
+  @@map("transfer_slack_item")
+  @@schema("app")
+}
+
+// app.transfer_account — receiving accounts to open (ADR-3); feeds the
+// ACCOUNTS_OPEN gate (gateStatus: every account OPEN).
+model TransferAccount {
+  id          String                @id @default(cuid())
+  transfer_id String
+  transfer    Transfer              @relation(fields: [transfer_id], references: [id])
+  label       String
+  status      TransferAccountStatus @default(TO_OPEN)
+  opened_at   DateTime?             @db.Timestamptz(6)
+  created_at  DateTime              @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime              @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_account")
+  @@schema("app")
+}
+
+// ---- App-owned: AI meeting prep (AI_MEETING_PREP) ----
+// One row per appointment, holding the Gemini-generated internal prep brief the
+// Command Center Meetings card renders. Keyed on `appointment_key` =
+// mirror.appointment.external_key, with NO foreign key (blueprint ADR-2): the
+// appointments feed is a snapshot FULL-REPLACE (ingest_rw holds DELETE on
+// mirror.appointment), so an FK would either block the replace or cascade the
+// briefs away — and cross-schema app→mirror FKs are against the data-class
+// separation at the top of this file. A rescheduled meeting gets a new
+// external_key, so a stale brief can never silently attach to a moved meeting.
+//
+// This table holds the DENSEST client PII in the app (a synthesized narrative of
+// one household's money, mail and open items). Its migration therefore tightens
+// the usual child-table RLS: SELECT/INSERT/UPDATE for the five NON-VIEWER roles,
+// REVOKE DELETE + no DELETE policy, no ingest_rw grant at all. It is also
+// deliberately NOT auto-audited (allowlisted in KNOWN_UNAUDITED) — the
+// audit.log_row_change() trigger snapshots the FULL row, which would copy the
+// brief into audit.row_change; the trail is the explicit
+// writeAudit(MEETING_PREP_GENERATE) instead. See blueprint ADR-3 / ADR-7.
+model MeetingPrep {
+  id                String    @id @default(cuid())
+  /// mirror.appointment.external_key (source|client|starts_at). No FK — ADR-2.
+  appointment_key   String    @unique
+  /// Snapshot at generation; the NON-PII join key used in the audit detail.
+  client_sf_id      String?
+  /// Snapshot of the appointment instant — ordering/debug.
+  starts_at         DateTime  @db.Timestamptz(6)
+  /// The generated markdown brief — the PII payload. Never logged, never audited.
+  brief             String
+  /// The model that actually answered (may be the gemini.ts fallback).
+  model             String
+  /// Verbatim candidate finishReason; drives the "may be truncated" note.
+  finish_reason     String?
+  /// Observability without storing the context blob itself.
+  context_chars     Int
+  context_truncated Boolean   @default(false)
+  /// Lifetime generation counter — incremented by Regenerate, capped (throttle).
+  generations       Int       @default(1)
+  generated_at      DateTime  @default(now()) @db.Timestamptz(6)
+  /// Actor email (also in the audit row; here for the "Generated by" display).
+  generated_by      String?
+  /// NON-NULL = this brief is ATTACHED to the Client Portrait (Save). NULL = a
+  /// Command-Center working artifact only. Un-saving nulls it — an UPDATE, which
+  /// the existing write-roles policy already allows; the row is never deleted.
+  saved_at          DateTime? @db.Timestamptz(6)
+  /// Actor email at the moment of saving (the generated_by idiom).
+  saved_by          String?
+  created_at        DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime  @updatedAt @db.Timestamptz(6)
+
+  // appointment_key is @unique → that index covers the by-key lookup. starts_at
+  // is indexed for ordering/operational queries over the stored briefs.
+  @@index([starts_at])
+  @@index([client_sf_id])
+  // The Client Portrait read: client_sf_id = $1 AND saved_at IS NOT NULL.
+  @@index([client_sf_id, saved_at])
+  @@map("meeting_prep")
+  @@schema("app")
+}
+
+// ---- App-owned: client tax budgets ---------------------------------------
+//
+// One human-entered realized-gains budget per client and tax year. The client
+// key points at mirror.client.sf_id by convention only: cross-schema FKs would
+// couple app-owned history to a replaceable ingest mirror. The matching SQL
+// migration enforces client visibility through mirror.client's existing RLS,
+// permits writes only for non-VIEWER application roles, forbids hard deletes,
+// and attaches the database row-change audit trigger.
+model TaxBudgetRecord {
+  id           String   @id @default(cuid())
+  client_sf_id String
+  year         Int
+  budget       Decimal  @db.Decimal(15, 2)
+  realized     Decimal  @db.Decimal(15, 2)
+  note         String   @default("")
+  set_by       String?
+  created_at   DateTime @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime @updatedAt @db.Timestamptz(6)
+
+  @@unique([client_sf_id, year])
+  @@index([client_sf_id, year(sort: Desc)])
+  @@map("tax_budget")
+  @@schema("app")
+}
+
+// ---- App-owned: confirmed Trade Request profile sources -----------------
+//
+// A human resolution never rewrites Trade Request history or copies its
+// instructions. It records only which approved request is authoritative for
+// one active Apex account. The reviewed request references let the read path
+// invalidate the confirmation when a new qualifying request appears, forcing
+// a fresh review instead of silently changing client intent.
+model TradeProfileSelection {
+  id                          String   @id @default(cuid())
+  client_sf_id                String
+  custodian_account_id        String
+  selected_request_id         String
+  selected_request_decided_at DateTime @db.Timestamptz(6)
+  reviewed_request_ids        String[] @default([])
+  selection_note              String   @default("")
+  selected_by                 String?
+  selected_at                 DateTime @default(now()) @db.Timestamptz(6)
+  updated_at                  DateTime @updatedAt @db.Timestamptz(6)
+
+  @@unique([client_sf_id, custodian_account_id])
+  @@index([client_sf_id])
+  @@index([selected_request_id])
+  @@map("trade_profile_selection")
+  @@schema("app")
+}
+
+// ---- CRM identity foundation (Phase 1) -----------------------------------
+//
+// These tables are an additive identity layer. They do not replace any
+// existing primary key, source key, route, or source-of-record decision. Phase
+// 1 grants neither app_rw nor ingest_rw access and has no runtime consumer;
+// later reviewed phases add backfill and reconciliation behind default-off
+// feature flags.
+//
+// crm_identity contains no display names or source identifiers, so its generic
+// row-change audit is safe. crm_source_mapping necessarily holds external keys
+// (which may be account numbers), so its migration uses a dedicated redacting
+// audit trigger instead of audit.log_row_change().
+model CrmIdentity {
+  id               String   @id
+  identity_type    String   @db.VarChar(32)
+  lifecycle_state  String   @default("ACTIVE") @db.VarChar(16)
+  merged_into_id   String?
+  contract_version Int      @default(1) @db.SmallInt
+  first_seen_at    DateTime @default(now()) @db.Timestamptz(6)
+  created_at       DateTime @default(now()) @db.Timestamptz(6)
+  updated_at       DateTime @updatedAt @db.Timestamptz(6)
+
+  merged_into                       CrmIdentity?             @relation("CrmIdentityMerge", fields: [merged_into_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  merged_from                       CrmIdentity[]            @relation("CrmIdentityMerge")
+  source_mappings                   CrmSourceMapping[]
+  outgoing_relationships            CrmRelationship[]        @relation("CrmRelationshipFrom")
+  incoming_relationships            CrmRelationship[]        @relation("CrmRelationshipTo")
+  parent_overrides_as_child         CrmParentOverride[]      @relation("CrmParentOverrideChild")
+  parent_overrides_as_parent        CrmParentOverride[]      @relation("CrmParentOverrideParent")
+  employee_contact_mappings         EmployeeContactMapping[]
+  duplicate_candidates_as_left      CrmDuplicateCandidate[]  @relation("CrmDuplicateCandidateLeft")
+  duplicate_candidates_as_right     CrmDuplicateCandidate[]  @relation("CrmDuplicateCandidateRight")
+  duplicate_candidates_as_canonical CrmDuplicateCandidate[]  @relation("CrmDuplicateCandidateCanonical")
+
+  @@index([identity_type, lifecycle_state])
+  @@index([merged_into_id])
+  @@map("crm_identity")
+  @@schema("app")
+}
+
+model CrmSourceMapping {
+  // Internal row key only. The canonical, externally meaningful CRM handle is
+  // identity_id; this CUID is not a new public typed-ID category.
+  id               String    @id @default(cuid())
+  identity_id      String
+  source_system    String    @db.VarChar(64)
+  source_namespace String    @db.VarChar(64)
+  source_key       String
+  mapping_state    String    @default("ACTIVE") @db.VarChar(16)
+  first_seen_at    DateTime  @default(now()) @db.Timestamptz(6)
+  last_seen_at     DateTime  @default(now()) @db.Timestamptz(6)
+  superseded_at    DateTime? @db.Timestamptz(6)
+  created_at       DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at       DateTime  @updatedAt @db.Timestamptz(6)
+
+  identity              CrmIdentity            @relation(fields: [identity_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  exceptions            CrmIdentityException[]
+  relationship_evidence CrmRelationship[]
+  parent_override       CrmParentOverride?
+
+  @@unique([source_system, source_namespace, source_key])
+  @@index([identity_id])
+  @@index([mapping_state, last_seen_at])
+  @@map("crm_source_mapping")
+  @@schema("app")
+}
+
+model CrmRelationship {
+  id                  String    @id
+  relationship_type   String    @db.VarChar(64)
+  from_identity_id    String
+  to_identity_id      String
+  evidence_mapping_id String
+  relationship_state  String    @default("ACTIVE") @db.VarChar(16)
+  contract_version    Int       @default(1) @db.SmallInt
+  first_seen_at       DateTime  @default(now()) @db.Timestamptz(6)
+  last_seen_at        DateTime  @default(now()) @db.Timestamptz(6)
+  inactivated_at      DateTime? @db.Timestamptz(6)
+  created_at          DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime  @updatedAt @db.Timestamptz(6)
+
+  from_identity    CrmIdentity      @relation("CrmRelationshipFrom", fields: [from_identity_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  to_identity      CrmIdentity      @relation("CrmRelationshipTo", fields: [to_identity_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  evidence_mapping CrmSourceMapping @relation(fields: [evidence_mapping_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@unique([relationship_type, from_identity_id, to_identity_id, evidence_mapping_id])
+  @@index([from_identity_id, relationship_state, relationship_type])
+  @@index([to_identity_id, relationship_state, relationship_type])
+  @@index([evidence_mapping_id, relationship_state])
+  @@map("crm_relationship")
+  @@schema("app")
+}
+
+model CrmIdentityException {
+  id                String    @id @default(cuid())
+  source_mapping_id String
+  reason_code       String    @db.VarChar(48)
+  exception_state   String    @default("OPEN") @db.VarChar(16)
+  resolution_code   String?   @db.VarChar(48)
+  detected_at       DateTime  @default(now()) @db.Timestamptz(6)
+  resolved_at       DateTime? @db.Timestamptz(6)
+  created_at        DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime  @updatedAt @db.Timestamptz(6)
+
+  source_mapping CrmSourceMapping @relation(fields: [source_mapping_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@unique([source_mapping_id, reason_code])
+  @@index([exception_state, detected_at])
+  @@map("crm_identity_exception")
+  @@schema("app")
+}
+
+// One current Operations-confirmed parent per source mapping. Source text and
+// names stay in their authoritative tables; this row stores only internal CRM
+// IDs, the controlled relationship code, and reviewer provenance. Field-level
+// audit history preserves replacements for later suggestion-quality analysis.
+model CrmParentOverride {
+  id                 String   @id
+  source_mapping_id  String   @unique
+  child_identity_id  String
+  parent_identity_id String
+  relationship_code  String   @db.VarChar(64)
+  confirmed_by       String   @db.VarChar(320)
+  confirmed_at       DateTime @default(now()) @db.Timestamptz(6)
+  created_at         DateTime @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime @updatedAt @db.Timestamptz(6)
+
+  source_mapping  CrmSourceMapping @relation(fields: [source_mapping_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  child_identity  CrmIdentity      @relation("CrmParentOverrideChild", fields: [child_identity_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  parent_identity CrmIdentity      @relation("CrmParentOverrideParent", fields: [parent_identity_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([child_identity_id])
+  @@index([parent_identity_id])
+  @@map("crm_parent_override")
+  @@schema("app")
+}
+
+// ---- Admin-owned employee roster ----------------------------------------
+//
+// Rippling exports are uploaded manually as complete, effective-dated
+// snapshots. The raw workbook is parsed in memory and never retained. Roster
+// rows and human match decisions remain ADMIN/OPERATIONS-only under FORCE RLS;
+// EmployeeClientStatus is a deliberately minimal derived projection that lets
+// advisor/client-service reads show a badge inside their existing book scope
+// without exposing employee ids, names, workbook metadata, or match evidence.
+enum EmployeeRosterUploadStatus {
+  DRAFT
+  APPLIED
+  SUPERSEDED
+
+  @@schema("app")
+}
+
+// ---- App-owned: duplicate-candidate review ------------------------------
+//
+// CRM remains authoritative. These rows are durable review decisions over
+// controlled, PII-free evidence codes; they never merge or delete a CRM record.
+enum CrmDuplicateEntityType {
+  HOUSEHOLD
+  CONTACT
+  ACCOUNT
+
+  @@schema("app")
+}
+
+enum EmployeeEmploymentState {
+  ACTIVE
+  FORMER
+
+  @@schema("app")
+}
+
+enum CrmDuplicateReviewStatus {
+  NEW
+  SNOOZED
+  NOT_DUPLICATE
+  READY_FOR_FOLLOW_UP
+
+  @@schema("app")
+}
+
+enum EmployeeContactMappingState {
+  CONFIRMED
+  REJECTED
+  INVALIDATED
+
+  @@schema("app")
+}
+
+model EmployeeRosterUpload {
+  id                     String                     @id @default(cuid())
+  file_sha256            String                     @db.Char(64)
+  effective_date         DateTime                   @db.Date
+  parser_version         String                     @db.VarChar(32)
+  status                 EmployeeRosterUploadStatus @default(DRAFT)
+  row_count              Int
+  employee_count         Int
+  dependent_row_count    Int
+  active_count           Int
+  former_count           Int
+  validation_error_count Int                        @default(0)
+  uploaded_by            String                     @db.VarChar(320)
+  applied_by             String?                    @db.VarChar(320)
+  applied_at             DateTime?                  @db.Timestamptz(6)
+  created_at             DateTime                   @default(now()) @db.Timestamptz(6)
+  updated_at             DateTime                   @updatedAt @db.Timestamptz(6)
+  entries                EmployeeRosterEntry[]
+  client_statuses        EmployeeClientStatus[]
+
+  @@unique([file_sha256, effective_date, parser_version], map: "employee_roster_upload_identity_key")
+  @@index([status, created_at(sort: Desc)])
+  @@map("employee_roster_upload")
+  @@schema("app")
+}
+
+model EmployeeRosterEntry {
+  id                  String                  @id @default(cuid())
+  upload_id           String
+  employee_id         String                  @db.VarChar(128)
+  display_name        String                  @db.VarChar(240)
+  source_status       String                  @db.VarChar(64)
+  employment_state    EmployeeEmploymentState
+  start_date          DateTime?               @db.Date
+  last_day            DateTime?               @db.Date
+  legal_entity        String?                 @db.VarChar(240)
+  dependent_row_count Int                     @default(0)
+  created_at          DateTime                @default(now()) @db.Timestamptz(6)
+  upload              EmployeeRosterUpload    @relation(fields: [upload_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@unique([upload_id, employee_id])
+  @@index([employee_id])
+  @@index([upload_id, employment_state])
+  @@map("employee_roster_entry")
+  @@schema("app")
+}
+
+model EmployeeContactMapping {
+  id                  String                      @id @default(cuid())
+  employee_id         String                      @db.VarChar(128)
+  contact_identity_id String
+  client_sf_id        String                      @db.VarChar(64)
+  state               EmployeeContactMappingState
+  evidence            String                      @db.VarChar(32)
+  reviewed_by         String                      @db.VarChar(320)
+  reviewed_at         DateTime                    @default(now()) @db.Timestamptz(6)
+  created_at          DateTime                    @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime                    @updatedAt @db.Timestamptz(6)
+  contact_identity    CrmIdentity                 @relation(fields: [contact_identity_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@unique([employee_id, contact_identity_id])
+  @@index([employee_id, state])
+  @@index([client_sf_id, state])
+  @@map("employee_contact_mapping")
+  @@schema("app")
+}
+
+model EmployeeClientStatus {
+  client_sf_id     String                  @id @db.VarChar(64)
+  employment_state EmployeeEmploymentState
+  effective_date   DateTime                @db.Date
+  source_upload_id String
+  updated_at       DateTime                @updatedAt @db.Timestamptz(6)
+  source_upload    EmployeeRosterUpload    @relation(fields: [source_upload_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([employment_state])
+  @@map("employee_client_status")
+  @@schema("app")
+}
+
+model CrmDuplicateCandidate {
+  id                           String                   @id
+  detector_key                 String                   @unique @db.Char(64)
+  entity_type                  CrmDuplicateEntityType
+  left_identity_id             String
+  right_identity_id            String
+  account_fingerprint          String?                  @db.Char(64)
+  evidence_codes               String[]
+  hard_conflict_codes          String[]
+  accepted_hard_conflict_codes String[]                 @default([])
+  conflict_override_at         DateTime?                @db.Timestamptz(6)
+  conflict_override_by         String?                  @db.VarChar(320)
+  operator_flagged             Boolean                  @default(false)
+  review_version               Int                      @default(0)
+  source_active                Boolean                  @default(true)
+  status                       CrmDuplicateReviewStatus @default(NEW)
+  snoozed_until                DateTime?                @db.Timestamptz(6)
+  decision_reason              String?                  @db.VarChar(48)
+  canonical_identity_id        String?
+  reviewed_at                  DateTime?                @db.Timestamptz(6)
+  reviewed_by                  String?                  @db.VarChar(320)
+  updated_by                   String?                  @db.VarChar(320)
+  detected_at                  DateTime                 @default(now()) @db.Timestamptz(6)
+  last_seen_at                 DateTime                 @default(now()) @db.Timestamptz(6)
+  created_at                   DateTime                 @default(now()) @db.Timestamptz(6)
+  updated_at                   DateTime                 @updatedAt @db.Timestamptz(6)
+
+  left_identity      CrmIdentity                  @relation("CrmDuplicateCandidateLeft", fields: [left_identity_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  right_identity     CrmIdentity                  @relation("CrmDuplicateCandidateRight", fields: [right_identity_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  canonical_identity CrmIdentity?                 @relation("CrmDuplicateCandidateCanonical", fields: [canonical_identity_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  events             CrmDuplicateCandidateEvent[]
+
+  @@index([source_active, status, detected_at])
+  @@index([left_identity_id, source_active])
+  @@index([right_identity_id, source_active])
+  @@index([canonical_identity_id])
+  @@map("crm_duplicate_candidate")
+  @@schema("app")
+}
+
+model CrmDuplicateCandidateEvent {
+  id           BigInt                    @id @default(autoincrement())
+  candidate_id String
+  action       String                    @db.VarChar(48)
+  actor_email  String?                   @db.VarChar(320)
+  actor_role   String?                   @db.VarChar(32)
+  from_status  CrmDuplicateReviewStatus?
+  to_status    CrmDuplicateReviewStatus?
+  detail       Json                      @default("{}")
+  at           DateTime                  @default(now()) @db.Timestamptz(6)
+
+  candidate CrmDuplicateCandidate @relation(fields: [candidate_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([candidate_id, at(sort: Desc)])
+  @@index([at(sort: Desc)])
+  @@map("crm_duplicate_candidate_event")
+  @@schema("app")
+}
+
+// ---- App-owned: central Operations review workflow ----------------------
+//
+// Authoritative records remain in Trade Request and the CRM identity layer.
+// These rows contain only a deterministic detector key, a redacted derived
+// snapshot, and the human workflow/provenance AOA owns.
+enum ReviewQueueSource {
+  TRADE_REQUEST
+  CRM_IDENTITY
+
+  @@schema("app")
+}
+
+enum ReviewQueueStatus {
+  NEW
+  IN_REVIEW
+  RESOLVED
+  SNOOZED
+
+  @@schema("app")
+}
+
+model ReviewQueueItem {
+  id                 String             @id @default(cuid())
+  detector_key       String             @unique @db.Char(64)
+  subject_key        String             @db.Char(64)
+  source             ReviewQueueSource
+  exception_type     String             @db.VarChar(64)
+  source_record_ref  String?            @db.VarChar(128)
+  resolution_href    String             @db.VarChar(512)
+  summary            String             @db.VarChar(180)
+  source_snapshot    Json               @default("{}")
+  source_active      Boolean            @default(true)
+  status             ReviewQueueStatus  @default(NEW)
+  assigned_to        String?            @db.VarChar(320)
+  resolution_note    String             @default("") @db.VarChar(1000)
+  snoozed_until      DateTime?          @db.Timestamptz(6)
+  detected_at        DateTime           @default(now()) @db.Timestamptz(6)
+  last_seen_at       DateTime           @default(now()) @db.Timestamptz(6)
+  source_resolved_at DateTime?          @db.Timestamptz(6)
+  resolved_at        DateTime?          @db.Timestamptz(6)
+  resolved_by        String?            @db.VarChar(320)
+  updated_by         String?            @db.VarChar(320)
+  created_at         DateTime           @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime           @updatedAt @db.Timestamptz(6)
+  events             ReviewQueueEvent[]
+
+  @@index([source, source_active, last_seen_at(sort: Desc)])
+  @@index([status, source_active, detected_at])
+  @@index([assigned_to, status])
+  @@index([subject_key, source_active])
+  @@map("review_queue_item")
+  @@schema("app")
+}
+
+model ReviewQueueEvent {
+  id           BigInt             @id @default(autoincrement())
+  item_id      String
+  action       String             @db.VarChar(48)
+  actor_email  String?            @db.VarChar(320)
+  actor_role   String?            @db.VarChar(32)
+  from_status  ReviewQueueStatus?
+  to_status    ReviewQueueStatus?
+  note_present Boolean            @default(false)
+  detail       Json               @default("{}")
+  at           DateTime           @default(now()) @db.Timestamptz(6)
+  item         ReviewQueueItem    @relation(fields: [item_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([item_id, at(sort: Desc)])
+  @@index([at(sort: Desc)])
+  @@map("review_queue_event")
+  @@schema("app")
+}
+
+model ReviewQueueSweepState {
+  id                  String    @id @db.VarChar(32)
+  trade_cursor        String?   @db.VarChar(128)
+  crm_cursor          String?   @db.VarChar(128)
+  trade_complete      Boolean   @default(false)
+  crm_complete        Boolean   @default(false)
+  lease_token         String?   @db.Char(36)
+  lease_expires_at    DateTime? @db.Timestamptz(6)
+  last_started_at     DateTime? @db.Timestamptz(6)
+  last_completed_at   DateTime? @db.Timestamptz(6)
+  last_failure_at     DateTime? @db.Timestamptz(6)
+  last_failure_source String?   @db.VarChar(32)
+  created_at          DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime  @updatedAt @db.Timestamptz(6)
+
+  @@map("review_queue_sweep_state")
+  @@schema("app")
+}
+
+// ---- App-owned: Trade Reconciliation completed-run archive --------------
+//
+// A run is an immutable, redacted snapshot of one completed account-aware
+// reconciliation. Full account IDs never persist: payload rows carry only a
+// masked account suffix. Notes and break decisions are append-only events so
+// operational context never rewrites the raw result.
+model TradeReconciliationRun {
+  id                      String                           @id @default(cuid())
+  run_date                DateTime                         @db.Date
+  business_date           DateTime                         @db.Date
+  algorithm_version       String                           @db.VarChar(32)
+  source_scope_version    String                           @db.VarChar(32)
+  source_digest           String                           @db.Char(64)
+  source_commit_sha       String                           @db.VarChar(64)
+  apex_record_count       Int
+  meridian_record_count Int
+  raw_match_count         Int
+  exception_count         Int
+  raw_match_rate          Decimal                          @db.Decimal(7, 4)
+  payload                 Json
+  completed_by            String?                          @db.VarChar(320)
+  completed_at            DateTime                         @default(now()) @db.Timestamptz(6)
+  legacy_source           String?                          @db.VarChar(48)
+  legacy_source_id        String?                          @db.VarChar(80)
+  legacy_unmatched_apex   Int?
+  legacy_unmatched_alpha  Int?
+  legacy_match_rate       Decimal?                         @db.Decimal(20, 15)
+  review_events           TradeReconciliationReviewEvent[]
+  note_events             TradeReconciliationNoteEvent[]
+
+  @@unique([run_date, business_date, algorithm_version, source_digest], map: "trade_reconciliation_run_idempotency_key")
+  @@unique([legacy_source, legacy_source_id], map: "trade_reconciliation_run_legacy_key")
+  @@index([run_date(sort: Desc), completed_at(sort: Desc)])
+  @@index([business_date(sort: Desc), completed_at(sort: Desc)])
+  @@index([completed_at(sort: Desc)])
+  @@map("trade_reconciliation_run")
+  @@schema("app")
+}
+
+model TradeReconciliationReviewEvent {
+  id              String                 @id @default(cuid())
+  run_id          String
+  row_fingerprint String                 @db.Char(64)
+  classification  String                 @db.VarChar(64)
+  explanation     String                 @db.VarChar(1000)
+  reviewer_email  String?                @db.VarChar(320)
+  created_at      DateTime               @default(now()) @db.Timestamptz(6)
+  run             TradeReconciliationRun @relation(fields: [run_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([run_id, row_fingerprint, created_at(sort: Desc)])
+  @@index([created_at(sort: Desc)])
+  @@map("trade_reconciliation_review_event")
+  @@schema("app")
+}
+
+model TradeReconciliationNoteEvent {
+  id           String                 @id @default(cuid())
+  run_id       String
+  note         String                 @db.VarChar(1000)
+  author_email String?                @db.VarChar(320)
+  created_at   DateTime               @default(now()) @db.Timestamptz(6)
+  run          TradeReconciliationRun @relation(fields: [run_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([run_id, created_at(sort: Desc)])
+  @@index([created_at(sort: Desc)])
+  @@map("trade_reconciliation_note_event")
+  @@schema("app")
+}
+
+// ---- App-owned: Fee Credit & Service Guarantee request workflow --------
+//
+// These are human-submitted operational instructions, not calculated fees.
+// The selected account references are opaque mirror.client_account_aum keys;
+// full account numbers are resolved only inside the Operations-only read seam.
+enum OperationsFeeRequestKind {
+  FEE_CREDIT
+  SERVICE_GUARANTEE
+  BILLING_EXCEPTION
+  LARGE_HOUSEHOLD_EXCEPTION
+
+  @@schema("app")
+}
+
+enum OperationsFeeRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+  CREDITED
+
+  @@schema("app")
+}
+
+enum OperationsFeeRequestScope {
+  CLIENT
+  HOUSEHOLD
+
+  @@schema("app")
+}
+
+model OperationsFeeRequest {
+  id                       String                      @id @default(cuid())
+  kind                     OperationsFeeRequestKind
+  status                   OperationsFeeRequestStatus  @default(PENDING)
+  scope                    OperationsFeeRequestScope   @default(CLIENT)
+  client_sf_id             String                      @db.VarChar(64)
+  legacy_household_sf_id   String?                     @db.VarChar(64)
+  legacy_client_name       String?                     @db.VarChar(160)
+  account_ids              String[]
+  fee_types                String[]                    @default([])
+  fee_amount               Decimal?                    @db.Decimal(14, 2)
+  waiver_start             DateTime?                   @db.Date
+  waiver_duration_months   Int?
+  indefinite_duration      Boolean                     @default(false)
+  reason                   String                      @default("") @db.VarChar(2000)
+  relevant_ticket_refs     String[]                    @default([])
+  submitted_by_email       String?                     @db.VarChar(320)
+  submitted_by_name        String?                     @db.VarChar(160)
+  submitted_by_role        String                      @db.VarChar(32)
+  submitted_at             DateTime                    @default(now()) @db.Timestamptz(6)
+  reviewed_by_email        String?                     @db.VarChar(320)
+  reviewed_by_name         String?                     @db.VarChar(160)
+  reviewed_at              DateTime?                   @db.Timestamptz(6)
+  credited_at              DateTime?                   @db.Date
+  apex_request_id          String?                     @db.VarChar(80)
+  legacy_apex_request_text String?                     @db.VarChar(1000)
+  completed_by_email       String?                     @db.VarChar(320)
+  completed_by_name        String?                     @db.VarChar(160)
+  completed_at             DateTime?                   @db.Timestamptz(6)
+  legacy_source            String?                     @db.VarChar(48)
+  legacy_source_id         String?                     @db.VarChar(80)
+  legacy_source_digest     String?                     @db.Char(64)
+  submission_key           String?                     @db.VarChar(36)
+  submission_digest        String?                     @db.Char(64)
+  created_at               DateTime                    @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime                    @updatedAt @db.Timestamptz(6)
+  events                   OperationsFeeRequestEvent[]
+  slack_notification       OperationsSlackNotification?
+  transfer_reimbursements  TransferFeeReimbursement[]
+
+  @@index([status, submitted_at(sort: Desc)])
+  @@index([client_sf_id, submitted_at(sort: Desc)])
+  @@index([legacy_household_sf_id, submitted_at(sort: Desc)])
+  @@unique([legacy_source, legacy_source_id], map: "operations_fee_request_legacy_key")
+  @@unique([submitted_by_email, submission_key], map: "operations_fee_request_submission_key")
+  @@map("operations_fee_request")
+  @@schema("app")
+}
+
+model OperationsFeeRequestEvent {
+  id          BigInt                      @id @default(autoincrement())
+  request_id  String
+  action      String                      @db.VarChar(48)
+  actor_email String?                     @db.VarChar(320)
+  actor_name  String?                     @db.VarChar(160)
+  actor_role  String                      @db.VarChar(32)
+  from_status OperationsFeeRequestStatus?
+  to_status   OperationsFeeRequestStatus?
+  detail      Json                        @default("{}")
+  at          DateTime                    @default(now()) @db.Timestamptz(6)
+  request     OperationsFeeRequest        @relation(fields: [request_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  slack_notification OperationsSlackNotification?
+
+  @@index([request_id, at(sort: Desc)])
+  @@index([at(sort: Desc)])
+  @@map("operations_fee_request_event")
+  @@schema("app")
+}
+
+// Only post-cutover live submissions are captured. No message body or client
+// data is duplicated here. Forced RLS and delivery-only column grants live in SQL.
+model OperationsSlackNotification {
+  request_id      String                    @id
+  event_id        BigInt                    @unique
+  channel_id      String                    @default("C00OBJK6X0W") @db.VarChar(32)
+  status          String                    @default("PENDING") @db.VarChar(16)
+  attempts        Int                       @default(0)
+  next_attempt_at DateTime                  @default(now()) @db.Timestamptz(6)
+  claim_token     String?                   @db.Uuid
+  claimed_at      DateTime?                 @db.Timestamptz(6)
+  last_code       String?                   @db.VarChar(64)
+  slack_ts        String?                   @db.VarChar(40)
+  acknowledged_at DateTime?                 @db.Timestamptz(6)
+  acknowledged_by_email String?             @db.VarChar(320)
+  created_at      DateTime                  @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime                  @default(now()) @updatedAt @db.Timestamptz(6)
+  request         OperationsFeeRequest      @relation(fields: [request_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  event           OperationsFeeRequestEvent @relation(fields: [event_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([status, next_attempt_at])
+  @@map("operations_slack_notification")
+  @@schema("app")
+}
+
+// ---- App-owned: custodian authority (ticket) ----
+// Always-On Advice's custodian profiles, fee rules and their change log. Ids are
+// supplied by the snapshot import (Tracker ids) or generated here for new rows.
+// Grants, forced RLS (ADMIN/OPERATIONS read, ADMIN write, no DELETE), CHECK
+// allow-lists and audit triggers live in the custodian_authority_storage migration.
+model CustodianProfile {
+  id                       String                    @id @default(cuid())
+  name                     String                    @unique
+  acat_fee_amount          Float                     @default(0)
+  avg_processing_days      Int                       @default(7)
+  contact_email            String?
+  contact_method           String?
+  contact_details          String?
+  review_status            String                    @default("VERIFIED")
+  transfer_type            String?
+  documentation_status     String?
+  dtc_number               String?
+  receiving_account_number String?
+  signature                String?
+  letter_of_acceptance     String?
+  medallion_required       String?
+  liquidation_method       String?
+  return_method            String?
+  watchouts                String?
+  paperwork_on_file        Boolean?
+  transfers_to_date        Int?
+  merged_into_id           String?
+  retired_at               DateTime?                 @db.Timestamptz(6)
+  revision                 BigInt
+  created_at               DateTime                  @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime                  @default(now()) @updatedAt @db.Timestamptz(6)
+  merged_into              CustodianProfile?         @relation("CustodianProfileMerge", fields: [merged_into_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  merged_from              CustodianProfile[]        @relation("CustodianProfileMerge")
+  fee_rules                CustodianFeeRule[]
+  delivering_transfers     Transfer[]
+  feeScheduleDocuments     CustodianFeeScheduleDocument[]
+  events                   CustodianAuthorityEvent[] @relation("CustodianAuthorityEventCustodian")
+  merge_source_events      CustodianAuthorityEvent[] @relation("CustodianAuthorityEventMergedFrom")
+
+  @@map("custodian_profile")
+  @@schema("app")
+}
+
+model CustodianFeeRule {
+  id            String           @id @default(cuid())
+  custodian_id  String
+  fee_type      String
+  account_type  String           @default("ANY")
+  transfer_type String           @default("ANY")
+  direction     String           @default("ANY")
+  amount        Float?
+  amount_text   String?
+  notes         String?
+  documentation String?
+  retired_at    DateTime?        @db.Timestamptz(6)
+  revision      BigInt
+  created_at    DateTime         @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime         @default(now()) @updatedAt @db.Timestamptz(6)
+  custodian     CustodianProfile @relation(fields: [custodian_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([custodian_id])
+  @@index([custodian_id, account_type])
+  @@map("custodian_fee_rule")
+  @@schema("app")
+}
+
+// Singleton (id = 1). accepted_revision is the last revision Always-On Advice
+// committed; confirmed_revision is the last one the transfer copy confirmed.
+model CustodianAuthorityState {
+  id                 Int      @id @default(1) @db.SmallInt
+  accepted_revision  BigInt   @default(0)
+  confirmed_revision BigInt   @default(0)
+  updated_at         DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+
+  @@map("custodian_authority_state")
+  @@schema("app")
+}
+
+// Append-only: one row per accepted revision, carrying the post-change
+// custodian snapshot that change delivery sends to the transfer copy.
+model CustodianAuthorityEvent {
+  revision       BigInt            @id
+  kind           String
+  custodian_id   String
+  merged_from_id String?
+  payload        Json
+  actor_email    String
+  created_at     DateTime          @default(now()) @db.Timestamptz(6)
+  custodian      CustodianProfile  @relation("CustodianAuthorityEventCustodian", fields: [custodian_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  merged_from    CustodianProfile? @relation("CustodianAuthorityEventMergedFrom", fields: [merged_from_id], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([custodian_id])
+  @@map("custodian_authority_event")
+  @@schema("app")
+}
+
+model CustodianFeeScheduleDocument {
+  id          String           @id
+  custodianId String           @map("custodian_id")
+  filename    String
+  contentType String           @map("content_type")
+  content     Bytes
+  sha256      String
+  byteSize    Int              @map("byte_size")
+  createdAt   DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  createdBy   String           @map("created_by")
+  custodian   CustodianProfile @relation(fields: [custodianId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([custodianId])
+  @@map("custodian_fee_schedule_document")
+  @@schema("app")
+}
+
+model CustodianSnapshotImport {
+  id             String   @id @default(cuid())
+  snapshotSha256 String   @unique @map("snapshot_sha256") @db.Char(64)
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  items          CustodianSnapshotImportItem[]
+
+  @@map("custodian_snapshot_import")
+  @@schema("app")
+}
+
+model CustodianSnapshotImportItem {
+  id          String                  @id @default(cuid())
+  importId    String                  @map("import_id")
+  import      CustodianSnapshotImport @relation(fields: [importId], references: [id], onDelete: Restrict)
+  kind        String
+  originalId  String                  @map("original_id")
+  byteCount   Int                     @map("byte_count")
+  checksum    String                  @db.Char(64)
+  revision    BigInt?
+  authorityId String                  @map("authority_id")
+  confirmed   Boolean                 @default(false)
+
+  @@unique([importId, kind, originalId])
+  @@map("custodian_snapshot_import_item")
+  @@schema("app")
+}
+// ---- App-owned: append-only audit log ----
+// Append-only is enforced in the DB: the app's role is granted INSERT/SELECT
+// only (no UPDATE/DELETE) via the grants in db/rls.sql. Never mutate rows.
+model AuditLog {
+  id         BigInt   @id @default(autoincrement())
+  at         DateTime @default(now())
+  actorId    String?
+  actorEmail String?
+  actorRole  String?
+  action     String
+  entityType String?
+  entityId   String?
+  detail     String?
+
+  @@index([at])
+  @@index([entityType, entityId])
+  @@schema("audit")
+}
+
+// Immutable numeric/provenance snapshot written after a performance-report
+// calculation completes. This is NOT a PDF and does not claim browser render or
+// delivery. It preserves the figures that were calculated under a report id so
+// a later reviewer is not forced to regenerate against changed source data.
+// DB grants/RLS are hand-authored in the matching migration: report roles may
+// INSERT and read their own rows, privileged reviewers may read all rows, and
+// nobody in app_rw may UPDATE/DELETE.
+model PerformanceReportRecord {
+  reportId           String   @id @map("report_id")
+  at                 DateTime @default(now()) @db.Timestamptz(6)
+  actorEmail         String?  @map("actor_email")
+  actorRole          String?  @map("actor_role")
+  scope              String
+  entityId           String   @map("entity_id")
+  reportDate         String   @map("report_date") @db.VarChar(10)
+  asOf               String   @map("as_of") @db.VarChar(10)
+  snapshotVersion    Int      @map("snapshot_version")
+  methodologyVersion String   @map("methodology_version")
+  sourceCommitSha    String   @map("source_commit_sha")
+  payloadSha256      String   @map("payload_sha256") @db.Char(64)
+  payload            Json
+
+  @@index([at])
+  @@index([scope, entityId, at])
+  @@map("performance_report_record")
+  @@schema("audit")
+}
+
+// ---- App-owned: database-enforced automatic audit trail (ADR-5) ----
+// Raw field-level change log written by the `audit.log_row_change()` Postgres
+// trigger on every INSERT/UPDATE/DELETE of the app.* business tables (deal,
+// transfer) — so the trail can't be forgotten in app code. This is the
+// COMPLEMENTARY raw layer beneath AuditLog (business events, lib/audit.ts).
+//
+// READ-ONLY in spirit: the app never writes this — the trigger does (as the
+// SECURITY DEFINER owner). The GRANTS match AuditLog exactly (SELECT+INSERT, no
+// UPDATE/DELETE — append-only/immutable). RLS is NOT a mirror but a deliberate
+// improvement: AuditLog has NO row-level security (any app_rw session reads it),
+// whereas row_change additionally RLS-restricts SELECT to Ops/Admin/HoA (the raw
+// trail can carry full row snapshots, so it is a privileged view). Both grants
+// and RLS are hand-authored in the audit_row_change migration (Prisma cannot
+// model triggers/policies — the mirror/audit hand-authored-SQL convention,
+// exactly as AuditLog's own grants live in the SQL migrations).
+// Fields are snake_case DB-native (the deal/transfer raw-SQL seam idiom).
+model RowChange {
+  id          BigInt   @id @default(autoincrement())
+  at          DateTime @default(now()) @db.Timestamptz(6)
+  schema_name String
+  table_name  String
+  op          String // 'INSERT' | 'UPDATE' | 'DELETE'
+  row_pk      String? // the row's id
+  // UPDATE: { col: { from, to } } for changed cols; INSERT/DELETE: full snapshot.
+  changed     Json
+  actor_email String? // app.user_email GUC; null for feed (ingest_rw) writes
+  actor_role  String? // app.user_role GUC; null for feed writes
+  db_role     String // session_user: the writing login role (app_rw/ingest_rw/…)
+
+  @@index([schema_name, table_name, row_pk])
+  @@index([at])
+  @@index([at(sort: Desc), id(sort: Desc)])
+  @@index([table_name, op, actor_email])
+  @@map("row_change")
+  @@schema("audit")
+}
+
+// ATW-04 paperwork record child (ticket). Append-only through the app; the
+// latest row by created_at is current.
+model TransferFormReview {
+  id          String   @id @default(cuid())
+  transfer_id String
+  transfer    Transfer @relation(fields: [transfer_id], references: [id])
+  reviewed               Boolean  @default(false)
+  receiving_form_title   String?
+  source_form_title      String?
+  title_owners_confirmed String?
+  apex_account_id        String
+  form_id                String
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_form_review")
+  @@schema("app")
+}
+
+// ATW-04 paperwork record child (ticket). Append-only through the app; the
+// latest row by created_at is current.
+model TransferSentPacket {
+  id          String   @id @default(cuid())
+  transfer_id String
+  transfer    Transfer @relation(fields: [transfer_id], references: [id])
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_sent_packet")
+  @@schema("app")
+}
+
+// ATW-04 paperwork record child (ticket). Append-only through the app; the
+// latest row by created_at is current.
+model TransferReturnedSignature {
+  id          String   @id @default(cuid())
+  transfer_id String
+  transfer    Transfer @relation(fields: [transfer_id], references: [id])
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_returned_signature")
+  @@schema("app")
+}
+
+// ATW-04 paperwork record child (ticket). Append-only through the app; the
+// latest row by created_at is current.
+model TransferAppAuthorization {
+  id          String   @id @default(cuid())
+  transfer_id String
+  transfer    Transfer @relation(fields: [transfer_id], references: [id])
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_app_authorization")
+  @@schema("app")
+}
+
+// ATW-04 paperwork record child (ticket). Append-only through the app; the
+// latest row by created_at is current.
+model TransferDrsServiceRequest {
+  id          String   @id @default(cuid())
+  transfer_id String
+  transfer    Transfer @relation(fields: [transfer_id], references: [id])
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_drs_service_request")
+  @@schema("app")
+}
+
+// ATW-04 paperwork record child (ticket). Append-only through the app; the
+// latest row by created_at is current.
+model TransferMailedPaperwork {
+  id          String   @id @default(cuid())
+  transfer_id String
+  transfer    Transfer @relation(fields: [transfer_id], references: [id])
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_mailed_paperwork")
+  @@schema("app")
+}
+
+// ATW-06 Operations submission log (ticket). Append-only through the app; the
+// latest row by created_at is current.
+model TransferSubmission {
+  id             String   @id @default(cuid())
+  transfer_id    String
+  transfer       Transfer @relation(fields: [transfer_id], references: [id])
+  control_number String
+  submitted_on   DateTime @db.Date
+  created_at     DateTime @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_submission")
+  @@schema("app")
+}
+
+// ATW-06 tracking update (ticket). Recording one never changes the stage.
+model TransferTrackingUpdate {
+  id                     String    @id @default(cuid())
+  transfer_id            String
+  transfer               Transfer  @relation(fields: [transfer_id], references: [id])
+  tracking_stage         String
+  expected_completion_on DateTime? @db.Date
+  created_at             DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at             DateTime  @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_tracking_update")
+  @@schema("app")
+}
+
+// ATW-06 receipt review version (ticket). Insert-only; the highest version is
+// current and earlier versions stay readable.
+model TransferReceipt {
+  id              String               @id @default(cuid())
+  transfer_id     String
+  transfer        Transfer             @relation(fields: [transfer_id], references: [id])
+  version         Int
+  partial         Boolean
+  next_action     String?
+  follow_up_owner String?
+  next_check_on   DateTime?            @db.Date
+  lines           TransferReceiptLine[]
+  created_at      DateTime             @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime             @updatedAt @db.Timestamptz(6)
+
+  @@unique([transfer_id, version])
+  @@map("transfer_receipt")
+  @@schema("app")
+}
+
+// ATW-06 receipt comparison line (ticket). No security identifier or dollar
+// column by ruling.
+model TransferReceiptLine {
+  id                  String          @id @default(cuid())
+  receipt_id          String
+  receipt             TransferReceipt @relation(fields: [receipt_id], references: [id])
+  line_number         Int
+  classification      String
+  quantity            Decimal?        @db.Decimal(24, 6)
+  line_status         String
+  variance_percentage Decimal?        @db.Decimal(14, 6)
+  review_note         String?
+  explanation         String?
+  created_at          DateTime        @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime        @updatedAt @db.Timestamptz(6)
+
+  @@unique([receipt_id, line_number])
+  @@map("transfer_receipt_line")
+  @@schema("app")
+}
+
+// ATW-07 Apex check ticket (ticket). Append-only through the app; the latest
+// row by created_at is current. Never a receipt.
+model TransferCheckTicket {
+  id            String   @id @default(cuid())
+  transfer_id   String
+  transfer      Transfer @relation(fields: [transfer_id], references: [id])
+  location      String?
+  mailer_sent   Boolean  @default(false)
+  check_mailed  Boolean  @default(false)
+  optional_call Boolean  @default(false)
+  created_at    DateTime @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_check_ticket")
+  @@schema("app")
+}
+
+// ATW-07 ACH initiation (ticket). Append-only through the app. Never a
+// signature or a submission.
+model TransferAchInitiation {
+  id                   String   @id @default(cuid())
+  transfer_id          String
+  transfer             Transfer @relation(fields: [transfer_id], references: [id])
+  instructions_sent    Boolean
+  client_initiation_on DateTime @db.Date
+  created_at           DateTime @default(now()) @db.Timestamptz(6)
+  updated_at           DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_ach_initiation")
+  @@schema("app")
+}
+
+// ATW-09 fee reimbursement (ticket). Only an evidenced fee is recorded; no
+// amount column.
+model TransferFeeReimbursement {
+  id          String   @id @default(cuid())
+  transfer_id String
+  transfer    Transfer @relation(fields: [transfer_id], references: [id])
+  evidenced   Boolean
+  operations_fee_request_id String?
+  operations_fee_request    OperationsFeeRequest? @relation(fields: [operations_fee_request_id], references: [id], onDelete: Restrict)
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@index([operations_fee_request_id])
+  @@map("transfer_fee_reimbursement")
+  @@schema("app")
+}
+
+// ATW-09 linked investment request (ticket). Read-only on the movement;
+// approval and allocation stay in Trade Requests.
+model TransferInvestmentLink {
+  id                        String   @id @default(cuid())
+  transfer_id               String
+  transfer                  Transfer @relation(fields: [transfer_id], references: [id])
+  linked_investment_request String
+  created_at                DateTime @default(now()) @db.Timestamptz(6)
+  updated_at                DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_investment_link")
+  @@schema("app")
+}
+
+// ATW-09 ACAT residual (ticket). Tied to a recorded original control number;
+// never changes the transfer's value or stage.
+model TransferResidual {
+  id                      String   @id @default(cuid())
+  transfer_id             String
+  transfer                Transfer @relation(fields: [transfer_id], references: [id])
+  original_control_number String
+  tracker_stage           String?
+  created_at              DateTime @default(now()) @db.Timestamptz(6)
+  updated_at              DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_residual")
+  @@schema("app")
+}
+
+// ATW-09 ACAT rejection (ticket). The row stays in history; the response and
+// review state are updated in place.
+model TransferAcatRejection {
+  id                         String    @id @default(cuid())
+  transfer_id                String
+  transfer                   Transfer  @relation(fields: [transfer_id], references: [id])
+  completion_estimate        DateTime? @db.Date
+  arrival_paused             Boolean   @default(true)
+  follow_up_owner            String
+  response                   String?
+  reason                     String?
+  code                       String?
+  rejected_on                DateTime? @db.Date
+  awaiting_operations_review Boolean   @default(false)
+  created_at                 DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at                 DateTime  @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_acat_rejection")
+  @@schema("app")
+}
+
+// ATW-10 movement outcome (ticket). The latest unresumed row pauses
+// preparation and movement actions; nothing is deleted.
+model TransferOutcome {
+  id               String    @id @default(cuid())
+  transfer_id      String
+  transfer         Transfer  @relation(fields: [transfer_id], references: [id])
+  outcome          String
+  reason           String?
+  follow_up_on     DateTime? @db.Date
+  outcome_on       DateTime? @db.Date
+  resumed          Boolean   @default(false)
+  prior_assignment String?
+  created_at       DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at       DateTime  @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_outcome")
+  @@schema("app")
+}
+
+// ATW-10 correction history (ticket). Append-only.
+model TransferCorrection {
+  id          String   @id @default(cuid())
+  transfer_id String
+  transfer    Transfer @relation(fields: [transfer_id], references: [id])
+  correction  String
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_correction")
+  @@schema("app")
+}
+
+// ATW-10 unbound stage-change history (ticket). Append-only.
+model TransferStageChange {
+  id             String        @id @default(cuid())
+  transfer_id    String
+  transfer       Transfer      @relation(fields: [transfer_id], references: [id])
+  previous_stage TransferStage
+  new_stage      TransferStage
+  created_at     DateTime      @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime      @updatedAt @db.Timestamptz(6)
+
+  @@index([transfer_id])
+  @@map("transfer_stage_change")
+  @@schema("app")
+}

@@ -39,7 +39,7 @@ function confirmedSource(): TransferSource {
   return record;
 }
 
-describe("Ops Portal transfer source contract", () => {
+describe("The advisor platform transfer source contract", () => {
   it.each([
     ["ACAT", "ACAT"], ["MANUAL", "MANUAL"], ["PAPERWORK", "MANUAL"],
     ["DRS", "DRS"], ["RESIDUAL", "RESIDUAL"], ["UNCLASSIFIED", "UNCLASSIFIED"],
@@ -86,7 +86,7 @@ describe("Ops Portal transfer source contract", () => {
     expect(sourceRevision({ ...changed, identityVersion: record.identityVersion }, templateHash)).not.toBe(sourceRevision(record, templateHash));
     expect(JSON.stringify(buildPreparation(record, templateHash))).not.toContain("user-synthetic-");
   });
-  it("retains the invalid Ops Portal confirmation's provenance after the receiving binding is cleared", () => {
+  it("retains the invalid advisor platform confirmation's provenance after the receiving binding is cleared", () => {
     const record = confirmedSource();
     record.apexAccountId = "SYN999999";
     record.activeTransferTitleConfirmationId = null;

@@ -1,0 +1,679 @@
+[
+  {
+    "field_id": "Logo Placement_af_image",
+    "type": "checkbox",
+    "page": 1,
+    "rect": [
+      377.1,
+      699.957,
+      575.1,
+      753.957
+    ]
+  },
+  {
+    "field_id": "undefined",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      33.72,
+      680.28,
+      577.8,
+      686.76
+    ]
+  },
+  {
+    "field_id": "Branch 1",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      49.6909,
+      658.964,
+      58.3091,
+      672.927
+    ]
+  },
+  {
+    "field_id": "Branch 2",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      60.1432,
+      658.957,
+      68.7614,
+      672.92
+    ]
+  },
+  {
+    "field_id": "Branch 3",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      70.7386,
+      658.957,
+      79.3568,
+      672.92
+    ]
+  },
+  {
+    "field_id": "Digit 1",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      90.9068,
+      658.957,
+      99.525,
+      672.92
+    ]
+  },
+  {
+    "field_id": "Digit 2",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      101.502,
+      658.957,
+      110.12,
+      672.92
+    ]
+  },
+  {
+    "field_id": "Digit 3",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      111.934,
+      658.957,
+      120.552,
+      672.92
+    ]
+  },
+  {
+    "field_id": "Digit 4",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      122.407,
+      658.957,
+      131.025,
+      672.92
+    ]
+  },
+  {
+    "field_id": "Digit 5",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      132.961,
+      658.957,
+      141.58,
+      672.92
+    ]
+  },
+  {
+    "field_id": "T",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      153.252,
+      658.957,
+      161.87,
+      672.92
+    ]
+  },
+  {
+    "field_id": "C",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      163.725,
+      658.957,
+      172.343,
+      672.92
+    ]
+  },
+  {
+    "field_id": "Correspondent Authorized Rep Signature",
+    "type": "unknown (/Sig)",
+    "page": 1,
+    "rect": [
+      208.255,
+      648.709,
+      575.919,
+      672.027
+    ]
+  },
+  {
+    "field_id": "Savings",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      339.48,
+      635.64,
+      347.4,
+      643.56
+    ]
+  },
+  {
+    "field_id": "Checking",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      302.16,
+      635.52,
+      310.08,
+      643.44
+    ]
+  },
+  {
+    "field_id": "Account Title",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      39.8891,
+      560.28,
+      257.88,
+      582.731
+    ]
+  },
+  {
+    "field_id": "Name of Bank",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      265.222,
+      560.28,
+      575.88,
+      582.731
+    ]
+  },
+  {
+    "field_id": "ABA NO. 6",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      156.198,
+      534.88,
+      164.816,
+      548.843
+    ]
+  },
+  {
+    "field_id": "ABA NO. 7",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      169.657,
+      534.88,
+      178.275,
+      548.843
+    ]
+  },
+  {
+    "field_id": "ABA NO. 8",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      183.198,
+      534.88,
+      191.816,
+      548.843
+    ]
+  },
+  {
+    "field_id": "ABA NO. 9",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      196.698,
+      534.88,
+      205.316,
+      548.843
+    ]
+  },
+  {
+    "field_id": "ABA NO. 2",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      101.468,
+      534.878,
+      110.086,
+      548.841
+    ]
+  },
+  {
+    "field_id": "ABA NO. 3",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      114.968,
+      534.878,
+      123.586,
+      548.841
+    ]
+  },
+  {
+    "field_id": "ABA NO. 4",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      128.468,
+      534.878,
+      137.086,
+      548.841
+    ]
+  },
+  {
+    "field_id": "ABA NO. 5",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      142.745,
+      534.878,
+      151.363,
+      548.841
+    ]
+  },
+  {
+    "field_id": "ABA NO. 1",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      87.954,
+      534.873,
+      96.5722,
+      548.837
+    ]
+  },
+  {
+    "field_id": "Bank Account No",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      265.227,
+      531,
+      575.88,
+      553.489
+    ]
+  },
+  {
+    "field_id": "Weekly ($100 Minimum)",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      411.006,
+      495.003,
+      424.521,
+      508.508
+    ]
+  },
+  {
+    "field_id": "Weekly 100 Minimum",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      512.64,
+      495,
+      576.36,
+      507.96
+    ]
+  },
+  {
+    "field_id": "Monthly No Minimum",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      508.68,
+      480,
+      576.36,
+      493.68
+    ]
+  },
+  {
+    "field_id": "Monthly (No Minimum)",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      411.001,
+      479.989,
+      424.516,
+      494.24
+    ]
+  },
+  {
+    "field_id": "Remit Income Distributions",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      46.5027,
+      479.982,
+      74.2336,
+      508.491
+    ]
+  },
+  {
+    "field_id": "I will authorize a debit or credit to my account On Demand No Minimum",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      344.76,
+      450.72,
+      575.88,
+      478.2
+    ]
+  },
+  {
+    "field_id": "I will authorize a debit opr credit to my account \"On Demand\"",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      46.4754,
+      450.719,
+      74.2063,
+      479.309
+    ]
+  },
+  {
+    "field_id": "To",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      134.16,
+      432.24,
+      143.4,
+      441.48
+    ]
+  },
+  {
+    "field_id": "From my Bank Account",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      159.6,
+      431.88,
+      168.84,
+      441.24
+    ]
+  },
+  {
+    "field_id": "Transfer funds To From",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      46.4959,
+      422.225,
+      74.2268,
+      449.997
+    ]
+  },
+  {
+    "field_id": "Weekly",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      180.24,
+      398.52,
+      189.6,
+      407.88
+    ]
+  },
+  {
+    "field_id": "Monthly",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      228.96,
+      398.52,
+      238.32,
+      407.76
+    ]
+  },
+  {
+    "field_id": "Quarterly",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      281.52,
+      398.52,
+      290.76,
+      407.76
+    ]
+  },
+  {
+    "field_id": "SemiAnnually",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      337.56,
+      398.52,
+      346.92,
+      407.88
+    ]
+  },
+  {
+    "field_id": "Annually",
+    "type": "checkbox",
+    "checked_value": "/On",
+    "unchecked_value": "/Off",
+    "page": 1,
+    "rect": [
+      412.56,
+      398.52,
+      421.92,
+      407.88
+    ]
+  },
+  {
+    "field_id": "AMOUNT",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      57.6873,
+      394,
+      163.44,
+      415.016
+    ]
+  },
+  {
+    "field_id": "DAY OF MONTH",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      490.456,
+      393,
+      575.88,
+      414.016
+    ]
+  },
+  {
+    "field_id": "PRIMARY ACCOUNT OWNER NAME",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      40.3146,
+      335.28,
+      304.44,
+      357.011
+    ]
+  },
+  {
+    "field_id": "JOINT ACCOUNT OWNER NAME",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      311.291,
+      335.28,
+      575.88,
+      357.011
+    ]
+  },
+  {
+    "field_id": "ADDRESS",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      40.4509,
+      306,
+      304.44,
+      327.753
+    ]
+  },
+  {
+    "field_id": "ADDRESS_2",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      311.356,
+      306,
+      575.88,
+      327.753
+    ]
+  },
+  {
+    "field_id": "CITY",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      40.4455,
+      276.72,
+      168.6,
+      298.473
+    ]
+  },
+  {
+    "field_id": "STATE",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      175.68,
+      276.72,
+      236.88,
+      298.527
+    ]
+  },
+  {
+    "field_id": "ZIP CODE",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.993,
+      276.72,
+      304.44,
+      298.527
+    ]
+  },
+  {
+    "field_id": "CITY_2",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      311.558,
+      276.72,
+      440.16,
+      298.473
+    ]
+  },
+  {
+    "field_id": "STATE_2",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      447.256,
+      276.72,
+      507.6,
+      298.514
+    ]
+  },
+  {
+    "field_id": "ZIP CODE_2",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      515.419,
+      276.72,
+      575.88,
+      298.432
+    ]
+  },
+  {
+    "field_id": "Primary Account Owner Signature",
+    "type": "unknown (/Sig)",
+    "page": 1,
+    "rect": [
+      55.2682,
+      247.541,
+      304.445,
+      270
+    ]
+  },
+  {
+    "field_id": "Joint Account Owner Signature",
+    "type": "unknown (/Sig)",
+    "page": 1,
+    "rect": [
+      326.577,
+      247.541,
+      575.918,
+      270
+    ]
+  },
+  {
+    "field_id": "DATE",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      40.2164,
+      219.72,
+      304.56,
+      240.687
+    ]
+  },
+  {
+    "field_id": "DATE_2",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      325.44,
+      219.72,
+      576,
+      245.76
+    ]
+  },
+  {
+    "field_id": "If you are linking your brokerage account to a checking account at your bank please attach a voided check to this area",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      33.72,
+      203.28,
+      577.8,
+      209.76
+    ]
+  }
+]

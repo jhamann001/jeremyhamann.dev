@@ -1,0 +1,1316 @@
+{
+  "seed": {
+    "users": [
+      "{\"id\":\"user:parity.advisor2@example.test\",\"name\":\"Blake Parity\",\"role\":\"advisor\",\"email\":\"parity.advisor2@example.test\",\"isActive\":true,\"provisioned\":false,\"slackUserId\":null}",
+      "{\"id\":\"user:parity.advisor@example.test\",\"name\":\"Avery Parity\",\"role\":\"advisor\",\"email\":\"parity.advisor@example.test\",\"isActive\":true,\"provisioned\":false,\"slackUserId\":null}",
+      "{\"id\":\"user:parity.ops@example.test\",\"name\":\"Orin Parity\",\"role\":\"trader\",\"email\":\"parity.ops@example.test\",\"isActive\":true,\"provisioned\":false,\"slackUserId\":\"U0RRIIUZ4\"}"
+    ],
+    "requests": [
+      "{\"id\":\"REQ-PARAP001\",\"status\":\"Approved\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Rebalance\",\"client_name\":\"Parity Client Two\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"core\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+      "{\"id\":\"REQ-PARNI001\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+      "{\"id\":\"REQ-PARNI002\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+      "{\"id\":\"REQ-PARNI003\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor2@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+      "{\"id\":\"REQ-PARPR001\",\"status\":\"Pending Review\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"5000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}"
+    ],
+    "audit": [
+      "{\"notes\":\"Liquidation requested.\",\"action\":\"Created Request\",\"channel\":\"standalone\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}"
+    ],
+    "clientExclusions": [
+      "{\"id\":\"00000000-0000-4000-8000-000000000c01\",\"kind\":\"client\",\"no_buy\":true,\"reason\":\"Values\",\"ticker\":\"TSLA\",\"no_sell\":false,\"client_id\":\"PARITY-C1\",\"created_by\":\"user:parity.advisor@example.test\",\"created_by_name\":\"Avery Parity\"}",
+      "{\"id\":\"00000000-0000-4000-8000-000000000c02\",\"kind\":\"advisor\",\"no_buy\":true,\"reason\":\"\",\"ticker\":\"XOM\",\"no_sell\":true,\"client_id\":\"PARITY-C1\",\"created_by\":\"user:parity.advisor@example.test\",\"created_by_name\":\"Avery Parity\"}"
+    ],
+    "accountExclusions": [
+      "{\"id\":\"00000000-0000-4000-8000-000000000d01\",\"kind\":\"client\",\"no_buy\":true,\"reason\":\"\",\"ticker\":\"AAPL\",\"no_sell\":false,\"account_id\":\"PAR-ULID-1\",\"created_by\":\"user:parity.advisor@example.test\",\"created_by_name\":\"Avery Parity\"}"
+    ],
+    "seededNotifications": [
+      "{\"id\":\"00000000-0000-4000-8000-000000000e01\",\"read\":false}",
+      "{\"id\":\"00000000-0000-4000-8000-000000000e02\",\"read\":false}",
+      "{\"id\":\"00000000-0000-4000-8000-000000000e03\",\"read\":false}"
+    ]
+  },
+  "cases": [
+    {
+      "name": "create_raise_cash",
+      "status": 201,
+      "body": {
+        "data": {
+          "id": "<request>",
+          "clientId": "PARITY-C1",
+          "clientName": "Parity Client One",
+          "clientIds": [
+            "PARITY-C1"
+          ],
+          "clientNames": [
+            "Parity Client One"
+          ],
+          "advisor": "Rachel Moss",
+          "submittedBy": "Avery Parity",
+          "tradeType": "Raise Cash",
+          "tradeAmount": "2500",
+          "depositAccount": "",
+          "rebalanceAll": false,
+          "status": "Pending Review",
+          "date": "<timestamp>",
+          "updatedAt": "<timestamp>",
+          "selectedAccounts": [
+            "PAR-ACCT-1"
+          ],
+          "totalValue": 250000.5,
+          "priority": "Standard",
+          "advisorNotes": "",
+          "residence": "Other",
+          "liquidationApproval": "",
+          "advisorExclusions": "",
+          "clientExclusions": "",
+          "esgFilters": {
+            "fossilFuels": false,
+            "tobacco": false,
+            "weapons": false,
+            "alcohol": false,
+            "gambling": false,
+            "other": false,
+            "otherDescription": "",
+            "none": true
+          },
+          "riskProfile": null,
+          "baseAllocation": {
+            "equity": 0,
+            "fixed": 0,
+            "cash": 0
+          },
+          "equityStrategies": [],
+          "raiseCashReason": "Tuition",
+          "liquidityDeadline": null,
+          "liquidateOption": "",
+          "liquidatePositions": "",
+          "executionPlan": [],
+          "accountMetadata": [
+            {
+              "balance": 250000.5,
+              "accountId": null,
+              "accountType": "Taxable",
+              "accountNumber": "PAR-ACCT-1"
+            }
+          ],
+          "assetLocationMode": "priority",
+          "householdId": null,
+          "householdName": null,
+          "auditLog": [
+            {
+              "id": "<uuid>",
+              "date": "<timestamp>",
+              "user": "Avery Parity",
+              "action": "Created Request",
+              "notes": "Cash raise requested: 2500. Priority: Standard.",
+              "channel": "aoa"
+            }
+          ]
+        }
+      },
+      "changed": {
+        "requests": [
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"2500\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a1\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARAP001\",\"status\":\"Approved\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Rebalance\",\"client_name\":\"Parity Client Two\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"core\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI001\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI002\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI003\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor2@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARPR001\",\"status\":\"Pending Review\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"5000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}"
+        ],
+        "audit": [
+          "{\"notes\":\"Cash raise requested: 2500. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Liquidation requested.\",\"action\":\"Created Request\",\"channel\":\"standalone\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}"
+        ]
+      }
+    },
+    {
+      "name": "create_replay_same_key",
+      "status": 200,
+      "body": {
+        "data": {
+          "id": "<request>",
+          "clientId": "PARITY-C1",
+          "clientName": "Parity Client One",
+          "clientIds": [
+            "PARITY-C1"
+          ],
+          "clientNames": [
+            "Parity Client One"
+          ],
+          "advisor": "Rachel Moss",
+          "submittedBy": "Avery Parity",
+          "tradeType": "Raise Cash",
+          "tradeAmount": "2500",
+          "depositAccount": "",
+          "rebalanceAll": false,
+          "status": "Pending Review",
+          "date": "<timestamp>",
+          "updatedAt": "<timestamp>",
+          "selectedAccounts": [
+            "PAR-ACCT-1"
+          ],
+          "totalValue": 250000.5,
+          "priority": "Standard",
+          "advisorNotes": "",
+          "residence": "Other",
+          "liquidationApproval": "",
+          "advisorExclusions": "",
+          "clientExclusions": "",
+          "esgFilters": {
+            "fossilFuels": false,
+            "tobacco": false,
+            "weapons": false,
+            "alcohol": false,
+            "gambling": false,
+            "other": false,
+            "otherDescription": "",
+            "none": true
+          },
+          "riskProfile": null,
+          "baseAllocation": {
+            "equity": 0,
+            "fixed": 0,
+            "cash": 0
+          },
+          "equityStrategies": [],
+          "raiseCashReason": "Tuition",
+          "liquidityDeadline": null,
+          "liquidateOption": "",
+          "liquidatePositions": "",
+          "executionPlan": [],
+          "accountMetadata": [
+            {
+              "balance": 250000.5,
+              "accountId": null,
+              "accountType": "Taxable",
+              "accountNumber": "PAR-ACCT-1"
+            }
+          ],
+          "assetLocationMode": "priority",
+          "householdId": null,
+          "householdName": null,
+          "auditLog": [
+            {
+              "id": "<uuid>",
+              "date": "<timestamp>",
+              "user": "Avery Parity",
+              "action": "Created Request",
+              "notes": "Cash raise requested: 2500. Priority: Standard.",
+              "channel": "aoa"
+            }
+          ]
+        }
+      },
+      "changed": {}
+    },
+    {
+      "name": "create_duplicate_content_new_key",
+      "status": 200,
+      "body": {
+        "data": {
+          "id": "<request>",
+          "clientId": "PARITY-C1",
+          "clientName": "Parity Client One",
+          "clientIds": [
+            "PARITY-C1"
+          ],
+          "clientNames": [
+            "Parity Client One"
+          ],
+          "advisor": "Rachel Moss",
+          "submittedBy": "Avery Parity",
+          "tradeType": "Raise Cash",
+          "tradeAmount": "2500",
+          "depositAccount": "",
+          "rebalanceAll": false,
+          "status": "Pending Review",
+          "date": "<timestamp>",
+          "updatedAt": "<timestamp>",
+          "selectedAccounts": [
+            "PAR-ACCT-1"
+          ],
+          "totalValue": 250000.5,
+          "priority": "Standard",
+          "advisorNotes": "",
+          "residence": "Other",
+          "liquidationApproval": "",
+          "advisorExclusions": "",
+          "clientExclusions": "",
+          "esgFilters": {
+            "fossilFuels": false,
+            "tobacco": false,
+            "weapons": false,
+            "alcohol": false,
+            "gambling": false,
+            "other": false,
+            "otherDescription": "",
+            "none": true
+          },
+          "riskProfile": null,
+          "baseAllocation": {
+            "equity": 0,
+            "fixed": 0,
+            "cash": 0
+          },
+          "equityStrategies": [],
+          "raiseCashReason": "Tuition",
+          "liquidityDeadline": null,
+          "liquidateOption": "",
+          "liquidatePositions": "",
+          "executionPlan": [],
+          "accountMetadata": [
+            {
+              "balance": 250000.5,
+              "accountId": null,
+              "accountType": "Taxable",
+              "accountNumber": "PAR-ACCT-1"
+            }
+          ],
+          "assetLocationMode": "priority",
+          "householdId": null,
+          "householdName": null,
+          "auditLog": [
+            {
+              "id": "<uuid>",
+              "date": "<timestamp>",
+              "user": "Avery Parity",
+              "action": "Duplicate Submission Suppressed",
+              "notes": "An identical request was submitted again within the duplicate-detection window; no new request was created.",
+              "channel": "aoa"
+            },
+            {
+              "id": "<uuid>",
+              "date": "<timestamp>",
+              "user": "Avery Parity",
+              "action": "Created Request",
+              "notes": "Cash raise requested: 2500. Priority: Standard.",
+              "channel": "aoa"
+            }
+          ]
+        }
+      },
+      "changed": {
+        "audit": [
+          "{\"notes\":\"An identical request was submitted again within the duplicate-detection window; no new request was created.\",\"action\":\"Duplicate Submission Suppressed\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Cash raise requested: 2500. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Liquidation requested.\",\"action\":\"Created Request\",\"channel\":\"standalone\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}"
+        ]
+      }
+    },
+    {
+      "name": "create_invalid_initial_funding",
+      "status": 400,
+      "body": {
+        "error": "Validation failed",
+        "details": [
+          {
+            "code": "custom",
+            "message": "Risk profile is required for this trade type",
+            "path": [
+              "riskProfile"
+            ]
+          },
+          {
+            "code": "custom",
+            "message": "Liquidation approval is required for this trade type",
+            "path": [
+              "liquidationApproval"
+            ]
+          }
+        ]
+      },
+      "changed": {}
+    },
+    {
+      "name": "create_cash_deposit_unchanged_blank_rationale",
+      "status": 201,
+      "body": {
+        "data": {
+          "id": "<request>",
+          "clientId": "PARITY-C2",
+          "clientName": "Parity Client Two",
+          "clientIds": [
+            "PARITY-C2"
+          ],
+          "clientNames": [
+            "Parity Client Two"
+          ],
+          "advisor": "Rachel Moss",
+          "submittedBy": "Avery Parity",
+          "tradeType": "Cash Deposit",
+          "tradeAmount": "10000",
+          "depositAccount": "PAR-ACCT-2",
+          "rebalanceAll": false,
+          "status": "Pending Review",
+          "date": "<timestamp>",
+          "updatedAt": "<timestamp>",
+          "selectedAccounts": [
+            "PAR-ACCT-2"
+          ],
+          "totalValue": 50000,
+          "priority": "Standard",
+          "advisorNotes": "",
+          "residence": "NY",
+          "liquidationApproval": "No",
+          "advisorExclusions": "",
+          "clientExclusions": "",
+          "esgFilters": {
+            "none": true,
+            "other": false,
+            "alcohol": false,
+            "tobacco": false,
+            "weapons": false,
+            "gambling": false,
+            "fossilFuels": false,
+            "otherDescription": ""
+          },
+          "riskProfile": 12,
+          "baseAllocation": {
+            "cash": 4.5,
+            "fixed": 34.5,
+            "equity": 61
+          },
+          "equityStrategies": [
+            {
+              "id": 1,
+              "benchmark": "SPY",
+              "rationale": "",
+              "allocation": 100
+            }
+          ],
+          "raiseCashReason": "",
+          "liquidityDeadline": null,
+          "liquidateOption": "",
+          "liquidatePositions": "",
+          "executionPlan": [],
+          "accountMetadata": [
+            {
+              "balance": 50000,
+              "accountId": null,
+              "accountType": "Roth IRA",
+              "accountNumber": "PAR-ACCT-2"
+            }
+          ],
+          "assetLocationMode": "priority",
+          "householdId": null,
+          "householdName": null,
+          "auditLog": [
+            {
+              "id": "<uuid>",
+              "date": "<timestamp>",
+              "user": "Avery Parity",
+              "action": "Created Request",
+              "notes": "Risk Profile 12 applied.",
+              "channel": "aoa"
+            }
+          ]
+        }
+      },
+      "changed": {
+        "requests": [
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"2500\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a1\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":\"NY\",\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Cash Deposit\",\"client_name\":\"Parity Client Two\",\"esg_filters\":{\"none\":true,\"other\":false,\"alcohol\":false,\"tobacco\":false,\"weapons\":false,\"gambling\":false,\"fossilFuels\":false,\"otherDescription\":\"\"},\"seedVersion\":false,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":\"10000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":\"PAR-ACCT-2\",\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a4\",\"account_metadata\":[{\"balance\":50000,\"accountId\":null,\"accountType\":\"Roth IRA\",\"accountNumber\":\"PAR-ACCT-2\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":false,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARAP001\",\"status\":\"Approved\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Rebalance\",\"client_name\":\"Parity Client Two\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"core\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI001\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI002\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI003\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor2@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARPR001\",\"status\":\"Pending Review\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"5000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}"
+        ],
+        "audit": [
+          "{\"notes\":\"An identical request was submitted again within the duplicate-detection window; no new request was created.\",\"action\":\"Duplicate Submission Suppressed\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Cash raise requested: 2500. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Liquidation requested.\",\"action\":\"Created Request\",\"channel\":\"standalone\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}",
+          "{\"notes\":\"Risk Profile 12 applied.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}"
+        ]
+      }
+    },
+    {
+      "name": "create_cash_deposit_changed_blank_rationale",
+      "status": 400,
+      "body": {
+        "error": "Validation failed",
+        "details": [
+          {
+            "code": "custom",
+            "message": "Each equity strategy must have a rationale for a new or materially changed allocation",
+            "path": [
+              "equityStrategies",
+              0,
+              "rationale"
+            ]
+          }
+        ]
+      },
+      "changed": {}
+    },
+    {
+      "name": "create_liquidate_local_accounts",
+      "status": 201,
+      "body": {
+        "data": {
+          "id": "<request>",
+          "clientId": "PARITY-C1",
+          "clientName": "Parity Client One",
+          "clientIds": [
+            "PARITY-C1"
+          ],
+          "clientNames": [
+            "Parity Client One"
+          ],
+          "advisor": "Rachel Moss",
+          "submittedBy": "Orin Parity",
+          "tradeType": "Liquidate",
+          "tradeAmount": "",
+          "depositAccount": "",
+          "rebalanceAll": false,
+          "status": "Pending Review",
+          "date": "<timestamp>",
+          "updatedAt": "<timestamp>",
+          "selectedAccounts": [
+            "PAR-ACCT-1"
+          ],
+          "totalValue": 250000.5,
+          "priority": "Standard",
+          "advisorNotes": "",
+          "residence": "Other",
+          "liquidationApproval": "",
+          "advisorExclusions": "",
+          "clientExclusions": "",
+          "esgFilters": {
+            "fossilFuels": false,
+            "tobacco": false,
+            "weapons": false,
+            "alcohol": false,
+            "gambling": false,
+            "other": false,
+            "otherDescription": "",
+            "none": true
+          },
+          "riskProfile": null,
+          "baseAllocation": {
+            "equity": 0,
+            "fixed": 0,
+            "cash": 0
+          },
+          "equityStrategies": [],
+          "raiseCashReason": "",
+          "liquidityDeadline": null,
+          "liquidateOption": "Entire Account",
+          "liquidatePositions": "",
+          "executionPlan": [],
+          "accountMetadata": [
+            {
+              "balance": 250000.5,
+              "accountId": "00000000-0000-4000-8000-000000000b01",
+              "accountType": "Taxable",
+              "accountNumber": "PAR-ACCT-1"
+            }
+          ],
+          "assetLocationMode": "priority",
+          "householdId": null,
+          "householdName": null,
+          "auditLog": [
+            {
+              "id": "<uuid>",
+              "date": "<timestamp>",
+              "user": "Orin Parity",
+              "action": "Created Request",
+              "notes": "Entire Account liquidation requested. Priority: Standard.",
+              "channel": "aoa"
+            }
+          ]
+        }
+      },
+      "changed": {
+        "requests": [
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"2500\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a1\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.ops@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":\"00000000-0000-4000-8000-000000000b01\",\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":\"NY\",\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Cash Deposit\",\"client_name\":\"Parity Client Two\",\"esg_filters\":{\"none\":true,\"other\":false,\"alcohol\":false,\"tobacco\":false,\"weapons\":false,\"gambling\":false,\"fossilFuels\":false,\"otherDescription\":\"\"},\"seedVersion\":false,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":\"10000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":\"PAR-ACCT-2\",\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a4\",\"account_metadata\":[{\"balance\":50000,\"accountId\":null,\"accountType\":\"Roth IRA\",\"accountNumber\":\"PAR-ACCT-2\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":false,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARAP001\",\"status\":\"Approved\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Rebalance\",\"client_name\":\"Parity Client Two\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"core\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI001\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI002\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI003\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor2@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARPR001\",\"status\":\"Pending Review\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"5000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}"
+        ],
+        "audit": [
+          "{\"notes\":\"An identical request was submitted again within the duplicate-detection window; no new request was created.\",\"action\":\"Duplicate Submission Suppressed\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Cash raise requested: 2500. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Entire Account liquidation requested. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.ops@example.test\",\"user_name\":\"Orin Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Liquidation requested.\",\"action\":\"Created Request\",\"channel\":\"standalone\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}",
+          "{\"notes\":\"Risk Profile 12 applied.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}"
+        ]
+      }
+    },
+    {
+      "name": "create_local_accounts_mismatch",
+      "status": 400,
+      "body": {
+        "error": "One or more selected accounts do not belong to the specified client(s)"
+      },
+      "changed": {}
+    },
+    {
+      "name": "create_first_time_admin",
+      "status": 201,
+      "body": {
+        "data": {
+          "id": "<request>",
+          "clientId": "PARITY-C1",
+          "clientName": "Parity Client One",
+          "clientIds": [
+            "PARITY-C1"
+          ],
+          "clientNames": [
+            "Parity Client One"
+          ],
+          "advisor": "Rachel Moss",
+          "submittedBy": "Ada Admin",
+          "tradeType": "Raise Cash",
+          "tradeAmount": "3100",
+          "depositAccount": "",
+          "rebalanceAll": false,
+          "status": "Pending Review",
+          "date": "<timestamp>",
+          "updatedAt": "<timestamp>",
+          "selectedAccounts": [
+            "PAR-ACCT-1"
+          ],
+          "totalValue": 250000.5,
+          "priority": "Standard",
+          "advisorNotes": "",
+          "residence": "Other",
+          "liquidationApproval": "",
+          "advisorExclusions": "",
+          "clientExclusions": "",
+          "esgFilters": {
+            "fossilFuels": false,
+            "tobacco": false,
+            "weapons": false,
+            "alcohol": false,
+            "gambling": false,
+            "other": false,
+            "otherDescription": "",
+            "none": true
+          },
+          "riskProfile": null,
+          "baseAllocation": {
+            "equity": 0,
+            "fixed": 0,
+            "cash": 0
+          },
+          "equityStrategies": [],
+          "raiseCashReason": "Tuition",
+          "liquidityDeadline": null,
+          "liquidateOption": "",
+          "liquidatePositions": "",
+          "executionPlan": [],
+          "accountMetadata": [
+            {
+              "balance": 250000.5,
+              "accountId": null,
+              "accountType": "Taxable",
+              "accountNumber": "PAR-ACCT-1"
+            }
+          ],
+          "assetLocationMode": "priority",
+          "householdId": null,
+          "householdName": null,
+          "auditLog": [
+            {
+              "id": "<uuid>",
+              "date": "<timestamp>",
+              "user": "Ada Admin",
+              "action": "Created Request",
+              "notes": "Cash raise requested: 3100. Priority: Standard.",
+              "channel": "aoa"
+            }
+          ]
+        }
+      },
+      "changed": {
+        "users": [
+          "{\"id\":\"user:parity.admin@example.test\",\"name\":\"Ada Admin\",\"role\":\"advisor\",\"email\":\"parity.admin@example.test\",\"isActive\":false,\"provisioned\":true,\"slackUserId\":null}",
+          "{\"id\":\"user:parity.advisor2@example.test\",\"name\":\"Blake Parity\",\"role\":\"advisor\",\"email\":\"parity.advisor2@example.test\",\"isActive\":true,\"provisioned\":false,\"slackUserId\":null}",
+          "{\"id\":\"user:parity.advisor@example.test\",\"name\":\"Avery Parity\",\"role\":\"advisor\",\"email\":\"parity.advisor@example.test\",\"isActive\":true,\"provisioned\":false,\"slackUserId\":null}",
+          "{\"id\":\"user:parity.ops@example.test\",\"name\":\"Orin Parity\",\"role\":\"trader\",\"email\":\"parity.ops@example.test\",\"isActive\":true,\"provisioned\":false,\"slackUserId\":\"U0RRIIUZ4\"}"
+        ],
+        "requests": [
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.admin@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"3100\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a6\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"2500\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a1\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.ops@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":\"00000000-0000-4000-8000-000000000b01\",\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":\"NY\",\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Cash Deposit\",\"client_name\":\"Parity Client Two\",\"esg_filters\":{\"none\":true,\"other\":false,\"alcohol\":false,\"tobacco\":false,\"weapons\":false,\"gambling\":false,\"fossilFuels\":false,\"otherDescription\":\"\"},\"seedVersion\":false,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":\"10000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":\"PAR-ACCT-2\",\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a4\",\"account_metadata\":[{\"balance\":50000,\"accountId\":null,\"accountType\":\"Roth IRA\",\"accountNumber\":\"PAR-ACCT-2\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":false,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARAP001\",\"status\":\"Approved\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Rebalance\",\"client_name\":\"Parity Client Two\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"core\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI001\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI002\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI003\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor2@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARPR001\",\"status\":\"Pending Review\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"5000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}"
+        ],
+        "audit": [
+          "{\"notes\":\"An identical request was submitted again within the duplicate-detection window; no new request was created.\",\"action\":\"Duplicate Submission Suppressed\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Cash raise requested: 2500. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Cash raise requested: 3100. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.admin@example.test\",\"user_name\":\"Ada Admin\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Entire Account liquidation requested. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.ops@example.test\",\"user_name\":\"Orin Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Liquidation requested.\",\"action\":\"Created Request\",\"channel\":\"standalone\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}",
+          "{\"notes\":\"Risk Profile 12 applied.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}"
+        ]
+      }
+    },
+    {
+      "name": "create_accounts_data_missing",
+      "status": 400,
+      "body": {
+        "error": "Account data missing for: PAR-ACCT-9"
+      },
+      "changed": {}
+    },
+    {
+      "name": "resubmit_other_advisor",
+      "status": 403,
+      "body": {
+        "error": "You do not have access to this request"
+      },
+      "changed": {}
+    },
+    {
+      "name": "resubmit_stale",
+      "status": 409,
+      "body": {
+        "error": "Request was modified by another user. Please refresh and try again."
+      },
+      "changed": {}
+    },
+    {
+      "name": "resubmit_missing_version",
+      "status": 400,
+      "body": {
+        "error": "Validation failed",
+        "details": [
+          {
+            "code": "invalid_type",
+            "expected": "string",
+            "received": "undefined",
+            "path": [
+              "expectedUpdatedAt"
+            ],
+            "message": "Required"
+          }
+        ]
+      },
+      "changed": {}
+    },
+    {
+      "name": "resubmit_owner",
+      "status": 200,
+      "body": {
+        "data": {
+          "id": "REQ-PARNI001",
+          "clientId": "PARITY-C1",
+          "clientName": "Parity Client One",
+          "clientIds": [
+            "PARITY-C1"
+          ],
+          "clientNames": [
+            "Parity Client One"
+          ],
+          "advisor": "Rachel Moss",
+          "submittedBy": "Avery Parity",
+          "tradeType": "Liquidate",
+          "tradeAmount": "",
+          "depositAccount": "",
+          "rebalanceAll": false,
+          "status": "Pending Review",
+          "date": "<timestamp>",
+          "updatedAt": "<timestamp>",
+          "selectedAccounts": [
+            "PAR-ACCT-1"
+          ],
+          "totalValue": 250000.5,
+          "priority": "Urgent",
+          "advisorNotes": "now with detail",
+          "residence": "Other",
+          "liquidationApproval": "",
+          "advisorExclusions": "",
+          "clientExclusions": "",
+          "esgFilters": {
+            "fossilFuels": false,
+            "tobacco": false,
+            "weapons": false,
+            "alcohol": false,
+            "gambling": false,
+            "other": false,
+            "otherDescription": "",
+            "none": true
+          },
+          "riskProfile": null,
+          "baseAllocation": {
+            "equity": 0,
+            "fixed": 0,
+            "cash": 0
+          },
+          "equityStrategies": [],
+          "raiseCashReason": "",
+          "liquidityDeadline": null,
+          "liquidateOption": "Entire Account",
+          "liquidatePositions": "",
+          "executionPlan": [],
+          "accountMetadata": [
+            {
+              "balance": 250000.5,
+              "accountId": null,
+              "accountType": "Taxable",
+              "accountNumber": "PAR-ACCT-1"
+            }
+          ],
+          "assetLocationMode": "priority",
+          "householdId": null,
+          "householdName": null,
+          "auditLog": [
+            {
+              "id": "<uuid>",
+              "date": "<timestamp>",
+              "user": "Avery Parity",
+              "action": "Request Resubmitted",
+              "notes": "now with detail",
+              "channel": "aoa"
+            },
+            {
+              "id": "00000000-0000-4000-8000-000000000f01",
+              "date": "<timestamp>",
+              "user": "Avery Parity",
+              "action": "Created Request",
+              "notes": "Liquidation requested.",
+              "channel": "standalone"
+            }
+          ]
+        }
+      },
+      "changed": {
+        "requests": [
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.admin@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"3100\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a6\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"2500\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a1\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.ops@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":\"00000000-0000-4000-8000-000000000b01\",\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":\"NY\",\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Cash Deposit\",\"client_name\":\"Parity Client Two\",\"esg_filters\":{\"none\":true,\"other\":false,\"alcohol\":false,\"tobacco\":false,\"weapons\":false,\"gambling\":false,\"fossilFuels\":false,\"otherDescription\":\"\"},\"seedVersion\":false,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":\"10000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":\"PAR-ACCT-2\",\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a4\",\"account_metadata\":[{\"balance\":50000,\"accountId\":null,\"accountType\":\"Roth IRA\",\"accountNumber\":\"PAR-ACCT-2\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":false,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARAP001\",\"status\":\"Approved\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Rebalance\",\"client_name\":\"Parity Client Two\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"core\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI001\",\"status\":\"Pending Review\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"now with detail\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI002\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI003\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor2@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARPR001\",\"status\":\"Pending Review\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"5000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}"
+        ],
+        "audit": [
+          "{\"notes\":\"An identical request was submitted again within the duplicate-detection window; no new request was created.\",\"action\":\"Duplicate Submission Suppressed\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Cash raise requested: 2500. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Cash raise requested: 3100. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.admin@example.test\",\"user_name\":\"Ada Admin\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Entire Account liquidation requested. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.ops@example.test\",\"user_name\":\"Orin Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Liquidation requested.\",\"action\":\"Created Request\",\"channel\":\"standalone\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}",
+          "{\"notes\":\"Risk Profile 12 applied.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"now with detail\",\"action\":\"Request Resubmitted\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}"
+        ]
+      }
+    },
+    {
+      "name": "resubmit_not_needs_info",
+      "status": 409,
+      "body": {
+        "error": "Only requests in \"Needs Info\" status can be resubmitted."
+      },
+      "changed": {}
+    },
+    {
+      "name": "resubmit_trader_for_other",
+      "status": 200,
+      "body": {
+        "data": {
+          "id": "REQ-PARNI003",
+          "clientId": "PARITY-C1",
+          "clientName": "Parity Client One",
+          "clientIds": [
+            "PARITY-C1"
+          ],
+          "clientNames": [
+            "Parity Client One"
+          ],
+          "advisor": "Rachel Moss",
+          "submittedBy": "Blake Parity",
+          "tradeType": "Liquidate",
+          "tradeAmount": "",
+          "depositAccount": "",
+          "rebalanceAll": false,
+          "status": "Pending Review",
+          "date": "<timestamp>",
+          "updatedAt": "<timestamp>",
+          "selectedAccounts": [
+            "PAR-ACCT-1"
+          ],
+          "totalValue": 250000.5,
+          "priority": "Standard",
+          "advisorNotes": "",
+          "residence": "Other",
+          "liquidationApproval": "",
+          "advisorExclusions": "",
+          "clientExclusions": "",
+          "esgFilters": {
+            "fossilFuels": false,
+            "tobacco": false,
+            "weapons": false,
+            "alcohol": false,
+            "gambling": false,
+            "other": false,
+            "otherDescription": "",
+            "none": true
+          },
+          "riskProfile": null,
+          "baseAllocation": {
+            "equity": 0,
+            "fixed": 0,
+            "cash": 0
+          },
+          "equityStrategies": [],
+          "raiseCashReason": "",
+          "liquidityDeadline": null,
+          "liquidateOption": "Entire Account",
+          "liquidatePositions": "",
+          "executionPlan": [],
+          "accountMetadata": [
+            {
+              "balance": 250000.5,
+              "accountId": null,
+              "accountType": "Taxable",
+              "accountNumber": "PAR-ACCT-1"
+            }
+          ],
+          "assetLocationMode": "priority",
+          "householdId": null,
+          "householdName": null,
+          "auditLog": [
+            {
+              "id": "<uuid>",
+              "date": "<timestamp>",
+              "user": "Orin Parity",
+              "action": "Request Resubmitted",
+              "notes": "Advisor updated and resubmitted request.",
+              "channel": "aoa"
+            }
+          ]
+        }
+      },
+      "changed": {
+        "requests": [
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.admin@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"3100\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a6\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"2500\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a1\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.ops@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":\"00000000-0000-4000-8000-000000000b01\",\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":\"NY\",\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Cash Deposit\",\"client_name\":\"Parity Client Two\",\"esg_filters\":{\"none\":true,\"other\":false,\"alcohol\":false,\"tobacco\":false,\"weapons\":false,\"gambling\":false,\"fossilFuels\":false,\"otherDescription\":\"\"},\"seedVersion\":false,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":\"10000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":\"PAR-ACCT-2\",\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a4\",\"account_metadata\":[{\"balance\":50000,\"accountId\":null,\"accountType\":\"Roth IRA\",\"accountNumber\":\"PAR-ACCT-2\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":false,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARAP001\",\"status\":\"Approved\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Rebalance\",\"client_name\":\"Parity Client Two\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"core\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI001\",\"status\":\"Pending Review\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"now with detail\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI002\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI003\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor2@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARPR001\",\"status\":\"Pending Review\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"5000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}"
+        ],
+        "audit": [
+          "{\"notes\":\"Advisor updated and resubmitted request.\",\"action\":\"Request Resubmitted\",\"channel\":\"aoa\",\"user_id\":\"user:parity.ops@example.test\",\"user_name\":\"Orin Parity\",\"request_id\":\"REQ-PARNI003\"}",
+          "{\"notes\":\"An identical request was submitted again within the duplicate-detection window; no new request was created.\",\"action\":\"Duplicate Submission Suppressed\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Cash raise requested: 2500. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Cash raise requested: 3100. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.admin@example.test\",\"user_name\":\"Ada Admin\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Entire Account liquidation requested. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.ops@example.test\",\"user_name\":\"Orin Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Liquidation requested.\",\"action\":\"Created Request\",\"channel\":\"standalone\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}",
+          "{\"notes\":\"Risk Profile 12 applied.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"now with detail\",\"action\":\"Request Resubmitted\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}"
+        ]
+      }
+    },
+    {
+      "name": "status_advisor_refused",
+      "status": 403,
+      "body": {
+        "error": "Insufficient permissions"
+      },
+      "changed": {}
+    },
+    {
+      "name": "status_stale",
+      "status": 409,
+      "body": {
+        "error": "Request was modified by another user. Please refresh and try again."
+      },
+      "changed": {}
+    },
+    {
+      "name": "status_needs_info",
+      "status": 200,
+      "body": {
+        "data": {
+          "id": "REQ-PARPR001",
+          "clientId": "PARITY-C1",
+          "clientName": "Parity Client One",
+          "clientIds": [
+            "PARITY-C1"
+          ],
+          "clientNames": [
+            "Parity Client One"
+          ],
+          "advisor": "Rachel Moss",
+          "submittedBy": "Avery Parity",
+          "tradeType": "Raise Cash",
+          "tradeAmount": "5000",
+          "depositAccount": "",
+          "rebalanceAll": false,
+          "status": "Needs Info",
+          "date": "<timestamp>",
+          "updatedAt": "<timestamp>",
+          "selectedAccounts": [
+            "PAR-ACCT-1"
+          ],
+          "totalValue": 1000,
+          "priority": "Urgent",
+          "advisorNotes": "",
+          "residence": "Other",
+          "liquidationApproval": "",
+          "advisorExclusions": "",
+          "clientExclusions": "",
+          "esgFilters": {
+            "fossilFuels": false,
+            "tobacco": false,
+            "weapons": false,
+            "alcohol": false,
+            "gambling": false,
+            "other": false,
+            "otherDescription": "",
+            "none": true
+          },
+          "riskProfile": null,
+          "baseAllocation": {
+            "equity": 0,
+            "fixed": 0,
+            "cash": 0
+          },
+          "equityStrategies": [],
+          "raiseCashReason": "",
+          "liquidityDeadline": null,
+          "liquidateOption": "",
+          "liquidatePositions": "",
+          "executionPlan": [],
+          "assetLocationMode": "priority",
+          "householdId": null,
+          "householdName": null,
+          "auditLog": [
+            {
+              "id": "<uuid>",
+              "date": "<timestamp>",
+              "user": "Orin Parity",
+              "action": "Status changed to Needs Info",
+              "notes": "No additional notes.",
+              "channel": "aoa"
+            }
+          ]
+        }
+      },
+      "changed": {
+        "requests": [
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.admin@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"3100\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a6\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"2500\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a1\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.ops@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":\"00000000-0000-4000-8000-000000000b01\",\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":\"NY\",\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Cash Deposit\",\"client_name\":\"Parity Client Two\",\"esg_filters\":{\"none\":true,\"other\":false,\"alcohol\":false,\"tobacco\":false,\"weapons\":false,\"gambling\":false,\"fossilFuels\":false,\"otherDescription\":\"\"},\"seedVersion\":false,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":\"10000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":\"PAR-ACCT-2\",\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a4\",\"account_metadata\":[{\"balance\":50000,\"accountId\":null,\"accountType\":\"Roth IRA\",\"accountNumber\":\"PAR-ACCT-2\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":false,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARAP001\",\"status\":\"Approved\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Rebalance\",\"client_name\":\"Parity Client Two\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"core\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI001\",\"status\":\"Pending Review\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"now with detail\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI002\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI003\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor2@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARPR001\",\"status\":\"Needs Info\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"5000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}"
+        ],
+        "audit": [
+          "{\"notes\":\"Advisor updated and resubmitted request.\",\"action\":\"Request Resubmitted\",\"channel\":\"aoa\",\"user_id\":\"user:parity.ops@example.test\",\"user_name\":\"Orin Parity\",\"request_id\":\"REQ-PARNI003\"}",
+          "{\"notes\":\"An identical request was submitted again within the duplicate-detection window; no new request was created.\",\"action\":\"Duplicate Submission Suppressed\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Cash raise requested: 2500. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Cash raise requested: 3100. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.admin@example.test\",\"user_name\":\"Ada Admin\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Entire Account liquidation requested. Priority: Standard.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.ops@example.test\",\"user_name\":\"Orin Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"Liquidation requested.\",\"action\":\"Created Request\",\"channel\":\"standalone\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}",
+          "{\"notes\":\"No additional notes.\",\"action\":\"Status changed to Needs Info\",\"channel\":\"aoa\",\"user_id\":\"user:parity.ops@example.test\",\"user_name\":\"Orin Parity\",\"request_id\":\"REQ-PARPR001\"}",
+          "{\"notes\":\"Risk Profile 12 applied.\",\"action\":\"Created Request\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"<request>\"}",
+          "{\"notes\":\"now with detail\",\"action\":\"Request Resubmitted\",\"channel\":\"aoa\",\"user_id\":\"user:parity.advisor@example.test\",\"user_name\":\"Avery Parity\",\"request_id\":\"REQ-PARNI001\"}"
+        ]
+      }
+    },
+    {
+      "name": "status_decided",
+      "status": 409,
+      "body": {
+        "error": "Cannot modify a approved request."
+      },
+      "changed": {}
+    },
+    {
+      "name": "status_not_found",
+      "status": 404,
+      "body": {
+        "error": "Request REQ-PARMISS1 not found"
+      },
+      "changed": {}
+    },
+    {
+      "name": "status_invalid",
+      "status": 400,
+      "body": {
+        "error": "Validation failed",
+        "details": [
+          {
+            "received": "Done",
+            "code": "invalid_enum_value",
+            "options": [
+              "Pending Review",
+              "Needs Info",
+              "Pending Current Asset Liquidation",
+              "Approved",
+              "Rejected",
+              "Completed"
+            ],
+            "path": [
+              "status"
+            ],
+            "message": "Invalid enum value. Expected 'Pending Review' | 'Needs Info' | 'Pending Current Asset Liquidation' | 'Approved' | 'Rejected' | 'Completed', received 'Done'"
+          },
+          {
+            "code": "invalid_type",
+            "expected": "string",
+            "received": "undefined",
+            "path": [
+              "expectedUpdatedAt"
+            ],
+            "message": "Required"
+          }
+        ]
+      },
+      "changed": {}
+    },
+    {
+      "name": "checklist_advisor_refused",
+      "status": 403,
+      "body": {
+        "error": "Insufficient permissions"
+      },
+      "changed": {}
+    },
+    {
+      "name": "checklist_save",
+      "status": 200,
+      "body": {
+        "checklist": {
+          "templates": {
+            "at": "<timestamp>",
+            "by": "Orin Parity",
+            "value": "Model A",
+            "checked": true
+          }
+        }
+      },
+      "changed": {
+        "requests": [
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.admin@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"3100\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a6\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"2500\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a1\",\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":\"Tuition\",\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.ops@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":\"00000000-0000-4000-8000-000000000b01\",\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"<request>\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":\"NY\",\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Cash Deposit\",\"client_name\":\"Parity Client Two\",\"esg_filters\":{\"none\":true,\"other\":false,\"alcohol\":false,\"tobacco\":false,\"weapons\":false,\"gambling\":false,\"fossilFuels\":false,\"otherDescription\":\"\"},\"seedVersion\":false,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":\"10000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":\"PAR-ACCT-2\",\"idempotency_key\":\"00000000-0000-4000-8000-0000000000a4\",\"account_metadata\":[{\"balance\":50000,\"accountId\":null,\"accountType\":\"Roth IRA\",\"accountNumber\":\"PAR-ACCT-2\"}],\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":false,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARAP001\",\"status\":\"Approved\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C2\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C2\"],\"trade_type\":\"Rebalance\",\"client_name\":\"Parity Client Two\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":50000,\"client_names\":[\"Parity Client Two\"],\"household_id\":null,\"risk_profile\":12,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":{\"cash\":4.5,\"fixed\":34.5,\"equity\":61},\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":[{\"id\":1,\"benchmark\":\"SPY\",\"rationale\":\"core\",\"allocation\":100}],\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-2\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI001\",\"status\":\"Pending Review\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"now with detail\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARNI002\",\"status\":\"Needs Info\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":true,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":\"original notes\",\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":{\"templates\":{\"at\":\"<timestamp>\",\"by\":\"Orin Parity\",\"value\":\"Model A\",\"checked\":true}}}",
+          "{\"id\":\"REQ-PARNI003\",\"status\":\"Pending Review\",\"priority\":\"Standard\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor2@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Liquidate\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":250000.5,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":null,\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":[{\"balance\":250000.5,\"accountId\":null,\"accountType\":\"Taxable\",\"accountNumber\":\"PAR-ACCT-1\"}],\"liquidate_option\":\"Entire Account\",\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}",
+          "{\"id\":\"REQ-PARPR001\",\"status\":\"Needs Info\",\"priority\":\"Urgent\",\"client_id\":\"PARITY-C1\",\"residence\":null,\"advisor_id\":\"user:parity.advisor@example.test\",\"client_ids\":[\"PARITY-C1\"],\"trade_type\":\"Raise Cash\",\"client_name\":\"Parity Client One\",\"esg_filters\":null,\"seedVersion\":false,\"total_value\":1000,\"client_names\":[\"Parity Client One\"],\"household_id\":null,\"risk_profile\":null,\"trade_amount\":\"5000\",\"advisor_notes\":null,\"rebalance_all\":false,\"execution_plan\":null,\"household_name\":null,\"base_allocation\":null,\"deposit_account\":null,\"idempotency_key\":null,\"account_metadata\":null,\"liquidate_option\":null,\"client_exclusions\":null,\"equity_strategies\":null,\"raise_cash_reason\":null,\"selected_accounts\":[\"PAR-ACCT-1\"],\"advisor_exclusions\":null,\"liquidity_deadline\":null,\"asset_location_mode\":\"priority\",\"liquidate_positions\":null,\"liquidation_approval\":null,\"preapproval_checklist\":null}"
+        ]
+      }
+    },
+    {
+      "name": "checklist_locked",
+      "status": 409,
+      "body": {
+        "error": "Checklist is locked — the request has already been decided."
+      },
+      "changed": {}
+    },
+    {
+      "name": "checklist_invalid_key",
+      "status": 400,
+      "body": {
+        "error": "Validation failed"
+      },
+      "changed": {}
+    },
+    {
+      "name": "checklist_not_found",
+      "status": 404,
+      "body": {
+        "error": "Request REQ-PARMISS1 not found"
+      },
+      "changed": {}
+    },
+    {
+      "name": "exclusions_client_batch",
+      "status": 200,
+      "body": {
+        "data": {
+          "exclusions": [
+            {
+              "id": "<uuid>",
+              "clientId": "PARITY-C1",
+              "ticker": "NVDA",
+              "kind": "client",
+              "reason": "Concentration",
+              "noBuy": true,
+              "noSell": false,
+              "createdByName": "Avery Parity",
+              "createdAt": "<timestamp>"
+            },
+            {
+              "id": "00000000-0000-4000-8000-000000000c01",
+              "clientId": "PARITY-C1",
+              "ticker": "TSLA",
+              "kind": "client",
+              "reason": "Values",
+              "noBuy": true,
+              "noSell": true,
+              "createdByName": "Avery Parity",
+              "createdAt": "<timestamp>"
+            }
+          ],
+          "added": 1,
+          "removed": 1,
+          "edited": 1
+        }
+      },
+      "changed": {
+        "clientExclusions": [
+          "{\"id\":\"00000000-0000-4000-8000-000000000c01\",\"kind\":\"client\",\"no_buy\":true,\"reason\":\"Values\",\"ticker\":\"TSLA\",\"no_sell\":true,\"client_id\":\"PARITY-C1\",\"created_by\":\"user:parity.advisor@example.test\",\"created_by_name\":\"Avery Parity\"}",
+          "{\"id\":\"<uuid>\",\"kind\":\"client\",\"no_buy\":true,\"reason\":\"Concentration\",\"ticker\":\"NVDA\",\"no_sell\":false,\"client_id\":\"PARITY-C1\",\"created_by\":\"user:parity.advisor@example.test\",\"created_by_name\":\"Avery Parity\"}"
+        ]
+      }
+    },
+    {
+      "name": "exclusions_client_duplicate_add",
+      "status": 409,
+      "body": {
+        "error": "TSLA is already on the client exclusion list for this client."
+      },
+      "changed": {}
+    },
+    {
+      "name": "exclusions_client_missing_remove",
+      "status": 404,
+      "body": {
+        "error": "Exclusion 00000000-0000-4000-8000-000000000c99 not found for this client"
+      },
+      "changed": {}
+    },
+    {
+      "name": "exclusions_client_noop_edit",
+      "status": 200,
+      "body": {
+        "data": {
+          "exclusions": [
+            {
+              "id": "<uuid>",
+              "clientId": "PARITY-C1",
+              "ticker": "NVDA",
+              "kind": "client",
+              "reason": "Concentration",
+              "noBuy": true,
+              "noSell": false,
+              "createdByName": "Avery Parity",
+              "createdAt": "<timestamp>"
+            },
+            {
+              "id": "00000000-0000-4000-8000-000000000c01",
+              "clientId": "PARITY-C1",
+              "ticker": "TSLA",
+              "kind": "client",
+              "reason": "Values",
+              "noBuy": true,
+              "noSell": true,
+              "createdByName": "Avery Parity",
+              "createdAt": "<timestamp>"
+            }
+          ],
+          "added": 0,
+          "removed": 0,
+          "edited": 0
+        }
+      },
+      "changed": {}
+    },
+    {
+      "name": "exclusions_account_batch",
+      "status": 200,
+      "body": {
+        "data": {
+          "exclusions": [
+            {
+              "id": "<uuid>",
+              "accountId": "PAR-ULID-1",
+              "ticker": "MSFT",
+              "kind": "advisor",
+              "reason": "",
+              "noBuy": false,
+              "noSell": true,
+              "createdByName": "Orin Parity",
+              "createdAt": "<timestamp>"
+            }
+          ],
+          "added": 1,
+          "removed": 1,
+          "edited": 0
+        }
+      },
+      "changed": {
+        "accountExclusions": [
+          "{\"id\":\"<uuid>\",\"kind\":\"advisor\",\"no_buy\":false,\"reason\":\"\",\"ticker\":\"MSFT\",\"no_sell\":true,\"account_id\":\"PAR-ULID-1\",\"created_by\":\"user:parity.ops@example.test\",\"created_by_name\":\"Orin Parity\"}"
+        ]
+      }
+    },
+    {
+      "name": "exclusions_invalid_empty",
+      "status": 400,
+      "body": {
+        "error": "Validation failed",
+        "details": [
+          {
+            "code": "custom",
+            "message": "Batch must contain at least one add, remove, or edit",
+            "path": []
+          }
+        ]
+      },
+      "changed": {}
+    },
+    {
+      "name": "notification_read_own",
+      "status": 204,
+      "body": null,
+      "changed": {
+        "seededNotifications": [
+          "{\"id\":\"00000000-0000-4000-8000-000000000e01\",\"read\":true}",
+          "{\"id\":\"00000000-0000-4000-8000-000000000e02\",\"read\":false}",
+          "{\"id\":\"00000000-0000-4000-8000-000000000e03\",\"read\":false}"
+        ]
+      }
+    },
+    {
+      "name": "notification_read_again",
+      "status": 204,
+      "body": null,
+      "changed": {}
+    },
+    {
+      "name": "notification_read_other_user",
+      "status": 404,
+      "body": {
+        "error": "Notification not found"
+      },
+      "changed": {}
+    },
+    {
+      "name": "notification_read_all",
+      "status": 204,
+      "body": null,
+      "changed": {
+        "seededNotifications": [
+          "{\"id\":\"00000000-0000-4000-8000-000000000e01\",\"read\":true}",
+          "{\"id\":\"00000000-0000-4000-8000-000000000e02\",\"read\":true}",
+          "{\"id\":\"00000000-0000-4000-8000-000000000e03\",\"read\":false}"
+        ]
+      }
+    }
+  ]
+}

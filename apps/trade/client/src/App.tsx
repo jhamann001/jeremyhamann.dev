@@ -78,7 +78,7 @@ export default function App() {
 
 const FROZEN_BANNER = 'Trade Requests is briefly read-only while it is being moved — try again in a few minutes.';
 const MCP_ONLY_BANNER =
-  'Trade Requests has moved to Ops Portal. Only MCP and Connected Apps remain on this site.';
+  'Trade Requests has moved to the advisor platform. Only MCP and Connected Apps remain on this site.';
 
 // The server enforces the service mode (ticket); this only chooses what to show.
 function ModeAwareApp({ user }: { user: AuthUser }) {

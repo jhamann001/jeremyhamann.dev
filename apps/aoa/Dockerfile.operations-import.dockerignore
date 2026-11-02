@@ -1,0 +1,34 @@
+# Deny the complete context first. Only the exact importer implementation,
+# dependency lock and schema ledger may reach the image builder. In particular,
+# no source CSV/JSON export, dotfile, credential or developer artifact is sent.
+**
+!package.json
+!package-lock.json
+!tsconfig.json
+!Dockerfile.operations-import
+!Dockerfile.operations-import.dockerignore
+!prisma/
+!prisma/schema.prisma
+!prisma/migrations/
+!prisma/migrations/migration_lock.toml
+!prisma/migrations/*/
+!prisma/migrations/*/migration.sql
+!scripts/
+!scripts/import-legacy-operations.ts
+!scripts/import-legacy-operations-job.ts
+!lib/
+!lib/operations/
+!lib/operations/legacy-import.ts
+!lib/operations/legacy-import-engine.ts
+!lib/operations/legacy-import-target.ts
+!lib/operations/legacy-import-preflight.ts
+!lib/operations/legacy-import-approval.ts
+!lib/operations/legacy-import-job-policy.ts
+!lib/operations/legacy-import-job-runtime.ts
+!lib/deals/
+!lib/deals/import-csv.ts
+!lib/deals/parse-deal-name.ts
+!lib/data/
+!lib/data/deal-types.ts
+!lib/data/deal-validate.ts
+!lib/data/client-field-authz.ts

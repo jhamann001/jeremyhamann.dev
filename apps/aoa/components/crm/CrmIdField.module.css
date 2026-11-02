@@ -1,0 +1,28 @@
+.row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.value {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.link {
+  color: var(--muted);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--green);
+  text-decoration: underline;
+}

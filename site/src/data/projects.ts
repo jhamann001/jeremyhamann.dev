@@ -1,5 +1,7 @@
-// Case-study content for the four demos. `status` flips to 'live' as each demo ships, and a live demo
-// gets screenshots: `hero` replaces the preview sketch, `gallery` adds an "In the app" section.
+// Case-study content for the five demos. `status` flips to 'live' as each demo ships, and a live demo
+// gets screenshots: `hero` replaces the preview sketch, `gallery` adds an "In the app" section. The lead
+// project (`lead`) gets the full-width card and opens its case study with its build numbers; the apps that
+// also run inside it (`inside`) say so on their cards.
 
 import { screen, type Screen } from './screens';
 
@@ -26,11 +28,101 @@ export interface Project {
   demo: string;
   hero?: Screen;
   gallery?: Screen[];
+  /** The lead project: the full-width card at the top, with the apps that feed into it. */
+  lead?: boolean;
+  /** Counted from the production repository, shown first in the case study. */
+  numbers?: [string, string][];
+  /** The lead project's slug, for an app that also runs inside it. */
+  inside?: string;
 }
 
 export const DOMAIN = 'jeremyhamann.dev';
 
 export const projects: Project[] = [
+  {
+    slug: 'always-on-advice',
+    name: 'Always-On-Advice',
+    kicker: 'Advisor platform',
+    color: 'var(--advice)',
+    icon: 'layout-dashboard',
+    host: 'aoa',
+    status: 'live',
+    lead: true,
+    card: 'The firm’s platform for client work, from the deal to the funded account: households, account transfers, the ACAT book, statement-based asset mapping, trade requests and closeout, with row-level security for each role. Three of the apps below run inside it.',
+    production: 'the firm’s operations platform since July 1: 360 production deploys and 1,146 merged pull requests in four months.',
+    summary:
+      'One platform for an advisory firm’s client work: households and deals, account transfers from the client’s statement to funded accounts, the ACAT book, statement-based asset mapping, trade requests and the closeout checklist, each role seeing only what it should. The Transfer Tracker, the Statement Analyzer and Trade Request feed into it.',
+    stack: ['Next.js', 'TypeScript', 'Prisma', 'Postgres', 'Auth.js', 'Terraform'],
+    meta: [
+      ['Role', 'Design, engineering, rollout'],
+      ['Users', 'Advisors, client service, operations, admins'],
+      ['Stack', 'Next.js · Prisma · Postgres · Google Cloud'],
+    ],
+    numbers: [
+      ['Four months', 'June 29 to October 29, 2026'],
+      ['1,146', 'merged pull requests, 1,087 of them mine'],
+      ['360', 'production deploys, plus 671 to dev and 2,500+ green CI runs'],
+      ['137', 'database migrations: 77 models, 5 schemas, about 350 row-level-security policies, 45 triggers'],
+      ['62 pages', '88 API routes and about 180,000 lines of TypeScript'],
+      ['918', 'test files, about 170,000 lines, and 64 browser specs'],
+    ],
+    problem:
+      'A household’s story was spread across the CRM, a transfer spreadsheet, the custodian’s portal, chat threads and a handful of single-purpose tools. Nobody could see one client from the signed deal to the funded account in one place, and every hand-off between tools was a chance to lose a detail.',
+    built: [
+      'A household and client directory over the CRM’s records, with each client’s accounts, AUM, beneficiaries and held-away accounts on one Client Portrait.',
+      'A funding pipeline of deals that opens the account transfer when a deal commits, so a transfer starts from the sale instead of a re-keyed form.',
+      'Asset Transfer: a board from decision to funded, a funding plan built from the client’s statement, gates that hold a transfer until its checklist and paperwork are done, and archive instead of delete.',
+      'The ACAT book, read live from the Transfer Tracker with its fees and position reconciliation, and the custodian library, which this platform owns and pushes to the tracker.',
+      'Asset Mapping: the Statement Analyzer’s results for each household, reviewed here and linked to the client and transfer they belong to.',
+      'Trade Requests built into the platform: the queue, approvals and audit trail, and each client’s risk score and instructions drawn from approved requests.',
+      'A Slack closeout checklist while a transfer is in flight, with its status coming back to the transfer.',
+      'Command Center, search across the whole app, a central review queue, data-health checks, and an audit log of business events and every field change on deals and transfers.',
+    ],
+    decisions: [
+      ['Row-level security, not screen checks', 'Every query runs as a database role with the user’s role and book set on the connection, so a new screen can’t show an advisor another advisor’s client. About 350 policies, with tests that read as each role.'],
+      ['Read the other apps, don’t copy them', 'The ACAT book comes from the Transfer Tracker when it’s viewed, and only the links between records are stored here. Each fact has one system that owns it.'],
+      ['Audit in two layers', 'The app records each business event, and database triggers record every field change on deals and transfers, so the trail doesn’t depend on remembering to log.'],
+      ['Move the backend last', 'Trade Requests’ screens are native here, and its records were copied into this database with a backend that can serve them. In production that switch is still off and the standalone service answers; the demo runs it switched on.'],
+    ],
+    arch: [
+      ['Staff', 'browser · company sign-in'],
+      ['Next.js app', 'Cloud Run · a role per user'],
+      ['Postgres', 'row-level security · audit triggers'],
+      ['Connected apps', 'tracker · statements · trades'],
+    ],
+    demo: 'The demo runs the production app’s code on a fictional firm, with company sign-in replaced by four staff personas: an advisor with her own book, client service, operations and an admin. The Transfer Tracker, the statement pipeline and the data warehouse are replaced by stand-ins that answer in their real formats inside the container, calls to Google are refused, and each household, transfer, statement and trade request links to the same record in the other live demos. Trade Requests runs on its in-app backend here, which in production is still switched off. Slack closeout checklists, trade-request messages and operations alerts land in an in-app Outbox instead of being sent. Uploads are off, and a sample statement stands in. Dual-View, which never ran in production, is on for the showcase households and says so. The data resets daily at 07:00 UTC.',
+    hero: screen(
+      'advice-transfer',
+      'Kofi Okafor’s account transfer in the Operations view: $412,880 moving from Edward Jones to a joint account at Apex, its funding plan from the statement, the transfer at stage 2 of 3, and a link to the same transfer in the Transfer Tracker demo.',
+    ),
+    gallery: [
+      screen(
+        'advice-command-center',
+        'Command Center as the advisor: the transfer pipeline by stage, this week’s meetings, stalled work and recent client signals.',
+        'Command Center. The pipeline, the week’s meetings and what has stalled, for whoever is signed in.',
+      ),
+      screen(
+        'advice-portrait',
+        'Kofi Okafor’s Client Portrait: the household and his AUM, his joint account at Apex with its cash and securities, and the account’s beneficiaries.',
+        'The Client Portrait. Accounts, AUM, beneficiaries and held-away accounts on one page, within the advisor’s book.',
+      ),
+      screen(
+        'advice-asset-map',
+        'The Okafor household in Asset Mapping: twelve positions from one statement, ten eligible for ACAT, the rule that routed each, and a link to the Statement Analyzer demo.',
+        'Asset Mapping. The Statement Analyzer’s results, reviewed here and linked to the client and transfer.',
+      ),
+      screen(
+        'advice-acat',
+        'The ACAT book: transfers grouped by status, with the delivering firm, control number, statement amount, days open and reconciliation state, and a link to the full tracker.',
+        'The ACAT book, read live from the Transfer Tracker.',
+      ),
+      screen(
+        'advice-trade',
+        'Kofi and Ada Okafor’s rebalance request under review: its status, advisor, the joint account and its value, the client’s risk score, and a link to the same request in the Trade Request demo.',
+        'A trade request reviewed inside the platform. Once approved, it sets the account’s investment profile when a person confirms it.',
+      ),
+    ],
+  },
   {
     slug: 'help-desk',
     name: 'WM Help Desk',
@@ -102,6 +194,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'trade-request',
+    inside: 'always-on-advice',
     name: 'Trade Request',
     kicker: 'Trading workflow',
     color: 'var(--trade)',
@@ -166,6 +259,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'transfer-tracker',
+    inside: 'always-on-advice',
     name: 'Transfer Tracker',
     kicker: 'Account transfers',
     color: 'var(--xfer)',
@@ -236,6 +330,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'statement-analyzer',
+    inside: 'always-on-advice',
     name: 'Statement Analyzer',
     kicker: 'Document processing',
     color: 'var(--stmt)',

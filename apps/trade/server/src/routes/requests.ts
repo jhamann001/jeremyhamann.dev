@@ -58,7 +58,7 @@ async function resolveStableAccountIdsForPersistence(
   } catch {
     // Request creation remains available if the legacy metadata enrichment is
     // temporarily down. The machine endpoint retries this same resolution when
-    // Ops Portal reads the request and reports an unresolved account instead of guessing.
+    // The advisor platform reads the request and reports an unresolved account instead of guessing.
     logger.warn(
       { event: 'request_account_id_persistence_failed', accountCount: accounts.length },
       'Stable account id persistence failed',
@@ -292,7 +292,7 @@ const isoTimestamp = z.string().refine((val) => !isNaN(new Date(val).getTime()),
   message: 'expectedUpdatedAt must be a valid ISO timestamp',
 });
 
-// Resubmission's optimistic-concurrency token. Required on the Ops Portal
+// Resubmission's optimistic-concurrency token. Required on the advisor platform
 // channel; optional on standalone sessions, whose client does not send it.
 const delegatedResubmitConcurrencySchema = z.object({ expectedUpdatedAt: isoTimestamp });
 const sessionResubmitConcurrencySchema = z.object({ expectedUpdatedAt: isoTimestamp.optional() });

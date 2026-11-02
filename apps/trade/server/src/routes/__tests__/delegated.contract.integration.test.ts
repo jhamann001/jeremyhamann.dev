@@ -1,5 +1,5 @@
-// Direct-service contract tests for the Ops Portal delegated surface (/api/ops-portal),
-// called the way Ops Portal calls it, once per Ops Portal role, against a real Postgres with
+// Direct-service contract tests for the advisor platform delegated surface (/api/ops-portal),
+// called the way the advisor platform calls it, once per advisor platform role, against a real Postgres with
 // migrations applied (TRW-01: epic AC-14, AC-26, AC-27, AC-67, AC-68).
 //
 // Tokens are signed in local mode (HS256, OPS_PORTAL_DELEGATED_LOCAL_KEY), which runs
@@ -159,7 +159,7 @@ describe.skipIf(!DATABASE_URL)('OPS_PORTAL delegated surface — direct-service 
     await cleanup();
     // Existing roster records: ADVISOR_B's row is stored with mixed case to prove
     // case-insensitive matching; OPS is deliberately on the roster as an advisor
-    // to prove the Ops Portal role, not the roster role, decides authority (D1).
+    // to prove the advisor platform role, not the roster role, decides authority (D1).
     await pool.query(
       `INSERT INTO users (email, name, role, is_active) VALUES
          ($1, $4, 'advisor', true), ('Trw01.Advisor.B@example.com', $5, 'advisor', true),
@@ -270,7 +270,7 @@ describe.skipIf(!DATABASE_URL)('OPS_PORTAL delegated surface — direct-service 
   });
 
   describe('AC-27 — a role change applies to the next request', () => {
-    it('refuses then admits the same person as their Ops Portal role changes', async () => {
+    it('refuses then admits the same person as their advisor platform role changes', async () => {
       const first = await request(app)
         .put(`/api/ops-portal/requests/${PENDING}/status`)
         .set(await headers(ADVISOR_A, 'ADVISOR'))
@@ -395,7 +395,7 @@ describe.skipIf(!DATABASE_URL)('OPS_PORTAL delegated surface — direct-service 
   });
 
   describe('person identity', () => {
-    it('records an Ops Portal person without a roster record as an inactive shadow actor, once', async () => {
+    it('records an advisor platform person without a roster record as an inactive shadow actor, once', async () => {
       for (let i = 0; i < 2; i++) {
         const res = await request(app)
           .get('/api/ops-portal/notifications')

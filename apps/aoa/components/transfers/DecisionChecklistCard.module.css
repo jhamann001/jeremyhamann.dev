@@ -1,0 +1,116 @@
+/* DecisionChecklistCard (ticket Slice 2) — tokens only, both themes.
+   Mirrors ReceivingAccountsCard's marker/row idiom. */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.error {
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: var(--red);
+  background: var(--red-soft);
+  border: 1px solid var(--red);
+  border-radius: var(--radius-sm);
+}
+
+.funding {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fundingLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--faint);
+}
+
+.select {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+}
+
+.fundingValue {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.eta {
+  flex: 0 0 auto;
+  font-size: 11px;
+  color: var(--faint);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.markerDone,
+.markerDraft,
+.markerTodo {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 11px;
+  border: 1px solid var(--line-2);
+}
+.markerDone {
+  border-color: var(--green-line);
+  background: var(--green-soft);
+  color: var(--green);
+}
+.markerTodo {
+  color: var(--faint);
+  background: var(--panel);
+}
+
+.markerDraft {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  color: var(--gold);
+}
+
+.text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--faint);
+}

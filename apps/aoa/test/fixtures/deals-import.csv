@@ -1,0 +1,9 @@
+Deal: ID,Deal: Deal Name,Person: First Name,Person: Last Name,Person: Primary Entity,Household SF ID (Person: Entity ID),AUM,AoA - New Stage,Stage,Deal: Created Date,Close Date,Deal: Last Activity Date,Person: Entity Owner,Owner SF User ID,Person: Secondary Owner,Person: AUM,Person: Potential AUM,Person: Cedar Ridge User ID,Statements,Plaid Linked
+FIX-0001,Jordan Sample - Fidelity - Roth IRA - 1234,Jordan,Sample,Sample Household,001FIX0000000001,"$125,000.00",Potential,Open,2026-05-01,2026-08-01,,Avery Stone,ADV-AVERY,,900000,150000,EU-FIX-1,Yes,No
+FIX-0002,[Pending Client Signature] Riley Example - Vanguard - Traditional IRA - 8842,Riley,Example,Example Family,001FIX0000000002,64000,Committed,Open,6/15/2026,2026-09-15,,Gwen Kuhlman,ADV-BLAKE,Avery Stone,,,EU-FIX-2,Yes,No
+FIX-0003,Casey Mock - Schwab - Roth IRA - $TBD,Casey,Mock,Mock Household,001FIX0000000003,47500,Potential,Open,2026-06-10,,,Avery Stone,ADV-AVERY,,,,EU-FIX-3,Yes,No
+FIX-0004,Drew Placeholder - Empower - 401(k) Rollover,Drew,Placeholder,Placeholder Family,001FIX0000000004,310000,Funding,Open,2026-04-08,2026-07-05,2026-06-28,Gwen Kuhlman,ADV-BLAKE,,2100000,,EU-FIX-4,Yes,No
+FIX-0005,Household consolidation,Sky,Invented,Invented Household,001FIX0000000005,88000,Won,Closed Won,2026-03-01,2026-04-22,,Avery Stone,ADV-AVERY,,,,EU-FIX-5,No,No
+FIX-0006,Abdullah Beahan - Roth IRA - 4482,Abdullah,Beahan,Beahan Family,001FIX0000000006,54000,Lost,Closed Lost,2026-02-25,2026-04-10,,,,,,,EU-FIX-6,Yes,No
+FIX-0007,Claire Kirlin - Betterment - Individual - 6633,Alex,Kirlin,Kirlin Household,001FIX0000000007,205000,Won,Closed Won,2026-04-02,2026-06-12,,Gwen Kuhlman,ADV-BLAKE,Avery Stone,,,,Yes,No
+FIX-0008,Abigale Beer - Pershing - Inherited IRA - x7710,Abigale,Beer,Beer Family,001FIX0000000008,61000,Lost,Closed Lost,2026-03-09,2026-04-28,,Unassigned,,,,,EU-FIX-8,Yes,No

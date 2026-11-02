@@ -1,0 +1,68 @@
+/* Primary route pills; the lighter Portrait pills live in NavigationTabs.
+   Theme tokens keep the selected fill legible in light and dark mode. */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  gap: 8px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  white-space: nowrap;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 10px 20px;
+  background: var(--panel);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--ink-2);
+  text-decoration: none;
+  box-shadow: 0 1px 2px var(--green-soft);
+  transition: color 0.15s ease, background-color 0.15s ease,
+    border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.tab.active {
+  color: var(--panel);
+  background: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 2px 5px var(--green-line);
+}
+@media (hover: hover) {
+  .tab:hover {
+    color: var(--green);
+    background: var(--green-soft);
+    border-color: var(--green-line);
+    transform: translateY(-1px);
+  }
+  .tab.active:hover {
+    color: var(--panel);
+    background: var(--green-2);
+    border-color: var(--green-2);
+  }
+}
+.tab:active {
+  transform: translateY(0);
+}
+.tab:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+@media (max-width: 640px) {
+  .tab {
+    padding-inline: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab,
+  .tab:hover,
+  .tab:active {
+    transition: none;
+    transform: none;
+  }
+}

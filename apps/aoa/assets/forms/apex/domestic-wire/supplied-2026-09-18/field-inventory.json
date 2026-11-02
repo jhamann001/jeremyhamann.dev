@@ -1,0 +1,332 @@
+[
+  {
+    "field_id": "Logo Placement_af_image",
+    "type": "checkbox",
+    "page": 1,
+    "rect": [
+      35.2025,
+      710.157,
+      233.202,
+      764.157
+    ]
+  },
+  {
+    "field_id": "DATE",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      76.92,
+      673.56,
+      160.92,
+      687.96
+    ]
+  },
+  {
+    "field_id": "WIRE AMOUNT",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.48,
+      673.56,
+      358.92,
+      687.96
+    ]
+  },
+  {
+    "field_id": "APEX ACCOUNT NO",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      457.2,
+      673.56,
+      574.92,
+      687.96
+    ]
+  },
+  {
+    "field_id": "Bank Routing Transfer No",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.6,
+      624,
+      574.8,
+      639
+    ]
+  },
+  {
+    "field_id": "Bank Name Required",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.48,
+      608.28,
+      574.92,
+      622.68
+    ]
+  },
+  {
+    "field_id": "Beneficiary Address City State Zip Country Required",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.96,
+      573,
+      574.44,
+      606.627
+    ]
+  },
+  {
+    "field_id": "Account No",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.6,
+      556.56,
+      574.8,
+      571.56
+    ]
+  },
+  {
+    "field_id": "For Credit To",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.6,
+      540,
+      574.8,
+      555
+    ]
+  },
+  {
+    "field_id": "BeneficiaryRecipientFor Further Credit to Name",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.6,
+      501.72,
+      574.8,
+      516.84
+    ]
+  },
+  {
+    "field_id": "Beneficiary Account No",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.6,
+      485.28,
+      574.8,
+      500.28
+    ]
+  },
+  {
+    "field_id": "Beneficiary Address City State Zip Country Required_2",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.96,
+      450.72,
+      574.44,
+      483.284
+    ]
+  },
+  {
+    "field_id": "Correspondent Bank ABA",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.48,
+      405,
+      574.92,
+      419.4
+    ]
+  },
+  {
+    "field_id": "Bank Name Required_2",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.6,
+      388.56,
+      574.8,
+      403.56
+    ]
+  },
+  {
+    "field_id": "Beneficiary Bank Address City State Zip Country Required",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.96,
+      353.28,
+      574.44,
+      386.825
+    ]
+  },
+  {
+    "field_id": "Reason for Transfer",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      243.6,
+      315,
+      574.8,
+      330
+    ]
+  },
+  {
+    "field_id": "Customer Signature",
+    "type": "unknown (/Sig)",
+    "page": 1,
+    "rect": [
+      41.5158,
+      286.915,
+      330.232,
+      305.734
+    ]
+  },
+  {
+    "field_id": "Joint Account Holder",
+    "type": "unknown (/Sig)",
+    "page": 1,
+    "rect": [
+      338.964,
+      286.851,
+      572.883,
+      305.696
+    ]
+  },
+  {
+    "field_id": "IAA Date",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      529.685,
+      184.798,
+      573.066,
+      203.619
+    ]
+  },
+  {
+    "field_id": "IAA Print Name",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      41.3326,
+      184.747,
+      207.152,
+      203.568
+    ]
+  },
+  {
+    "field_id": "IAA Title",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      209.932,
+      184.747,
+      352.897,
+      203.568
+    ]
+  },
+  {
+    "field_id": "IAA Signature",
+    "type": "unknown (/Sig)",
+    "page": 1,
+    "rect": [
+      356.384,
+      184.747,
+      526.218,
+      203.566
+    ]
+  },
+  {
+    "field_id": "Date",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      529.477,
+      115.806,
+      572.858,
+      134.627
+    ]
+  },
+  {
+    "field_id": "Print Name",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      41.124,
+      115.755,
+      206.944,
+      134.576
+    ]
+  },
+  {
+    "field_id": "Title",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      209.724,
+      115.755,
+      352.689,
+      134.576
+    ]
+  },
+  {
+    "field_id": "Signature",
+    "type": "unknown (/Sig)",
+    "page": 1,
+    "rect": [
+      356.176,
+      115.755,
+      526.01,
+      134.574
+    ]
+  },
+  {
+    "field_id": "COA/RPA Date",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      529.893,
+      59.6138,
+      573.275,
+      78.4348
+    ]
+  },
+  {
+    "field_id": "COA/RPA Print Name",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      41.5407,
+      59.5632,
+      207.36,
+      78.3843
+    ]
+  },
+  {
+    "field_id": "COA/RPA Title",
+    "type": "text",
+    "page": 1,
+    "rect": [
+      210.141,
+      59.5632,
+      353.105,
+      78.3842
+    ]
+  },
+  {
+    "field_id": "COA/RPA Signature",
+    "type": "unknown (/Sig)",
+    "page": 1,
+    "rect": [
+      356.502,
+      59.5582,
+      525.974,
+      78.3772
+    ]
+  }
+]

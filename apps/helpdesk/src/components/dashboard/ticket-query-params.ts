@@ -64,7 +64,7 @@ export function ticketQueryToParams(q: TicketListQuery, opts: TicketQueryParamOp
   if (q.createdTo !== undefined && q.createdTo.length > 0) p.set("createdTo", q.createdTo);
   const requesterEmail = q.requesterEmail?.trim() ?? "";
   if (requesterEmail.length > 0) p.set("requesterEmail", requesterEmail.toLowerCase());
-  // The opaque form of the same filter, and the one the ticket header prefers: an Ops Portal person pointer
+  // The opaque form of the same filter, and the one the ticket header prefers: an advisor platform person pointer
   // is safe in a URL, an access log and browser history; a client's address is not.
   const requesterExternalId = q.requesterExternalId?.trim() ?? "";
   if (requesterExternalId.length > 0) p.set("requesterExternalId", requesterExternalId);

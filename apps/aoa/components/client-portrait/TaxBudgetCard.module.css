@@ -1,0 +1,135 @@
+.figures {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-bottom: 13px;
+}
+.figureLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.figure {
+  font-size: 22px;
+  font-weight: 700;
+}
+.okFigure {
+  color: var(--green);
+}
+.overFigure {
+  color: var(--red);
+}
+.bar {
+  height: 10px;
+  border-radius: 6px;
+  background: var(--input-bg);
+  overflow: hidden;
+  margin-bottom: 9px;
+}
+.barFill {
+  height: 100%;
+  border-radius: 6px;
+}
+.green {
+  background: var(--green);
+}
+.amber {
+  background: var(--amber);
+}
+.red {
+  background: var(--red);
+}
+.note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.hint {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.emptyCopy {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.fields {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 11px;
+}
+.field {
+  flex: 1;
+  min-width: 150px;
+}
+.label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.input {
+  width: 100%;
+  padding: 8px 11px;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  background: var(--input-bg);
+  color: var(--ink);
+  font-size: 13px;
+  font-family: inherit;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 11px;
+}
+.error {
+  margin-top: 10px;
+  color: var(--red);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.staleCard {
+  border-color: var(--amber);
+}
+.staleBox {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  background: var(--amber-soft);
+  border-radius: var(--radius-sm);
+  padding: 13px 15px;
+}
+.staleMain {
+  flex: 1;
+  min-width: 220px;
+}
+.staleTitle {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+.staleCopy {
+  margin: 3px 0 6px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+.staleActions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex-shrink: 0;
+}

@@ -3,6 +3,7 @@ import { FileText, ListChecks, Activity } from 'lucide-react';
 import { PortfolioLink } from './PortfolioLink';
 import { useAuth } from '../contexts/AuthContext';
 import { fetchAppConfig, fetchSignInOptions, signInAsPersona, extractApiError, type Persona, type SignInOptions } from '../api/client';
+import { signInReturnPath } from '../utils/signInPath';
 
 const FEATURES = [
   { icon: FileText, label: 'Trade request tickets', color: 'green' },
@@ -199,7 +200,7 @@ export function LoginPage() {
     setPersonaError(null);
     try {
       const { redirect } = await signInAsPersona(persona.email, mcpState);
-      window.location.href = redirect ?? '/';
+      window.location.href = redirect ?? signInReturnPath();
     } catch (err) {
       if (!mountedRef.current) return;
       setPersonaError(extractApiError(err, 'Sign-in failed. Please try again.'));

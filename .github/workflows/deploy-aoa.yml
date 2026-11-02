@@ -1,0 +1,152 @@
+# Deploys the advisor platform demo to aoa.jeremyhamann.dev: migrates the database as its owner, gives the app's
+# logins their passwords (derived from the owner's, so they are the same every deploy and the running container keeps
+# working until it is replaced), builds the app's image, deploys the Worker and rolls out the container, then resets
+# the demo data behind the Worker's "resetting" page. Runs only when someone presses "Run workflow" on main.
+#
+# The reset comes after the Worker deploy because the reset stops, data untouched, when the Worker's gate refuses
+# its token (scripts/demo-seed.ts). The token is derived from the owner's password, and only this deploy hands the
+# Worker the current one: after the owner password changes, a reset before the Worker deploy would always be refused,
+# and so would every deploy after it. It also gives the very first deploy a Worker to reset behind. The cost: the new
+# app shows the previous seed's data for the few seconds before the resetting page goes up.
+#
+# Two repository secrets: AOA_DATABASE_URL, the database owner's connection string for the Neon project's production
+# branch (pooled or direct; the scripts make it direct), and AOA_AUTH_SECRET, the app's session secret.
+name: Deploy the advisor platform demo
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+# The nightly reset touches the same database; never both at once.
+concurrency:
+  group: aoa-database
+  cancel-in-progress: false
+
+jobs:
+  guard:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/guard.yml
+    secrets:
+      NAME_DENYLIST: ${{ secrets.NAME_DENYLIST }}
+
+  deploy:
+    name: Migrate, reset and deploy
+    needs: guard
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      WRANGLER_SEND_METRICS: "false"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            apps/aoa/package-lock.json
+      - name: Require a green CI run on this commit (its typecheck, tests and Worker check)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Only main's runs: one after another they have run every app's jobs on its current code.
+          conclusion=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow ci.yml --branch main --commit "$GITHUB_SHA" \
+            --status completed --json conclusion --jq '.[0].conclusion // ""')
+          if [ "$conclusion" != "success" ]; then
+            echo "CI has not passed on $GITHUB_SHA (latest completed run: ${conclusion:-none})." >&2
+            exit 1
+          fi
+          echo "CI passed on $GITHUB_SHA."
+
+      - name: Install (the Worker from the repository root, the app on its own)
+        run: |
+          npm ci
+          cd apps/aoa && npm ci
+
+      - name: Apply database migrations as the owner, over the direct host
+        working-directory: apps/aoa
+        env:
+          AOA_DATABASE_URL: ${{ secrets.AOA_DATABASE_URL }}
+        run: |
+          owner=$(npm run -s demo:owner-url)
+          echo "::add-mask::$owner"
+          DATABASE_URL="$owner" DIRECT_DATABASE_URL="$owner" npx prisma migrate deploy
+
+      - name: Give the app's logins their passwords, and write the Worker's database settings
+        working-directory: apps/aoa
+        env:
+          AOA_DATABASE_URL: ${{ secrets.AOA_DATABASE_URL }}
+        run: |
+          owner=$(npm run -s demo:owner-url)
+          echo "::add-mask::$owner"
+          umask 077
+          DIRECT_DATABASE_URL="$owner" npm run -s demo:logins -- "$RUNNER_TEMP/aoa-secrets.json"
+
+      - name: Build the app's image (so the deploy's own build below comes from this cache)
+        run: docker build -f apps/aoa/Dockerfile.demo --platform linux/amd64 -t aoa-demo:prebuilt apps/aoa
+
+      - name: Copy the app's built static files and public/ out of the image, for Cloudflare to serve
+        run: |
+          static=apps/aoa/worker/static
+          find "$static" -mindepth 1 ! -name _headers -exec rm -rf {} +
+          id=$(docker create aoa-demo:prebuilt)
+          mkdir -p "$static/_next"
+          docker cp "$id:/app/.next/static" "$static/_next/static"
+          docker cp "$id:/app/public/." "$static/"
+          docker rm "$id" > /dev/null
+          rm -f "$static/.gitkeep"
+          echo "$(find "$static" -type f | wc -l) files"
+          test -n "$(find "$static/_next/static" -name '*.js' -print -quit)"
+
+      - name: Deploy the Worker and the app container
+        working-directory: apps/aoa/worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          AOA_AUTH_SECRET: ${{ secrets.AOA_AUTH_SECRET }}
+          # Optional: the nightly cron's key to start the reset workflow (apps/demo-edge/reset-dispatch.js).
+          RESET_DISPATCH_TOKEN: ${{ secrets.RESET_DISPATCH_TOKEN }}
+        run: |
+          umask 077
+          secrets_file="$RUNNER_TEMP/aoa-secrets.json"
+          trap 'rm -f "$secrets_file"' EXIT
+          node -e "
+            const fs = require('fs');
+            const file = process.argv[1];
+            const secrets = JSON.parse(fs.readFileSync(file, 'utf8'));
+            if (!process.env.AOA_AUTH_SECRET) throw new Error('AOA_AUTH_SECRET is not set');
+            secrets.AUTH_SECRET = process.env.AOA_AUTH_SECRET;
+            secrets.VISITOR_HASH_KEY = require('crypto').randomBytes(32).toString('hex');
+            if (process.env.RESET_DISPATCH_TOKEN) secrets.RESET_DISPATCH_TOKEN = process.env.RESET_DISPATCH_TOKEN;
+            fs.writeFileSync(file, JSON.stringify(secrets));" "$secrets_file"
+          npx wrangler deploy --secrets-file "$secrets_file" --containers-rollout immediate
+
+      - name: Reset the demo data (the Worker just deployed shows its "resetting" page meanwhile)
+        working-directory: apps/aoa
+        env:
+          AOA_DATABASE_URL: ${{ secrets.AOA_DATABASE_URL }}
+          DEMO_RESET_GATE_URL: https://aoa.jeremyhamann.dev/__demo/reset-gate
+        run: |
+          owner=$(npm run -s demo:owner-url)
+          echo "::add-mask::$owner"
+          DIRECT_DATABASE_URL="$owner" DEMO_SEED=reset npm run demo:reset
+
+      - name: Check the live app answers (the first request starts the container)
+        run: |
+          for attempt in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 https://aoa.jeremyhamann.dev/api/health || true)
+            if [ "$code" = "200" ]; then
+              echo "Live: /api/health answered 200 (attempt $attempt)"
+              signin=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 https://aoa.jeremyhamann.dev/)
+              echo "The sign-in page answered $signin"
+              [ "$signin" = "200" ] && exit 0
+            fi
+            echo "Attempt $attempt: $code"; sleep 10
+          done
+          echo "The app did not answer in 30 attempts." >&2
+          exit 1

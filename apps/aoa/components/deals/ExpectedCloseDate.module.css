@@ -1,0 +1,13 @@
+.date {
+  font-variant-numeric: tabular-nums;
+}
+
+.overdue {
+  color: var(--red);
+  font-weight: 600;
+}
+
+/* The existing dark-theme red token is too dim for small text on a dark card. */
+:global(html.dark) .overdue {
+  color: #fc8181;
+}

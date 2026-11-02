@@ -1,0 +1,19 @@
+.workflow { display: grid; gap: 12px; }
+.workflow h4, .workflow p { margin: 0; }
+.reviewGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.form, .completionForm { display: grid; align-content: start; gap: 9px; }
+.completionForm { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.form label, .completionForm label { display: grid; gap: 6px; color: var(--ink-2); font-size: 11px; font-weight: 800; }
+.form input, .form textarea, .completionForm input, .completionForm textarea { width: 100%; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; font-weight: 500; }
+.form input, .completionForm input { min-height: 40px; padding: 8px 10px; }
+.form textarea, .completionForm textarea { padding: 9px 10px; resize: vertical; }
+.full { grid-column: 1 / -1; }
+.primaryButton, .dangerButton, .secondaryButton { width: fit-content; padding: 9px 14px; border: 0; border-radius: 999px; font-size: 12px; font-weight: 800; cursor: pointer; }
+.primaryButton { background: var(--green); color: white; }
+.dangerButton { background: var(--red); color: white; }
+.secondaryButton { border: 1px solid var(--red); background: transparent; color: var(--red); }
+.help { color: var(--muted); font-size: 12px; }
+.cancelDetails { border-top: 1px solid var(--line); padding-top: 10px; }
+.cancelDetails summary { width: fit-content; color: var(--muted); font-size: 11px; font-weight: 800; cursor: pointer; }
+.cancelDetails .form { max-width: 520px; margin-top: 10px; }
+@media (max-width: 760px) { .reviewGrid, .completionForm { grid-template-columns: 1fr; } .full { grid-column: auto; } }

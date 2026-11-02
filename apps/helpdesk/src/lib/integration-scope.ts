@@ -5,7 +5,7 @@
  * WHY THIS EXISTS. Wave A shipped one bearer, `INTEGRATION_API_TOKEN`, for three surfaces that have
  * nothing in common but their caller:
  *
- *  - READ — `GET /api/export/tickets` is the Ops Portal mirror. It applies no queue narrowing and no viewer:
+ *  - READ — `GET /api/export/tickets` is the advisor platform mirror. It applies no queue narrowing and no viewer:
  *    the whole ticket book, with requester names, addresses, household pointers and every PUBLIC
  *    comment body. By itself it is a full export of the firm's client correspondence.
  *  - WRITE — `/api/ingest/**` opens tickets and writes comments, including `authorKind: "REQUESTER"`,
@@ -15,7 +15,7 @@
  *
  * All four shipped n8n workflows carry the same value as `$vars.WM_INTEGRATION_TOKEN`, on both the dev
  * and the prod instance, readable by anyone who can open a workflow. The voicemail webhook needs only
- * ingest; the Ops Portal sync needs only export; the sender needs only the outbox. With one key, a compromise
+ * ingest; the advisor platform sync needs only export; the sender needs only the outbox. With one key, a compromise
  * of any one of them is a compromise of all three. §6 is explicit that "a machine caller holds no RBAC
  * grant of its own — the route it runs in decides what it may do", which is exactly why possession of
  * that one token IS every machine capability: there is no per-caller scoping anywhere else to fall

@@ -1,0 +1,103 @@
+{
+  "empty": {
+    "result": {
+      "sent": true,
+      "reason": null
+    },
+    "claim": {
+      "runDate": "2026-10-21",
+      "summary": "{\"total\":0,\"urgent\":0,\"overdue48h\":0}"
+    },
+    "posts": [
+      {
+        "method": "chat.postMessage",
+        "channel": "CFIXTURE",
+        "mrkdwn": true,
+        "text": "*Trade Request — Daily Digest* — Wed, Oct 21\n\nAll clear — no open requests on the queue.\n\n<https://standalone.example/queue|Open the queue →>"
+      }
+    ]
+  },
+  "mixed": {
+    "result": {
+      "sent": true,
+      "reason": null
+    },
+    "claim": {
+      "runDate": "2026-10-19",
+      "summary": "{\"total\":8,\"urgent\":2,\"overdue48h\":2}"
+    },
+    "posts": [
+      {
+        "method": "chat.postMessage",
+        "channel": "CFIXTURE",
+        "mrkdwn": true,
+        "text": "*Trade Request — Daily Digest* — Mon, Oct 19\n8 open requests · 2 urgent · 2 waiting > 48h · oldest 2d 3h\n\n*Pending Review (4)*\n• <https://standalone.example/queue/REQ-00000105|REQ-00000105> · Rebalance · Delta\n   Pat Advisor · 1h · 🚨 Urgent · deadline Oct 19\n• <https://standalone.example/queue/REQ-00000101|REQ-00000101> · Rebalance · $2.5M · Sample &lt;Family&gt; &amp; Co &amp; Beta Trust\n   Pat &lt;Advisor&gt; · 2d 3h · deadline overdue\n• <https://standalone.example/queue/REQ-00000107|REQ-00000107> · Rebalance · $2k · Echo\n   Pat Advisor · 2h 5m · deadline Oct 26\n• <https://standalone.example/queue/REQ-00000109|REQ-00000109> · Rebalance · Sample\n   0m\n\n*Needs Info (2)*\n• <https://standalone.example/queue/REQ-00000102|REQ-00000102> · Initial Funding · 100k-200k · Gamma\n   1d 2h · 🚨 Urgent · deadline Oct 22\n• <https://standalone.example/queue/REQ-00000108|REQ-00000108> · Rebalance · $1.0M · Sample\n   Pat Advisor · 2d\n\n*Pending Liquidation (1)*\n• <https://standalone.example/queue/REQ-00000103|REQ-00000103> · Withdrawal · $12k · Alpha &amp; 2 others\n   Tia Trader · 3h\n\n*Completed (1)*\n• <https://standalone.example/queue/REQ-00000104|REQ-00000104> · Tax Loss Harvest · $1000 · (client unknown)\n   Pat Advisor · 45m\n\n<https://standalone.example/queue|Open the queue →>"
+      }
+    ]
+  },
+  "overflow": {
+    "result": {
+      "sent": true,
+      "reason": null
+    },
+    "claim": {
+      "runDate": "2026-10-19",
+      "summary": "{\"total\":13,\"urgent\":0,\"overdue48h\":0}"
+    },
+    "posts": [
+      {
+        "method": "chat.postMessage",
+        "channel": "CFIXTURE",
+        "mrkdwn": true,
+        "text": "*Trade Request — Daily Digest* — Mon, Oct 19\n13 open requests · oldest 3h 20m\n\n*Pending Review (11)*\n• <https://standalone.example/queue/REQ-00000210|REQ-00000210> · Rebalance · $11k · Sample\n   Pat Advisor · 3h 20m\n• <https://standalone.example/queue/REQ-00000209|REQ-00000209> · Rebalance · $10k · Sample\n   Pat Advisor · 3h 10m\n• <https://standalone.example/queue/REQ-00000208|REQ-00000208> · Rebalance · $9k · Sample\n   Pat Advisor · 3h\n• <https://standalone.example/queue/REQ-00000207|REQ-00000207> · Rebalance · $8k · Sample\n   Pat Advisor · 2h 50m\n• <https://standalone.example/queue/REQ-00000206|REQ-00000206> · Rebalance · $7k · Sample\n   Pat Advisor · 2h 40m\n• <https://standalone.example/queue/REQ-00000205|REQ-00000205> · Rebalance · $6k · Sample\n   Pat Advisor · 2h 30m\n• <https://standalone.example/queue/REQ-00000204|REQ-00000204> · Rebalance · $5k · Sample\n   Pat Advisor · 2h 20m\n• <https://standalone.example/queue/REQ-00000203|REQ-00000203> · Rebalance · $4k · Sample\n   Pat Advisor · 2h 10m\n• <https://standalone.example/queue/REQ-00000202|REQ-00000202> · Rebalance · $3k · Sample\n   Pat Advisor · 2h\n• <https://standalone.example/queue/REQ-00000201|REQ-00000201> · Rebalance · $2k · Sample\n   Pat Advisor · 1h 50m\n   …and 1 more in this bucket\n\n*Completed (2)*\n   …and 2 more in this bucket\n\n_Showing the 10 most pressing — 3 more in the queue._\n\n<https://standalone.example/queue|Open the queue →>"
+      }
+    ]
+  },
+  "singleWinter": {
+    "result": {
+      "sent": true,
+      "reason": null
+    },
+    "claim": {
+      "runDate": "2026-12-14",
+      "summary": "{\"total\":1,\"urgent\":0,\"overdue48h\":0}"
+    },
+    "posts": [
+      {
+        "method": "chat.postMessage",
+        "channel": "CFIXTURE",
+        "mrkdwn": true,
+        "text": "*Trade Request — Daily Digest* — Mon, Dec 14\n1 open request · oldest 30m\n\n*Needs Info (1)*\n• <https://standalone.example/queue/REQ-00000401|REQ-00000401> · Rebalance · Sample\n   Pat Advisor · 30m\n\n<https://standalone.example/queue|Open the queue →>"
+      }
+    ]
+  },
+  "lateEvening": {
+    "result": {
+      "sent": true,
+      "reason": null
+    },
+    "claim": {
+      "runDate": "2026-10-19",
+      "summary": "{\"total\":0,\"urgent\":0,\"overdue48h\":0}"
+    },
+    "posts": [
+      {
+        "method": "chat.postMessage",
+        "channel": "CFIXTURE",
+        "mrkdwn": true,
+        "text": "*Trade Request — Daily Digest* — Mon, Oct 19\n\nAll clear — no open requests on the queue.\n\n<https://standalone.example/queue|Open the queue →>"
+      }
+    ]
+  },
+  "alreadyPosted": {
+    "result": {
+      "sent": false,
+      "reason": "already_posted"
+    },
+    "claim": {
+      "runDate": "2026-10-19",
+      "summary": "{\"total\":8,\"urgent\":2,\"overdue48h\":2}"
+    },
+    "posts": []
+  }
+}

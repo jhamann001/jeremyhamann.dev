@@ -260,7 +260,7 @@ describe('requireDelegatedCaller — role mapping (D1, AC-67)', () => {
     ['ADMIN', 'trader'],
     ['OPERATIONS', 'trader'],
     ['ADVISOR', 'advisor'],
-  ])('admits %s as %s through the Ops Portal channel', async (opsPortalRole, mapped) => {
+  ])('admits %s as %s through the advisor platform channel', async (opsPortalRole, mapped) => {
     const ctx = await run(await validHeaders({ role: opsPortalRole, sub: PERSON.toUpperCase() }));
     expect(ctx.next).toHaveBeenCalledWith();
     expect(resolveActorMock).toHaveBeenCalledWith(PERSON, PERSON_NAME, mapped);

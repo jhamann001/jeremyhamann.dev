@@ -1,0 +1,121 @@
+.scroll {
+  overflow-x: auto;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.recordLink {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12px;
+  font-weight: 600;
+}
+.recordText {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.changesCell {
+  font-size: 12.5px;
+  color: var(--ink-2);
+  max-width: 520px;
+}
+/* UPDATE: compact list of `field: from → to`. */
+.diffList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.diffRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  line-height: 1.5;
+}
+.field {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.from {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: line-through;
+  word-break: break-all;
+}
+.arrow {
+  color: var(--muted);
+}
+.to {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  word-break: break-all;
+}
+/* INSERT/DELETE: label + count, expandable to the field snapshot. */
+.snapshotRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.snapshotLabel {
+  font-weight: 600;
+  color: var(--ink);
+}
+.count {
+  color: var(--muted);
+}
+.expand {
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  padding: 1px 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.expand:hover {
+  color: var(--ink);
+  border-color: var(--line-2);
+}
+.snapshotList {
+  margin: 8px 0 2px;
+  padding: 10px 12px;
+  background: var(--input-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.snapshotField {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  line-height: 1.5;
+}
+.snapshotValue {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 12px;
+  color: var(--ink);
+  word-break: break-all;
+}
+.empty {
+  color: var(--muted);
+}

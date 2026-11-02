@@ -1,0 +1,9 @@
+.panel { margin-top: 24px; }
+.details > summary { padding: 16px 24px; font-weight: 800; cursor: pointer; }
+.details > summary:focus-visible { outline: 2px solid var(--green); outline-offset: -4px; border-radius: 8px; }
+.body { display: grid; gap: 16px; }
+.body h3, .body p { margin: 0; }
+.metadata { display: flex; flex-wrap: wrap; gap: 16px 32px; margin: 0; }
+.metadata dt { font-size: 12px; color: var(--muted); }
+.metadata dd { margin: 4px 0 0; overflow-wrap: anywhere; }
+.message { margin: 0; padding: 16px; border: 1px solid var(--line); border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; line-height: 1.6; }

@@ -17,3 +17,25 @@ tools/guard/allow.txt	metabase
 tools/guard/allow.txt	zendesk
 tools/guard/allow.txt	always-on-advice
 tools/guard/allow.txt	acat-tracker
+# Always-On-Advice keeps its own name and the Zendesk name in its demo (Jeremy, 2026-10-30), in its folder only.
+apps/aoa/	always-on-advice
+apps/aoa/	aoa
+apps/aoa/	zendesk
+tools/guard/allow.txt	aoa
+# data-allow.txt lists that folder's own files by path.
+tools/guard/data-allow.txt	aoa
+# CI routes that folder by its path.
+tools/ci/changed-apps.mjs	aoa
+tools/ci/changed-apps.test.mjs	aoa
+# Its Worker is a workspace of the repository; its deploy, nightly reset and CI job name its folder and domain.
+package.json	aoa
+package-lock.json	aoa
+.github/workflows/ci.yml	aoa
+.github/workflows/deploy-aoa.yml	aoa
+.github/workflows/reset-aoa.yml	aoa
+# The advisor platform's public name and its demo's address, on the site, its Worker's CSP and the README.
+site/src/data/projects.ts	always-on-advice
+site/src/data/projects.ts	aoa
+README.md	always-on-advice
+README.md	aoa
+site/worker/index.js	aoa

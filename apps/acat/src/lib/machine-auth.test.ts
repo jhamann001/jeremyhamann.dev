@@ -114,7 +114,7 @@ describe("verifySecurityReconCaller", () => {
     const { verifySecurityReconCaller } = await import("./machine-auth");
     // Code default (production identity only): the dev identity is refused.
     expect(await verifySecurityReconCaller(request(record, "POST", DEV_LIBRARY_SA), "write")).toBeNull();
-    // Deployed allow-list (ticket: both Ops Portal identities may write): admitted.
+    // Deployed allow-list (ticket: both advisor platform identities may write): admitted.
     process.env.MACHINE_AUTH_ALLOWED_SAS = `${ALLOWED_SA},${DEV_LIBRARY_SA}`;
     expect(await verifySecurityReconCaller(request(record, "POST", DEV_LIBRARY_SA), "write")).toEqual({ email: DEV_LIBRARY_SA });
   });

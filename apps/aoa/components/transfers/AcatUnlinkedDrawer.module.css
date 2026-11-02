@@ -1,0 +1,175 @@
+/* Unlinked-ACAT drawer (ticket) — slides over the board from the right.
+   Tokens only, both themes. */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(20, 17, 12, 0.42);
+}
+
+.panel {
+  position: relative;
+  width: min(560px, 100%);
+  height: 100%;
+  overflow-y: auto;
+  background: var(--bg);
+  border-left: 1px solid var(--line);
+  box-shadow: var(--shadow-lg);
+  padding: 20px 22px 28px;
+}
+
+/* Large screens: the migrated drawer (the overlay carries this label only while
+   the tracker shell is mounted) comes out far enough that the positions and recon
+   tables normally fit without sideways scrolling, and stops short of the 248px
+   sidebar plus a gutter. Below 1280px the 560px panel is unchanged. */
+@media (min-width: 1280px) {
+  .overlay[aria-label="Transfer drawer"] .panel {
+    width: clamp(560px, calc(100vw - 296px), 1320px);
+  }
+}
+
+.back {
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 14px;
+}
+.back:hover {
+  color: var(--ink);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  color: var(--ink);
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 18px 0;
+}
+@media (max-width: 560px) {
+  .tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  min-width: 0;
+}
+
+.tileLabel {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.tileValue {
+  font-size: 13px;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.body {
+  margin-top: 4px;
+}
+
+.note {
+  margin: 12px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.viewTransfer {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 18px 0 0;
+  padding: 8px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.viewTransfer:hover {
+  border-color: var(--green-line);
+  color: var(--green-2);
+}
+
+.linkActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+.linkActions .viewTransfer { margin-top: 0; }
+.unlinkButton, .cancelButton {
+  padding: 8px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.unlinkButton:hover, .cancelButton:hover { border-color: var(--green-line); }
+.unlinkButton:disabled, .cancelButton:disabled { cursor: wait; opacity: 0.6; }
+.unlinkButton:focus-visible, .cancelButton:focus-visible {
+  outline: 2px solid var(--green-2);
+  outline-offset: 3px;
+}
+.confirmation {
+  flex-basis: 100%;
+  padding: 16px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+}
+.confirmation h3 { margin: 0; font-size: 15px; }
+.confirmation p { margin: 8px 0 14px; font-size: 13px; }
+.confirmationActions { display: flex; flex-wrap: wrap; gap: 10px; }
+.unlinkError { color: var(--red); }

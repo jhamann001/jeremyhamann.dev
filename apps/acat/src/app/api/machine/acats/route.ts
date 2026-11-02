@@ -68,7 +68,7 @@ const COMPLETED_WINDOW_DAYS = 365;
 /**
  * GET /api/machine/acats  (list)
  *
- * Server-to-server list of the IN-FLIGHT ACATs for the Ops Portal "In Transfer"
+ * Server-to-server list of the IN-FLIGHT ACATs for the advisor platform "In Transfer"
  * lane, authenticated by a Google OIDC ID token (see `verifyAcatReadCaller`).
  * Returns a redacted-but-NAMED projection (`redactAcatForMachineList`):
  * account identifiers masked and `wealthAdvisor`/`notes` omitted, but
@@ -88,7 +88,7 @@ const COMPLETED_WINDOW_DAYS = 365;
  * rejection. (An older Completed must NOT bury a newer real Rejection.)
  *
  * SCOPING: this endpoint returns the FIRM-WIDE in-flight list. Per-advisor
- * book-scoping is NOT applied here — it is enforced downstream in Ops Portal, which
+ * book-scoping is NOT applied here — it is enforced downstream in the advisor platform, which
  * filters the list to the calling advisor's book. Do not add advisor
  * filtering to this endpoint.
  *
@@ -123,7 +123,7 @@ export async function GET(request: Request) {
       }
       if (removed === "only") {
         // Removed rows are a separate list, newest removal first; they never
-        // mix into the live book that Ops Portal renders by default.
+        // mix into the live book that the advisor platform renders by default.
         const removedRecords = await prisma.acatRecord.findMany({
           where: { deletedAt: { not: null } },
           include: { assets: true, clientLinks: acatClientLinksSelection, custodian: { select: { avgProcessingDays: true } } },

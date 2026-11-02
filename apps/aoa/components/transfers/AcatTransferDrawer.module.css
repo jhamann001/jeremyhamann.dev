@@ -1,0 +1,423 @@
+/* Tracker-style transfer drawer body. Mounted inside AcatUnlinkedDrawer's panel,
+   so width and scrolling belong to the container. Book tokens only, plus the
+   two tracker hue sets declared locally for Completed and Rejected. */
+
+.shell {
+  --drawer-completed-bg: #f0fdf4;
+  --drawer-completed-fg: #15803d;
+  --drawer-completed-dot: #22c55e;
+  --drawer-completed-edge: #bbf7d0;
+  --drawer-rejected-bg: #fef2f2;
+  --drawer-rejected-fg: #b91c1c;
+  --drawer-rejected-dot: #ef4444;
+  --drawer-rejected-edge: #fecaca;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: var(--ink);
+}
+
+:global(html.dark) .shell {
+  --drawer-completed-bg: rgba(34, 197, 94, 0.16);
+  --drawer-completed-fg: #86efac;
+  --drawer-completed-dot: #4ade80;
+  --drawer-completed-edge: rgba(34, 197, 94, 0.35);
+  --drawer-rejected-bg: rgba(239, 68, 68, 0.16);
+  --drawer-rejected-fg: #fca5a5;
+  --drawer-rejected-dot: #f87171;
+  --drawer-rejected-edge: rgba(239, 68, 68, 0.35);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.barButton {
+  font: inherit;
+  font-size: 14px;
+  min-width: 30px;
+  padding: 3px 8px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.barButton:hover:not(:disabled) { border-color: var(--green-line); color: var(--green-2); }
+.barButton:disabled { cursor: default; opacity: 0.45; }
+.position { font-size: 12.5px; color: var(--muted); }
+.spacer { flex: 1; }
+
+.note { margin: 12px 0; font-size: 13px; color: var(--muted); }
+.failure {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.failure p { margin: 0; }
+
+.header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.headerMain { min-width: 0; }
+.clientName { margin: 0; font-size: 18px; color: var(--ink); overflow-wrap: anywhere; }
+.clientButton {
+  font: inherit;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.clientButton:hover { color: var(--green-2); }
+.subtitle { margin: 4px 0 0; font-size: 12.5px; color: var(--muted); }
+.hint { margin: 6px 0 0; font-size: 11px; color: var(--faint); }
+.linkButton {
+  font: inherit;
+  font-size: 12.5px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--green-2);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.linkButton:disabled { cursor: default; opacity: 0.6; }
+
+.actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.markComplete {
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border: 1px solid var(--drawer-completed-edge);
+  border-radius: var(--radius-sm);
+  background: var(--drawer-completed-bg);
+  color: var(--drawer-completed-fg);
+  cursor: pointer;
+}
+.markComplete:hover { opacity: 0.9; }
+.deleteButton {
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--muted);
+  cursor: pointer;
+}
+.deleteButton:hover { border-color: var(--red); background: var(--red-soft); color: var(--red); }
+
+.props { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.propPill {
+  padding: 4px 9px;
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  font-size: 12px;
+  color: var(--muted);
+}
+.propPill strong { color: var(--ink); }
+.statusSelect {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border: 1px solid var(--line-2);
+  border-radius: 20px;
+  background: var(--panel);
+  color: var(--ink);
+}
+.statusCompleted,
+.statusRejected {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 9px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.statusCompleted::before,
+.statusRejected::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.statusCompleted {
+  background: var(--drawer-completed-bg);
+  border-color: var(--drawer-completed-edge);
+  color: var(--drawer-completed-fg);
+}
+.statusCompleted::before { background: var(--drawer-completed-dot); }
+.statusRejected {
+  background: var(--drawer-rejected-bg);
+  border-color: var(--drawer-rejected-edge);
+  color: var(--drawer-rejected-fg);
+}
+.statusRejected::before { background: var(--drawer-rejected-dot); }
+
+.error { margin: 6px 0 0; font-size: 12.5px; color: var(--red); }
+.warn { font-size: 11.5px; color: var(--amber); }
+.warnBox {
+  margin: 0;
+  padding: 9px 11px;
+  border: 1px solid var(--amber);
+  border-radius: var(--radius-sm);
+  background: var(--amber-soft);
+  font-size: 12px;
+  color: var(--amber);
+}
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+@media (max-width: 560px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 9px 11px;
+  border-radius: var(--radius-sm);
+}
+.stat[data-color="blue"] { background: var(--acat-blue-bg); color: var(--acat-blue); }
+.stat[data-color="green"] { background: var(--acat-green-bg); color: var(--acat-green); }
+.stat[data-color="red"] { background: var(--acat-red-bg); color: var(--acat-red); }
+.stat[data-color="amber"] { background: var(--acat-amber-bg); color: var(--acat-amber); }
+.statLabel { font-size: 11px; font-weight: 600; }
+.statValue { font-size: 18px; font-weight: 700; }
+
+.notesBanner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 11px;
+  border: 1px solid var(--amber);
+  border-radius: var(--radius-sm);
+  background: var(--amber-soft);
+  font-size: 12.5px;
+  color: var(--amber);
+  cursor: pointer;
+}
+.notesBanner p { margin: 0; flex: 1; }
+.notesEdit {
+  padding: 9px 11px;
+  border: 1px solid var(--green-line);
+  border-radius: var(--radius-sm);
+  background: var(--green-soft);
+}
+
+.input {
+  font: inherit;
+  font-size: 12.5px;
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid var(--green-line);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--ink);
+}
+.pencil { margin-left: 6px; font-size: 11px; color: var(--faint); }
+
+.details { display: flex; flex-direction: column; gap: 14px; }
+.card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  overflow: hidden;
+}
+.cardHead { padding: 11px 14px; border-bottom: 1px solid var(--line); }
+.cardTitle { margin: 0; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.cardSub { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+.collapseHead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  width: 100%;
+  padding: 11px 14px;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+.group { border-top: 1px solid var(--line); }
+.groupTitle {
+  margin: 0;
+  padding: 7px 14px;
+  background: var(--input-bg);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.fieldRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  padding: 8px 14px;
+  border-top: 1px solid var(--line);
+}
+.fieldLabel {
+  flex: 0 0 150px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.fieldBody { flex: 1 1 calc(100% - 162px); min-width: 0; font-size: 13px; }
+.fieldButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.fieldButton > :not(.pencil) { min-width: 0; }
+.fieldButton .pencil { flex: 0 0 auto; margin-left: auto; }
+.fieldButton:focus-visible { outline: 2px solid var(--green-2); outline-offset: 2px; }
+.fieldStatic { display: inline-flex; max-width: 100%; }
+.value { overflow-wrap: anywhere; color: var(--ink); }
+.empty { color: var(--faint); font-style: italic; }
+.saved { color: var(--green); }
+.chips, .selection { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border: 1px solid var(--line-2);
+  border-radius: 20px;
+  background: var(--input-bg);
+  font-size: 11.5px;
+  color: var(--ink);
+}
+.editing { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.savingText { font-size: 11.5px; color: var(--muted); }
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+}
+.checkOption { display: flex; align-items: flex-start; gap: 7px; font-size: 12.5px; color: var(--ink-2); }
+.contraBox { position: relative; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.options { margin: 0; padding: 0; max-height: 180px; overflow-y: auto; list-style: none; }
+.optionButton {
+  font: inherit;
+  font-size: 12.5px;
+  width: 100%;
+  padding: 5px 8px;
+  border: 0;
+  background: none;
+  color: var(--ink-2);
+  text-align: left;
+  cursor: pointer;
+}
+.optionButton:hover { background: var(--input-bg); color: var(--ink); }
+.suggestion {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border: 1px solid var(--green-line);
+  border-radius: var(--radius-sm);
+  background: var(--green-soft);
+  color: var(--green);
+  cursor: pointer;
+}
+.suggestion:disabled { cursor: default; opacity: 0.6; }
+/* The DTCC helper sits on its own line under the value so it never narrows the field body and shifts that row's pencil. */
+.fieldRow > .suggestion, .fieldRow > .warn { margin-left: 162px; }
+
+.dialogScrim {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(20, 17, 12, 0.42);
+}
+.dialog {
+  width: min(480px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  box-shadow: var(--shadow-lg);
+}
+.dialogHead { padding: 14px 18px 8px; }
+.dialogTitle { margin: 0; font-size: 15px; color: var(--ink); }
+.dialogBody { display: flex; flex-direction: column; gap: 12px; padding: 8px 18px 14px; }
+.dialogFoot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--line);
+}
+.label { display: flex; flex-direction: column; gap: 5px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.required { color: var(--red); }
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+}
+.summary p { margin: 0; }
+.summaryLabel { font-size: 11.5px; color: var(--muted); }
+.summaryValue { margin-top: 2px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+.primaryButton,
+.secondaryButton,
+.dangerButton {
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 13px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.primaryButton { border: 1px solid var(--green-line); background: var(--green-soft); color: var(--green); }
+.secondaryButton { border: 1px solid var(--line-2); background: var(--panel); color: var(--ink); }
+.dangerButton { border: 1px solid var(--red); background: var(--red-soft); color: var(--red); }
+.primaryButton:disabled,
+.secondaryButton:disabled,
+.dangerButton:disabled { cursor: default; opacity: 0.5; }
+.results {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+}
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 10px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.resultActive { background: var(--input-bg); }

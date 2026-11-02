@@ -61,7 +61,7 @@ describe('record source scope', () => {
     expect(localPool.query).not.toHaveBeenCalled();
   });
 
-  it('propagates an Ops Portal read failure from the account-exclusion lookup instead of rendering without it', async () => {
+  it('propagates an advisor platform read failure from the account-exclusion lookup instead of rendering without it', async () => {
     meta.isConfigured.mockReturnValue(true);
     meta.getClientAccounts.mockResolvedValue([
       { id: 'acct-1', clientId: 'HH-001', accountNumber: 'ACC-1', accountType: 'Taxable', balance: 0, holdings: {} },

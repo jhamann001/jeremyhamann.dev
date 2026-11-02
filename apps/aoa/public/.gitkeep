@@ -1,0 +1,2 @@
+# Keeps public/ in git so the Dockerfile's `COPY /app/public` succeeds.
+# Next.js serves static assets placed here at the site root; empty is fine.

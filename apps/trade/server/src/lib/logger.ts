@@ -22,7 +22,7 @@ export function stripQueryFromReq(request: Parameters<typeof pino.stdSerializers
 /**
  * Paths censored in every log line. pino-http logs request headers on every
  * request, so any header that carries a credential or a person's identity must
- * be listed: the Ops Portal actor assertion carries the person's email, name and role.
+ * be listed: the advisor platform actor assertion carries the person's email, name and role.
  * Exported for testing.
  */
 export const REDACT_PATHS = [

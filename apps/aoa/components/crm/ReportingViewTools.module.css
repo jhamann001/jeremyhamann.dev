@@ -1,0 +1,107 @@
+.tools {
+  display: grid;
+  gap: 12px;
+  margin: 12px 0 16px;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: 11px;
+  background: var(--bg);
+}
+.headingRow,
+.savedLane,
+.viewLane {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.headingRow { justify-content: space-between; }
+.headingRow h2 { margin: 2px 0 0; font-size: 15px; }
+.eyebrow,
+.laneLabel,
+.saveForm label {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.copyButton { min-height: 34px; white-space: nowrap; }
+.viewLane { padding-top: 2px; }
+.laneLabel { flex: 0 0 92px; }
+.viewLinks { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; min-width: 0; }
+.viewLink,
+.savedView {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 6px 9px;
+  border: 1px solid var(--line-2);
+  border-radius: 9px;
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 650;
+  text-decoration: none;
+}
+.viewLink:hover,
+.savedView:hover { border-color: var(--green-line); background: var(--green-soft); }
+.viewLink small { color: var(--muted); font-size: 9px; font-weight: 600; }
+
+.savedLane {
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 11px;
+  border-top: 1px solid var(--line);
+}
+.savedViews { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.savedView { gap: 5px; padding-right: 5px; }
+.savedView a { color: var(--green); text-decoration: none; }
+.savedView button {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+}
+.savedView button:hover { background: var(--input-bg); color: var(--ink); }
+.empty { color: var(--muted); font-size: 11px; }
+
+.saveForm { display: grid; gap: 5px; flex: 0 0 min(360px, 38%); }
+.saveForm > div { display: flex; gap: 7px; }
+.saveForm input {
+  min-width: 0;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 9px;
+  background: var(--input-bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+}
+.saveForm button { min-height: 34px; }
+.message { min-height: 15px; margin: -3px 0 0 104px; color: var(--muted); font-size: 10px; }
+
+@media (max-width: 900px) {
+  .savedLane { align-items: stretch; flex-direction: column; }
+  .saveForm { flex-basis: auto; width: min(100%, 430px); }
+}
+
+@media (max-width: 620px) {
+  .headingRow { align-items: stretch; flex-direction: column; }
+  .copyButton { align-self: flex-start; }
+  .viewLane,
+  .savedViews { align-items: flex-start; flex-direction: column; gap: 7px; }
+  .laneLabel { flex-basis: auto; }
+  .viewLink { align-items: flex-start; flex-direction: column; gap: 2px; }
+  .message { margin-left: 0; }
+}

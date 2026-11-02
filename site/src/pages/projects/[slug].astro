@@ -14,6 +14,7 @@ const live = p.status === 'live';
 const demoUrl = `https://${p.host}.${DOMAIN}`;
 const gallery = live ? p.gallery ?? [] : [];
 const toc = [
+  ...(p.numbers ? [['numbers', 'In numbers']] : []),
   ['overview', 'Overview'], ['problem', 'Problem'], ['built', 'What I built'],
   ...(gallery.length ? [['screens', 'In the app']] : []),
   ['decisions', 'Decisions'], ['architecture', 'Architecture'], ['demo', 'The demo'],
@@ -48,6 +49,12 @@ const demoArch: [string, string][] = [['Cloudflare Worker', `${p.host}.${DOMAIN}
             {toc.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
           </nav>
           <div>
+            {p.numbers && (
+              <div class="case-sec" id="numbers"><h2>The build in numbers</h2>
+                <dl class="nums">{p.numbers.map(([n, d]) => <div><dt>{n}</dt><dd>{d}</dd></div>)}</dl>
+                <p class="nums-note">Counted from the production repository and its GitHub history on November 2, 2026.</p>
+              </div>
+            )}
             <div class="case-sec" id="overview"><h2>Overview</h2><p>{p.summary}</p></div>
             <div class="case-sec" id="problem"><h2>The problem</h2><p>{p.problem}</p></div>
             <div class="case-sec" id="built"><h2>What I built</h2>

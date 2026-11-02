@@ -9,10 +9,12 @@
   "compatibility_date": "2026-10-01",
   "routes": [{ "pattern": "helpdesk.jeremyhamann.dev", "custom_domain": true }],
   "vars": {
-    "APP_ORIGIN": "https://helpdesk.jeremyhamann.dev"
+    "APP_ORIGIN": "https://helpdesk.jeremyhamann.dev",
+    "RESET_REPOSITORY": "jhamann001/portfolio"
   },
   // Secrets (set by the deploy workflow): DATABASE_URL (the app role, whose password each deploy generates),
-  // AUTH_SECRET, REPLY_TOKEN_SECRET, VISITOR_HASH_KEY (the key the visitor pseudonyms are made with).
+  // AUTH_SECRET, REPLY_TOKEN_SECRET, VISITOR_HASH_KEY (the key the visitor pseudonyms are made with) and, when the
+  // repository has it, RESET_DISPATCH_TOKEN (the cron's key to start the reset workflow).
   "containers": [
     {
       "class_name": "HelpdeskApp",
@@ -32,6 +34,8 @@
   // Per-visitor ceiling at the edge, before anything reaches the container (counted per Cloudflare location):
   // far above normal use, so it only stops floods. Like the tracker's: a Next.js page load fetches many chunks.
   "ratelimits": [{ "name": "VISITOR_LIMIT", "namespace_id": "1003", "simple": { "limit": 600, "period": 60 } }],
-  // No cron: the daily reset runs from GitHub Actions as the database owner (.github/workflows/reset-helpdesk.yml).
+  // The daily reset runs from GitHub Actions as the database owner (.github/workflows/reset-helpdesk.yml); this cron
+  // only asks GitHub to start it on time (demo-edge/reset-dispatch.js).
+  "triggers": { "crons": ["0 14 * * *"] },
   "observability": { "enabled": true }
 }

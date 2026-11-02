@@ -43,7 +43,7 @@ export async function withPreparationActor(request: Request, operation: (actor: 
   } catch (error) {
     const reason = error instanceof TransferPreparationError ? error.reason : "unavailable";
     // Never log request bodies, accounts, tokens, titles, or raw database errors.
-    logger.warn({ reason, status: statuses[reason] }, "Ops Portal transfer preparation request failed");
+    logger.warn({ reason, status: statuses[reason] }, "The advisor platform transfer preparation request failed");
     return preparationJson({ error: reason }, statuses[reason]);
   }
 }

@@ -1,0 +1,26 @@
+.meta {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 8px 12px;
+  margin: 0 0 18px;
+}
+.term {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  align-self: center;
+}
+.def {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink);
+}
+.note {
+  margin: 14px 0 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--faint);
+  font-style: italic;
+}

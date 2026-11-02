@@ -50,7 +50,7 @@ export function isManualLinkKind(kind: TicketLinkKind): kind is ManualLinkKind {
  * The URL allowlist, per kind (the brief's "URL allowlist per kind").
  *
  * The shipped `TicketLink` is ticket-to-ticket and has NO url column — the gap analysis's external-link
- * model (CRM task, Ops Portal transfer, Apex case, e-signature envelope, issue-tracker issue) became the ticket
+ * model (CRM task, the advisor platform transfer, Apex case, e-signature envelope, issue-tracker issue) became the ticket
  * link plus the existing `Ticket.externalRef`. The one place a URL can still reach this table is the
  * free-text `note`, so that is where the allowlist applies: a note may point at a system the firm
  * actually runs, and may not carry a link to anywhere else. Anything not on the list is refused with

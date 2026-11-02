@@ -11,7 +11,7 @@ import { AppError } from '../middleware/errorHandler.js';
  */
 
 export const OPS_PORTAL_RECORDS_UNAVAILABLE =
-  'Trade Request records are temporarily unavailable from Ops Portal. Try again in a few minutes.';
+  'Trade Request records are temporarily unavailable from the advisor platform. Try again in a few minutes.';
 
 export class OpsPortalRecordsUnavailableError extends AppError {
   constructor() {
@@ -19,7 +19,7 @@ export class OpsPortalRecordsUnavailableError extends AppError {
   }
 }
 
-/** The query surface shared by the local pool and the Ops Portal connection. */
+/** The query surface shared by the local pool and the advisor platform connection. */
 export interface RecordDb {
   query<R extends pg.QueryResultRow = pg.QueryResultRow>(text: string, values?: unknown[]): Promise<pg.QueryResult<R>>;
 }
@@ -93,7 +93,7 @@ export const opsPortalRecordsDb: RecordDb = {
   },
 };
 
-/** Closes the Ops Portal pool; the next read builds a new one from the current settings. */
+/** Closes the advisor platform pool; the next read builds a new one from the current settings. */
 export async function closeOpsPortalRecordsDb(): Promise<void> {
   const p = opsPortalPool;
   opsPortalPool = null;

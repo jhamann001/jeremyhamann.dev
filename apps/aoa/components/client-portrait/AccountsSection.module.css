@@ -1,0 +1,102 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.tableWrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.investmentTable {
+  min-width: 940px;
+}
+.investmentTable .num {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.num {
+  text-align: right;
+}
+.balanceContext {
+  display: block;
+  margin-top: 3px;
+  font-size: 11.5px;
+}
+.balanceNote {
+  margin: 0;
+  padding: 10px 15px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.strong {
+  font-weight: 600;
+}
+.mutedCell {
+  color: var(--muted);
+}
+.totalRow td {
+  border-top: 2px solid var(--line-2);
+}
+.totalLabel {
+  font-weight: 700;
+}
+.emptyCopy {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.plaidEmpty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.plaidEmpty .emptyCopy {
+  flex: 1;
+  min-width: 200px;
+}
+.beneGroup {
+  padding: 11px 16px 13px;
+  border-bottom: 1px solid var(--line);
+}
+.beneGroup:last-child {
+  border-bottom: none;
+}
+.beneAcct {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+.beneNum {
+  color: var(--faint);
+  font-weight: 600;
+}
+.holdingsPreview {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 0;
+}
+.holdingsSummary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 18px;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+.holdingsPrimary {
+  font-weight: 700;
+  font-size: 13.5px;
+}
+.previewFailed {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--red);
+}

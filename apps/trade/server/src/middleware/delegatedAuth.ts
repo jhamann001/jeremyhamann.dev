@@ -6,13 +6,13 @@ import { sendError } from './errorHandler.js';
 import { ALLOWED_DOMAINS } from './auth.js';
 import { resolveDelegatedActor } from '../services/delegatedActor.js';
 
-// Delegated surface (/api/ops-portal) for Ops Portal. Every call carries two
+// Delegated surface (/api/ops-portal) for the advisor platform. Every call carries two
 // identities:
 //   1. Authorization: Bearer <Google OIDC ID token> for OPS_PORTAL's runtime service
 //      account (application identity), verified like requireMachineAuth.
-//   2. X-OPS-PORTAL-Actor-Assertion: <JWT> minted by Ops Portal for this call and signed by
+//   2. X-OPS-PORTAL-Actor-Assertion: <JWT> minted by the advisor platform for this call and signed by
 //      the SAME service account through IAM signJwt (person identity): sub is
-//      the person's verified company email, ops_portal_role their current Ops Portal role.
+//      the person's verified company email, ops_portal_role their current advisor platform role.
 // The assertion is verified against Google's published keys for that service
 // account and its issuer must equal the application token's email, so no other
 // caller can use it; sub is signed, so it cannot be re-pointed at another

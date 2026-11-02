@@ -1,0 +1,52 @@
+/* Hand-written companion to workspace.css, which is generated from the approved Asset Transfer mockup and drawn in
+   light only. In dark mode the workspace stays light rather than mixing palettes: inside .atw the app's light tokens
+   apply again (globals.css :root, copied below; test/workspace-dark-theme.test.ts keeps the copy exact), the five
+   colours workspace.css sets for itself are put back, and each outermost workspace is painted light, so app
+   components inside it never get dark text on a dark panel or light text on a light one. Import it wherever
+   workspace.css is imported. */
+
+html.dark body .atw {
+  /* globals.css :root, for every token html.dark changes and workspace.css doesn't set */
+  --bg:#f4f1ea;
+  --panel:#ffffff;
+  --ink-2:#4d473e;
+  --faint:#79715f;
+  --line-2:#ddd7ca;
+  --green-2:#3a7560; --green-soft:rgba(47,93,77,.09); --green-line:rgba(47,93,77,.22);
+  --gold:#b08a35; --gold-soft:rgba(176,138,53,.14);
+  --blue-soft:rgba(44,95,115,.08);
+  --amber-soft:rgba(180,105,14,.08);
+  --red-soft:rgba(197,48,48,.08);
+  --status-ok:#2c5a49; --status-ok-bg:#e3eee8; --status-caution:#76560f; --status-caution-bg:#f5ecd3;
+  --status-attention:#8a4407; --status-attention-bg:#f8e5d3; --status-danger:#9b2323; --status-danger-bg:#f8e0de;
+  --status-info:#22566b; --status-info-bg:#e0ecf1; --status-rollover:#4a3d8c; --status-rollover-bg:#e9e6f6;
+  --status-blocked:#6b2a5b; --status-blocked-bg:#f3e3ef; --status-neutral:#57524a; --status-neutral-bg:#ece9e2;
+  --acat-slate:#1e293b; --acat-slate-bg:#f1f5f9; --acat-blue:#1e40af; --acat-blue-bg:#dbeafe;
+  --acat-amber:#92400e; --acat-amber-bg:#fef3c7; --acat-sky:#075985; --acat-sky-bg:#e0f2fe;
+  --acat-indigo:#3730a3; --acat-indigo-bg:#e0e7ff; --acat-violet:#5b21b6; --acat-violet-bg:#ede9fe;
+  --acat-cyan:#155e75; --acat-cyan-bg:#cffafe; --acat-teal:#115e59; --acat-teal-bg:#ccfbf1;
+  --acat-emerald:#065f46; --acat-emerald-bg:#d1fae5; --acat-lime:#3f6212; --acat-lime-bg:#ecfccb;
+  --acat-purple:#6b21a8; --acat-purple-bg:#f3e8ff; --acat-green:#166534; --acat-green-bg:#dcfce7;
+  --acat-red:#991b1b; --acat-red-bg:#fee2e2; --acat-gray:#374151; --acat-gray-bg:#f3f4f6;
+  --acat-orange:#9a3412; --acat-orange-bg:#ffedd5; --acat-yellow:#854d0e; --acat-yellow-bg:#fef9c3;
+  --acat-unknown:#57524a; --acat-unknown-bg:#ece9e2;
+  --sidebar-bg:#fbf9f5; --sidebar-text:#524c43; --sidebar-hover:rgba(47,93,77,.07); --sidebar-foot-line:#e8e3d8;
+  --input-bg:#f4f1ea;
+  --scrollbar-thumb:#d8d2c5;
+  --shadow:0 1px 2px rgba(40,34,20,.04),0 6px 22px rgba(40,34,20,.05); --shadow-lg:0 16px 48px rgba(40,34,20,.12);
+  /* workspace.css's own */
+  --ink:#223b32; --muted:#65716a; --line:#dce1d9; --green:#285745; --red:#9b4239;
+  color-scheme: light;
+}
+
+html.dark body .atw:not(.atw .atw) {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* An embedded workspace card is transparent on the light page, so its content runs to its edges; as a light panel
+   on a dark page it needs room. */
+html.dark body .atw.atw-card:not(.atw .atw) {
+  padding: 18px clamp(12px, 3vw, 24px);
+  border-radius: 12px;
+}

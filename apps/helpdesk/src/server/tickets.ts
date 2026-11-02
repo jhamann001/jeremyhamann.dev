@@ -513,7 +513,7 @@ export function parseClientContactNote(body: string): { channel: ClientContactCh
 
 /**
  * How the panel identifies "the same person" and "the same household". Every field is optional: a
- * phone-only ticket has no email, an un-linked ticket has no Ops Portal pointers, and the query simply
+ * phone-only ticket has no email, an un-linked ticket has no advisor platform pointers, and the query simply
  * returns less rather than widening to everyone.
  */
 export type RequesterKey = {

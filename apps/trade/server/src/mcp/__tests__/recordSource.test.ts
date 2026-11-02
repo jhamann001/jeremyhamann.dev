@@ -41,7 +41,7 @@ beforeEach(() => {
 });
 
 describe('selectMcpRecordSource', () => {
-  it('reads locally without any query when Ops Portal is not configured', async () => {
+  it('reads locally without any query when the advisor platform is not configured', async () => {
     configured.value = false;
     const ctx = await selectMcpRecordSource(user);
     expect(ctx.source).toBe('local');
@@ -50,7 +50,7 @@ describe('selectMcpRecordSource', () => {
     expect(opsPortalQuery).not.toHaveBeenCalled();
   });
 
-  it('reads locally while Ops Portal reports standalone-served', async () => {
+  it('reads locally while the advisor platform reports standalone-served', async () => {
     opsPortalQuery.mockResolvedValueOnce(row({ serving_source: 'standalone' }));
     const ctx = await selectMcpRecordSource(user);
     expect(ctx.source).toBe('local');
@@ -58,7 +58,7 @@ describe('selectMcpRecordSource', () => {
     expect(ctx.user).toBe(user);
   });
 
-  it("reads Ops Portal while OPS-PORTAL-served, as the caller's OPS_PORTAL Trade Request identity", async () => {
+  it("reads the advisor platform while OPS-PORTAL-served, as the caller's OPS_PORTAL Trade Request identity", async () => {
     opsPortalQuery.mockResolvedValueOnce(row());
     const ctx = await selectMcpRecordSource(user);
     expect(ctx.source).toBe('opsPortal');
@@ -68,26 +68,26 @@ describe('selectMcpRecordSource', () => {
     expect(String(opsPortalQuery.mock.calls[0][0])).toMatch(/FROM serving_state s/);
   });
 
-  it('keeps the local id when Ops Portal holds no Trade Request identity for the caller', async () => {
+  it('keeps the local id when the advisor platform holds no Trade Request identity for the caller', async () => {
     opsPortalQuery.mockResolvedValueOnce(row({ tr_user_id: null }));
     const ctx = await selectMcpRecordSource(user);
     expect(ctx.user).toMatchObject({ id: 'local-user-uuid', role: 'trader' });
   });
 
-  it('treats a caller whose current Ops Portal role is not ADMIN or OPERATIONS as an advisor, whatever the local role', async () => {
+  it('treats a caller whose current advisor platform role is not ADMIN or OPERATIONS as an advisor, whatever the local role', async () => {
     opsPortalQuery.mockResolvedValueOnce(row({ ops_portal_trader: false }));
     const ctx = await selectMcpRecordSource({ ...user, role: 'trader' });
     expect(ctx.user).toMatchObject({ id: 'ops-portal-identity-uuid', role: 'advisor' });
   });
 
-  it('refuses a caller whose Ops Portal role grants no Trade Request access while OPS-PORTAL-served', async () => {
+  it('refuses a caller whose advisor platform role grants no Trade Request access while OPS-PORTAL-served', async () => {
     opsPortalQuery.mockResolvedValueOnce(row({ has_access: false }));
     const err = await selectMcpRecordSource(user).catch((e: unknown) => e);
     expect(err).toBeInstanceOf(McpAccessRefusedError);
     expect((err as Error).message).toBe(MCP_ACCESS_REFUSED);
   });
 
-  it('refuses as unavailable when Ops Portal cannot be read', async () => {
+  it('refuses as unavailable when the advisor platform cannot be read', async () => {
     opsPortalQuery.mockRejectedValueOnce(new OpsPortalRecordsUnavailableError());
     await expect(selectMcpRecordSource(user)).rejects.toBeInstanceOf(OpsPortalRecordsUnavailableError);
     expect(localPool.query).not.toHaveBeenCalled();

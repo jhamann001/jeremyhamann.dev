@@ -1,0 +1,217 @@
+.wrap {
+  display: grid;
+  gap: 12px;
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.escalateAction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.escalateAction > span {
+  color: var(--muted);
+  font-size: 9.5px;
+}
+
+.exceptionForm {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.35fr);
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--green-line);
+  border-radius: 9px;
+  background: var(--green-soft);
+}
+
+.formHead {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.formHead > div {
+  display: grid;
+  gap: 3px;
+}
+
+.formHead strong {
+  color: var(--ink);
+  font-size: 11px;
+}
+
+.formHead span {
+  color: var(--muted);
+  font-size: 9.5px;
+}
+
+.exceptionForm > label:not(.blockingChoice) {
+  display: grid;
+  gap: 5px;
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.exceptionForm textarea,
+.exceptionForm select {
+  padding: 8px 9px;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-size: 10.5px;
+}
+
+.exceptionForm textarea {
+  resize: vertical;
+}
+
+.blockingChoice {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink-2);
+  font-size: 10px;
+}
+
+.error {
+  grid-column: 1 / -1;
+  color: var(--red);
+  font-size: 10px;
+}
+
+.formActions {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+}
+
+.list li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+
+.list .open {
+  border-color: color-mix(in srgb, var(--amber) 42%, var(--line));
+  background: var(--amber-soft);
+}
+
+.list .resolved {
+  border-color: var(--green-line);
+  background: var(--green-soft);
+}
+
+.marker {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--amber);
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.resolved .marker {
+  background: var(--green);
+}
+
+.body {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.body strong {
+  color: var(--ink);
+  font-size: 11px;
+}
+
+.body > span {
+  color: var(--muted);
+  font-size: 9.5px;
+  line-height: 1.4;
+}
+
+.resolve {
+  justify-self: end;
+}
+
+.list a {
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 750;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.list a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 680px) {
+  .escalateAction,
+  .formHead {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .exceptionForm {
+    grid-template-columns: 1fr;
+  }
+
+  .formHead,
+  .blockingChoice,
+  .error,
+  .formActions {
+    grid-column: 1;
+  }
+
+  .list li {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .list a,
+  .resolve {
+    grid-column: 2;
+  }
+
+  .topline {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

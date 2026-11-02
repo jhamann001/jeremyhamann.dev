@@ -1,0 +1,60 @@
+# syntax=docker/dockerfile:1
+# The public demo's image (aoa.jeremyhamann.dev): the production image (./Dockerfile) built in demo mode. Build it
+# from this folder, which holds the app's own lockfile:
+#
+#   docker build -f Dockerfile.demo --platform linux/amd64 .
+#
+# Cloudflare Containers run it behind the Worker in ./worker, which builds it on deploy. The demo's settings
+# (demo-config.json: demo mode, persona sign-in, the production flag set) are part of the build because Next.js
+# fixes NEXT_PUBLIC_* values when it builds; the Worker passes the same file again at start, with the secrets
+# (the database logins and the auth secret). No secret is baked in or needed to build.
+#
+# Differences from ./Dockerfile: the demo settings at build time; Node 24 (the production image's Node 20 is past
+# its end of life); port 3000, as the other demos.
+
+# ---------------------------------------------------------------------------
+# Builder — install the locked deps, generate the Prisma client, build the standalone app in demo mode.
+# ---------------------------------------------------------------------------
+FROM node:24-slim AS builder
+WORKDIR /app
+
+# Manifest + prisma/ before `npm ci`: the postinstall hook runs `prisma generate`.
+COPY package.json package-lock.json ./
+COPY prisma ./prisma
+RUN npm ci
+
+COPY . .
+# Before the build, so Next's file tracing carries the engine into .next/standalone/node_modules/.prisma.
+RUN npx prisma generate
+
+ENV NEXT_TELEMETRY_DISABLED=1
+# The demo settings in the build's environment (any already set win), then the production build with its
+# prebuild patch and postbuild check (package.json).
+RUN node -e "const c = require('./demo-config.json'); require('node:child_process').execFileSync('npm', ['run', 'build'], { stdio: 'inherit', env: { ...c, ...process.env } });"
+
+# ---------------------------------------------------------------------------
+# Runner — minimal and non-root.
+# ---------------------------------------------------------------------------
+FROM node:24-slim AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
+# .next/static and public/ are not part of the standalone output.
+COPY --from=builder --chown=node:node /app/public ./public
+COPY --from=builder --chown=node:node /app/.next/standalone ./
+COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+
+# npm's private node_modules still ship vulnerable packages, and the Debian base can lag its security fixes.
+# Upgrade packages, then remove npm, before dropping privileges.
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get upgrade -y --no-install-recommends \
+ && rm -rf /var/lib/apt/lists/* /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
+
+USER node
+
+EXPOSE 3000
+CMD ["node", "server.js"]

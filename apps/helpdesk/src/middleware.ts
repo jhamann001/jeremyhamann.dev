@@ -8,7 +8,7 @@
  *   /api/client        bearer CLIENT_API_TOKEN + X-Requester-Email (src/server/client-view.ts).
  *   /api/health        Cloud Run / deploy smoke; two booleans, no record content.
  *   /api/ingest        Wave A machine WRITE path: bearer INTEGRATION_API_TOKEN (src/lib/integration-auth.ts).
- *   /api/export        Wave A machine READ path (the Ops Portal mirror): same bearer.
+ *   /api/export        Wave A machine READ path (the advisor platform mirror): same bearer.
  *   /api/integrations  Wave A outbox lease / result callbacks: same bearer.
  * A session cookie would be meaningless on all six — the callers are servers, not browsers — and a
  * middleware redirect would turn a 401 into a 307 to /sign-in, which no machine caller can follow.

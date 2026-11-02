@@ -1,0 +1,49 @@
+/* FundingTypeControl (ticket Slice 5) — tokens only, both themes. Mirrors the
+   DecisionChecklistCard select idiom. */
+
+.wrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.select {
+  width: 100%;
+  min-width: 0;
+  padding: 6px 8px;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+}
+
+.select:disabled {
+  opacity: 0.6;
+}
+
+.value {
+  flex: 1;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.eta {
+  margin-left: 6px;
+  font-size: 11.5px;
+  color: var(--faint);
+}
+
+.error {
+  font-size: 11.5px;
+  color: var(--red);
+}
+
+.draft {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+}

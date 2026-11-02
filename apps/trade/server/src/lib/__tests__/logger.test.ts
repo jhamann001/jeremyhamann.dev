@@ -43,11 +43,11 @@ describe('stripQueryFromReq — access-log query redaction', () => {
   });
 });
 
-// pino-http logs every request's headers. The Ops Portal actor assertion carries the
+// pino-http logs every request's headers. The advisor platform actor assertion carries the
 // person's email, name and role, so it must be censored like Authorization
 // (TRW-01, contract item 8: no PII in logs).
 describe('REDACT_PATHS — access-log header redaction', () => {
-  it('censors the Ops Portal actor assertion and bearer token in a real pino-http access log', async () => {
+  it('censors the advisor platform actor assertion and bearer token in a real pino-http access log', async () => {
     const { default: express } = await import('express');
     const { default: request } = await import('supertest');
     const { default: pino } = await import('pino');

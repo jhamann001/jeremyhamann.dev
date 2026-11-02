@@ -1,0 +1,8 @@
+.section { margin-top: 1.5rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 12px; background: var(--input-bg); }
+.form { display: grid; gap: .75rem; margin: 1rem 0; }
+.form textarea { width: 100%; box-sizing: border-box; font: inherit; padding: .75rem; color: var(--ink); background: var(--input-bg); border: 1px solid var(--line-2); border-radius: 6px; }
+.form button { justify-self: start; }
+.tableWrap { overflow-x: auto; }
+.tableWrap table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.tableWrap th, .tableWrap td { text-align: left; padding: .75rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tableWrap small { display: block; margin-top: .25rem; overflow-wrap: anywhere; }

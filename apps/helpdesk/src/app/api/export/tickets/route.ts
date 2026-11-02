@@ -1,5 +1,5 @@
 /**
- * GET /api/export/tickets — the Ops Portal mirror feed.
+ * GET /api/export/tickets — the advisor platform mirror feed.
  *
  * OPS_PORTAL's household view is fed today by a nightly n8n job that reads the legacy help desk. When new tickets stop
  * arriving in the legacy help desk that view goes stale on cutover day unless this desk exposes an equivalent
@@ -35,7 +35,7 @@ export const dynamic = "force-dynamic";
 const NO_STORE = { "Cache-Control": "no-store" } as const;
 const ROUTE = "/api/export/tickets";
 /**
- * This route is the machine READ surface (the Ops Portal mirror). With `EXPORT_API_TOKEN` set it accepts ONLY that key;
+ * This route is the machine READ surface (the advisor platform mirror). With `EXPORT_API_TOKEN` set it accepts ONLY that key;
  * unset, it falls back to the shared `INTEGRATION_API_TOKEN` (src/lib/integration-scope.ts).
  */
 const SCOPE: IntegrationScope = "export";

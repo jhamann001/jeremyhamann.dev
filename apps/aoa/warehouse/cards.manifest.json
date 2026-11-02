@@ -1,0 +1,136 @@
+{
+  "_comment": "Mirror of the saved Warehouse questions the performance reports read. `sqlSha256` is over the NORMALIZED sql only (CRLF folded, trailing whitespace stripped, single trailing newline) so file headers cannot cause false drift. Refresh with `npm run warehouse:export`; verify with `npm run warehouse:check`.",
+  "capturedAt": "2026-08-05",
+  "capturedFrom": "Warehouse API /api/card/{id}",
+  "databaseId": 4,
+  "collection": {
+    "id": 2047,
+    "name": "Operations"
+  },
+  "cards": [
+    {
+      "id": 6601,
+      "name": "AOA Updated AUM w/Corporate accounts",
+      "file": "cards/6601-aoa-account-balance-snapshot.sql",
+      "collectionId": 2047,
+      "databaseId": 4,
+      "sqlSha256": "771b9e4eb625aff4b52dc92b18a2c53a623067f072a2d74f32a2266363c04de8",
+      "templateTags": []
+    },
+    {
+      "id": 6469,
+      "name": "AOA Daily Balances (TWR)",
+      "file": "cards/6469-aoa-daily-balances-twr.sql",
+      "collectionId": 2047,
+      "databaseId": 4,
+      "sqlSha256": "440eec285b8418df2414bee4f717ccfaa20e4153655651e5887f347b0bee61df",
+      "templateTags": [
+        {
+          "name": "account_id",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "as_of",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 6470,
+      "name": "AOA Activities (TWR)",
+      "file": "cards/6470-aoa-activities-twr.sql",
+      "collectionId": 2047,
+      "databaseId": 4,
+      "sqlSha256": "28b46414666b1d12437c5fb6a95a48828ead160b4131116629781c3dcffb2d32",
+      "templateTags": [
+        {
+          "name": "account_id",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "as_of",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 6471,
+      "name": "AOA Cost Basis (TWR)",
+      "file": "cards/6471-aoa-cost-basis-twr.sql",
+      "collectionId": 2047,
+      "databaseId": 4,
+      "sqlSha256": "e68ce19e956d0ee10287c9e11336e36698aee98e05da761574fb5c1ac10d717a",
+      "templateTags": [
+        {
+          "name": "account_id",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "as_of",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 6472,
+      "name": "AOA Account Number UULID Resolver",
+      "file": "cards/6472-aoa-account-number-uulid-resolver.sql",
+      "collectionId": 2047,
+      "databaseId": 4,
+      "sqlSha256": "40299312b407752e88847a72163bb396316bea2ed1f19b0eb0ebc555c5947444",
+      "templateTags": [
+        {
+          "name": "account_number",
+          "type": "text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": 6502,
+      "name": "AOA Realized G/L YTD",
+      "file": "cards/6502-aoa-realized-gl-ytd.sql",
+      "collectionId": 2047,
+      "databaseId": 4,
+      "sqlSha256": "e1421781c64d8cf967c3c548cdb50b75b9ed2111d76e8313236daf0b52864b0b",
+      "templateTags": [
+        {
+          "name": "account_id",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "as_of",
+          "type": "text",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": 6634,
+      "name": "New Funding (ACH/Check/Wire) - AOA v2 (Rebook-safe)",
+      "file": "cards/6634-new-funding-rebook-safe.sql",
+      "collectionId": 2047,
+      "databaseId": 4,
+      "sqlSha256": "0470248f5b0c5a0906cbc779d9eefb625aff4c01ae37200f11ac7e1f08c0cd74",
+      "templateTags": [
+        {
+          "name": "account_id",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "start_date",
+          "type": "text",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

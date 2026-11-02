@@ -1,0 +1,32 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 15px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 13px;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+.primary {
+  background: var(--ink);
+  color: var(--bg);
+}
+.primary:hover {
+  opacity: 0.88;
+}
+.ghost {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+}
+.ghost:hover {
+  border-color: var(--green-line);
+  color: var(--green);
+}
+.sm {
+  padding: 6px 11px;
+  font-size: 12px;
+}

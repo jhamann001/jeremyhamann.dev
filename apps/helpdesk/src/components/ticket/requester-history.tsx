@@ -23,7 +23,7 @@ import { RequesterHistorySheet } from "@/components/ticket/requester-history-she
  *
  * Household rows are a separate group and labelled as such, because "another ticket from this person"
  * and "another ticket from this household" are different claims and an operator must not confuse them.
- * The pointer is an opaque Ops Portal id; nothing here renders it.
+ * The pointer is an opaque advisor platform id; nothing here renders it.
  *
  * `variant="inline"` is the md+ properties column; `variant="sheet"` is the phone block above the action
  * dock, where the rows go inside a bottom sheet behind a 44 px trigger.

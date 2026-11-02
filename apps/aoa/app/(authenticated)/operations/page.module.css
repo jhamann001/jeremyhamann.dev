@@ -1,0 +1,13 @@
+.titleRow { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.titleRow p { max-width: 720px; margin-top: 7px; color: var(--muted); }
+.notice { margin-top: 20px; padding: 12px 14px; border: 1px dashed var(--gold); border-radius: var(--radius-sm); background: var(--gold-soft); color: var(--ink-2); font-size: 13px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
+.toolCard { min-height: 250px; }
+.toolCard > div { display: flex; flex-direction: column; height: 100%; padding: 22px; }
+.cardTop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 34px; }
+.number { color: var(--gold); font-family: var(--font-mono), ui-monospace, monospace; font-size: 12px; font-weight: 700; }
+.toolCard h2 { font-size: 21px; }
+.toolCard p { max-width: 520px; margin-top: 8px; color: var(--muted); font-size: 13px; }
+.action, .disabled { display: inline-block; margin-top: auto; padding-top: 30px; font-size: 13px; font-weight: 700; }
+.disabled { color: var(--faint); }
+@media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }

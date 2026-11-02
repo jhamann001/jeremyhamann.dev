@@ -253,7 +253,7 @@ const envSchema = z.object({
   AUTH_OKTA_ID: optionalString,
   AUTH_OKTA_SECRET: optionalString,
   AUTH_OKTA_ISSUER: optionalString,
-  // the shared Ops Portal app needs scope "openid email profile ops_portal_groups" and claim "OpsPortalGroups". A value
+  // the shared advisor platform app needs scope "openid email profile ops_portal_groups" and claim "OpsPortalGroups". A value
   // that is set but malformed is refused by key name (the auth module would otherwise fall back to the default
   // silently, which is not what an operator who set the variable intended).
   AUTH_OKTA_SCOPE: optionalTrimmedString.refine((v) => v === undefined || isValidOktaScope(v)),

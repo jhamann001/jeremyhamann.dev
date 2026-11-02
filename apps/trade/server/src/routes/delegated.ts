@@ -6,13 +6,13 @@ import householdRoutes from './households.js';
 import notificationRoutes from './notifications.js';
 import requestRoutes from './requests.js';
 
-// Delegated surface for Ops Portal, mounted at /api/ops-portal behind
+// Delegated surface for the advisor platform, mounted at /api/ops-portal behind
 // requireDelegatedCaller. It re-mounts the existing route modules so every
 // business rule, guard and safeguard applies exactly as for the standalone app,
 // with req.user set to the confirmed person and the role mapped from their
-// current Ops Portal role.
+// current advisor platform role.
 //
-// Only the operations the Ops Portal Trade Requests workspace uses are reachable: the
+// Only the operations the advisor platform Trade Requests workspace uses are reachable: the
 // allowlist below names each method and path. Anything else — including the
 // asset location engine and its pre-fill holdings reads (owner ruling D4), and
 // any route added to these modules later — is 404 until it is listed here.

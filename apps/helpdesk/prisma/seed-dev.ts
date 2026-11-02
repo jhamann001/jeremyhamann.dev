@@ -171,7 +171,7 @@ export type TicketFixture = {
   externalId?: string;
   /** One external reference (e-signature envelope, ACAT control number). Sanitized like free text. */
   externalRef?: string;
-  /** Ops Portal pointers — ids only, never account numbers. */
+  /** The advisor platform pointers — ids only, never account numbers. */
   householdId?: string;
   requesterExternalId?: string;
   /**
@@ -270,7 +270,7 @@ const PASS_THROUGH_ROUTING_PROBE = "021000021";
 //
 // Wave A columns exercised: CS-13 is phone-only (requesterEmail null, source VOICEMAIL); CS-12 carries
 // isComplaint / complaintFiledAt / escalationTarget COMPLIANCE; CS-10 is source EMAIL on brand
-// CEDAR_RIDGE_DIRECT; OPS-12 carries followUpAt; OPS-14 carries the Ops Portal household pointers. Everything else
+// CEDAR_RIDGE_DIRECT; OPS-12 carries followUpAt; OPS-14 carries the advisor platform household pointers. Everything else
 // is STAFF_FORM on CEDAR_RIDGE_WEALTH, which is what the original 24 have always been.
 // ---------------------------------------------------------------------------
 
@@ -1214,7 +1214,7 @@ const TICKET_FIXTURES: readonly TicketFixture[] = [
     createdById: "staff_helen",
     assigneeId: "staff_marco",
     resolvedAtMin: 900,
-    // Wave A Ops Portal pointers — opaque ids only, never account numbers.
+    // Wave A the advisor platform pointers — opaque ids only, never account numbers.
     householdId: "reichert",
     requesterExternalId: "reichert-mylene",
     subject: "Transferred lots showing zero cost basis after the ACAT",

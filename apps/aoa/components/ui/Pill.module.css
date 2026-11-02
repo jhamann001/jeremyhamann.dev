@@ -1,0 +1,46 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.green { background: var(--green-soft); color: var(--green); }
+.gold { background: var(--gold-soft); color: var(--gold); }
+.blue { background: var(--blue-soft); color: var(--blue); }
+.amber { background: var(--amber-soft); color: var(--amber); }
+.red { background: var(--red-soft); color: var(--red); }
+.gray { background: rgba(128, 128, 128, 0.12); color: var(--muted); }
+.ok { background: var(--status-ok-bg); color: var(--status-ok); }
+.caution { background: var(--status-caution-bg); color: var(--status-caution); }
+.attention { background: var(--status-attention-bg); color: var(--status-attention); }
+.danger { background: var(--status-danger-bg); color: var(--status-danger); }
+.info { background: var(--status-info-bg); color: var(--status-info); }
+.rollover { background: var(--status-rollover-bg); color: var(--status-rollover); }
+.blocked { background: var(--status-blocked-bg); color: var(--status-blocked); }
+.neutral { background: var(--status-neutral-bg); color: var(--status-neutral); }
+.hue_slate { background: var(--acat-slate-bg); color: var(--acat-slate); }
+.hue_blue { background: var(--acat-blue-bg); color: var(--acat-blue); }
+.hue_amber { background: var(--acat-amber-bg); color: var(--acat-amber); }
+.hue_sky { background: var(--acat-sky-bg); color: var(--acat-sky); }
+.hue_indigo { background: var(--acat-indigo-bg); color: var(--acat-indigo); }
+.hue_violet { background: var(--acat-violet-bg); color: var(--acat-violet); }
+.hue_cyan { background: var(--acat-cyan-bg); color: var(--acat-cyan); }
+.hue_teal { background: var(--acat-teal-bg); color: var(--acat-teal); }
+.hue_emerald { background: var(--acat-emerald-bg); color: var(--acat-emerald); }
+.hue_lime { background: var(--acat-lime-bg); color: var(--acat-lime); }
+.hue_purple { background: var(--acat-purple-bg); color: var(--acat-purple); }
+.hue_green { background: var(--acat-green-bg); color: var(--acat-green); }
+.hue_red { background: var(--acat-red-bg); color: var(--acat-red); }
+.hue_gray { background: var(--acat-gray-bg); color: var(--acat-gray); }
+.hue_orange { background: var(--acat-orange-bg); color: var(--acat-orange); }
+.hue_yellow { background: var(--acat-yellow-bg); color: var(--acat-yellow); }
+.hue_unknown { background: var(--acat-unknown-bg); color: var(--acat-unknown); }

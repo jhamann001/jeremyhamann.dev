@@ -1,0 +1,48 @@
+{
+  "$schema": "../../../node_modules/wrangler/config-schema.json",
+  "name": "aoa-demo",
+  "main": "src/index.js",
+  // The app's built static files and public/, copied out of its image by the deploy (.github/workflows/deploy-aoa.yml).
+  // A request that matches one is answered by Cloudflare directly, without this Worker or the container.
+  "assets": { "directory": "./static" },
+  "compatibility_date": "2026-10-01",
+  "routes": [{ "pattern": "aoa.jeremyhamann.dev", "custom_domain": true }],
+  "vars": {
+    "APP_ORIGIN": "https://aoa.jeremyhamann.dev",
+    "RESET_REPOSITORY": "jhamann001/portfolio"
+  },
+  // Secrets (set by the deploy workflow): the four database settings (scripts/demo-logins.ts), AUTH_SECRET,
+  // RESET_GATE_TOKEN (the nightly reset's key to the "resetting" page), VISITOR_HASH_KEY (made per deploy) and,
+  // when the repository has it, RESET_DISPATCH_TOKEN (the cron's key to start the reset workflow).
+  "containers": [
+    {
+      "class_name": "AoaApp",
+      "image": "../Dockerfile.demo",
+      "image_build_context": "..",
+      // One instance with 1/2 vCPU and 4 GiB (plan D6: the app's server-rendered pages need more than the other
+      // demos' basic instance); it sleeps after 10 idle minutes and costs nothing while asleep.
+      "max_instances": 1,
+      "instance_type": "standard-1"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      { "name": "AOA_APP", "class_name": "AoaApp" },
+      { "name": "RESET_GATE", "class_name": "ResetGate" }
+    ]
+  },
+  "exports": {
+    "AoaApp": { "type": "durable-object", "storage": "sqlite" },
+    "ResetGate": { "type": "durable-object", "storage": "sqlite" }
+  },
+  // Per-visitor ceilings at the edge, before anything reaches the container (counted per Cloudflare location), far
+  // above normal use: every request (a page load fetches many chunks), and writes (server actions and form posts).
+  "ratelimits": [
+    { "name": "VISITOR_LIMIT", "namespace_id": "1005", "simple": { "limit": 600, "period": 60 } },
+    { "name": "WRITE_LIMIT", "namespace_id": "1006", "simple": { "limit": 120, "period": 60 } }
+  ],
+  // The nightly reset runs from GitHub Actions as the database owner (.github/workflows/reset-aoa.yml); this cron
+  // only asks GitHub to start it on time (demo-edge/reset-dispatch.js).
+  "triggers": { "crons": ["0 7 * * *"] },
+  "observability": { "enabled": true }
+}

@@ -1,0 +1,22 @@
+.wrap {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: 48px 24px;
+  text-align: center;
+}
+.title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.hint {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+  max-width: 36ch;
+  margin-left: auto;
+  margin-right: auto;
+}

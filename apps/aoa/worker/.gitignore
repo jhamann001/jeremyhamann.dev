@@ -1,0 +1,5 @@
+# The static files each deploy copies out of the image (Dockerfile.demo) for Cloudflare to serve.
+static/*
+!static/_headers
+.wrangler/
+.dev.vars

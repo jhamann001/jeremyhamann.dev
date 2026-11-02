@@ -1,0 +1,147 @@
+/* BasisDecisionTable (T3) — tokens only, both themes. */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.banner {
+  padding: 10px 12px;
+  font-size: 12.5px;
+  color: var(--amber);
+  background: var(--amber-soft);
+  border: 1px solid var(--amber);
+  border-radius: var(--radius-sm);
+}
+
+.decisionLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--green-line);
+  border-radius: var(--radius-sm);
+  background: var(--green-soft);
+}
+
+.decisionLink > div {
+  display: grid;
+  gap: 2px;
+}
+
+.decisionLink strong {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.decisionLink span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.decisionLink a {
+  flex-shrink: 0;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.decisionLink a:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.error {
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: var(--red);
+  background: var(--red-soft);
+  border: 1px solid var(--red);
+  border-radius: var(--radius-sm);
+}
+
+.scroller {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+.table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding: 6px 10px 6px 0;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 9px 10px 9px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+  color: var(--ink);
+}
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.table th.num {
+  text-align: right;
+}
+
+.symbol {
+  display: block;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.desc {
+  display: block;
+  font-size: 11px;
+  color: var(--faint);
+}
+
+.select {
+  padding: 5px 8px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+}
+.select:focus {
+  border-color: var(--green);
+  outline: none;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.emptyText {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  max-width: 520px;
+}

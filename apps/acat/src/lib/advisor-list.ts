@@ -6,7 +6,7 @@ import {
 } from "@/lib/advisor-redaction";
 
 // ticket: the one advisor-facing ACAT list. The tracker's /advisor page route
-// and the machine read for Ops Portal both call this, so the rows, order,
+// and the machine read for the advisor platform both call this, so the rows, order,
 // bound, and redaction cannot drift apart.
 export const ADVISOR_LIST_HARD_CAP = 5000;
 

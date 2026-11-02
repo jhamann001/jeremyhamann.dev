@@ -115,14 +115,14 @@ checks support local/container execution. CI boots the actual production image
 with placeholder auth settings and the isolated test database, verifies the
 runtime UID/GID, and waits for the image's health check to pass.
 
-## Dev environment (for Ops Portal DEV)
+## Dev environment (for the advisor platform DEV)
 
-`trade-request-dev` is a non-production copy of the service that only Ops Portal DEV calls,
+`trade-request-dev` is a non-production copy of the service that only the advisor platform DEV calls,
 through the delegated surface (`/api/ops-portal`). It has its own Cloud SQL instance
 (`trade-request-dev-db`) and runtime service account, holds synthetic seed data
 only, and has no Slack, SMTP, Warehouse, AWS or scheduler configuration, so it
 cannot notify traders or reach real client data. Its machine surface
-(`/api/machine`) accepts only Ops Portal DEV's cutover job (its own service
+(`/api/machine`) accepts only the advisor platform DEV's cutover job (its own service
 account), for the cutover rehearsal. Standalone Google sign-in is not configured there.
 
 - One-time setup: `scripts/setup-dev-env.sh`.
@@ -426,7 +426,7 @@ OPS_PORTAL's cutover controller reads the state with `GET /api/machine/service-m
 machine token; only the controller identity may change it: `SERVICE_MODE_CONTROLLER_SA` when set, otherwise
 `OPS_PORTAL_DELEGATED_CALLER_SA`. The read reports `writesSettledAt`: a freeze refuses new writes at once, but a write
 admitted just before it can still commit for up to 300 s (the Cloud Run request timeout), so the controller waits
-until then before copying. On the dev service only Ops Portal DEV's cutover job may call them (`deploy-dev.yml`).
+until then before copying. On the dev service only the advisor platform DEV's cutover job may call them (`deploy-dev.yml`).
 
 Emergency override: `SERVICE_MODE_OVERRIDE` (`active`, `frozen` or `mcp-only`; any other non-empty value reads as
 `frozen`) wins over the persisted mode on every instance. Production:
@@ -485,7 +485,7 @@ In Google Cloud Console, add `https://<host>/oauth/google/callback` to the OAuth
 
 ### Record source (ticket)
 
-MCP reads Trade Request records (requests, audit trails, last allocations, accounts and standing exclusions) from the local database unless `OPS_PORTAL_RECORDS_DB_HOST` is set. When it is set, every MCP tool call first reads Ops Portal's serving state through the read-only `trade_request_mcp_ro` login: while Ops Portal reports standalone-served the call reads locally; while OPS-PORTAL-served it reads OPS_PORTAL's `trade_request` schema and refuses a caller whose current Ops Portal role grants no Trade Request access. If Ops Portal cannot be read the call is refused with an unavailable message; it never falls back to local records. MCP sign-in, OAuth and token tables always stay local.
+MCP reads Trade Request records (requests, audit trails, last allocations, accounts and standing exclusions) from the local database unless `OPS_PORTAL_RECORDS_DB_HOST` is set. When it is set, every MCP tool call first reads the advisor platform's serving state through the read-only `trade_request_mcp_ro` login: while the advisor platform reports standalone-served the call reads locally; while OPS-PORTAL-served it reads OPS_PORTAL's `trade_request` schema and refuses a caller whose current advisor platform role grants no Trade Request access. If the advisor platform cannot be read the call is refused with an unavailable message; it never falls back to local records. MCP sign-in, OAuth and token tables always stay local.
 
 | Variable                  | Meaning                                                                                           |
 | ------------------------- | ------------------------------------------------------------------------------------------------- |

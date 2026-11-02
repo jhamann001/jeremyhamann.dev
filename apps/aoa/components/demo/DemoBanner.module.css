@@ -1,0 +1,48 @@
+/* Ink band with the paper color for text, in both themes; the dark theme sinks it a step and rules it off. Its height
+   is fixed (DEMO_BANNER_HEIGHT) because the full-height app shell below it subtracts that height. */
+.banner {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+  height: var(--demo-banner-height, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+  overflow: hidden;
+  white-space: nowrap;
+  background: #1c1a16;
+  color: #f4f1ea;
+  font: 600 11px/1.4 var(--font-sans), system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+:global(html.dark) .banner {
+  background: #0e0d0b;
+  border-bottom: 1px solid #2a2722;
+}
+.long,
+.short {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.short {
+  display: none;
+}
+.banner a {
+  flex-shrink: 0;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+@media (max-width: 480px) {
+  .long {
+    display: none;
+  }
+  .short {
+    display: inline;
+  }
+}

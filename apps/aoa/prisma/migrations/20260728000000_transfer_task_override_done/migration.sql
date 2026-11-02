@@ -1,0 +1,14 @@
+-- Always-On Advice — ops override for the deal-mirrored checklist tasks
+-- (deal-card mirror S2).
+--
+-- The two SYNCED DECISION checklist titles ("Collect statements" → deal.statements,
+-- "Run asset mapper" → deal.asset_mapped) LIVE-MIRROR the linked deal's flags.
+-- This nullable column stores a sticky, ONE-WAY ops override:
+--   NULL        → follow the deal flag (the live mirror; the default for every row)
+--   true/false  → ops toggled the card, and that wins over the deal (never writes
+--                 the deal). See resolveTaskDone (lib/data/transfer-types.ts).
+--
+-- Additive-only (ADR-5): ONE new NULLABLE column, no default → existing rows are
+-- NULL = follow-the-deal immediately, no backfill needed. Inherits app.transfer_task's
+-- table grants + FORCE-RLS policies (a nullable add needs no per-column grant).
+ALTER TABLE "app"."transfer_task" ADD COLUMN "override_done" BOOLEAN;

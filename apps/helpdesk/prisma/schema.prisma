@@ -662,10 +662,10 @@ model Ticket {
   /// Unique PER SOURCE, so a retry is idempotent and two channels may reuse the same string.
   externalId String?
 
-  // --- Wave A: Ops Portal pointers (hybrid-light). IDS ONLY — never account numbers. ---
-  /// Ops Portal household id. Opaque pointer for the requester-history panel and the Ops Portal deep link.
+  // --- Wave A: The advisor platform pointers (hybrid-light). IDS ONLY — never account numbers. ---
+  /// The advisor platform household id. Opaque pointer for the requester-history panel and the advisor platform deep link.
   householdId         String?
-  /// Ops Portal person / cedar_ridge_user_id. Opaque pointer.
+  /// The advisor platform person / cedar_ridge_user_id. Opaque pointer.
   requesterExternalId String?
 
   // --- Wave A: structured compliance flags ---

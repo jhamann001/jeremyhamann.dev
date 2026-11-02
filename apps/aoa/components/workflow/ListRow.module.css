@@ -1,0 +1,36 @@
+.row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 12px;
+  align-items: start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.row:last-child {
+  border-bottom: 0;
+}
+.icon {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.main {
+  min-width: 0;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.green { background: var(--green-soft); color: var(--green); }
+.gold { background: var(--gold-soft); color: var(--gold); }
+.blue { background: var(--blue-soft); color: var(--blue); }
+.amber { background: var(--amber-soft); color: var(--amber); }
+.red { background: var(--red-soft); color: var(--red); }
+.gray { background: rgba(128, 128, 128, 0.12); color: var(--muted); }

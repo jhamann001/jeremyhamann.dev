@@ -3,26 +3,30 @@
 // address, because the app's own redirects (/ to /sign-in, say) would drop the parameter. On the first HTML
 // page after that, the Worker puts one line at the top of <head> that saves the theme where the app's own
 // theme code looks for it, so the page paints in that theme, and clears the cookie.
+// An app whose server reads the theme from a cookie of its own (config `{ cookie }`) needs no line: the redirect
+// sets that cookie, as the app's own toggle would, and the next page is rendered in the theme.
 //
-// Shared by the three demo Workers (apps/*/worker); its tests run with the help desk Worker's.
+// Shared by the demo Workers (apps/*/worker); its tests run with the help desk Worker's.
 
 export const THEME_COOKIE = 'demo_theme';
 const THEMES = new Set(['light', 'dark']);
 
-/** For a GET carrying ?theme=light|dark: a redirect to the same address without it, setting the cookie. */
-export function themeRedirect(request) {
+/**
+ * For a GET carrying ?theme=light|dark: a redirect to the same address without it, setting the cookie (the app's
+ * own, readable by its toggle, when `config.cookie` names one).
+ */
+export function themeRedirect(request, config = {}) {
   if (request.method !== 'GET') return null;
   const url = new URL(request.url);
   const theme = url.searchParams.get('theme');
   if (!THEMES.has(theme)) return null;
   url.searchParams.delete('theme');
+  const cookie = config.cookie
+    ? `${config.cookie}=${theme}; Path=/; Max-Age=31536000; Secure; SameSite=Lax`
+    : `${THEME_COOKIE}=${theme}; Path=/; Max-Age=300; Secure; HttpOnly; SameSite=Lax`;
   return new Response(null, {
     status: 302,
-    headers: {
-      location: url.toString(),
-      'set-cookie': `${THEME_COOKIE}=${theme}; Path=/; Max-Age=300; Secure; HttpOnly; SameSite=Lax`,
-      'cache-control': 'no-store',
-    },
+    headers: { location: url.toString(), 'set-cookie': cookie, 'cache-control': 'no-store' },
   });
 }
 

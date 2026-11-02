@@ -5,7 +5,7 @@ import { logger } from "@/lib/logger";
 import { verifyAcatReadCaller } from "@/lib/machine-auth";
 import { rateLimit } from "@/lib/rate-limit-redis";
 
-// ticket: the tracker's advisor-redacted ACAT list for Ops Portal.
+// ticket: the tracker's advisor-redacted ACAT list for the advisor platform.
 //
 // A trusted machine caller names the signed-in person by work email in the
 // X-OpsPortal-Actor-Email header (a header, so the email stays out of request logs).

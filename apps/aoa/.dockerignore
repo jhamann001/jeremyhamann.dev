@@ -1,0 +1,43 @@
+# Keep the Docker build context lean and secret-free. Anything the standalone
+# build does not need is excluded; env files are NEVER shipped into the image.
+
+# Dependencies / build outputs (rebuilt inside the builder stage)
+node_modules
+.next
+out
+dist
+build
+
+# Env — never send secrets into the build context
+.env
+.env.*
+gha-creds-*.json
+
+# VCS / CI / IaC / docs / tests — not needed to build or run the app
+.git
+.gitignore
+.github
+infra
+docs
+test
+# Browser configs import test fixtures and are not application build inputs.
+playwright*.config.ts
+coverage
+
+# Docker / compose (not needed inside the image)
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Editor / OS / misc
+.vscode
+.idea
+*.swp
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+*.md
+tsconfig.tsbuildinfo
+next-env.d.ts
+.claude

@@ -26,9 +26,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta name="color-scheme" content="light dark" />
-    <script is:inline>
-      try { const t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
-    </script>
   </head>
   <body>
     <Nav />
@@ -37,13 +34,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </main>
     <Footer />
     <script>
-      // Demo links (a[data-demo]) open the demo in this page's theme: its Worker reads ?theme= and starts the
-      // app in it (apps/demo-edge/theme-handoff.js). They also wake the demo's container in the background, so
+      // The site follows the visitor's system theme. Demo links (a[data-demo]) open the demo in that theme too: its
+      // Worker reads ?theme= and starts the app in it (apps/demo-edge/theme-handoff.js). They also wake the demo's container in the background, so
       // it is usually running by the time the link is followed: on load for a case study's own demo
       // (data-demo="warm"), otherwise on hover, focus or touch.
       const links = () => [...document.querySelectorAll<HTMLAnchorElement>('a[data-demo]')];
       const darkQuery = matchMedia('(prefers-color-scheme: dark)');
-      const theme = () => document.documentElement.getAttribute('data-theme') ?? (darkQuery.matches ? 'dark' : 'light');
+      const theme = () => (darkQuery.matches ? 'dark' : 'light');
 
       function setThemes(): void {
         for (const link of links()) {
@@ -62,7 +59,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       }
 
       setThemes();
-      new MutationObserver(setThemes).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
       darkQuery.addEventListener('change', setThemes);
       for (const link of links()) {
         if (link.dataset.demo === 'warm') wake(link);

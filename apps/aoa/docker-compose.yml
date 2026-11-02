@@ -1,0 +1,20 @@
+# Local dev Postgres only. Prod uses Cloud SQL (private IP) — see infra/terraform.
+# Match the major version to Cloud SQL so local is a faithful rehearsal.
+services:
+  postgres:
+    image: postgres:16
+    container_name: aoa-postgres
+    environment:
+      POSTGRES_USER: aoa
+      POSTGRES_DB: aoa
+      # Local-only, synthetic data: no password (trust auth) so no credential is
+      # committed anywhere. Prod is Cloud SQL with IAM/Secret Manager — never this.
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      # Bound to loopback so the dev DB is never exposed beyond this machine.
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - aoa_pgdata:/var/lib/postgresql/data
+
+volumes:
+  aoa_pgdata:

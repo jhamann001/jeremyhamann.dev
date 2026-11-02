@@ -1,4 +1,5 @@
 import axios, { type AxiosInstance } from 'axios';
+import { signInUrlFor } from '../utils/signInPath';
 import type {
   AuthUser,
   Client,
@@ -151,7 +152,8 @@ function attachInterceptors(instance: AxiosInstance): void {
         !window.location.pathname.startsWith('/login')
       ) {
         redirecting = true;
-        window.location.href = '/login';
+        // Keeps where the visitor was, so signing in brings them back (a request link from another demo, say).
+        window.location.href = signInUrlFor(window.location);
       }
       return Promise.reject(err);
     },

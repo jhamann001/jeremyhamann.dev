@@ -1,0 +1,35 @@
+.back { display: inline-block; margin-bottom: 14px; font-size: 12.5px; font-weight: 650; }
+.titleRow, .previewHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.intro, .hint { color: var(--muted); font-size: 13px; margin-top: 6px; max-width: 780px; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+.card { margin-top: 20px; }
+.success, .error { margin-top: 16px; padding: 11px 12px; border: 1px solid var(--green-line); border-radius: var(--radius-sm); background: var(--green-soft); color: var(--green-2); font-size: 12.5px; font-weight: 650; }
+.error { border-color: var(--red); background: var(--red-soft); color: var(--red); }
+.rosterSchedule, .rosterOverdue { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-top: 16px; padding: 13px 14px; border: 1px solid var(--green-line); border-radius: var(--radius-sm); background: var(--green-soft); }
+.rosterSchedule p, .rosterOverdue p { color: var(--muted); font-size: 12px; line-height: 1.5; margin-top: 4px; }
+.rosterOverdue { border-color: var(--red); background: var(--red-soft); }
+.uploadForm, .searchForm { display: grid; grid-template-columns: minmax(280px, 1fr) minmax(180px, .35fr) auto; align-items: end; gap: 12px; }
+.searchForm { grid-template-columns: minmax(280px, 1fr) auto; }
+.uploadForm label, .searchForm label { display: grid; gap: 6px; color: var(--muted); font-size: 11px; font-weight: 650; }
+.uploadForm input, .searchForm input { width: 100%; min-height: 40px; border: 1px solid var(--line-2); border-radius: 9px; background: var(--input-bg); color: var(--ink); padding: 8px 10px; font: inherit; font-size: 12.5px; }
+.applyBar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px; border: 1px solid var(--gold); border-radius: var(--radius-sm); background: var(--gold-soft); margin-bottom: 16px; }
+.applyBar p { color: var(--ink-2); font-size: 12.5px; }
+.tableWrap { width: 100%; overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.table th { color: var(--faint); text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; border-bottom: 1px solid var(--line-2); padding: 9px 10px; white-space: nowrap; }
+.table td { padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.table td small { display: block; color: var(--muted); margin-top: 4px; line-height: 1.45; }
+.reviewLink { font-weight: 650; white-space: nowrap; }
+.noMatches { color: var(--muted); padding: 20px 0 4px; }
+.candidates { display: grid; gap: 10px; margin-top: 16px; }
+.candidate { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--input-bg); }
+.candidate > div:first-child { display: grid; gap: 4px; }
+.candidate span { color: var(--muted); font-size: 12.5px; }
+.candidatePills, .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.candidatePills { margin-top: 4px; }
+.previousRejections { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+.rejectButton { border: 1px solid var(--line-2); border-radius: 999px; background: transparent; color: var(--ink); padding: 9px 13px; font: inherit; font-size: 12px; font-weight: 650; cursor: pointer; }
+.history { display: grid; }
+.history a { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; }
+.history a:last-child { border-bottom: 0; }
+@media (max-width: 900px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .uploadForm, .searchForm { grid-template-columns: 1fr; } .candidate, .applyBar { align-items: flex-start; flex-direction: column; } }

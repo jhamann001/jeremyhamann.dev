@@ -1,0 +1,32 @@
+.back {
+  display: inline-block;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+.back:hover {
+  color: var(--green);
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.workGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.dealsRow {
+  margin-top: 16px;
+}
+
+@media (max-width: 760px) {
+  .workGrid { grid-template-columns: 1fr; }
+}

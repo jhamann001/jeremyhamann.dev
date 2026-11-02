@@ -1,0 +1,214 @@
+.review {
+  margin-top: 16px;
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+.summary {
+  padding: 16px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.review[open] .summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.reviewBody {
+  padding: 0 16px 16px;
+}
+
+.intro,
+.accountHeading,
+.candidateHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.intro h3 {
+  margin: 2px 0 0;
+  font-size: 16px;
+}
+
+.summaryMeta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.toggleLabel {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.chevron {
+  color: var(--muted);
+  font-size: 14px;
+  transition: transform 160ms ease;
+}
+
+.review[open] .chevron {
+  transform: rotate(180deg);
+}
+
+.eyebrow {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.help,
+.saved,
+.candidateHeading span,
+.confirm p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.help {
+  max-width: 760px;
+  margin-top: 14px;
+}
+
+.accounts,
+.candidates {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.account {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.accountHeading > div,
+.candidateHeading > div {
+  display: grid;
+  gap: 2px;
+}
+
+.accountHeading strong {
+  font-size: 13px;
+}
+
+.accountHeading span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.saved {
+  padding: 8px 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.candidate {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.candidateHeading code,
+.saved code {
+  color: var(--ink);
+  font-size: 11px;
+}
+
+.candidate dl {
+  display: grid;
+  gap: 7px;
+  margin: 11px 0;
+}
+
+.candidate dl > div {
+  display: grid;
+  grid-template-columns: minmax(100px, 150px) 1fr;
+  gap: 12px;
+}
+
+.candidate dt {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.candidate dd {
+  margin: 0;
+  font-size: 11px;
+}
+
+.confirm {
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.confirm label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.confirm textarea {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--input-bg);
+  resize: vertical;
+}
+
+.confirm p {
+  margin-top: 7px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.error {
+  margin-top: 12px;
+  color: var(--red);
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .summaryMeta {
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .toggleLabel {
+    display: none;
+  }
+
+  .candidate dl > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}

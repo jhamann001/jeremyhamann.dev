@@ -9,8 +9,8 @@ import { execFileSync } from 'node:child_process';
 import { appendFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-export const APPS = ['synthetic', 'site', 'trade', 'acat', 'helpdesk', 'statements'];
-const DEMOS = ['trade', 'acat', 'helpdesk', 'statements'];
+export const APPS = ['synthetic', 'site', 'trade', 'acat', 'helpdesk', 'statements', 'aoa'];
+const DEMOS = ['trade', 'acat', 'helpdesk', 'statements', 'aoa'];
 
 // First match wins. Anything unmatched runs every job: CI itself, this selector, the root package files, .nvmrc,
 // .dockerignore, or a new top-level folder.
@@ -18,13 +18,14 @@ const RULES = [
   // Docs, plans and the guard's own files: the guard job, which always runs, is their check.
   [/^(plans\/|tools\/guard\/|\.githooks\/|README\.md$|\.editorconfig$|\.gitignore$|\.gitleaks\.toml$)/, []],
   // A workspace's package.json changes the shared lockfile, and the images copy each other's for npm ci.
-  [/^(synthetic|site|apps\/trade(\/(shared|server|client|worker))?|apps\/acat(\/worker)?|apps\/helpdesk\/worker|apps\/statements\/(frontend|worker))\/package\.json$/, APPS],
+  [/^(synthetic|site|apps\/trade(\/(shared|server|client|worker))?|apps\/acat(\/worker)?|apps\/helpdesk\/worker|apps\/statements\/(frontend|worker)|apps\/aoa\/worker)\/package\.json$/, APPS],
   // Each deploy or reset workflow: CI doesn't run it, so its app's jobs are the nearest check.
   [/^\.github\/workflows\/deploy-site\.yml$/, ['site']],
   [/^\.github\/workflows\/deploy-trade\.yml$/, ['trade']],
   [/^\.github\/workflows\/deploy-acat\.yml$/, ['acat']],
   [/^\.github\/workflows\/(deploy|reset)-helpdesk\.yml$/, ['helpdesk']],
   [/^\.github\/workflows\/deploy-statements\.yml$/, ['statements']],
+  [/^\.github\/workflows\/(deploy|reset)-aoa\.yml$/, ['aoa']],
   // The demos' Workers share this code; the site only mentions it in a comment.
   [/^apps\/demo-edge\//, DEMOS],
   // Every demo's image and data come from the synthetic universe.
@@ -35,6 +36,8 @@ const RULES = [
   // The help desk app keeps its own lockfile, so its package.json lands here, not in the workspace rule.
   [/^apps\/helpdesk\//, ['helpdesk']],
   [/^apps\/statements\//, ['statements']],
+  // The advisor platform keeps its own lockfile too (its Worker's package.json is a workspace's, above).
+  [/^apps\/aoa\//, ['aoa']],
 ];
 
 /** The apps whose jobs a set of changed paths needs. */

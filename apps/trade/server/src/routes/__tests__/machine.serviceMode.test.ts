@@ -67,7 +67,7 @@ describe('/api/machine/service-mode', () => {
     expect(res.headers['cache-control']).toBe('no-store, private');
   });
 
-  it('PUT from the Ops Portal caller changes the mode and records its caller and reason', async () => {
+  it('PUT from the advisor platform caller changes the mode and records its caller and reason', async () => {
     const res = await request(await createApp(OPS_PORTAL))
       .put('/api/machine/service-mode')
       .send({ mode: 'frozen', driftSender: 'off', reason: 'cutover freeze' });

@@ -1,0 +1,4 @@
+Deal: ID,Deal: Deal Name,Person: First Name,Person: Last Name,Person: Primary Entity,Household SF ID (Person: Entity ID),AUM,AoA - New Stage,Stage,Deal: Created Date,Close Date,Deal: Last Activity Date,Person: Entity Owner,Owner SF User ID,Person: Secondary Owner,Person: AUM,Person: Potential AUM,Person: Cedar Ridge User ID,Statements,Plaid Linked
+BAD-0001,Abigail Valid - Fidelity - Roth IRA - 9001,Abigail,Valid,Valid Household,001BAD0000000001,50000,Potential,Open,2026-05-01,,,Avery Stone,ADV-AVERY,,,,EU-BAD-1,Yes,No
+BAD-0002,Paulette Ferreira - Schwab - Joint - 9002,Paulette,Ferreira,Ferreira Household,001BAD0000000002,75000,Negotiating,Open,2026-05-02,,,Avery Stone,ADV-AVERY,,,,EU-BAD-2,Yes,No
+,Reanna Bartell - Vanguard - Trust - 9003,,Bartell,Bartell Household,001BAD0000000003,not-a-number,Won,Closed Won,2026-13-45,,,Gwen Kuhlman,ADV-BLAKE,,,,EU-BAD-3,Yes,No

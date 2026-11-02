@@ -1,0 +1,20 @@
+.home { display: flex; flex-direction: column; gap: 20px; max-width: 896px; width: 100%; min-width: 0; margin-inline: auto; }
+
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+
+.statsError { width: 100%; }
+.statsErrorBody { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 13px; }
+
+.actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: -8px; }
+.action { display: block; color: inherit; text-decoration: none; border-radius: var(--radius); }
+.action:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.actionCard { height: 100%; transition: border-color 0.15s ease; }
+.action:hover .actionCard { border-color: var(--green-line); }
+.actionCard strong { display: block; font-size: 15px; color: var(--ink); }
+.action:hover .actionCard strong { color: var(--green); }
+.actionCard span { display: block; margin-top: 4px; font-size: 13px; color: var(--muted); }
+
+@media (max-width: 640px) {
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .actions { grid-template-columns: minmax(0, 1fr); }
+}

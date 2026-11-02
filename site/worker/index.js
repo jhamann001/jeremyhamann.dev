@@ -9,6 +9,7 @@ const DEMO_ORIGINS = [
   'https://transfers.jeremyhamann.dev',
   'https://helpdesk.jeremyhamann.dev',
   'https://statements.jeremyhamann.dev',
+  'https://aoa.jeremyhamann.dev',
 ];
 const SECURITY_HEADERS = {
   'Content-Security-Policy':

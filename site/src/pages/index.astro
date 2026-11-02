@@ -3,9 +3,14 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Preview from '../components/Preview.astro';
 import { projects } from '../data/projects';
-import { ABOUT, JOBS, LINKS, PROOF, SKILLS } from '../data/profile';
+import { ABOUT, JOBS, LINKS, PRIVATE_WORK, PROOF, SKILLS } from '../data/profile';
 
-const SEEKING = ['Product', 'Software engineering', 'Ops automation', 'Associate advisor', 'Fintech & wealthtech'];
+// The lead project gets the full-width card, with the apps that run inside it feeding in; the rest follow.
+const lead = projects.find((p) => p.lead);
+const feeders = projects.filter((p) => p.inside);
+const others = projects.filter((p) => !p.lead);
+const leadName = (slug?: string) => projects.find((p) => p.slug === slug)?.name;
+
 const TOOLS = ['Claude Code', 'Cursor', 'Codex', 'Gemini', 'MCP servers', 'n8n'];
 const STEPS: [string, string, string][] = [
   ['users', 'Start with the work I do every day', 'I still do the ops and trading work myself, so I know where the time goes.'],
@@ -16,16 +21,16 @@ const STEPS: [string, string, string][] = [
 ---
 <Base
   title="Jeremy Hamann · Ops and trading background, building AI-first fintech software"
-  description="Jeremy Hamann does brokerage operations and trading work every day and builds the software it runs on. AI-first builder, Series 65, open to product, engineering, ops automation and associate advisor roles in fintech and wealthtech."
+  description="Jeremy Hamann does brokerage operations and trading work every day and builds the software it runs on. AI-first builder, Series 65, building tools for wealth-management operations, open to engineering, product and ops automation roles in fintech and wealthtech."
 >
   <section class="hero">
     <div class="container">
       <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Open to new roles<span aria-hidden="true">·</span>Raleigh, NC<span aria-hidden="true">·</span>Remote-friendly</p>
       <h1>I do the ops work. <span class="h1-soft">I also build the software it runs on.</span></h1>
       <p class="sub">I’m <strong>Jeremy Hamann</strong>. I’ve spent about three years in wealth management on trading desks and in brokerage operations, and I still do that ops and trading work every day. For the past year I’ve also been the main builder of the internal tools my team runs on. I build AI-first, I know the users because I’m one of them, and I hold an active Series 65.</p>
-      <div class="seeking">
-        <span>Looking for:</span>
-        <ul>{SEEKING.map((s) => <li>{s}</li>)}</ul>
+      <div class="focus">
+        <p><span>What I do:</span> <strong>Building tools for wealth-management operations</strong></p>
+        <p class="focus-note">Open to engineering, product and ops automation roles in fintech and wealthtech.</p>
       </div>
       <div class="btns">
         <a class="btn btn-primary" href="#work">View projects <Icon name="arrow-right" /></a>
@@ -43,17 +48,46 @@ const STEPS: [string, string, string][] = [
           </div>
         ))}
       </dl>
+      <p class="proof-note"><Icon name="lock" size={13} /> {PRIVATE_WORK.note} <a href="#work">{PRIVATE_WORK.link}</a></p>
     </div>
   </section>
 
   <section class="section" id="work">
     <div class="container">
       <div class="sec-head">
-        <div><h2>Selected projects</h2><p>Four production systems, rebuilt as public demos. Each has a case study and, as it ships, a live demo.</p></div>
+        <div><h2>Selected projects</h2><p>Five production systems, rebuilt as public demos. Each has a case study and, as it ships, a live demo.</p></div>
         <span class="sec-note"><Icon name="lock" size={14} /> All demo data is synthetic and resets nightly</span>
       </div>
+      {lead && (
+        <article class="proj proj-lead" style={`--c:${lead.color}`}>
+          <Preview project={lead} href={`/projects/${lead.slug}`} />
+          <div class="proj-body">
+            <div class="proj-title">
+              <span class="app-dot"><Icon name={lead.icon} size={13} /></span>
+              <h3><a href={`/projects/${lead.slug}`}>{lead.name}</a></h3>
+              {lead.status === 'live' ? <span class="badge-live">Live</span> : <span class="badge-soon">Demo coming soon</span>}
+            </div>
+            <p>{lead.card}</p>
+            <div class="feeds" role="img" aria-label={`${feeders.map((f) => f.name).join(', ')} run inside ${lead.name}`}>
+              <ul>
+                {feeders.map((f) => <li style={`--c:${f.color}`}><span class="app-dot"><Icon name={f.icon} size={11} /></span>{f.name}</li>)}
+              </ul>
+              <span class="feeds-arrow" aria-hidden="true"><Icon name="arrow-right" size={18} /></span>
+              <div class="feeds-hub"><span class="app-dot"><Icon name={lead.icon} size={11} /></span>{lead.name}</div>
+            </div>
+            {lead.production && <p class="in-prod"><b>In production:</b> {lead.production}</p>}
+            <div class="stack">{lead.stack.join(' · ')}</div>
+            <div class="proj-links">
+              <a class="link" href={`/projects/${lead.slug}`}>Case study <Icon name="arrow-right" size={15} /></a>
+              {lead.status === 'live'
+                ? <a class="link" data-demo href={`https://${lead.host}.jeremyhamann.dev`}>Live demo <Icon name="arrow-up-right" size={15} /></a>
+                : <span class="link muted">Live demo soon</span>}
+            </div>
+          </div>
+        </article>
+      )}
       <div class="projects">
-        {projects.map((p) => (
+        {others.map((p) => (
           <article class="proj" style={`--c:${p.color}`}>
             <Preview project={p} href={`/projects/${p.slug}`} />
             <div class="proj-body">
@@ -64,6 +98,7 @@ const STEPS: [string, string, string][] = [
               </div>
               <p>{p.card}</p>
               {p.production && <p class="in-prod"><b>In production:</b> {p.production}</p>}
+              {p.inside && <p class="inside"><Icon name="corner-down-right" size={14} /> Also ships inside <a href={`/projects/${p.inside}`}>{leadName(p.inside)}</a></p>}
               <div class="stack">{p.stack.join(' · ')}</div>
               <div class="proj-links">
                 <a class="link" href={`/projects/${p.slug}`}>Case study <Icon name="arrow-right" size={15} /></a>
@@ -162,7 +197,8 @@ const STEPS: [string, string, string][] = [
       <div class="contact">
         <div>
           <h2>Let’s talk</h2>
-          <p>I’m looking for my next role in product, engineering, ops automation or as an associate advisor, ideally in fintech or wealthtech. Happy to compare notes on ops engineering and internal tools too.</p>
+          <p>I build tools for wealth-management operations, and I still do the ops and trading work they’re built for. I’m looking for my next engineering, product or ops automation role in fintech or wealthtech. Happy to compare notes on ops engineering and internal tools too.</p>
+          <p class="contact-note">My code is mostly in private company repos, so the <a href="#work">projects above</a> are the best place to see it.</p>
           <p class="addr">{LINKS.email}</p>
           <ul class="facts">
             <li><Icon name="map-pin" size={15} /> Raleigh, NC · open to remote</li>

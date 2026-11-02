@@ -950,14 +950,14 @@ export interface EngineInput {
   assetLocationMode?: AssetLocationMode;
 }
 
-// ─── Ops Portal delegated callers (TRW-01) ──────────────────────────────────────────
+// ─── The advisor platform delegated callers (TRW-01) ──────────────────────────────────────────
 
-/** Roles of an Ops Portal (OPS_PORTAL) user, as carried in OPS_PORTAL's signed actor assertion. */
+/** Roles of an advisor platform (OPS_PORTAL) user, as carried in OPS_PORTAL's signed actor assertion. */
 export const OPS_PORTAL_ROLES = ['ADMIN', 'OPERATIONS', 'ADVISOR', 'CLIENT_SERVICE', 'VIEWER'] as const;
 
 export type OpsPortalRole = (typeof OPS_PORTAL_ROLES)[number];
 
-/** Which UI a request came through: the standalone app (session) or Ops Portal (delegated). */
+/** Which UI a request came through: the standalone app (session) or the advisor platform (delegated). */
 export type AuthChannel = 'standalone' | 'opsPortal';
 
 export function isOpsPortalRole(value: unknown): value is OpsPortalRole {

@@ -158,7 +158,7 @@ const apiLimiter = rateLimit({
   // OIDC-based auth and predictable call volume; excluding them keeps the
   // user-facing budget intact and prevents a noisy cron from throttling UI.
   //
-  // The Ops Portal delegated surface (/api/ops-portal) is excluded too: every Ops Portal user's call
+  // The advisor platform delegated surface (/api/ops-portal) is excluded too: every advisor platform user's call
   // leaves from OPS_PORTAL's Cloud Run egress, so a per-IP budget sized for one browser
   // would throttle the whole firm at once. It has its own limiter below.
   skip: (req) => req.path.startsWith('/internal/') || req.path.startsWith('/ops-portal/'),
@@ -204,7 +204,7 @@ const machineLimiter = rateLimit({
   validate: { keyGeneratorIpFallback: false },
 });
 
-// Ops Portal delegated surface budget, keyed by egress IP and sized for the firm (OPS_PORTAL
+// The advisor platform delegated surface budget, keyed by egress IP and sized for the firm (OPS_PORTAL
 // sends every user's calls from a small set of IPs). Applied before token
 // verification; userApiLimiter then applies the per-person mutation budget.
 const delegatedLimiter = rateLimit({
@@ -281,9 +281,9 @@ app.use('/api/internal', internalRoutes);
 // session-cookie route.
 app.use('/api/machine', machineLimiter, requireMachineAuth, machineRoutes);
 
-// Delegated surface for the Ops Portal Trade Requests workspace. requireDelegatedCaller
+// Delegated surface for the advisor platform Trade Requests workspace. requireDelegatedCaller
 // verifies OPS_PORTAL's service-account token AND a per-call actor assertion, maps the
-// person's Ops Portal role to trader/advisor, and sets req.user itself — overwriting
+// person's advisor platform role to trader/advisor, and sets req.user itself — overwriting
 // anything a session cookie put there — so a browser session alone can never
 // reach it. Bearer-only and cookie-free, hence no CSRF. Dark (503) until
 // OPS_PORTAL_DELEGATED_AUDIENCE and OPS_PORTAL_DELEGATED_CALLER_SA are configured. Only the

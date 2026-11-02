@@ -1,0 +1,305 @@
+/* Cedar Ridge Wealth — Portfolio Performance Report.
+ * Ported byte-faithfully from the approved report_engine.js stylesheet so the
+ * in-app page and its browser Print → Save-as-PDF match the approved
+ * Whitcombe/Ashdown/Thornbury/Marlowe PDFs. Screen shows the same "paper" pages;
+ * @media print drops the app chrome and emits clean Letter pages. */
+
+.report {
+  color: #1f2937;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* On screen, stack the pages on a soft gray backdrop like a document preview. */
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0 40px;
+}
+
+.page {
+  width: 8.5in;
+  min-height: 11in;
+  padding: 0.55in 0.6in;
+  position: relative;
+  background: #fff;
+  box-sizing: border-box;
+}
+.screen .page {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+.page * {
+  box-sizing: border-box;
+}
+
+.wm {
+  display: inline-block;
+  background: #0b0b0b;
+  color: #fff;
+  font-weight: 800;
+  padding: 9px 16px;
+  font-size: 15px;
+}
+.wm span {
+  font-weight: 400;
+  opacity: 0.82;
+}
+.wmSmall {
+  font-size: 13px;
+  padding: 7px 13px;
+}
+
+.cover {
+  text-align: center;
+}
+.cover .wm {
+  margin-top: 1.7in;
+}
+.coverTitle {
+  font-size: 40px;
+  font-weight: 400;
+  color: #374151;
+  margin: 46px 0 0;
+  line-height: 1.15;
+}
+.rule {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #9ca3af, transparent);
+  margin: 26px auto;
+}
+.lbl {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-top: 40px;
+  font-weight: 700;
+}
+.val {
+  font-size: 22px;
+  color: #111827;
+  margin-top: 8px;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pill {
+  background: #0b0b0b;
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 7px 14px;
+  text-transform: uppercase;
+}
+.title {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 18px 0 4px;
+}
+.title b {
+  font-weight: 700;
+}
+.hr {
+  height: 2px;
+  background: #111827;
+  margin: 6px 0 20px;
+}
+.h3 {
+  font-size: 13.5px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.h3 .muted {
+  font-weight: 400;
+  font-size: 10px;
+  color: #9ca3af;
+}
+.sec {
+  margin-top: 24px;
+}
+.note {
+  font-size: 10.5px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+.noteTight {
+  margin: -2px 0 6px;
+}
+/* Calm, informational footnote (e.g. cost-basis incomplete). NOT a warning:
+ * same muted note styling as the rest of the report, italic to read as an
+ * aside. Renders identically on screen and in the Print → PDF layout. */
+.footnote {
+  font-size: 10px;
+  color: #6b7280;
+  line-height: 1.45;
+  font-style: italic;
+  margin-top: 10px;
+  max-width: 440px;
+}
+
+.perf {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.perf th {
+  font-size: 8.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #6b7280;
+  padding: 0 4px 9px;
+  border-bottom: 1.5px solid #111827;
+  text-align: right;
+  white-space: nowrap;
+}
+.perf th.l,
+.perf td.l {
+  text-align: left;
+}
+.perf th:first-child,
+.perf td:first-child {
+  width: 27%;
+  padding-right: 12px;
+}
+.perf td {
+  padding: 10px 4px;
+  border-bottom: 1px solid #eef0f2;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.perf td.port {
+  font-weight: 700;
+}
+.pos {
+  color: #166534;
+}
+.neg {
+  color: #991b1b;
+}
+
+.chartFrame {
+  border: 1px solid #eef0f2;
+  border-radius: 8px;
+  padding: 8px 6px 2px;
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+.kvBox {
+  max-width: 440px;
+}
+.kv {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eef0f2;
+  font-size: 12px;
+}
+.kv.tot {
+  border-top: 1.5px solid #111827;
+  border-bottom: 0;
+  font-weight: 700;
+  margin-top: 2px;
+  padding-top: 10px;
+}
+.kv .k {
+  color: #6b7280;
+}
+.kv.tot .k {
+  color: #111827;
+}
+.kv .v {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.kv .v.pos {
+  color: #166534;
+}
+.kv .v.neg {
+  color: #991b1b;
+}
+
+.foot {
+  position: absolute;
+  bottom: 0.5in;
+  left: 0.6in;
+  right: 0.6in;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #9ca3af;
+}
+.rid {
+  font-family: monospace;
+}
+.disc {
+  font-size: 9px;
+  color: #9ca3af;
+  line-height: 1.55;
+  margin-top: 10px;
+}
+.disc b {
+  color: #6b7280;
+}
+
+/* Print / Download bar (screen only). */
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  max-width: 8.5in;
+  margin: 0 auto;
+}
+
+/* ---- Print: drop the app chrome, emit clean Letter pages. ------------------
+ * visibility trick isolates the report subtree regardless of the layout's
+ * (hashed) chrome classes; @page sets the paper. */
+/* Local-class print rules only. The global chrome-hiding rules (body + the
+ * shared .noPrint class + @page) are injected as a <style> tag by
+ * PerformanceReport — CSS-Module loaders reject bare/`:global` element selectors
+ * ("not pure"), so those globals cannot live here. */
+@media print {
+  .report,
+  .report * {
+    visibility: visible;
+  }
+  .report {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  .screen {
+    gap: 0;
+    padding: 0;
+  }
+  .screen .page {
+    box-shadow: none;
+  }
+  .page {
+    page-break-after: always;
+  }
+  .page:last-child {
+    page-break-after: auto;
+  }
+  .toolbar {
+    display: none !important;
+  }
+}

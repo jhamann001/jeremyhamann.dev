@@ -14,20 +14,8 @@ import { LINKS } from '../data/profile';
     <div class="nav-right">
       <a class="icon-btn" href={LINKS.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn"><Icon name="linkedin" size={17} /></a>
       <a class="icon-btn" href={LINKS.github} target="_blank" rel="noopener" aria-label="GitHub"><Icon name="github" size={18} /></a>
-      <button class="icon-btn" type="button" id="theme-toggle" aria-label="Switch between light and dark theme"><Icon name="sun-moon" size={18} /></button>
       <a class="btn btn-sm" href={LINKS.resume} download><Icon name="download" size={15} /> Résumé</a>
       <a class="btn btn-sm btn-primary" href="/#contact">Get in touch</a>
     </div>
   </div>
 </header>
-<script>
-  const btn = document.getElementById('theme-toggle');
-  btn?.addEventListener('click', () => {
-    const root = document.documentElement;
-    const current = root.getAttribute('data-theme');
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const next = current ? (current === 'dark' ? 'light' : 'dark') : systemDark ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('theme', next); } catch {}
-  });
-</script>

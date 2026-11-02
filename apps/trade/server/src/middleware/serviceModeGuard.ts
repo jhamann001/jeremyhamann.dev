@@ -6,7 +6,7 @@ import { sendError } from './errorHandler.js';
 export const FROZEN_MESSAGE =
   'Trade Requests is briefly read-only while it is being moved — try again in a few minutes.';
 export const MCP_ONLY_MESSAGE =
-  'Trade Requests has moved to Ops Portal. Only MCP and Connected Apps remain on this site.';
+  'Trade Requests has moved to the advisor platform. Only MCP and Connected Apps remain on this site.';
 export const MODE_UNAVAILABLE_MESSAGE = 'Trade Requests is temporarily unavailable — try again in a few minutes.';
 
 export type GuardDecision = 'allow' | 'frozen' | 'mcp-only';

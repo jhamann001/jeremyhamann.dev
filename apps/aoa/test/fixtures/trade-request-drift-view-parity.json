@@ -1,0 +1,1377 @@
+{
+ "_about": "ticket value parity. Synthetic only. `api` is what trade-request d41b6c9 answered (GET /api/drift/v2/history?days=30 with overrides attached; GET /api/drift/v2/runs/:date; GET /api/drift/v2/exclusion-overlap for the latest date) for test/fixtures/trade-request-drift-view-seed.json; `standalone` is what its Drift view rendered from `api` and `inputs`. Regenerate with the ticket plan's capture step only.",
+ "api": {
+  "history": {
+   "days": 30,
+   "runs": [
+    {
+     "runDateLocal": "2026-10-19",
+     "accountId": "SYNTH000000000000000DELTA01",
+     "accountTitle": "Synthetic Delta - Brokerage",
+     "householdName": "Delta Household (synthetic)",
+     "status": "no_template",
+     "worstBucket": null,
+     "maxBucketDeltaPct": null,
+     "symbolBreachCount": 0,
+     "totalValueUsd": 50000,
+     "coverage": "positions_only",
+     "snapshotSource": "gcs",
+     "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+     "schemaVersion": 1,
+     "unrealizedGainUsd": null,
+     "realizedGainYtdUsd": null,
+     "transferInPct": null,
+     "templateName": null,
+     "templateTotalPct": null,
+     "costBasisFreshness": {
+      "level": "warn",
+      "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+      "fullAgeDays": 8,
+      "dailyAgeDays": 2,
+      "pipelineLatest": "2026-10-16",
+      "fullProcessDate": "2026-10-10",
+      "pipelineAgeDays": 2,
+      "dailyProcessDate": "2026-10-16"
+     },
+     "override": null
+    },
+    {
+     "runDateLocal": "2026-10-19",
+     "accountId": "SYNTH00000000000000BRAVO001",
+     "accountTitle": "Synthetic Bravo - Traditional IRA",
+     "householdName": "Bravo Household (synthetic)",
+     "status": "uninvested",
+     "worstBucket": "cash",
+     "maxBucketDeltaPct": 95,
+     "symbolBreachCount": 0,
+     "totalValueUsd": 1043007.79,
+     "coverage": "both",
+     "snapshotSource": "gcs",
+     "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+     "schemaVersion": 1,
+     "unrealizedGainUsd": null,
+     "realizedGainYtdUsd": null,
+     "transferInPct": null,
+     "templateName": "Synthetic Balanced 60/40",
+     "templateTotalPct": 100,
+     "costBasisFreshness": {
+      "level": "warn",
+      "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+      "fullAgeDays": 8,
+      "dailyAgeDays": 2,
+      "pipelineLatest": "2026-10-16",
+      "fullProcessDate": "2026-10-10",
+      "pipelineAgeDays": 2,
+      "dailyProcessDate": "2026-10-16"
+     },
+     "override": null
+    },
+    {
+     "runDateLocal": "2026-10-19",
+     "accountId": "SYNTH0000000000000000ECHO01",
+     "accountTitle": "Synthetic Echo - Brokerage",
+     "householdName": "Echo Household (synthetic)",
+     "status": "template_invalid",
+     "worstBucket": "equity",
+     "maxBucketDeltaPct": 22,
+     "symbolBreachCount": 0,
+     "totalValueUsd": 75000,
+     "coverage": "both",
+     "snapshotSource": "gcs",
+     "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+     "schemaVersion": 1,
+     "unrealizedGainUsd": null,
+     "realizedGainYtdUsd": null,
+     "transferInPct": null,
+     "templateName": "Synthetic Broken Template",
+     "templateTotalPct": 92.5,
+     "costBasisFreshness": {
+      "level": "warn",
+      "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+      "fullAgeDays": 8,
+      "dailyAgeDays": 2,
+      "pipelineLatest": "2026-10-16",
+      "fullProcessDate": "2026-10-10",
+      "pipelineAgeDays": 2,
+      "dailyProcessDate": "2026-10-16"
+     },
+     "override": null
+    },
+    {
+     "runDateLocal": "2026-10-19",
+     "accountId": "SYNTH00000000000000ALPHA001",
+     "accountTitle": "Synthetic Alpha Household - Individual Brokerage",
+     "householdName": "Alpha Household (synthetic)",
+     "status": "out",
+     "worstBucket": "equity",
+     "maxBucketDeltaPct": 12.5,
+     "symbolBreachCount": 2,
+     "totalValueUsd": 812345.67,
+     "coverage": "both",
+     "snapshotSource": "gcs",
+     "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+     "schemaVersion": 1,
+     "unrealizedGainUsd": 60000,
+     "realizedGainYtdUsd": 1500,
+     "transferInPct": 2,
+     "taxable": true,
+     "transitionCandidate": false,
+     "templateName": "Synthetic Growth 80/20",
+     "templateTotalPct": 100,
+     "costBasisFreshness": {
+      "level": "warn",
+      "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+      "fullAgeDays": 8,
+      "dailyAgeDays": 2,
+      "pipelineLatest": "2026-10-16",
+      "fullProcessDate": "2026-10-10",
+      "pipelineAgeDays": 2,
+      "dailyProcessDate": "2026-10-16"
+     },
+     "override": null
+    },
+    {
+     "runDateLocal": "2026-10-19",
+     "accountId": "SYNTH000000000000FOXTROT001",
+     "accountTitle": "Synthetic Foxtrot - Individual",
+     "householdName": "Foxtrot Household (synthetic)",
+     "status": "out",
+     "worstBucket": "cash",
+     "maxBucketDeltaPct": 9.1,
+     "symbolBreachCount": 1,
+     "totalValueUsd": 400000,
+     "coverage": "both",
+     "snapshotSource": "gcs",
+     "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+     "schemaVersion": 1,
+     "unrealizedGainUsd": 12000,
+     "realizedGainYtdUsd": null,
+     "transferInPct": 40,
+     "taxable": true,
+     "transitionCandidate": false,
+     "transitionConfirmed": true,
+     "templateName": "Synthetic Balanced 60/40",
+     "templateTotalPct": 100,
+     "costBasisFreshness": {
+      "level": "warn",
+      "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+      "fullAgeDays": 8,
+      "dailyAgeDays": 2,
+      "pipelineLatest": "2026-10-16",
+      "fullProcessDate": "2026-10-10",
+      "pipelineAgeDays": 2,
+      "dailyProcessDate": "2026-10-16"
+     },
+     "override": null
+    },
+    {
+     "runDateLocal": "2026-10-19",
+     "accountId": "SYNTH00000000000000ALPHA002",
+     "accountTitle": "Synthetic Alpha - Roth IRA",
+     "householdName": "Alpha Household (synthetic)",
+     "status": "out",
+     "worstBucket": "fixed",
+     "maxBucketDeltaPct": 7.25,
+     "symbolBreachCount": 0,
+     "totalValueUsd": 250000,
+     "coverage": "both",
+     "snapshotSource": "gcs",
+     "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+     "schemaVersion": 1,
+     "unrealizedGainUsd": 4000,
+     "realizedGainYtdUsd": null,
+     "transferInPct": 0,
+     "taxable": false,
+     "transitionCandidate": false,
+     "templateName": "Synthetic Income 60/40",
+     "templateTotalPct": 100,
+     "costBasisFreshness": {
+      "level": "warn",
+      "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+      "fullAgeDays": 8,
+      "dailyAgeDays": 2,
+      "pipelineLatest": "2026-10-16",
+      "fullProcessDate": "2026-10-10",
+      "pipelineAgeDays": 2,
+      "dailyProcessDate": "2026-10-16"
+     },
+     "override": {
+      "reason": "asset_location",
+      "note": "Synthetic: bonds are held in the taxable sleeve",
+      "expiresOn": null,
+      "setByName": "Dana Admin",
+      "setAt": "2026-10-01T12:00:00.000Z"
+     }
+    },
+    {
+     "runDateLocal": "2026-10-19",
+     "accountId": "SYNTH0000000000000CHARLIE01",
+     "accountTitle": "Synthetic Charlie - Joint",
+     "householdName": "Charlie Household (synthetic)",
+     "status": "in",
+     "worstBucket": "fixed",
+     "maxBucketDeltaPct": 1.6,
+     "symbolBreachCount": 0,
+     "totalValueUsd": 1860995.59,
+     "coverage": "both",
+     "snapshotSource": "gcs",
+     "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+     "schemaVersion": 1,
+     "unrealizedGainUsd": -2500,
+     "realizedGainYtdUsd": -300,
+     "transferInPct": 0,
+     "taxable": true,
+     "transitionCandidate": false,
+     "templateName": "Synthetic Growth 70/30",
+     "templateTotalPct": 100,
+     "costBasisFreshness": {
+      "level": "warn",
+      "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+      "fullAgeDays": 8,
+      "dailyAgeDays": 2,
+      "pipelineLatest": "2026-10-16",
+      "fullProcessDate": "2026-10-10",
+      "pipelineAgeDays": 2,
+      "dailyProcessDate": "2026-10-16"
+     },
+     "override": null
+    },
+    {
+     "runDateLocal": "2026-10-18",
+     "accountId": "SYNTH00000000000000ALPHA001",
+     "accountTitle": "Synthetic Alpha Household - Individual Brokerage",
+     "householdName": "Alpha Household (synthetic)",
+     "status": "out",
+     "worstBucket": "equity",
+     "maxBucketDeltaPct": 10,
+     "symbolBreachCount": 1,
+     "totalValueUsd": 805000,
+     "coverage": "both",
+     "snapshotSource": "gcs",
+     "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+     "schemaVersion": 1,
+     "unrealizedGainUsd": null,
+     "realizedGainYtdUsd": null,
+     "transferInPct": null,
+     "templateName": "Synthetic Growth 80/20",
+     "templateTotalPct": 100,
+     "costBasisFreshness": null,
+     "override": null
+    },
+    {
+     "runDateLocal": "2026-10-18",
+     "accountId": "SYNTH0000000000000CHARLIE01",
+     "accountTitle": "Synthetic Charlie - Joint",
+     "householdName": "Charlie Household (synthetic)",
+     "status": "in",
+     "worstBucket": "fixed",
+     "maxBucketDeltaPct": 1.2,
+     "symbolBreachCount": 0,
+     "totalValueUsd": 1855000,
+     "coverage": "both",
+     "snapshotSource": "gcs",
+     "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+     "schemaVersion": 1,
+     "unrealizedGainUsd": null,
+     "realizedGainYtdUsd": null,
+     "transferInPct": null,
+     "templateName": "Synthetic Growth 70/30",
+     "templateTotalPct": 100,
+     "costBasisFreshness": null,
+     "override": null
+    }
+   ]
+  },
+  "detail": {
+   "2026-10-19": {
+    "runDateLocal": "2026-10-19",
+    "runStartedAt": "2026-10-18T13:15:00.000Z",
+    "snapshotSource": "gcs",
+    "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+    "tolerancePct": 5,
+    "uninvestedCashThresholdPct": 99,
+    "accounts": [
+     {
+      "runDateLocal": "2026-10-19",
+      "accountId": "SYNTH000000000000000DELTA01",
+      "accountTitle": "Synthetic Delta - Brokerage",
+      "householdName": "Delta Household (synthetic)",
+      "status": "no_template",
+      "worstBucket": null,
+      "maxBucketDeltaPct": null,
+      "symbolBreachCount": 0,
+      "totalValueUsd": 50000,
+      "coverage": "positions_only",
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+      "schemaVersion": 1,
+      "unrealizedGainUsd": null,
+      "realizedGainYtdUsd": null,
+      "transferInPct": null,
+      "templateName": null,
+      "templateTotalPct": null,
+      "costBasisFreshness": {
+       "level": "warn",
+       "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+       "fullAgeDays": 8,
+       "dailyAgeDays": 2,
+       "pipelineLatest": "2026-10-16",
+       "fullProcessDate": "2026-10-10",
+       "pipelineAgeDays": 2,
+       "dailyProcessDate": "2026-10-16"
+      },
+      "details": {
+       "buckets": {
+        "cash": {
+         "deltaPct": 0,
+         "positionPct": 10,
+         "templatePct": 0
+        },
+        "fixed": {
+         "deltaPct": 0,
+         "positionPct": 20,
+         "templatePct": 0
+        },
+        "equity": {
+         "deltaPct": 0,
+         "positionPct": 70,
+         "templatePct": 0
+        }
+       },
+       "equityHoldings": [],
+       "costBasisFreshness": {
+        "level": "warn",
+        "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+        "fullAgeDays": 8,
+        "dailyAgeDays": 2,
+        "pipelineLatest": "2026-10-16",
+        "fullProcessDate": "2026-10-10",
+        "pipelineAgeDays": 2,
+        "dailyProcessDate": "2026-10-16"
+       },
+       "symbolsWithTargets": [],
+       "positionOnlySymbols": [
+        {
+         "bucket": "equity",
+         "symbol": "SYNE",
+         "positionPct": 70
+        }
+       ],
+       "suspectedCashEquivMisclassified": []
+      }
+     },
+     {
+      "runDateLocal": "2026-10-19",
+      "accountId": "SYNTH00000000000000BRAVO001",
+      "accountTitle": "Synthetic Bravo - Traditional IRA",
+      "householdName": "Bravo Household (synthetic)",
+      "status": "uninvested",
+      "worstBucket": "cash",
+      "maxBucketDeltaPct": 95,
+      "symbolBreachCount": 0,
+      "totalValueUsd": 1043007.79,
+      "coverage": "both",
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+      "schemaVersion": 1,
+      "unrealizedGainUsd": null,
+      "realizedGainYtdUsd": null,
+      "transferInPct": null,
+      "templateName": "Synthetic Balanced 60/40",
+      "templateTotalPct": 100,
+      "costBasisFreshness": {
+       "level": "warn",
+       "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+       "fullAgeDays": 8,
+       "dailyAgeDays": 2,
+       "pipelineLatest": "2026-10-16",
+       "fullProcessDate": "2026-10-10",
+       "pipelineAgeDays": 2,
+       "dailyProcessDate": "2026-10-16"
+      },
+      "details": {
+       "buckets": {
+        "cash": {
+         "deltaPct": 95,
+         "positionPct": 100,
+         "templatePct": 5
+        },
+        "fixed": {
+         "deltaPct": 35,
+         "positionPct": 0,
+         "templatePct": 35
+        },
+        "equity": {
+         "deltaPct": 60,
+         "positionPct": 0,
+         "templatePct": 60
+        }
+       },
+       "templateName": "Synthetic Balanced 60/40",
+       "equityHoldings": [],
+       "templateTotalPct": 100,
+       "costBasisFreshness": {
+        "level": "warn",
+        "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+        "fullAgeDays": 8,
+        "dailyAgeDays": 2,
+        "pipelineLatest": "2026-10-16",
+        "fullProcessDate": "2026-10-10",
+        "pipelineAgeDays": 2,
+        "dailyProcessDate": "2026-10-16"
+       },
+       "symbolsWithTargets": [],
+       "positionOnlySymbols": [],
+       "suspectedCashEquivMisclassified": []
+      }
+     },
+     {
+      "runDateLocal": "2026-10-19",
+      "accountId": "SYNTH000000000000FOXTROT001",
+      "accountTitle": "Synthetic Foxtrot - Individual",
+      "householdName": "Foxtrot Household (synthetic)",
+      "status": "out",
+      "worstBucket": "cash",
+      "maxBucketDeltaPct": 9.1,
+      "symbolBreachCount": 1,
+      "totalValueUsd": 400000,
+      "coverage": "both",
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+      "schemaVersion": 1,
+      "unrealizedGainUsd": 12000,
+      "realizedGainYtdUsd": null,
+      "transferInPct": 40,
+      "taxable": true,
+      "transitionCandidate": false,
+      "transitionConfirmed": true,
+      "templateName": "Synthetic Balanced 60/40",
+      "templateTotalPct": 100,
+      "costBasisFreshness": {
+       "level": "warn",
+       "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+       "fullAgeDays": 8,
+       "dailyAgeDays": 2,
+       "pipelineLatest": "2026-10-16",
+       "fullProcessDate": "2026-10-10",
+       "pipelineAgeDays": 2,
+       "dailyProcessDate": "2026-10-16"
+      },
+      "details": {
+       "tax": {
+        "symbols": [],
+        "taxable": true,
+        "transferInPct": 40,
+        "hasMissingBasis": false,
+        "basisCoveragePct": 90,
+        "unrealizedGainUsd": 12000,
+        "investableValueUsd": 400000,
+        "transferInValueUsd": 160000,
+        "transitionCandidate": false,
+        "transitionConfirmed": true,
+        "transitionTargetName": "Synthetic Target Model",
+        "unrealizedLongTermGainUsd": 10000,
+        "unrealizedShortTermGainUsd": 2000,
+        "transitionEstRealizedGainUsd": 3000
+       },
+       "buckets": {
+        "cash": {
+         "deltaPct": 9.1,
+         "positionPct": 14.1,
+         "templatePct": 5
+        },
+        "fixed": {
+         "deltaPct": 5,
+         "positionPct": 30,
+         "templatePct": 35
+        },
+        "equity": {
+         "deltaPct": 4.1,
+         "positionPct": 55.9,
+         "templatePct": 60
+        }
+       },
+       "templateName": "Synthetic Balanced 60/40",
+       "equityHoldings": [
+        {
+         "symbol": "SYNE",
+         "positionPct": 55.9
+        }
+       ],
+       "templateTotalPct": 100,
+       "costBasisFreshness": {
+        "level": "warn",
+        "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+        "fullAgeDays": 8,
+        "dailyAgeDays": 2,
+        "pipelineLatest": "2026-10-16",
+        "fullProcessDate": "2026-10-10",
+        "pipelineAgeDays": 2,
+        "dailyProcessDate": "2026-10-16"
+       },
+       "symbolsWithTargets": [
+        {
+         "breach": true,
+         "bucket": "cash",
+         "symbol": "SYNMM",
+         "deltaPct": 9.1,
+         "targetPct": 5,
+         "positionPct": 14.1
+        }
+       ],
+       "positionOnlySymbols": [],
+       "suspectedCashEquivMisclassified": []
+      }
+     },
+     {
+      "runDateLocal": "2026-10-19",
+      "accountId": "SYNTH00000000000000ALPHA002",
+      "accountTitle": "Synthetic Alpha - Roth IRA",
+      "householdName": "Alpha Household (synthetic)",
+      "status": "out",
+      "worstBucket": "fixed",
+      "maxBucketDeltaPct": 7.25,
+      "symbolBreachCount": 0,
+      "totalValueUsd": 250000,
+      "coverage": "both",
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+      "schemaVersion": 1,
+      "unrealizedGainUsd": 4000,
+      "realizedGainYtdUsd": null,
+      "transferInPct": 0,
+      "taxable": false,
+      "transitionCandidate": false,
+      "templateName": "Synthetic Income 60/40",
+      "templateTotalPct": 100,
+      "costBasisFreshness": {
+       "level": "warn",
+       "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+       "fullAgeDays": 8,
+       "dailyAgeDays": 2,
+       "pipelineLatest": "2026-10-16",
+       "fullProcessDate": "2026-10-10",
+       "pipelineAgeDays": 2,
+       "dailyProcessDate": "2026-10-16"
+      },
+      "details": {
+       "tax": {
+        "symbols": [],
+        "taxable": false,
+        "transferInPct": 0,
+        "hasMissingBasis": false,
+        "basisCoveragePct": 100,
+        "unrealizedGainUsd": 4000,
+        "investableValueUsd": 250000,
+        "transferInValueUsd": 0,
+        "transitionCandidate": false,
+        "unrealizedLongTermGainUsd": 4000,
+        "unrealizedShortTermGainUsd": 0
+       },
+       "buckets": {
+        "cash": {
+         "deltaPct": 0,
+         "positionPct": 1,
+         "templatePct": 1
+        },
+        "fixed": {
+         "deltaPct": 7.25,
+         "positionPct": 32.75,
+         "templatePct": 40
+        },
+        "equity": {
+         "deltaPct": 7.25,
+         "positionPct": 66.25,
+         "templatePct": 59
+        }
+       },
+       "templateName": "Synthetic Income 60/40",
+       "equityHoldings": [
+        {
+         "symbol": "SYNE",
+         "positionPct": 66.25
+        }
+       ],
+       "templateTotalPct": 100,
+       "costBasisFreshness": {
+        "level": "warn",
+        "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+        "fullAgeDays": 8,
+        "dailyAgeDays": 2,
+        "pipelineLatest": "2026-10-16",
+        "fullProcessDate": "2026-10-10",
+        "pipelineAgeDays": 2,
+        "dailyProcessDate": "2026-10-16"
+       },
+       "symbolsWithTargets": [],
+       "positionOnlySymbols": [],
+       "suspectedCashEquivMisclassified": []
+      }
+     },
+     {
+      "runDateLocal": "2026-10-19",
+      "accountId": "SYNTH0000000000000000ECHO01",
+      "accountTitle": "Synthetic Echo - Brokerage",
+      "householdName": "Echo Household (synthetic)",
+      "status": "template_invalid",
+      "worstBucket": "equity",
+      "maxBucketDeltaPct": 22,
+      "symbolBreachCount": 0,
+      "totalValueUsd": 75000,
+      "coverage": "both",
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+      "schemaVersion": 1,
+      "unrealizedGainUsd": null,
+      "realizedGainYtdUsd": null,
+      "transferInPct": null,
+      "templateName": "Synthetic Broken Template",
+      "templateTotalPct": 92.5,
+      "costBasisFreshness": {
+       "level": "warn",
+       "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+       "fullAgeDays": 8,
+       "dailyAgeDays": 2,
+       "pipelineLatest": "2026-10-16",
+       "fullProcessDate": "2026-10-10",
+       "pipelineAgeDays": 2,
+       "dailyProcessDate": "2026-10-16"
+      },
+      "details": {
+       "buckets": {
+        "cash": {
+         "deltaPct": 0,
+         "positionPct": 4,
+         "templatePct": 4
+        },
+        "fixed": {
+         "deltaPct": 14.5,
+         "positionPct": 14,
+         "templatePct": 28.5
+        },
+        "equity": {
+         "deltaPct": 22,
+         "positionPct": 82,
+         "templatePct": 60
+        }
+       },
+       "templateName": "Synthetic Broken Template",
+       "equityHoldings": [],
+       "templateTotalPct": 92.5,
+       "costBasisFreshness": {
+        "level": "warn",
+        "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+        "fullAgeDays": 8,
+        "dailyAgeDays": 2,
+        "pipelineLatest": "2026-10-16",
+        "fullProcessDate": "2026-10-10",
+        "pipelineAgeDays": 2,
+        "dailyProcessDate": "2026-10-16"
+       },
+       "symbolsWithTargets": [],
+       "positionOnlySymbols": [],
+       "suspectedCashEquivMisclassified": []
+      }
+     },
+     {
+      "runDateLocal": "2026-10-19",
+      "accountId": "SYNTH00000000000000ALPHA001",
+      "accountTitle": "Synthetic Alpha Household - Individual Brokerage",
+      "householdName": "Alpha Household (synthetic)",
+      "status": "out",
+      "worstBucket": "equity",
+      "maxBucketDeltaPct": 12.5,
+      "symbolBreachCount": 2,
+      "totalValueUsd": 812345.67,
+      "coverage": "both",
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+      "schemaVersion": 1,
+      "unrealizedGainUsd": 60000,
+      "realizedGainYtdUsd": 1500,
+      "transferInPct": 2,
+      "taxable": true,
+      "transitionCandidate": false,
+      "templateName": "Synthetic Growth 80/20",
+      "templateTotalPct": 100,
+      "costBasisFreshness": {
+       "level": "warn",
+       "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+       "fullAgeDays": 8,
+       "dailyAgeDays": 2,
+       "pipelineLatest": "2026-10-16",
+       "fullProcessDate": "2026-10-10",
+       "pipelineAgeDays": 2,
+       "dailyProcessDate": "2026-10-16"
+      },
+      "details": {
+       "tax": {
+        "symbols": [
+         {
+          "symbol": "SYNE",
+          "costBasisUsd": 437407.4,
+          "transferInPct": 0,
+          "marketValueUsd": 487407.4,
+          "hasMissingBasis": false,
+          "unrealizedGainUsd": 50000,
+          "unrealizedLongTermGainUsd": 50000,
+          "unrealizedShortTermGainUsd": 0
+         },
+         {
+          "symbol": "SYNF",
+          "costBasisUsd": 254012.34,
+          "transferInPct": 6.2,
+          "marketValueUsd": 264012.34,
+          "hasMissingBasis": true,
+          "unrealizedGainUsd": 10000,
+          "unrealizedLongTermGainUsd": 0,
+          "unrealizedShortTermGainUsd": 10000
+         }
+        ],
+        "taxable": true,
+        "transferInPct": 2,
+        "hasMissingBasis": true,
+        "basisCoveragePct": 98,
+        "unrealizedGainUsd": 60000,
+        "investableValueUsd": 812345.67,
+        "realizedGainYtdUsd": 1500,
+        "transferInValueUsd": 16246.91,
+        "transitionCandidate": false,
+        "realizedLongTermYtdUsd": 1000,
+        "realizedShortTermYtdUsd": 500,
+        "unrealizedLongTermGainUsd": 50000,
+        "unrealizedShortTermGainUsd": 10000
+       },
+       "buckets": {
+        "cash": {
+         "deltaPct": 0,
+         "positionPct": 2,
+         "templatePct": 2
+        },
+        "fixed": {
+         "deltaPct": 12.5,
+         "positionPct": 5.5,
+         "templatePct": 18
+        },
+        "equity": {
+         "deltaPct": 12.5,
+         "positionPct": 92.5,
+         "templatePct": 80
+        }
+       },
+       "templateName": "Synthetic Growth 80/20",
+       "equityHoldings": [
+        {
+         "symbol": "SYNE",
+         "positionPct": 60
+        },
+        {
+         "symbol": "SYNF",
+         "positionPct": 32.5
+        }
+       ],
+       "sectorAllocation": {
+        "slices": [
+         {
+          "pct": 40,
+          "kind": "sector",
+          "label": "Information Technology"
+         },
+         {
+          "pct": 30,
+          "kind": "assetClass",
+          "label": "US Large Blend"
+         },
+         {
+          "pct": 22.5,
+          "kind": "unclassified",
+          "label": "Unclassified"
+         }
+        ],
+        "classifiedPct": 70,
+        "unclassifiedPct": 22.5
+       },
+       "templateTotalPct": 100,
+       "costBasisFreshness": {
+        "level": "warn",
+        "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+        "fullAgeDays": 8,
+        "dailyAgeDays": 2,
+        "pipelineLatest": "2026-10-16",
+        "fullProcessDate": "2026-10-10",
+        "pipelineAgeDays": 2,
+        "dailyProcessDate": "2026-10-16"
+       },
+       "symbolsWithTargets": [
+        {
+         "breach": true,
+         "bucket": "fixed",
+         "symbol": "SYNA",
+         "deltaPct": 12.5,
+         "targetPct": 18,
+         "positionPct": 5.5
+        },
+        {
+         "breach": false,
+         "bucket": "cash",
+         "symbol": "__SETTLEMENT_CASH__",
+         "deltaPct": 0,
+         "targetPct": 2,
+         "positionPct": 2
+        }
+       ],
+       "positionOnlySymbols": [],
+       "suspectedCashEquivMisclassified": [
+        "SYNMM"
+       ]
+      }
+     },
+     {
+      "runDateLocal": "2026-10-19",
+      "accountId": "SYNTH0000000000000CHARLIE01",
+      "accountTitle": "Synthetic Charlie - Joint",
+      "householdName": "Charlie Household (synthetic)",
+      "status": "in",
+      "worstBucket": "fixed",
+      "maxBucketDeltaPct": 1.6,
+      "symbolBreachCount": 0,
+      "totalValueUsd": 1860995.59,
+      "coverage": "both",
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+      "schemaVersion": 1,
+      "unrealizedGainUsd": -2500,
+      "realizedGainYtdUsd": -300,
+      "transferInPct": 0,
+      "taxable": true,
+      "transitionCandidate": false,
+      "templateName": "Synthetic Growth 70/30",
+      "templateTotalPct": 100,
+      "costBasisFreshness": {
+       "level": "warn",
+       "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+       "fullAgeDays": 8,
+       "dailyAgeDays": 2,
+       "pipelineLatest": "2026-10-16",
+       "fullProcessDate": "2026-10-10",
+       "pipelineAgeDays": 2,
+       "dailyProcessDate": "2026-10-16"
+      },
+      "details": {
+       "tax": {
+        "symbols": [],
+        "taxable": true,
+        "transferInPct": 0,
+        "hasMissingBasis": false,
+        "basisCoveragePct": 100,
+        "unrealizedGainUsd": -2500,
+        "investableValueUsd": 1860995.59,
+        "realizedGainYtdUsd": -300,
+        "transferInValueUsd": 0,
+        "transitionCandidate": false,
+        "realizedLongTermYtdUsd": 0,
+        "realizedShortTermYtdUsd": -300,
+        "unrealizedLongTermGainUsd": 0,
+        "unrealizedShortTermGainUsd": -2500
+       },
+       "buckets": {
+        "cash": {
+         "deltaPct": 0,
+         "positionPct": 3,
+         "templatePct": 3
+        },
+        "fixed": {
+         "deltaPct": 1.6,
+         "positionPct": 26.6,
+         "templatePct": 25
+        },
+        "equity": {
+         "deltaPct": 1.6,
+         "positionPct": 70.4,
+         "templatePct": 72
+        }
+       },
+       "templateName": "Synthetic Growth 70/30",
+       "equityHoldings": [
+        {
+         "symbol": "SYNE",
+         "positionPct": 70.4
+        }
+       ],
+       "templateTotalPct": 100,
+       "costBasisFreshness": {
+        "level": "warn",
+        "message": "Synthetic freshness notice: the daily cost-basis file is 2 days old.",
+        "fullAgeDays": 8,
+        "dailyAgeDays": 2,
+        "pipelineLatest": "2026-10-16",
+        "fullProcessDate": "2026-10-10",
+        "pipelineAgeDays": 2,
+        "dailyProcessDate": "2026-10-16"
+       },
+       "symbolsWithTargets": [],
+       "positionOnlySymbols": [],
+       "suspectedCashEquivMisclassified": []
+      }
+     }
+    ]
+   },
+   "2026-10-18": {
+    "runDateLocal": "2026-10-18",
+    "runStartedAt": "2026-10-17T13:15:00.000Z",
+    "snapshotSource": "gcs",
+    "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+    "tolerancePct": 5,
+    "uninvestedCashThresholdPct": 99,
+    "accounts": [
+     {
+      "runDateLocal": "2026-10-18",
+      "accountId": "SYNTH00000000000000ALPHA001",
+      "accountTitle": "Synthetic Alpha Household - Individual Brokerage",
+      "householdName": "Alpha Household (synthetic)",
+      "status": "out",
+      "worstBucket": "equity",
+      "maxBucketDeltaPct": 10,
+      "symbolBreachCount": 1,
+      "totalValueUsd": 805000,
+      "coverage": "both",
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+      "schemaVersion": 1,
+      "unrealizedGainUsd": null,
+      "realizedGainYtdUsd": null,
+      "transferInPct": null,
+      "templateName": "Synthetic Growth 80/20",
+      "templateTotalPct": 100,
+      "costBasisFreshness": null,
+      "details": {
+       "buckets": {
+        "cash": {
+         "deltaPct": 0,
+         "positionPct": 2,
+         "templatePct": 2
+        },
+        "fixed": {
+         "deltaPct": 10,
+         "positionPct": 8,
+         "templatePct": 18
+        },
+        "equity": {
+         "deltaPct": 10,
+         "positionPct": 90,
+         "templatePct": 80
+        }
+       },
+       "templateName": "Synthetic Growth 80/20",
+       "equityHoldings": [],
+       "templateTotalPct": 100,
+       "symbolsWithTargets": [],
+       "positionOnlySymbols": [],
+       "suspectedCashEquivMisclassified": []
+      }
+     },
+     {
+      "runDateLocal": "2026-10-18",
+      "accountId": "SYNTH0000000000000CHARLIE01",
+      "accountTitle": "Synthetic Charlie - Joint",
+      "householdName": "Charlie Household (synthetic)",
+      "status": "in",
+      "worstBucket": "fixed",
+      "maxBucketDeltaPct": 1.2,
+      "symbolBreachCount": 0,
+      "totalValueUsd": 1855000,
+      "coverage": "both",
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-10-17T00:00:00.000Z",
+      "schemaVersion": 1,
+      "unrealizedGainUsd": null,
+      "realizedGainYtdUsd": null,
+      "transferInPct": null,
+      "templateName": "Synthetic Growth 70/30",
+      "templateTotalPct": 100,
+      "costBasisFreshness": null,
+      "details": {
+       "buckets": {
+        "cash": {
+         "deltaPct": 0,
+         "positionPct": 3,
+         "templatePct": 3
+        },
+        "fixed": {
+         "deltaPct": 1.2,
+         "positionPct": 26.2,
+         "templatePct": 25
+        },
+        "equity": {
+         "deltaPct": 1.2,
+         "positionPct": 70.8,
+         "templatePct": 72
+        }
+       },
+       "templateName": "Synthetic Growth 70/30",
+       "equityHoldings": [],
+       "templateTotalPct": 100,
+       "symbolsWithTargets": [],
+       "positionOnlySymbols": [],
+       "suspectedCashEquivMisclassified": []
+      }
+     }
+    ]
+   }
+  },
+  "allowList": {
+   "entries": []
+  },
+  "overlap": {
+   "runDateLocal": "2026-10-19",
+   "totalAccounts": 7,
+   "outAccounts": 3,
+   "totalExclusions": 2,
+   "totalBreaches": 2,
+   "lockedTotal": 2,
+   "lockedSharePct": 100,
+   "counts": {
+    "actionable": 0,
+    "locked_blanket": 0,
+    "locked_dnb_under": 1,
+    "locked_dns_over": 1,
+    "sign_mismatch_unlocked": 0
+   },
+   "worstAccounts": [
+    {
+     "accountId": "SYNTH00000000000000ALPHA001",
+     "accountTitle": "Synthetic Alpha Household - Individual Brokerage",
+     "household": "Alpha Household (synthetic)",
+     "status": "out",
+     "maxDelta": 12.5,
+     "breachCount": 2,
+     "lockedCount": 1
+    },
+    {
+     "accountId": "SYNTH000000000000FOXTROT001",
+     "accountTitle": "Synthetic Foxtrot - Individual",
+     "household": "Foxtrot Household (synthetic)",
+     "status": "out",
+     "maxDelta": 9.1,
+     "breachCount": 1,
+     "lockedCount": 1
+    },
+    {
+     "accountId": "SYNTH00000000000000ALPHA002",
+     "accountTitle": "Synthetic Alpha - Roth IRA",
+     "household": "Alpha Household (synthetic)",
+     "status": "out",
+     "maxDelta": 7.25,
+     "breachCount": 0,
+     "lockedCount": 0
+    }
+   ]
+  }
+ },
+ "inputs": {
+  "exclusions": [
+   {
+    "scope": "account",
+    "clientId": "CL-SYN-2",
+    "clientName": "Synthetic Client Two",
+    "accountId": "SYNTH0000000000000CHARLIE01",
+    "accountNumber": "SYN0002",
+    "ticker": "SYNB",
+    "kind": "client",
+    "reason": "Synthetic: client\nrequest",
+    "noBuy": false,
+    "noSell": true,
+    "createdByName": "Riley Ops",
+    "createdAt": "2026-10-02T15:00:00.000Z"
+   },
+   {
+    "scope": "client",
+    "clientId": "CL-SYN-1",
+    "clientName": "Synthetic Client One",
+    "accountId": "",
+    "accountNumber": "",
+    "ticker": "=SYNA",
+    "kind": "advisor",
+    "reason": "Synthetic: concentrated",
+    "noBuy": true,
+    "noSell": false,
+    "createdByName": "Dana Admin",
+    "createdAt": "2026-10-01T15:00:00.000Z"
+   }
+  ]
+ },
+ "standalone": {
+  "advisorRows": [
+   [
+    "Synthetic Bravo - Traditional IRASYNTH00000000000000BRAVO001",
+    "Synthetic Balanced 60/40",
+    "Bravo Household (synthetic)",
+    "$1.04M",
+    "Cash",
+    "95.00",
+    "—",
+    "—",
+    "Uninvested",
+    "—"
+   ],
+   [
+    "Synthetic Alpha Household - Individua…SYNTH00000000000000ALPHA001🔄 Transfer-in 2%",
+    "Synthetic Growth 80/20",
+    "Alpha Household (synthetic)",
+    "$812K",
+    "Equity",
+    "12.50",
+    "+$60K",
+    "+$2K",
+    "Out of tolerance",
+    "—"
+   ],
+   [
+    "Synthetic Foxtrot - IndividualSYNTH000000000000FOXTROT001🔄 Transfer-in 40%🔄 Active transition",
+    "Synthetic Balanced 60/40",
+    "Foxtrot Household (synthetic)",
+    "$400K",
+    "Cash",
+    "9.10",
+    "+$12K",
+    "—",
+    "Out of tolerance",
+    "—"
+   ],
+   [
+    "Synthetic Alpha - Roth IRASYNTH00000000000000ALPHA002",
+    "Synthetic Income 60/40",
+    "Alpha Household (synthetic)",
+    "$250K",
+    "Fixed",
+    "7.25",
+    "+$4K",
+    "—",
+    "Out of tolerance",
+    "✓ Asset location"
+   ],
+   [
+    "Synthetic Charlie - JointSYNTH0000000000000CHARLIE01",
+    "Synthetic Growth 70/30",
+    "Charlie Household (synthetic)",
+    "$1.86M",
+    "Fixed",
+    "1.60",
+    "−$3K",
+    "−$300",
+    "In tolerance",
+    "—"
+   ],
+   [
+    "Synthetic Delta - BrokerageSYNTH000000000000000DELTA01",
+    "—",
+    "Delta Household (synthetic)",
+    "$50K",
+    "—",
+    "—",
+    "—",
+    "—",
+    "No template",
+    "—"
+   ]
+  ],
+  "tiles": [
+   {
+    "value": "6",
+    "label": "Accounts compared"
+   },
+   {
+    "value": "2",
+    "label": "Out of tolerance"
+   },
+   {
+    "value": "1",
+    "label": "Uninvested"
+   },
+   {
+    "value": "1",
+    "label": "No template"
+   },
+   {
+    "value": "12.50%",
+    "label": "Worst Δ (out of tol.)"
+   },
+   {
+    "value": "+$1K",
+    "label": "Realized G/L YTD (visible)"
+   }
+  ],
+  "banner": "⚠️ Cost-basis data stale. Synthetic freshness notice: the daily cost-basis file is 2 days old. Unrealized-gain and transfer-in figures below may be out of date.",
+  "dataQualityToggle": "Show data quality (1)",
+  "footer": "6 accounts",
+  "advisorRowsWithDataQuality": [
+   [
+    "Synthetic Bravo - Traditional IRASYNTH00000000000000BRAVO001",
+    "Synthetic Balanced 60/40",
+    "Bravo Household (synthetic)",
+    "$1.04M",
+    "Cash",
+    "95.00",
+    "—",
+    "—",
+    "Uninvested",
+    "—"
+   ],
+   [
+    "Synthetic Echo - BrokerageSYNTH0000000000000000ECHO01⚠ Template sums to 92.5%",
+    "Synthetic Broken Template",
+    "Echo Household (synthetic)",
+    "$75K",
+    "Equity",
+    "22.00",
+    "—",
+    "—",
+    "Template error",
+    "—"
+   ],
+   [
+    "Synthetic Alpha Household - Individua…SYNTH00000000000000ALPHA001🔄 Transfer-in 2%",
+    "Synthetic Growth 80/20",
+    "Alpha Household (synthetic)",
+    "$812K",
+    "Equity",
+    "12.50",
+    "+$60K",
+    "+$2K",
+    "Out of tolerance",
+    "—"
+   ],
+   [
+    "Synthetic Foxtrot - IndividualSYNTH000000000000FOXTROT001🔄 Transfer-in 40%🔄 Active transition",
+    "Synthetic Balanced 60/40",
+    "Foxtrot Household (synthetic)",
+    "$400K",
+    "Cash",
+    "9.10",
+    "+$12K",
+    "—",
+    "Out of tolerance",
+    "—"
+   ],
+   [
+    "Synthetic Alpha - Roth IRASYNTH00000000000000ALPHA002",
+    "Synthetic Income 60/40",
+    "Alpha Household (synthetic)",
+    "$250K",
+    "Fixed",
+    "7.25",
+    "+$4K",
+    "—",
+    "Out of tolerance",
+    "✓ Asset location"
+   ],
+   [
+    "Synthetic Charlie - JointSYNTH0000000000000CHARLIE01",
+    "Synthetic Growth 70/30",
+    "Charlie Household (synthetic)",
+    "$1.86M",
+    "Fixed",
+    "1.60",
+    "−$3K",
+    "−$300",
+    "In tolerance",
+    "—"
+   ],
+   [
+    "Synthetic Delta - BrokerageSYNTH000000000000000DELTA01",
+    "—",
+    "Delta Household (synthetic)",
+    "$50K",
+    "—",
+    "—",
+    "—",
+    "—",
+    "No template",
+    "—"
+   ]
+  ],
+  "driftCsv": {
+   "name": "drift_2026-10-19.csv",
+   "lines": [
+    "\"Run Date\",\"Account\",\"Household\",\"Template\",\"Template Sum %\",\"Status\",\"Coverage\",\"Max Δpp\",\"Worst Bucket\",\"Symbol Breaches\",\"Total Value USD\",\"Unrealized G/L USD\",\"Realized G/L YTD USD\",\"Transfer-In %\",\"Active Transition\",\"Account ID\",\"Actionable\",\"Overridden\",\"Override Reason\",\"Override Note\",\"Override Set By\",\"Override Set At\",\"Override Expires On\",\"Taxable\",\"Transition Candidate\",\"Snapshot Source\",\"Snapshot As Of\",\"Cost Basis Freshness\"",
+    "\"2026-10-19\",\"Synthetic Bravo - Traditional IRA\",\"Bravo Household (synthetic)\",\"Synthetic Balanced 60/40\",\"100.0\",\"uninvested\",\"both\",\"95.00\",\"cash\",\"0\",\"1043007.79\",\"\",\"\",\"\",\"\",\"SYNTH00000000000000BRAVO001\",\"no\",\"no\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"gcs\",\"2026-10-17T00:00:00.000Z\",\"warn\"",
+    "\"2026-10-19\",\"Synthetic Echo - Brokerage\",\"Echo Household (synthetic)\",\"Synthetic Broken Template\",\"92.5\",\"template_invalid\",\"both\",\"22.00\",\"equity\",\"0\",\"75000.00\",\"\",\"\",\"\",\"\",\"SYNTH0000000000000000ECHO01\",\"no\",\"no\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"gcs\",\"2026-10-17T00:00:00.000Z\",\"warn\"",
+    "\"2026-10-19\",\"Synthetic Alpha Household - Individual Brokerage\",\"Alpha Household (synthetic)\",\"Synthetic Growth 80/20\",\"100.0\",\"out\",\"both\",\"12.50\",\"equity\",\"2\",\"812345.67\",\"60000.00\",\"1500.00\",\"2.0\",\"\",\"SYNTH00000000000000ALPHA001\",\"yes\",\"no\",\"\",\"\",\"\",\"\",\"\",\"yes\",\"no\",\"gcs\",\"2026-10-17T00:00:00.000Z\",\"warn\"",
+    "\"2026-10-19\",\"Synthetic Foxtrot - Individual\",\"Foxtrot Household (synthetic)\",\"Synthetic Balanced 60/40\",\"100.0\",\"out\",\"both\",\"9.10\",\"cash\",\"1\",\"400000.00\",\"12000.00\",\"\",\"40.0\",\"yes\",\"SYNTH000000000000FOXTROT001\",\"yes\",\"no\",\"\",\"\",\"\",\"\",\"\",\"yes\",\"no\",\"gcs\",\"2026-10-17T00:00:00.000Z\",\"warn\"",
+    "\"2026-10-19\",\"Synthetic Alpha - Roth IRA\",\"Alpha Household (synthetic)\",\"Synthetic Income 60/40\",\"100.0\",\"out\",\"both\",\"7.25\",\"fixed\",\"0\",\"250000.00\",\"4000.00\",\"\",\"0.0\",\"\",\"SYNTH00000000000000ALPHA002\",\"no\",\"yes\",\"Asset location (household-level)\",\"Synthetic: bonds are held in the taxable sleeve\",\"Dana Admin\",\"2026-10-01T12:00:00.000Z\",\"\",\"no\",\"no\",\"gcs\",\"2026-10-17T00:00:00.000Z\",\"warn\"",
+    "\"2026-10-19\",\"Synthetic Charlie - Joint\",\"Charlie Household (synthetic)\",\"Synthetic Growth 70/30\",\"100.0\",\"in\",\"both\",\"1.60\",\"fixed\",\"0\",\"1860995.59\",\"'-2500.00\",\"'-300.00\",\"0.0\",\"\",\"SYNTH0000000000000CHARLIE01\",\"no\",\"no\",\"\",\"\",\"\",\"\",\"\",\"yes\",\"no\",\"gcs\",\"2026-10-17T00:00:00.000Z\",\"warn\"",
+    "\"2026-10-19\",\"Synthetic Delta - Brokerage\",\"Delta Household (synthetic)\",\"\",\"\",\"no_template\",\"positions_only\",\"\",\"\",\"0\",\"50000.00\",\"\",\"\",\"\",\"\",\"SYNTH000000000000000DELTA01\",\"no\",\"no\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"gcs\",\"2026-10-17T00:00:00.000Z\",\"warn\""
+   ]
+  },
+  "exclusionsCsv": {
+   "name": "exclusions_2026-10-19.csv",
+   "lines": [
+    "\"Scope\",\"Client ID\",\"Client\",\"Account ID\",\"Account Number\",\"Ticker\",\"Kind\",\"Reason\",\"No Buy\",\"No Sell\",\"Created By\",\"Created At\"",
+    "\"client\",\"CL-SYN-1\",\"Synthetic Client One\",\"\",\"\",\"'=SYNA\",\"advisor\",\"Synthetic: concentrated\",\"yes\",\"no\",\"Dana Admin\",\"2026-10-01T15:00:00.000Z\"",
+    "\"account\",\"CL-SYN-2\",\"Synthetic Client Two\",\"SYNTH0000000000000CHARLIE01\",\"SYN0002\",\"SYNB\",\"client\",\"Synthetic: client request\",\"no\",\"yes\",\"Riley Ops\",\"2026-10-02T15:00:00.000Z\""
+   ]
+  },
+  "outOnlyRows": [
+   "Synthetic Alpha Household - Individua…SYNTH00000000000000ALPHA001🔄 Transfer-in 2%",
+   "Synthetic Foxtrot - IndividualSYNTH000000000000FOXTROT001🔄 Transfer-in 40%🔄 Active transition",
+   "Synthetic Alpha - Roth IRASYNTH00000000000000ALPHA002"
+  ],
+  "outOnlyTiles": [
+   {
+    "value": "3",
+    "label": "Accounts compared"
+   },
+   {
+    "value": "2",
+    "label": "Out of tolerance"
+   },
+   {
+    "value": "0",
+    "label": "Uninvested"
+   },
+   {
+    "value": "0",
+    "label": "No template"
+   },
+   {
+    "value": "12.50%",
+    "label": "Worst Δ (out of tol.)"
+   },
+   {
+    "value": "+$2K",
+    "label": "Realized G/L YTD (visible)"
+   }
+  ],
+  "traderOverrideCells": [
+   "Set override",
+   "Likely Tax-constrainedAcceptSet…",
+   "Likely In transitionAcceptSet…",
+   "✓ Asset locationEdit",
+   "Set override",
+   "Set override"
+  ],
+  "firstRowTitle": "Synthetic Alpha Household - Individua…SYNTH00000000000000ALPHA001🔄 Transfer-in 2%",
+  "alphaDetail": "Per-bucket comparisonBucketPosition %Template %ΔppStatusCash2.00%2.00%0.00In toleranceFixed5.50%18.00%12.50Out of toleranceEquity92.50%80.00%12.50Out of toleranceTax & cost basisbasis coverage: 98%Unrealized G/L+$60KST +$10K · LT +$50KRealized G/L YTD+$2KST +$500 · LT +$1KTransferred-in$16K2% of account⚠ Some positions have missing/zero cost basis — unrealized gain may be overstated.SymbolMarket valueCost basisUnrealizedTermOriginSYNE$487K$437K+$50KLT—SYNF$264K$254K+$10KST🔄 transfer-inEquity sleeve — sector / asset classClassificationType% of account% of equityInformation TechnologyGICS sector40.0%43.2%US Large BlendFund / asset class30.0%32.4%Unclassified—22.5%24.3%Per-symbol breakdown — cash & fixedSymbolBucketPosition %Target %ΔppStatusSYNAFixed5.50%18.00%12.50Out of toleranceSettlement cashCash2.00%2.00%0.00In toleranceEquity holdings (rolled up to bucket)SymbolPosition %SYNE60.00%SYNF32.50%Audit: SYNMM look like money-market funds but were routed to equity (not in INSTRUMENTS).",
+  "overlapDialog": "Exclusion overlap diagnosticOn-demand readout of how many current per-symbol breaches are currently locked by exclusions.Run date: 2026-10-197Accounts compared3Out of tolerance2Distinct exclusions2Per-symbol breaches2Locked breaches100.0%Locked shareLock classificationClassCountactionable0locked_blanket0locked_dnb_under1locked_dns_over1sign_mismatch_unlocked0Worst 10 accounts by max deltaAccountHouseholdStatusMax ΔBreachesLockedSynthetic Alpha Household - Individual BrokerageSYNTH00000000000000ALPHA001Alpha Household (synthetic)out12.50%21Synthetic Foxtrot - IndividualSYNTH000000000000FOXTROT001Foxtrot Household (synthetic)out9.10%11Synthetic Alpha - Roth IRASYNTH00000000000000ALPHA002Alpha Household (synthetic)out7.25%00",
+  "overrideReasonOptions": [
+   "Select a reason…",
+   "Asset location (household-level)",
+   "Tax constraint (embedded gains)",
+   "Active transition / transfer-in",
+   "Intentional cash / MMF",
+   "Concentrated position (legacy)",
+   "Template config error",
+   "Direct-index whole-share noise",
+   "Other (explain in note)"
+  ],
+  "households": [
+   "Alpha Household (synthetic)$1.06M2 of 2 out · max 12.50pp",
+   "Foxtrot Household (synthetic)$400K1 of 1 out · max 9.10pp",
+   "Bravo Household (synthetic)$1.04M0 of 1 out · max 0.00pp",
+   "Charlie Household (synthetic)$1.86MAll in tolerance · 1 acct",
+   "Delta Household (synthetic)$50KAll in tolerance · 1 acct"
+  ],
+  "emptyText": "No drift runs yet. The first nightly run posts at ~9:00 AM ET. If the system was deployed today, check back tomorrow.",
+  "errorText": "Unable to load drift history. Please try again."
+ }
+}

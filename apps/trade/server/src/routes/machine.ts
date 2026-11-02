@@ -10,7 +10,7 @@ import { changeServiceState, readServiceState, SERVICE_MODES } from '../services
 
 const router = Router();
 
-// An cedar_ridge_user_id — the cross-system client key Ops Portal sends. It is NOT a
+// An cedar_ridge_user_id — the cross-system client key the advisor platform sends. It is NOT a
 // bare UUID: it carries a `user-` prefix (e.g. user-ae66b3c8-d257-4a6a-a8fd-
 // d1c3641db27b) and is the exact value stored in trade_request.client_id /
 // client_ids. This mirrors OPS_PORTAL's ingest format `^user-[0-9a-f-]{36}$`.
@@ -41,7 +41,7 @@ export function maskAccount(n: string): string {
  * Historical requests sometimes persisted the deposit display label instead
  * of the Apex account number (for example `ZZ10004 ($180,000.00)`). Recover
  * only the narrow, well-formed account-number prefix. Anything ambiguous stays
- * unresolved so Ops Portal can require human review rather than guessing.
+ * unresolved so the advisor platform can require human review rather than guessing.
  */
 export function canonicalAccountNumber(value: string): string | null {
   const withoutAmount = (value ?? '')
@@ -229,7 +229,7 @@ export function toMachineTradeRequest(
           accountId: resolvedAccountId(accountIdByNumber, accountNumber),
           accountNumber: maskAccount(accountNumber),
           // Legacy rows did not persist account metadata. Account type and AUM
-          // are unknown here; Ops Portal renders both from its own Apex mirror.
+          // are unknown here; the advisor platform renders both from its own Apex mirror.
           accountType: null,
           balance: 0,
         }));
@@ -302,7 +302,7 @@ router.get('/trade-requests', async (req: Request, res: Response, next: NextFunc
         accountIdByNumber = await warehouse.getMachineAccountIdMap(accountNumbers);
       } catch {
         // Legacy rows may lack the persisted ULID. A resolver outage must not
-        // take down the machine feed; Ops Portal will flag a null accountId for review.
+        // take down the machine feed; the advisor platform will flag a null accountId for review.
         logger.warn(
           { event: 'machine_trade_requests_account_resolution_failed', accountCount: accountNumbers.length },
           'Machine trade-request account resolution failed',
@@ -352,7 +352,7 @@ router.get('/engine-use', async (req: Request, res: Response, next: NextFunction
 
 /**
  * The identities that may change the service mode or a sender switch: OPS_PORTAL's cutover controller.
- * SERVICE_MODE_CONTROLLER_SA when set, otherwise the existing Ops Portal caller list (OPS_PORTAL_DELEGATED_CALLER_SA);
+ * SERVICE_MODE_CONTROLLER_SA when set, otherwise the existing the advisor platform caller list (OPS_PORTAL_DELEGATED_CALLER_SA);
  * both are comma-separated service-account emails.
  */
 export function serviceModeControllers(): Set<string> {

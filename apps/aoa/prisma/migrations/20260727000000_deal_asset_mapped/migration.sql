@@ -1,0 +1,15 @@
+-- Always-On Advice — ops-owned "asset mapper run" flag on app.deal
+-- (deal→card mirror S1).
+--
+-- The Deals tab gets a "Mapped" checkbox (mirroring the existing Statements
+-- checkbox). The transfer card's "Run asset mapper" checklist item (S2) will
+-- live-mirror this flag. It is WRITE-ISOLATED: only the setDealAssetMapped
+-- toggle writes it — never createDeal/updateDeal, the deal form, or the deal
+-- ingest (dealInputToDbData omits it) — so a form save or a sync never resets it.
+--
+-- Additive-only (ADR-5): ONE new NOT NULL column with a DEFAULT, so existing
+-- rows backfill to false and no write path is forced to supply it. The column
+-- inherits app.deal's FORCE-RLS app_rw policies + table grant (a defaulted add
+-- needs no per-column grant). Default FALSE — mapping is an action that gets
+-- done (contrast statements' legacy DEFAULT true).
+ALTER TABLE "app"."deal" ADD COLUMN "asset_mapped" BOOLEAN NOT NULL DEFAULT false;

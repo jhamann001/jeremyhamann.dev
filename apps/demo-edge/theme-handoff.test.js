@@ -15,6 +15,17 @@ describe('the theme hand-off from the portfolio site', () => {
     expect(cookie).toMatch(/HttpOnly/);
   });
 
+  it('sets the app\'s own theme cookie instead, for an app whose server reads one (the advisor platform)', () => {
+    const response = themeRedirect(new Request('https://advisor.example/sign-in?theme=light'), { cookie: 'theme' });
+    expect(response.status).toBe(302);
+    expect(response.headers.get('location')).toBe('https://advisor.example/sign-in');
+    const cookie = response.headers.get('set-cookie');
+    expect(cookie).toBe('theme=light; Path=/; Max-Age=31536000; Secure; SameSite=Lax');
+    // Not HttpOnly: the app's own toggle rewrites it from the page.
+    expect(cookie).not.toMatch(/HttpOnly/);
+    expect(cookie).not.toContain(THEME_COOKIE);
+  });
+
   it('ignores other values, other methods and addresses without the parameter', () => {
     expect(themeRedirect(new Request('https://helpdesk.example/?theme=blue'))).toBeNull();
     expect(themeRedirect(new Request('https://helpdesk.example/'))).toBeNull();

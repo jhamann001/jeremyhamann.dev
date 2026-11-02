@@ -171,7 +171,7 @@ describe("Decision #58 — configurable Okta scope and groups claim (fresh modul
     expect((out as JWT).groups).toEqual(["ops_team"]);
   });
 
-  it("jwt: Ops Portal names on the shared app map onto the internal groups and unknown names drop", async () => {
+  it("jwt: The advisor platform names on the shared app map onto the internal groups and unknown names drop", async () => {
     vi.stubEnv("AUTH_OKTA_GROUPS_CLAIM", "OpsPortalGroups");
     const out = await jwtCb()(
       signInParams({
@@ -217,7 +217,7 @@ describe("Decision #58 — configurable Okta scope and groups claim (fresh modul
       vi.stubEnv("AUTH_OKTA_GROUPS_CLAIM", claim);
       expect(groupsFromSignIn("okta", undefined, profile), claim).toEqual([]);
     }
-    // A legitimately configured claim whose VALUE is a bare Ops Portal name (not an array) is likewise not mapped.
+    // A legitimately configured claim whose VALUE is a bare the advisor platform name (not an array) is likewise not mapped.
     vi.stubEnv("AUTH_OKTA_GROUPS_CLAIM", "OpsPortalGroups");
     expect(groupsFromSignIn("okta", undefined, { sub: "00u1", OpsPortalGroups: "OPSPORTAL-Admin" })).toEqual([]);
     expect(groupsFromSignIn("okta", undefined, { sub: "00u1", OpsPortalGroups: "ops_team" })).toEqual(["ops_team"]);
@@ -238,7 +238,7 @@ describe("Decision #58 — configurable Okta scope and groups claim (fresh modul
     ]);
     expect(groupsFromSignIn("okta", { groups: ["ops_team"] }, { sub: "x" })).toEqual([]);
     expect(groupsFromSignIn("okta", undefined, undefined)).toEqual([]);
-    // Dev personas never go through the Ops Portal map: an OPS-PORTAL-style name in user.groups is not an internal value → dropped.
+    // Dev personas never go through the advisor platform map: an OPS-PORTAL-style name in user.groups is not an internal value → dropped.
     expect(groupsFromSignIn("dev-persona", { groups: ["client_services", "OPSPORTAL-Admin"] }, { OpsPortalGroups: ["OPSPORTAL-Admin"] })).toEqual([
       "client_services",
     ]);

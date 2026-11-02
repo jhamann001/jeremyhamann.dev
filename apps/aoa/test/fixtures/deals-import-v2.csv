@@ -1,0 +1,8 @@
+Deal: ID,Deal: Deal Name,Person: First Name,Person: Last Name,Person: Primary Entity,Household SF ID (Person: Entity ID),AUM,AoA - New Stage,Stage,Deal: Created Date,Close Date,Person: Entity Owner,Statements,Sending Firm,Funding Type,Other Details,Employer,Rolling Into,Account Number
+V2-0001,Jordan Sample deal,Jordan,Sample,Sample Household,001B29947585662,125000,Potential,Open,2026-05-01,2026-08-01,Avery Stone,Yes,Fidelity,Other,Profit-sharing plan,Globex Manufacturing,,81-154
+V2-0002,Riley Example deal,Riley,Example,Example Family,001K23160569753,64000,Committed,Open,2026-06-15,2026-09-15,Gwen Kuhlman,Yes,Empower,401(k) Rollover,,Initech,Roth IRA,M1DU
+V2-0003,Casey Mock deal,Casey,Mock,Mock Household,001D24213528436,47500,Potential,Open,2026-06-10,,Avery Stone,No,,,,,,*005
+V2-0004,Drew Placeholder deal,Drew,Placeholder,Placeholder Family,001F98770755609,310000,Funding,Open,2026-04-08,2026-07-05,Gwen Kuhlman,Yes,Vanguard,Other,,,,x207
+V2-0005,Sky Invented deal,Sky,Invented,Invented Household,001B90615761528,88000,Won,Closed Won,2026-03-01,2026-04-22,Avery Stone,Yes,Schwab,401(k) Rollover,,Hooli,Brokerage,0-15/44X
+V2-0006,Abdullah Beahan deal,Abdullah,Beahan,Beahan Family,001V57995458200,54000,Lost,Closed Lost,2026-02-25,2026-04-10,Gwen Kuhlman,Yes,-,Cash,,,,-
+V2-0007,Claire Kirlin - Betterment - Individual - 6633,Alex,Kirlin,Kirlin Household,001L77271262998,205000,Won,Closed Won,2026-04-02,2026-06-12,Gwen Kuhlman,Yes,Pershing,Traditional IRA,,,,06-154

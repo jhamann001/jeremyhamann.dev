@@ -1,0 +1,145 @@
+.card {
+  display: block;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 11px;
+  margin-bottom: 9px;
+  cursor: pointer;
+  transition: 0.12s;
+  color: inherit;
+}
+.card:last-child {
+  margin-bottom: 0;
+}
+.card:hover {
+  box-shadow: var(--shadow);
+  border-color: var(--green-line);
+}
+.name {
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+}
+.household {
+  font-size: 10px;
+  color: var(--faint);
+  margin-top: 1px;
+}
+.valueRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 4px;
+}
+.value {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.fundingMethod {
+  min-width: 0;
+  max-width: 58%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 2px 7px;
+  background: var(--input-bg);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  font-size: 10px;
+  font-weight: 650;
+}
+.route,
+.nextAction {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--muted);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.route {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.route span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.route b,
+.nextAction b {
+  color: var(--faint);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-right: 2px;
+}
+.receivingPending {
+  color: var(--amber);
+}
+.complete {
+  color: var(--green);
+  font-weight: 650;
+}
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 7px;
+}
+.bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+}
+.bar i {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--green);
+  transition: 0.2s;
+}
+.progress span {
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.foot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 9px;
+  flex-wrap: wrap;
+}
+.owner {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: var(--input-bg);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+.days {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--input-bg);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}

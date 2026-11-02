@@ -1,5 +1,5 @@
 /**
- * Okta scope/claim configuration and Ops Portal group-name mapping (#59).
+ * Okta scope/claim configuration and the advisor platform group-name mapping (#59).
  */
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
@@ -163,7 +163,7 @@ describe("splitOktaGroupName() / opsPortalRoleName() — app-code allowlist (Dec
   });
 });
 
-describe("mapOktaGroupNames() — Ops Portal names (Decision #58)", () => {
+describe("mapOktaGroupNames() — the advisor platform names (Decision #58)", () => {
   it.each([
     ["OPSPORTAL-Operations", ["ops_team"]],
     ["OPSPORTAL-Ops Read/Write", ["ops_team"]],
@@ -200,14 +200,14 @@ describe("mapOktaGroupNames() — Ops Portal names (Decision #58)", () => {
     ]);
   });
 
-  it("exact internal values pass through untouched (parseGroups semantics), mixed with Ops Portal names", () => {
+  it("exact internal values pass through untouched (parseGroups semantics), mixed with the advisor platform names", () => {
     expect(mapOktaGroupNames(["ops_team", "advisors", "client_services", "compliance_officers"])).toEqual([
       ...OKTA_GROUPS,
     ]);
     expect(mapOktaGroupNames(["compliance_officers", "OPSPORTAL-Advisor"])).toEqual(["advisors", "compliance_officers"]);
   });
 
-  it("a bare string is kept only when it is itself an exact internal value; it is never run through the Ops Portal map (Decision #59)", () => {
+  it("a bare string is kept only when it is itself an exact internal value; it is never run through the advisor platform map (Decision #59)", () => {
     expect(mapOktaGroupNames("ops_team")).toEqual(["ops_team"]);
     expect(mapOktaGroupNames("compliance_officers")).toEqual(["compliance_officers"]);
     expect(mapOktaGroupNames("OPSPORTAL-Operations")).toEqual([]);

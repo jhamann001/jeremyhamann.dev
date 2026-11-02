@@ -1,0 +1,41 @@
+.form { display: grid; gap: 20px; }
+.kindPicker { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.kindButton, .activeKind { display: grid; gap: 4px; padding: 15px 16px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); text-align: left; cursor: pointer; }
+.activeKind { border-color: var(--green); background: var(--green-soft); box-shadow: inset 0 0 0 1px var(--green); }
+.kindButton span, .activeKind span { font-weight: 800; }
+.kindButton small, .activeKind small { color: var(--muted); font-size: 12px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.grid > label, .grid fieldset { min-width: 0; }
+.grid > label { display: grid; align-content: start; gap: 7px; color: var(--ink-2); font-size: 12px; font-weight: 800; }
+.grid input, .grid select, .grid textarea { width: 100%; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; font-weight: 500; }
+.grid input, .grid select { min-height: 42px; padding: 9px 11px; }
+.grid textarea { padding: 11px; resize: vertical; }
+.grid small { color: var(--muted); font-weight: 500; }
+.full { grid-column: 1 / -1; }
+.grid fieldset { grid-column: 1 / -1; margin: 0; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.grid legend { padding: 0 6px; color: var(--ink-2); font-size: 12px; font-weight: 800; }
+.checkGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.checkOption { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink-2); font-size: 12px; }
+.checkOption input { width: 16px; min-height: 16px; margin: 0; accent-color: var(--green); }
+.indefinite { display: flex !important; align-items: center; align-self: end; min-height: 42px; padding: 9px 0; }
+.indefinite input { width: 16px; min-height: 16px; }
+.moneyInput { display: grid; grid-template-columns: 34px 1fr; align-items: center; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden; }
+.moneyInput > span { display: grid; place-items: center; height: 100%; border-right: 1px solid var(--line); color: var(--muted); }
+.moneyInput input { border: 0; border-radius: 0; }
+.fieldHint, .fieldError { margin: 0; color: var(--muted); font-size: 12px; }
+.fieldError { color: var(--red); }
+.clientSearch { position: relative; }
+.searchStatus { margin: 7px 0 0; color: var(--muted); font-size: 12px; font-weight: 500; }
+.clientResults { position: absolute; z-index: 5; top: calc(100% + 5px); right: 0; left: 0; display: grid; max-height: 280px; overflow-y: auto; padding: 5px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); }
+.clientResults button { display: grid; gap: 3px; padding: 10px 11px; border: 0; border-radius: 7px; background: transparent; color: var(--ink); text-align: left; cursor: pointer; }
+.clientResults button:hover, .clientResults button:focus-visible { background: var(--surface-2); outline: none; }
+.clientResults b { font-size: 12px; }
+.clientResults span { color: var(--muted); font-size: 11px; }
+.selectedClient { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--green); font-size: 11px; font-weight: 700; }
+.selectedClient button { padding: 0; border: 0; background: transparent; color: var(--green); font: inherit; text-decoration: underline; cursor: pointer; }
+.submitRow { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 4px; }
+.submitRow p { max-width: 620px; margin: 0; color: var(--muted); font-size: 12px; }
+.submitRow button { padding: 11px 18px; border: 0; border-radius: 999px; background: var(--green); color: white; font-weight: 800; cursor: pointer; }
+.submitRow button:disabled { opacity: .45; cursor: not-allowed; }
+@media (max-width: 850px) { .checkGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 680px) { .kindPicker, .grid, .checkGrid { grid-template-columns: 1fr; } .full { grid-column: auto; } .submitRow { align-items: stretch; flex-direction: column; } }

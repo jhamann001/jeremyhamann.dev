@@ -24,11 +24,13 @@ deploy), which first creates or updates the schema over the database's direct (u
 
 from __future__ import annotations
 
+import hashlib
 import json
 import logging
 import os
 import sys
 import time
+import uuid
 import zlib
 from dataclasses import dataclass, replace
 from datetime import date, datetime, timedelta
@@ -47,6 +49,14 @@ log = logging.getLogger("statement-pipeline")
 ET = ZoneInfo("America/New_York")
 
 REVIEWER = demo.persona_by_key("jordan-reyes")["email"]
+
+
+def demo_run_id(source_folder_id: str, run_number: int) -> str:
+    """The id every demo gives this client folder's run: the advisor platform's demo seed derives the same one from the
+    same key (its runId), so its "Open in the Statement Analyzer demo" link opens this run, and it stays the same
+    through every reset."""
+    h = hashlib.sha256(f"demo-uuid:pipeline:run:{source_folder_id}#{run_number}".encode()).hexdigest()
+    return f"{h[0:8]}-{h[8:12]}-4{h[13:16]}-a{h[17:20]}-{h[20:32]}"
 
 # Every table the app writes. users is emptied too: visitors' added users go, and the personas come back.
 _TABLES = ("households", "accounts", "positions", "target_accounts", "source_account_links",
@@ -324,6 +334,25 @@ def reset_demo(conn, now: Optional[datetime] = None, universe: Optional[dict] = 
             seed_failures.append(exc)
             raise
     ap._seed_destination_accounts = seed_destinations_or_record
+    # Each run's household gets its key's id (demo_run_id) instead of a random one: the first id write_household
+    # draws is the household's, so that one draw is answered with the run's id and every later one is random.
+    write_household, real_uuid4 = pipeline_db.write_household, pipeline_db.uuid4
+
+    def write_household_with_run_id(conn_, consolidated, source_folder_id=None):
+        run_id = uuid.UUID(demo_run_id(source_folder_id, consolidated.get("run_number", 1)))
+        drawn = []
+
+        def uuid4_household_first():
+            if drawn:
+                return real_uuid4()
+            drawn.append(run_id)
+            return run_id
+        pipeline_db.uuid4 = uuid4_household_first
+        try:
+            return write_household(conn_, consolidated, source_folder_id)
+        finally:
+            pipeline_db.uuid4 = real_uuid4
+    pipeline_db.write_household = write_household_with_run_id
     try:
         with conn.cursor() as cur:
             cur.execute("TRUNCATE " + ", ".join(_TABLES) + " CASCADE")
@@ -344,6 +373,11 @@ def reset_demo(conn, now: Optional[datetime] = None, universe: Optional[dict] = 
             )
             if not household_id or held.rolled_back or seed_failures:
                 raise ResetAborted(f"Seed run {run.sample.key} failed: no household, a rollback, or no destinations")
+            with conn.cursor() as cur:
+                cur.execute("SELECT run_number FROM households WHERE id = %s", (household_id,))
+                (run_number,) = cur.fetchone()
+            if str(household_id) != demo_run_id(run.folder_id, run_number):
+                raise ResetAborted(f"Seed run {run.sample.key} did not get its run id")
             with conn.cursor() as cur:
                 cur.execute("UPDATE households SET processed_at = %s, created_at = %s, updated_at = %s WHERE id = %s",
                             (run.processed_at, run.processed_at, run.processed_at, household_id))
@@ -368,6 +402,7 @@ def reset_demo(conn, now: Optional[datetime] = None, universe: Optional[dict] = 
     finally:
         ap._genai_client = previous_client
         ap._seed_destination_accounts = seed_destinations
+        pipeline_db.write_household = write_household
     summary = {"runs": runs, "households": live, "positions": positions, "roster": len(rows), "edits": edits,
                "seconds": round(time.monotonic() - started, 1)}
     log.info("Demo reset complete: %s", summary)

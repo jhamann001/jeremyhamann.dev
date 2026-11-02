@@ -16,4 +16,11 @@ regexes = [
   '''^0oa1234567890abcdef$''',
   '''^b3f1c0d2e4a5968778695a4b3c2d1e0f1122334455667788990011223344556677$''',
   '''^wm\.dGlja2V0XzE\.(YWJjZGVmZ2hpamtsbW5v|abcdefghijklmno)$''',
+  '''^001\-DUPLICATE$''',  # Phase 6 app test value
+  '''^003SYNTHETIC123$''',  # Phase 6 app test value
+  '''^0f8fad5b\-d9cb\-469f\-a165\-70867728950e$''',  # Phase 6 app test value
+  '''^0f987ccf\-55dd\-4346\-b8ef\-1b30b128d210$''',  # Phase 6 app test value
+  '''^3f0c6a52\-9b1e\-4c3a\-8d2f\-5e6a7b8c9d0e$''',  # Phase 6 app test value
+  '''^6fc31a81\-ae16\-4a1d\-849b\-7c69cb575a4d$''',  # Phase 6 app test value
+  '''^columnsSubmitted=0$''',  # Phase 6 app test value
 ]

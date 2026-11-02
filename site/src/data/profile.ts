@@ -19,6 +19,12 @@ export const PROOF: Proof[] = [
   { value: 'S65', label: 'Series 65, active', sub: 'Daily ops and trading work, not just code' },
 ];
 
+// The note under the proof figures on why GitHub looks quiet. It names the employer, so it lives here.
+export const PRIVATE_WORK = {
+  note: 'Most of this work lives in Evergreen.ai’s private company repos, so my GitHub looks pretty quiet. The demos below rebuild these tools on synthetic data, so they’re the best way to see what I’ve built.',
+  link: 'See the projects',
+};
+
 export interface Role { title: string; dates?: string; badge?: string; org?: string; bullets: string[] }
 export interface Job { company: string; place: string; dates: string; roles: Role[] }
 

@@ -1,0 +1,104 @@
+.emptyCopy {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.lastMeeting {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-bottom: 11px;
+}
+.sectionLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.talkingPoints {
+  font-size: 12.5px;
+  color: var(--ink-2);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  margin-bottom: 13px;
+}
+.cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+.list {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+.dash {
+  color: var(--muted);
+  font-size: 12px;
+}
+.notes {
+  margin-top: 13px;
+}
+.notesBody {
+  font-size: 12.5px;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+/* --- Saved AI brief path (AI_MEETING_PREP) --------------------------------- */
+.savedBrief + .savedBrief {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.savedHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+.savedMeeting {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.provenance {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0 0 10px;
+  line-height: 1.45;
+}
+.briefBody {
+  background: var(--input-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+.briefHeading {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin: 14px 0 5px;
+}
+.briefHeading:first-child {
+  margin-top: 0;
+}
+.briefPara {
+  margin: 0 0 8px;
+  line-height: 1.6;
+}
+.internalNote {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 8px 0 0;
+  line-height: 1.45;
+}

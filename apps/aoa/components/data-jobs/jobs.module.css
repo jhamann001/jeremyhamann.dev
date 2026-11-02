@@ -1,0 +1,86 @@
+.monitor { min-width: 0; }
+.notice { display: flex; align-items: center; gap: 14px; margin: 0 0 18px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--input-bg); }
+.notice p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.notice > span { flex-shrink: 0; }
+.filters { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 10px; margin: 0 0 20px; }
+.searchField { flex: 1 1 250px; }
+.statusField { flex: 0 1 200px; }
+.filters label { display: block; color: var(--muted); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; font-weight: 650; margin-bottom: 7px; }
+.filters input, .filters select { width: 100%; min-height: 38px; color: var(--ink); background: var(--input-bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 11px; font: inherit; font-size: 13px; }
+.filters input:focus-visible, .filters select:focus-visible { outline: 2px solid var(--green-line); outline-offset: 2px; }
+.listHeader { display: flex; justify-content: space-between; gap: 10px; margin: 16px 0 8px; }
+.listHeader p { color: var(--muted); font-size: 11px; line-height: 1.5; margin: 0; }
+.jobList { display: grid; gap: 8px; container-type: inline-size; container-name: jobs; }
+.jobCard { min-width: 0; background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--muted); border-radius: 11px; overflow: hidden; }
+.jobCard[data-status="HEALTHY"] { border-left-color: var(--green); }
+.jobCard[data-status="FAILED"], .jobCard[data-status="OVERDUE"], .jobCard[data-status="STALLED"] { border-left-color: var(--red); }
+.jobCard[data-status="UNKNOWN"] { border-left-color: var(--amber); }
+.jobCard[data-status="RUNNING"] { border-left-color: var(--green); }
+.cardHeading { margin: 0; font: inherit; }
+.cardToggle { width: 100%; display: grid; grid-template-columns: minmax(180px, 1.3fr) minmax(140px, .8fr) minmax(150px, .9fr) auto 16px; gap: 15px; align-items: center; border: 0; background: none; text-align: left; padding: 15px 16px; cursor: pointer; color: inherit; font: inherit; }
+.cardToggle:hover { background: var(--input-bg); }
+.cardToggle:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--green-line); }
+.identity, .summaryTime { display: flex; flex-direction: column; min-width: 0; gap: 4px; }
+.jobName { font-size: 14px; font-weight: 650; overflow-wrap: anywhere; }
+.source { color: var(--muted); font-size: 11px; font-weight: 450; overflow-wrap: anywhere; }
+.summaryTime > span { color: var(--muted); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; }
+.summaryTime strong { font-size: 11px; line-height: 1.5; font-weight: 550; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.badges { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+.chevron { color: var(--muted); font-size: 21px; font-weight: 400; }
+.cardDetails { padding: 16px; border-top: 1px solid var(--line); }
+.reason { color: var(--muted); margin: 0 0 14px; font-size: 13px; line-height: 1.6; }
+.flow { list-style: none; padding: 0; margin: 0 0 18px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 9px; background: var(--input-bg); }
+.flow li { position: relative; padding: 11px 18px 11px 12px; min-width: 0; }
+.flow li + li { border-left: 1px solid var(--line); }
+.flow li + li::before { content: "→"; position: absolute; left: -7px; top: 26px; background: var(--input-bg); color: var(--muted); font-size: 12px; }
+.flow span { display: block; color: var(--muted); text-transform: uppercase; font-size: 9px; letter-spacing: .06em; margin-bottom: 6px; }
+.flow strong { display: block; font-size: 12px; line-height: 1.5; font-weight: 550; overflow-wrap: anywhere; }
+.detailGrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, .85fr); gap: 22px; }
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px; align-content: start; margin: 0; }
+.facts dt, .stats dt { color: var(--muted); font-size: 10px; line-height: 1.5; text-transform: uppercase; letter-spacing: .03em; }
+.facts dd { font-size: 12px; line-height: 1.6; margin: 4px 0 0; font-weight: 550; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.facts small { display: block; color: var(--muted); font-size: 10px; font-weight: 400; }
+.facts code { font-size: 12px; }
+.statsPanel { background: var(--input-bg); border: 1px solid var(--line); border-radius: 9px; padding: 13px; }
+.statsPanel h3, .incidents h3, .historyHeading h3 { font-size: 13px; margin: 0; }
+.window { font-size: 10px; line-height: 1.6; color: var(--muted); margin: 5px 0 12px; font-variant-numeric: tabular-nums; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 10px; margin: 0 0 13px; }
+.stats dd { font-size: 18px; margin: 5px 0 0; font-variant-numeric: tabular-nums; font-weight: 650; }
+.coverage { font-size: 11px; line-height: 1.6; color: var(--muted); margin: 8px 0 0; }
+.applicationEvidence { margin-top: 18px; padding: 15px; border: 1px solid var(--line); border-radius: 9px; }
+.applicationEvidence h3 { margin: 0; font-size: 13px; }
+.applicationEvidence .facts { margin-top: 13px; }
+.cardLinks { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 18px; font-size: 12px; font-weight: 600; }
+.cardLinks a, .runTable a { text-decoration: underline; text-underline-offset: 3px; }
+.incidents { border-top: 1px solid var(--line); margin: 18px 0 0; padding-top: 15px; }
+.incidents h3 span { color: var(--muted); font-size: 11px; font-weight: 450; margin-left: 6px; }
+.incidents p, .incidents li { font-size: 11px; line-height: 1.6; color: var(--muted); }
+.incidents p { margin: 8px 0; }
+.incidents ul { padding-left: 16px; margin: 9px 0; }
+.incidents b { text-transform: capitalize; }
+.historyHeading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 18px 0 10px; }
+.tableScroll { overflow-x: auto; margin: 0 0 12px; border: 1px solid var(--line); border-radius: 8px; }
+.tableScroll:focus-visible { outline: 2px solid var(--green-line); outline-offset: 2px; }
+.runTable { border-collapse: collapse; width: 100%; font-size: 11px; text-align: left; }
+.runTable caption { text-align: left; color: var(--muted); padding: 9px 12px; background: var(--input-bg); font-size: 10px; }
+.runTable th { color: var(--muted); font-size: 10px; font-weight: 600; white-space: nowrap; }
+.runTable th, .runTable td { padding: 10px 12px; border-top: 1px solid var(--line); vertical-align: top; line-height: 1.6; }
+.runTable td { min-width: 105px; font-variant-numeric: tabular-nums; }
+.runTable td:first-child { min-width: 180px; }
+.runTable small, .runTable code { display: block; color: var(--muted); font-size: 10px; line-height: 1.5; margin-top: 4px; max-width: 250px; overflow-wrap: anywhere; }
+.muted { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.moreJobs { margin-top: 14px; }
+.error, .monitoringWarning, .inlineError { padding: 13px 15px; border: 1px solid var(--amber); border-radius: 9px; font-size: 12px; line-height: 1.6; margin: 15px 0; }
+.error h2, .empty h2 { font-size: 15px; margin: 0 0 6px; }
+.error p { margin: 0 0 10px; }
+.inlineError button { border: none; padding: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
+.empty { padding: 35px 20px; text-align: center; border: 1px dashed var(--line); border-radius: 12px; }
+.empty p { color: var(--muted); font-size: 12px; line-height: 1.6; margin: 0 0 10px; }
+.help { border-top: 1px solid var(--line); margin-top: 23px; padding-top: 16px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.help summary { cursor: pointer; font-weight: 600; }
+.help p { max-width: 900px; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (max-width: 1150px) { .cardToggle { grid-template-columns: minmax(160px, 1fr) minmax(140px, .8fr) auto 16px; } .summaryTime:nth-of-type(2) { display: none; } }
+@media (max-width: 800px) { .detailGrid { grid-template-columns: 1fr; } .listHeader { flex-direction: column; gap: 4px; } .notice { align-items: flex-start; flex-direction: column; gap: 8px; } .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); } .flow li:nth-child(3) { border-left: none; border-top: 1px solid var(--line); } .flow li:nth-child(4) { border-top: 1px solid var(--line); } .flow li:nth-child(3)::before { display: none; } }
+@media (max-width: 600px) { .cardToggle { grid-template-columns: minmax(0, 1fr) auto 14px; gap: 10px; padding: 13px 12px; } .summaryTime { display: none; } .cardDetails { padding: 12px; } .facts { gap: 13px; } .jobName { font-size: 13px; } .statusField { flex: 1 1 160px; } }
+@container jobs (max-width: 620px) { .cardToggle { grid-template-columns: minmax(0, 1fr) auto 14px; gap: 10px; padding: 13px 12px; } .summaryTime { display: none; } .cardDetails { padding: 12px; } }

@@ -1,0 +1,197 @@
+{
+  "oneClient": {
+    "households": [
+      {
+        "householdId": 9001,
+        "householdName": "Alder Household",
+        "accounts": [
+          {
+            "accountId": "01PARITY000000000000000001",
+            "accountNumber": "VOV4750",
+            "accountTitle": "Alder - Brokerage",
+            "clientId": "C-1",
+            "accountType": "Taxable",
+            "balance": 850000.25
+          },
+          {
+            "accountId": "01PARITY000000000000000002",
+            "accountNumber": "ZYP1058",
+            "accountTitle": "Alder - Roth",
+            "clientId": "C-1",
+            "accountType": "Roth IRA",
+            "balance": 120000
+          },
+          {
+            "accountId": "01PARITY000000000000000003",
+            "accountNumber": "JGV9114",
+            "accountTitle": "Birch - Joint",
+            "clientId": "C-2",
+            "accountType": "Joint",
+            "balance": 50000
+          },
+          {
+            "accountId": "01PARITY000000000000000005",
+            "accountNumber": null,
+            "accountTitle": "Orphan - Brokerage",
+            "clientId": null,
+            "accountType": null,
+            "balance": 0
+          }
+        ],
+        "selectedAccountIds": [
+          "01PARITY000000000000000001",
+          "01PARITY000000000000000002"
+        ],
+        "clientIds": [
+          "C-1",
+          "C-2"
+        ]
+      }
+    ],
+    "unresolvedClientIds": [],
+    "unresolvedAccountIds": []
+  },
+  "twoClients": {
+    "households": [
+      {
+        "householdId": 9001,
+        "householdName": "Alder Household",
+        "accounts": [
+          {
+            "accountId": "01PARITY000000000000000001",
+            "accountNumber": "VOV4750",
+            "accountTitle": "Alder - Brokerage",
+            "clientId": "C-1",
+            "accountType": "Taxable",
+            "balance": 850000.25
+          },
+          {
+            "accountId": "01PARITY000000000000000002",
+            "accountNumber": "ZYP1058",
+            "accountTitle": "Alder - Roth",
+            "clientId": "C-1",
+            "accountType": "Roth IRA",
+            "balance": 120000
+          },
+          {
+            "accountId": "01PARITY000000000000000003",
+            "accountNumber": "JGV9114",
+            "accountTitle": "Birch - Joint",
+            "clientId": "C-2",
+            "accountType": "Joint",
+            "balance": 50000
+          },
+          {
+            "accountId": "01PARITY000000000000000005",
+            "accountNumber": null,
+            "accountTitle": "Orphan - Brokerage",
+            "clientId": null,
+            "accountType": null,
+            "balance": 0
+          }
+        ],
+        "selectedAccountIds": [
+          "01PARITY000000000000000001",
+          "01PARITY000000000000000002"
+        ],
+        "clientIds": [
+          "C-1",
+          "C-2"
+        ]
+      },
+      {
+        "householdId": 9002,
+        "householdName": "Cedar Household",
+        "accounts": [
+          {
+            "accountId": "01PARITY000000000000000004",
+            "accountNumber": "HNO0026",
+            "accountTitle": "Cedar - IRA",
+            "clientId": "C-3",
+            "accountType": "Traditional IRA",
+            "balance": 0
+          }
+        ],
+        "selectedAccountIds": [
+          "01PARITY000000000000000004"
+        ],
+        "clientIds": [
+          "C-3"
+        ]
+      }
+    ],
+    "unresolvedClientIds": [],
+    "unresolvedAccountIds": []
+  },
+  "explicitAccounts": {
+    "households": [
+      {
+        "householdId": 9001,
+        "householdName": "Alder Household",
+        "accounts": [
+          {
+            "accountId": "01PARITY000000000000000001",
+            "accountNumber": "VOV4750",
+            "accountTitle": "Alder - Brokerage",
+            "clientId": "C-1",
+            "accountType": "Taxable",
+            "balance": 850000.25
+          },
+          {
+            "accountId": "01PARITY000000000000000002",
+            "accountNumber": "ZYP1058",
+            "accountTitle": "Alder - Roth",
+            "clientId": "C-1",
+            "accountType": "Roth IRA",
+            "balance": 120000
+          },
+          {
+            "accountId": "01PARITY000000000000000003",
+            "accountNumber": "JGV9114",
+            "accountTitle": "Birch - Joint",
+            "clientId": "C-2",
+            "accountType": "Joint",
+            "balance": 50000
+          },
+          {
+            "accountId": "01PARITY000000000000000005",
+            "accountNumber": null,
+            "accountTitle": "Orphan - Brokerage",
+            "clientId": null,
+            "accountType": null,
+            "balance": 0
+          }
+        ],
+        "selectedAccountIds": [
+          "01PARITY000000000000000001"
+        ],
+        "clientIds": [
+          "C-1",
+          "C-2"
+        ]
+      }
+    ],
+    "unresolvedClientIds": [],
+    "unresolvedAccountIds": []
+  },
+  "unknownClient": {
+    "households": [],
+    "unresolvedClientIds": [
+      "C-9"
+    ],
+    "unresolvedAccountIds": []
+  },
+  "unmappedAccount": {
+    "households": [],
+    "unresolvedClientIds": [],
+    "unresolvedAccountIds": [
+      "01PARITY000000000000000006",
+      "01PARITY000000000000000007"
+    ]
+  },
+  "empty": {
+    "households": [],
+    "unresolvedClientIds": [],
+    "unresolvedAccountIds": []
+  }
+}

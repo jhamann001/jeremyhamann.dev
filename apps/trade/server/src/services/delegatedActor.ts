@@ -9,13 +9,13 @@ const COLUMNS =
   'id, google_id, email, name, picture, role, slack_user_id, theme_preference, is_active, last_login, created_at';
 
 /**
- * Resolves the person an Ops Portal delegated call acts for to the service's own user
+ * Resolves the person an advisor platform delegated call acts for to the service's own user
  * record, matched by verified company email regardless of `is_active` (owner
- * ruling D1: no roster entry is needed to act through Ops Portal). When no record
+ * ruling D1: no roster entry is needed to act through the advisor platform). When no record
  * exists, an inactive shadow row is inserted so audit entries, own-request
  * checks and notifications have a stable actor id.
  *
- * The returned user carries the role mapped from the person's current Ops Portal
+ * The returned user carries the role mapped from the person's current advisor platform
  * role, never the standalone roster role.
  */
 export async function resolveDelegatedActor(email: string, name: string, role: UserRole): Promise<AuthUser> {
@@ -29,7 +29,7 @@ export async function resolveDelegatedActor(email: string, name: string, role: U
 
   if (!row) {
     // Provisioning is a user-administration write: while the service is not active (ticket) a first-time
-    // Ops Portal user is refused rather than given a row the final change copy may already have missed.
+    // The advisor platform user is refused rather than given a row the final change copy may already have missed.
     if ((await readServiceState()).mode !== 'active') {
       throw new AppError(423, 'delegated actor provisioning refused: service not active', FROZEN_MESSAGE);
     }

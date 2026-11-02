@@ -138,7 +138,7 @@ describe("ingestTicketSchema", () => {
     expect(ingestTicketSchema.safeParse({ ...validTicket, description: "x".repeat(400_001) }).success).toBe(false);
   });
 
-  it("takes Ops Portal pointers as bounded ids and nothing longer", () => {
+  it("takes the advisor platform pointers as bounded ids and nothing longer", () => {
     expect(ingestTicketSchema.safeParse({ ...validTicket, householdId: "hh_123" }).success).toBe(true);
     expect(ingestTicketSchema.safeParse({ ...validTicket, requesterExternalId: "x".repeat(129) }).success).toBe(false);
   });

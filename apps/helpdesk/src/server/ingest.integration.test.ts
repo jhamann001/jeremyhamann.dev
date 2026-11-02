@@ -16,7 +16,7 @@
  *  - The status rules: `PENDING_CLIENT → OPEN`, `RESOLVED → OPEN` with `TICKET_REOPENED_BY_REQUESTER`
  *    and a cleared `resolvedAt`, `PENDING_INTERNAL` untouched, and `CLOSED` refusing in favour of a new
  *    linked ticket.
- *  - The Ops Portal mirror export never carries an INTERNAL body, and its cursor pages without gaps or repeats.
+ *  - The advisor platform mirror export never carries an INTERNAL body, and its cursor pages without gaps or repeats.
  */
 import { randomUUID } from "node:crypto";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
@@ -880,7 +880,7 @@ describe.skipIf(!TEST_URL)("ingest cores (TEST_DATABASE_URL)", () => {
   });
 
   // -------------------------------------------------------------------------
-  // The Ops Portal mirror export
+  // The advisor platform mirror export
   // -------------------------------------------------------------------------
 
   it("exports PUBLIC messages only, and never an INTERNAL body (I1)", async () => {

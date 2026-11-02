@@ -32,6 +32,7 @@ jobs:
       acat: ${{ steps.select.outputs.acat }}
       helpdesk: ${{ steps.select.outputs.helpdesk }}
       statements: ${{ steps.select.outputs.statements }}
+      aoa: ${{ steps.select.outputs.aoa }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -510,3 +511,41 @@ jobs:
       - name: The app's log, if a step failed
         if: failure()
         run: docker logs app || true
+
+  aoa:
+    name: "Advisor platform: typecheck, tests and Worker check"
+    needs: [guard, changes]
+    if: needs.changes.outputs.aoa == 'true'
+    runs-on: ubuntu-24.04
+    # Lean on purpose (plan D7): its full original CI bills about 38 minutes a run. Its database, browser and image
+    # checks run on the Mac before a push, and its image builds only in the deploy (deploy-aoa.yml). The app installs
+    # on its own (its own lockfile, the production versions of Next.js, React and Prisma); its Worker is a workspace.
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            apps/aoa/package-lock.json
+      - name: "Advisor platform: install (its own lockfile)"
+        working-directory: apps/aoa
+        run: npm ci
+      - name: "Advisor platform: typecheck (about 5 GB at its peak)"
+        working-directory: apps/aoa
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
+        run: npm run typecheck
+      - name: "Advisor platform: tests (the database tests skip: there is no database here)"
+        working-directory: apps/aoa
+        run: npm test
+      - name: "Advisor platform: install the repository workspaces (its Worker's)"
+        run: npm ci
+      - name: "Advisor platform: Worker tests and config check (dry run, nothing deployed or built)"
+        working-directory: apps/aoa/worker
+        run: |
+          npm test
+          npm run deploy:check

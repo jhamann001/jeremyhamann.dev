@@ -6,7 +6,7 @@
 --
 -- WHAT IT CAN DO
 -- --------------
--- OPS_PORTAL's copy engine (Ops Portal lib/trade-requests/records/copy-engine.ts, ticket) reads the 14 Trade
+-- OPS_PORTAL's copy engine (the advisor platform's lib/trade-requests/records/copy-engine.ts, ticket) reads the 14 Trade
 -- Request record tables for full, change and report-only copies and for the drift readiness comparison, and
 -- writes them during a rollback's copy-back. This role holds exactly that: SELECT, INSERT, UPDATE and DELETE on
 -- 13 tables, and SELECT, INSERT and UPDATE on users (copy-back never deletes a user: the standalone sign-in,

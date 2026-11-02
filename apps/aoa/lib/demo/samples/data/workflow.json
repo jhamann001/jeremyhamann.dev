@@ -1,0 +1,287 @@
+{
+  "decisions": [
+    {
+      "id": "demo-decision-okafor",
+      "householdId": "001DM0000001002YAA",
+      "householdName": "Okafor Household",
+      "meeting": {
+        "label": "Statement review",
+        "daysAgo": 21
+      },
+      "items": [
+        {
+          "what": "Bring the three Edward Jones accounts to the firm",
+          "rec": "Move the joint account first, then Ada's Roth IRA and Kofi's individual account",
+          "owner": {
+            "kind": "person",
+            "label": "Rachel Moss"
+          },
+          "status": "decided",
+          "downstream": "When decided → transfer paperwork for each account, then rebalance into Growth 80/20",
+          "tasks": [
+            {
+              "desc": "Rebalance the joint account into Growth 80/20 after settlement",
+              "assignee": {
+                "kind": "person",
+                "label": "Rachel Moss"
+              },
+              "status": "todo",
+              "priority": "normal",
+              "createdBy": "Rachel Moss",
+              "createdDaysAgo": 3,
+              "id": "demo-task-1a1"
+            },
+            {
+              "desc": "Prepare transfer paperwork for the Roth IRA and individual account",
+              "assignee": {
+                "kind": "group",
+                "label": "Operations"
+              },
+              "status": "todo",
+              "priority": "normal",
+              "createdBy": "Rachel Moss",
+              "createdDaysAgo": 21,
+              "docs": [
+                {
+                  "code": "acat",
+                  "status": "needed"
+                }
+              ],
+              "needLabel": "Account transfer → ACAT",
+              "id": "demo-task-1a2"
+            }
+          ],
+          "id": "demo-item-1a"
+        },
+        {
+          "what": "Keep the NVDA position in Kofi's individual account",
+          "rec": "Hold, don't add; the trade desk's exclusion stays on file",
+          "owner": {
+            "kind": "group",
+            "label": "Advisory"
+          },
+          "status": "decided",
+          "downstream": "The exclusion travels with the account when it moves",
+          "tasks": [],
+          "id": "demo-item-1b"
+        },
+        {
+          "what": "Update the Roth IRA beneficiaries",
+          "rec": "Name Amara and Tobi, 50/50, before the Roth IRA moves",
+          "owner": {
+            "kind": "group",
+            "label": "Client Service"
+          },
+          "status": "open",
+          "downstream": "When decided → signed beneficiary form to the custodian",
+          "tasks": [
+            {
+              "desc": "Collect Ada's signed beneficiary form",
+              "assignee": {
+                "kind": "group",
+                "label": "Client Service"
+              },
+              "status": "in_progress",
+              "priority": "normal",
+              "createdBy": "Helen Carver",
+              "createdDaysAgo": 9,
+              "docs": [
+                {
+                  "code": "beneficiary",
+                  "status": "sent"
+                }
+              ],
+              "needLabel": "Beneficiary change → designation form",
+              "id": "demo-task-1c1"
+            }
+          ],
+          "id": "demo-item-1c"
+        }
+      ]
+    },
+    {
+      "id": "demo-decision-lindqvist",
+      "householdId": "001DM0000001005YAA",
+      "householdName": "Lindqvist Household",
+      "meeting": {
+        "label": "RMD confirmation call",
+        "daysAgo": 6
+      },
+      "items": [
+        {
+          "what": "Take this year's required distribution from the Traditional IRA",
+          "rec": "$42,300 with 10% federal withholding, as last year",
+          "owner": {
+            "kind": "person",
+            "label": "Dana Pruitt"
+          },
+          "status": "decided",
+          "downstream": "When decided → raise cash, then distribute",
+          "tasks": [
+            {
+              "desc": "Distribute the RMD with 10% federal withholding",
+              "assignee": {
+                "kind": "group",
+                "label": "Operations"
+              },
+              "status": "done",
+              "priority": "high",
+              "createdBy": "Dana Pruitt",
+              "createdDaysAgo": 7,
+              "docs": [
+                {
+                  "code": "iradist",
+                  "status": "signed"
+                }
+              ],
+              "needLabel": "IRA distribution → distribution form",
+              "id": "demo-task-2a1"
+            }
+          ],
+          "id": "demo-item-2a"
+        },
+        {
+          "what": "Invest the Fidelity account when it lands",
+          "rec": "Meridian Income, the same model as the IRA",
+          "owner": {
+            "kind": "group",
+            "label": "Advisory"
+          },
+          "status": "open",
+          "downstream": "When decided → Initial Funding request to the trade desk",
+          "tasks": [],
+          "id": "demo-item-2b"
+        }
+      ]
+    },
+    {
+      "id": "demo-decision-brennan",
+      "householdId": "001DM0000001006YAA",
+      "householdName": "Brennan Household",
+      "meeting": {
+        "label": "Tax-loss harvesting call",
+        "daysAgo": 8
+      },
+      "items": [
+        {
+          "what": "Harvest losses in the bond funds before year end",
+          "rec": "Sell the bond funds at a loss and buy similar funds",
+          "owner": {
+            "kind": "person",
+            "label": "Rachel Moss"
+          },
+          "status": "decided",
+          "downstream": "When decided → liquidate request to the trade desk",
+          "tasks": [
+            {
+              "desc": "Execute the tax-loss harvest (REQ-00001041)",
+              "assignee": {
+                "kind": "group",
+                "label": "Trade Desk"
+              },
+              "status": "in_progress",
+              "priority": "normal",
+              "createdBy": "Rachel Moss",
+              "createdDaysAgo": 8,
+              "id": "demo-task-3a1"
+            }
+          ],
+          "id": "demo-item-3a"
+        },
+        {
+          "what": "Waive the Q3 advisory fee under the service guarantee",
+          "rec": "One quarter, for the delayed rebalance",
+          "owner": {
+            "kind": "group",
+            "label": "Operations"
+          },
+          "status": "open",
+          "downstream": "When decided → fee credit on the next billing run",
+          "tasks": [
+            {
+              "desc": "Send Maeve the written Q3 fee explanation",
+              "assignee": {
+                "kind": "group",
+                "label": "Client Service"
+              },
+              "status": "todo",
+              "priority": "normal",
+              "createdBy": "Helen Carver",
+              "createdDaysAgo": 3,
+              "id": "demo-task-3b1"
+            }
+          ],
+          "id": "demo-item-3b"
+        }
+      ]
+    }
+  ],
+  "nudges": [
+    {
+      "id": "demo-nudge-1",
+      "clientId": "003DM0000001004YAA",
+      "client": "Ada Okafor",
+      "channel": "email",
+      "subject": "Reminder: sign your Roth IRA beneficiary form",
+      "when": "Tomorrow, 9:00 AM",
+      "templateId": "tpl-docsign",
+      "status": "scheduled",
+      "body": "Hi Ada, a reminder that the beneficiary form for your Roth IRA is waiting for your signature. Sign where flagged and send it back through the portal, and Helen will take it from there."
+    },
+    {
+      "id": "demo-nudge-2",
+      "clientId": "003DM0000001003YAA",
+      "client": "Kofi Okafor",
+      "channel": "email",
+      "subject": "Your Edward Jones transfer: what to expect this week",
+      "when": "Ready now",
+      "templateId": "tpl-transition",
+      "status": "ready",
+      "body": "Hi Kofi, most positions from the Edward Jones joint account arrive in kind this week. The Bridge Builder fund is sold first and comes over as cash. Once everything settles, we rebalance into your Growth 80/20 model."
+    },
+    {
+      "id": "demo-nudge-3",
+      "clientId": "003DM0000001008YAA",
+      "client": "Erik Lindqvist",
+      "channel": "email",
+      "subject": "Your required distribution has been sent",
+      "when": "Sent 5 days ago",
+      "templateId": "tpl-review",
+      "status": "sent",
+      "body": "Hi Erik, this year's required minimum distribution has been sent with 10% federal withholding, as you asked. You'll see it on your next statement."
+    },
+    {
+      "id": "demo-nudge-4",
+      "clientId": "003DM0000001008YAA",
+      "client": "Erik Lindqvist",
+      "channel": "phone_prep",
+      "subject": "Call prep: next year's distribution date",
+      "when": "Before the annual review",
+      "templateId": "tpl-review",
+      "status": "ready",
+      "body": "Confirm next year's RMD date and withholding, and invest the Fidelity account in Meridian Income once it lands."
+    },
+    {
+      "id": "demo-nudge-5",
+      "clientId": "003DM0000001009YAA",
+      "client": "Maeve Brennan",
+      "channel": "email",
+      "subject": "Your Q3 fee, explained",
+      "when": "Ready now",
+      "templateId": "tpl-review",
+      "status": "ready",
+      "body": "Hi Maeve, here is how your Q3 advisory fee was calculated: the average daily balance across your accounts, at your household's tier. We've also asked to waive this quarter's fee for the delayed rebalance and will confirm once it's approved."
+    },
+    {
+      "id": "demo-nudge-6",
+      "clientId": "003DM0000001009YAA",
+      "client": "Maeve Brennan",
+      "channel": "text",
+      "subject": "Schwab transfer submitted",
+      "when": "Sent yesterday",
+      "templateId": "tpl-transition",
+      "status": "sent",
+      "body": "Hi Maeve, your Schwab account transfer was submitted today. Most transfers complete in about a week; we'll text you when it lands."
+    }
+  ]
+}

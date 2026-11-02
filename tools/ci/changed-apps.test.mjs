@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { APPS, appsFor, selectedApps } from './changed-apps.mjs';
 
 const runs = (files) => [...appsFor(files)].sort();
-const DEMOS = ['acat', 'helpdesk', 'statements', 'trade'];
+const DEMOS = ['acat', 'aoa', 'helpdesk', 'statements', 'trade'];
 
 test("an app's own files run only that app's jobs", () => {
   assert.deepEqual(runs(['apps/statements/server.py', 'apps/statements/worker/src/rules.js']), ['statements']);
@@ -14,12 +14,15 @@ test("an app's own files run only that app's jobs", () => {
   assert.deepEqual(runs(['site/src/pages/index.astro']), ['site']);
   assert.deepEqual(runs(['.github/workflows/deploy-statements.yml']), ['statements']);
   assert.deepEqual(runs(['.github/workflows/reset-helpdesk.yml']), ['helpdesk']);
+  // The advisor platform keeps its own lockfile, so its package files are its own too.
+  assert.deepEqual(runs(['apps/aoa/app/page.tsx', 'apps/aoa/package.json', 'apps/aoa/package-lock.json']), ['aoa']);
+  assert.deepEqual(runs(['apps/aoa/worker/src/index.js', '.github/workflows/deploy-aoa.yml', '.github/workflows/reset-aoa.yml']), ['aoa']);
 });
 
 test('shared code runs every app that uses it', () => {
   assert.deepEqual(runs(['apps/demo-edge/theme-handoff.js']), DEMOS);
   assert.deepEqual(runs(['synthetic/out/universe.json']), ['synthetic', ...DEMOS].sort());
-  for (const lockfileChange of ['apps/statements/frontend/package.json', 'apps/trade/shared/package.json', 'site/package.json']) {
+  for (const lockfileChange of ['apps/statements/frontend/package.json', 'apps/trade/shared/package.json', 'site/package.json', 'apps/aoa/worker/package.json']) {
     assert.deepEqual(runs([lockfileChange]), [...APPS].sort(), lockfileChange);
   }
 });

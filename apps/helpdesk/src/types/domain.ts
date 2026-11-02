@@ -1359,14 +1359,14 @@ export type TicketListQuery = {
   /**
    * Exact requester email, lower-cased.
    *
-   * It has to stay a predicate — a ticket with no linked Ops Portal person has nothing else to filter on, and
+   * It has to stay a predicate — a ticket with no linked advisor platform person has nothing else to filter on, and
    * `/api/tickets/export` supports it — but prefer `requesterExternalId` wherever the ticket carries
    * one. A named client's address in a URL lands verbatim in Cloud Run's `httpRequest.requestUrl` and
    * in browser history, neither of which the desk's PII rules reach.
    */
   requesterEmail?: string;
   /**
-   * Ops Portal person pointer (`Ticket.requesterExternalId`). Preferred over `requesterEmail`: it is an opaque
+   * The advisor platform person pointer (`Ticket.requesterExternalId`). Preferred over `requesterEmail`: it is an opaque
    * id, so it is safe in a URL, in a Cloud Run access log and in browser history. The chip that renders
    * it must show the requester's NAME, never the id.
    */
@@ -1461,7 +1461,7 @@ export type TicketDetailDTO = TicketListRow & {
   requesterEmail: string | null;
   /** E.164, or null. */
   requesterPhone: string | null;
-  /** Opaque Ops Portal pointers — ids only, never account numbers. */
+  /** Opaque advisor platform pointers — ids only, never account numbers. */
   householdId: string | null;
   requesterExternalId: string | null;
   /** The ticket this one was opened from when a requester replied to a CLOSED ticket. */

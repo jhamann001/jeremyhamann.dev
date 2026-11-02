@@ -1,0 +1,211 @@
+/* Single-column stack: Members on top, Combined accounts below at FULL width so
+   the 5-column accounts table has room. Side-by-side half-width columns were
+   clipping the right-aligned Value off the card; .tableWrap is the safety net. */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.tableWrap {
+  overflow-x: auto;
+}
+.accountsCard {
+  composes: card from "../ui/Card.module.css";
+  min-width: 0;
+  overflow: hidden;
+}
+.accountsSummary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 62px;
+  padding: 14px 16px;
+  cursor: pointer;
+  list-style: none;
+}
+.accountsSummary::-webkit-details-marker { display: none; }
+.accountsSummary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: -2px;
+  border-radius: 8px;
+}
+.accountsSummary .cardTitle { flex: 0 0 auto; }
+.accountsSummary .headerMeta { margin-left: auto; }
+.freshness { color: var(--muted); font-size: 12px; }
+.disclosure { color: var(--muted); font-size: 17px; }
+.accountsCard[open] .disclosure { font-size: 0; }
+.accountsCard[open] .disclosure::after { content: "−"; font-size: 17px; }
+.emptyAccountsFilter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  color: var(--ink);
+  font-size: 12px;
+  cursor: pointer;
+}
+.emptyAccountsFilter input { accent-color: var(--green); }
+@media (max-width: 620px) {
+  .accountsSummary { flex-wrap: wrap; gap: 10px; }
+  .accountsSummary .headerMeta { order: 3; width: 100%; margin-left: 0; justify-content: flex-start; }
+  .disclosure { margin-left: auto; }
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+/* wrap so the count/value pills + report button never force the card wider than
+   its column (which pushed the Value column off-screen). */
+.headerMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.accountFilters {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.accountStatusChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.filterChip {
+  min-height: 34px;
+  padding: 6px 11px;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.filterChipActive {
+  color: var(--green);
+  background: var(--green-soft);
+  border-color: var(--green);
+}
+.accountTypeFilter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 190px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.accountTypeFilter select {
+  min-height: 34px;
+  padding: 6px 30px 6px 10px;
+  color: var(--ink);
+  background: var(--input-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.clearAccountFilters {
+  min-height: 34px;
+  color: var(--green);
+  background: transparent;
+  border: 0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.clearAccountFilters:disabled {
+  color: var(--faint);
+  cursor: default;
+}
+.visibleSummary {
+  margin-left: auto;
+  padding-bottom: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.ownerCell {
+  color: var(--ink);
+  font-weight: 500;
+}
+.valueCol {
+  text-align: right;
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+.members {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.member {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--ink);
+}
+.member:hover {
+  background: var(--green-soft);
+}
+.memberName {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+}
+.memberArrow {
+  color: var(--faint);
+}
+
+.acctType {
+  font-weight: 600;
+}
+.mutedCell {
+  color: var(--muted);
+}
+.valueCell {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.actionCell {
+  text-align: right;
+  white-space: nowrap;
+}
+.totalRow td {
+  border-top: 2px solid var(--line-2);
+}
+.totalLabel {
+  font-weight: 700;
+}
+.totalValue {
+  text-align: right;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}

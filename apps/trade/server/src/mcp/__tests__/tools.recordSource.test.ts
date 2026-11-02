@@ -82,7 +82,7 @@ describe('MCP tools follow the selected record source', () => {
     expect(opsPortalDb.query).not.toHaveBeenCalled();
   });
 
-  it('returns the refusal and reads nothing when the Ops Portal role grants no access', async () => {
+  it('returns the refusal and reads nothing when the advisor platform role grants no access', async () => {
     const { McpAccessRefusedError, MCP_ACCESS_REFUSED } =
       await vi.importActual<typeof import('../recordSource.js')>('../recordSource.js');
     select.mockRejectedValueOnce(new McpAccessRefusedError());
@@ -92,14 +92,14 @@ describe('MCP tools follow the selected record source', () => {
     expect(localPool.query).not.toHaveBeenCalled();
   });
 
-  it('returns the unavailable message, never local records, when Ops Portal cannot be read', async () => {
+  it('returns the unavailable message, never local records, when the advisor platform cannot be read', async () => {
     select.mockRejectedValueOnce(new OpsPortalRecordsUnavailableError());
     const result = await tools().get('list_my_requests')!({ limit: 5 }, {});
     expect(result).toEqual({ content: [{ type: 'text', text: OPS_PORTAL_RECORDS_UNAVAILABLE }], isError: true });
     expect(localPool.query).not.toHaveBeenCalled();
   });
 
-  it('returns the unavailable message when an Ops Portal read fails mid-tool', async () => {
+  it('returns the unavailable message when an advisor platform read fails mid-tool', async () => {
     select.mockResolvedValueOnce(opsPortalContext());
     opsPortalDb.query.mockRejectedValueOnce(new OpsPortalRecordsUnavailableError());
     const result = await tools().get('get_request')!({ id: 'REQ-OPS00001' }, {});

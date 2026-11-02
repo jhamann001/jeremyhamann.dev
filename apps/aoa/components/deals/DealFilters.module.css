@@ -1,0 +1,53 @@
+/* HouseholdsTable filter idiom — tokens only. */
+
+.search {
+  flex: 1 1 220px;
+  min-width: 180px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--input-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+.search:focus {
+  border-color: var(--green);
+}
+.search::placeholder {
+  color: var(--faint);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.chip:hover {
+  border-color: var(--green);
+}
+.chipActive {
+  color: var(--green);
+  background: var(--green-soft);
+  border-color: var(--green);
+}
+.chipCount {
+  font-variant-numeric: tabular-nums;
+  color: var(--faint);
+}
+.chipActive .chipCount {
+  color: var(--green);
+}

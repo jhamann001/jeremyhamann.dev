@@ -1,0 +1,66 @@
+/* Manual transfer archive confirm (feat/transfer-archive-falloff) — the
+   DealArchiveButton chip idiom: tokens only, both themes. */
+
+.wrap {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.archive,
+.confirm,
+.cancel {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.archive {
+  color: var(--red);
+  background: transparent;
+  border: 1px solid var(--line);
+}
+.archive:hover {
+  background: var(--red-soft);
+  border-color: var(--red);
+}
+
+.copy {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.confirm {
+  color: var(--bg);
+  background: var(--red);
+  border: 1px solid var(--red);
+}
+.confirm:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.cancel {
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.cancel:hover {
+  border-color: var(--green);
+}
+
+.error {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: var(--red);
+}

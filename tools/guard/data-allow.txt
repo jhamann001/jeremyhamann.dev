@@ -6,3 +6,16 @@ apps/acat/public/form-templates/apex-customer-account-transfer-request.pdf
 apps/statements/apex_rules.csv
 # Jeremy's résumé, linked from the home page (Résumé buttons). His own document, checked for client data 2026-10-30.
 site/public/Jeremy_Hamann_Resume.pdf
+# Phase 6 app: the clearing firm's blank account forms the app fills (no values in any field; the authors' names stripped from their metadata, 2026-10-30).
+apps/aoa/assets/forms/apex/5050P-UBEN/2025-07-17/template.pdf
+apps/aoa/assets/forms/apex/ach-agreement/supplied-2026-09-18/template.pdf
+apps/aoa/assets/forms/apex/customer-account-transfer-request/tracker-baseline-2026-09-17/template.pdf
+apps/aoa/assets/forms/apex/direct-conversion/source-2026-09-18/template.pdf
+apps/aoa/assets/forms/apex/domestic-wire/supplied-2026-09-18/template.pdf
+apps/aoa/assets/forms/apex/ira-distribution/source-2026-09-18/template.pdf
+apps/aoa/assets/forms/apex/roth-ira-distribution/source-2026-09-18/template.pdf
+apps/aoa/assets/forms/apex/transfer-on-death/user-supplied-2026-09-18/template.pdf
+# Phase 6 app: synthetic deal-import fixtures for its import tests.
+apps/aoa/test/fixtures/deals-import-invalid.csv
+apps/aoa/test/fixtures/deals-import-v2.csv
+apps/aoa/test/fixtures/deals-import.csv

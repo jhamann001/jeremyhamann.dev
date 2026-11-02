@@ -1,0 +1,47 @@
+.title { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin: 14px 0; }
+.title h1 { margin: 0 0 8px; }
+.title p, .help { color: var(--text-secondary, #667085); font-size: 14px; line-height: 1.5; }
+.primary, .form button { padding: 9px 14px; border: 1px solid var(--border, #d0d5dd); border-radius: 6px; cursor: pointer; }
+.primary { color: white; background: var(--accent, #185b46); white-space: nowrap; }
+.notice { padding: 14px 16px; background: var(--surface-secondary, #f3f6f4); border-radius: 8px; }
+/* --surface-secondary isn't one of the app's tokens, so the light fallback showed in dark mode too. */
+:global(html.dark) .notice, :global(html.dark) .scopeCounts { background: var(--panel); }
+.runs { display: flex; flex-wrap: wrap; gap: 16px; margin: 20px 0; font-size: 14px; }
+.runs a[aria-current="page"] { font-weight: 700; }
+.list { display: grid; gap: 14px; margin: 20px 0; }
+.list h2 { font-size: 17px; margin: 0; }
+.form { display: grid; gap: 12px; margin-top: 16px; }
+.form label { display: grid; gap: 6px; max-width: 660px; font-size: 14px; }
+.form textarea, .form select { border: 1px solid var(--border, #d0d5dd); border-radius: 6px; padding: 9px; font: inherit; }
+.buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 700px) { .title { flex-direction: column; gap: 12px; } }
+.summary { margin: 24px 0; }
+.summary h2 { font-size: 20px; }
+.summary h3 { margin: 0; font-size: 17px; }
+.populationGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 16px 0; }
+.counts { margin: 0; }
+.counts > div { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 8px 0; border-bottom: 1px solid var(--border, #d0d5dd); }
+.counts > div:last-child { border-bottom: 0; }
+.counts dt { font-size: 14px; }
+.counts dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) { .populationGrid { grid-template-columns: 1fr; } }
+.filters { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; margin: 24px 0 10px; }
+.filters label { display: grid; gap: 6px; font-size: 14px; }
+.filters select, .filters button { padding: 9px; border: 1px solid var(--border, #d0d5dd); border-radius: 6px; font: inherit; }
+.filters button { cursor: pointer; }
+.scopeCounts { display: grid; gap: 10px; padding: 16px; background: var(--surface-secondary, #f3f6f4); border-radius: 8px; }
+.scopeCounts > div { display: flex; justify-content: space-between; gap: 16px; }
+.scopeCounts dd { margin: 0; font-weight: 700; }
+.comparison { border-top: 1px solid var(--border, #d0d5dd); margin-top: 20px; padding-top: 16px; overflow-wrap: anywhere; }
+.comparison h3 { font-size: 17px; }
+.comparison dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; }
+.comparison dt { font-size: 13px; color: var(--text-secondary, #667085); }
+.comparison dd { margin: 4px 0 0; }
+.candidates { list-style: none; padding: 0; display: grid; gap: 12px; }
+.candidates li { padding: 14px; border: 1px solid var(--border, #d0d5dd); border-radius: 6px; overflow-wrap: anywhere; }
+.candidates p { font-size: 14px; line-height: 1.5; }
+.form input:not([type="hidden"]):not([type="checkbox"]) { border: 1px solid var(--border, #d0d5dd); border-radius: 6px; padding: 9px; font: inherit; min-width: 0; }
+.form .confirmation { display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+.confirmation input { margin-top: 4px; flex: 0 0 auto; }
+@media (max-width: 700px) { .comparison dl { grid-template-columns: 1fr; } .form select, .form textarea { min-width: 0; max-width: 100%; } }
+.focusedCard { outline: 2px solid var(--accent, #185b46); outline-offset: 2px; scroll-margin-top: 20px; }

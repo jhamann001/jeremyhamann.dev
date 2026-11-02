@@ -9,7 +9,7 @@ vi.mock('../../db/pool.js', () => ({ default: { query: vi.fn(), connect: vi.fn()
 
 const { isDelegatedOperationAllowed } = await import('../delegated.js');
 
-// TDD §4.2: exactly the operations the Ops Portal Trade Requests workspace uses.
+// TDD §4.2: exactly the operations the advisor platform Trade Requests workspace uses.
 describe('isDelegatedOperationAllowed — /api/ops-portal operation allowlist', () => {
   it.each([
     ['GET', '/requests'],

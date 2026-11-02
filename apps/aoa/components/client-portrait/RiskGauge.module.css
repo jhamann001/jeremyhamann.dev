@@ -1,0 +1,42 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.gaugeCol {
+  flex-shrink: 0;
+}
+.svg {
+  width: 120px;
+  height: 120px;
+}
+.track {
+  fill: none;
+  stroke: var(--line-2);
+  stroke-width: 9;
+}
+.progress {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 9;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s ease;
+}
+.score {
+  fill: var(--ink);
+  font-size: 26px;
+  font-weight: 700;
+}
+.of {
+  fill: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+.stats {
+  flex: 1;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

@@ -1,0 +1,637 @@
+{
+  "inTolerance": {
+    "summary": {
+      "runDateLocal": "2026-05-13",
+      "schemaVersion": 1,
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-05-13T00:00:00.000Z",
+      "totalHouseholds": 1,
+      "breachHouseholds": 0,
+      "insertedRows": 0,
+      "alert": {
+        "sent": false,
+        "alertingHouseholds": [],
+        "suppressedAllowListed": []
+      },
+      "unmappedPositionsAccounts": [],
+      "unmappedSnapshotAccounts": [],
+      "accountDrift": {
+        "totalAccounts": 1,
+        "outAccounts": 0,
+        "uninvestedAccounts": 0,
+        "insertedRows": 0,
+        "alert": {
+          "sent": false,
+          "alertingAccountIds": [],
+          "suppressedAllowListed": []
+        }
+      }
+    },
+    "householdInserts": [
+      [
+        "2026-05-13",
+        "Household One",
+        1,
+        1,
+        false,
+        "full",
+        1,
+        "gcs",
+        "2026-05-13T00:00:00.000Z",
+        "{\"accountCount\":1,\"worstSymbol\":\"cash\",\"accounts\":[{\"accountNumber\":\"A1\",\"maxDeltaPct\":1,\"worstSymbol\":\"cash\",\"perSymbolDelta\":{\"__SETTLEMENT_CASH__\":{\"positions\":1,\"meridian\":0,\"delta\":1},\"VOO\":{\"positions\":59,\"meridian\":60,\"delta\":1},\"BND\":{\"positions\":40,\"meridian\":40,\"delta\":0}},\"perBucketDelta\":{\"cash\":{\"positions\":1,\"meridian\":0,\"delta\":1},\"fixed\":{\"positions\":40,\"meridian\":40,\"delta\":0},\"equity\":{\"positions\":59,\"meridian\":60,\"delta\":1}},\"coverage\":\"both\",\"flags\":[]}]}"
+      ]
+    ],
+    "accountPersist": [
+      {
+        "pool": {},
+        "runDateLocal": "2026-05-13",
+        "runStartedAt": "2026-05-13T13:15:00.000Z",
+        "snapshotSource": "gcs",
+        "snapshotAsOf": "2026-05-13T00:00:00.000Z",
+        "tolerancePct": 5,
+        "uninvestedCashThresholdPct": 99,
+        "schemaVersion": 1,
+        "accounts": [
+          {
+            "accountId": "A1",
+            "accountTitle": "",
+            "household": "Household One",
+            "unmapped": false,
+            "templateMissing": false,
+            "totalValue": 100000,
+            "maxBucketDeltaPct": 1,
+            "worstBucket": "cash",
+            "symbolBreachCount": 0,
+            "status": "in",
+            "details": {
+              "buckets": {
+                "cash": {
+                  "positionPct": 1,
+                  "templatePct": 0,
+                  "deltaPct": 1
+                },
+                "fixed": {
+                  "positionPct": 40,
+                  "templatePct": 40,
+                  "deltaPct": 0
+                },
+                "equity": {
+                  "positionPct": 59,
+                  "templatePct": 60,
+                  "deltaPct": 1
+                }
+              },
+              "symbolsWithTargets": [
+                {
+                  "symbol": "__SETTLEMENT_CASH__",
+                  "bucket": "cash",
+                  "positionPct": 1,
+                  "targetPct": 0,
+                  "deltaPct": 1,
+                  "breach": false
+                },
+                {
+                  "symbol": "BND",
+                  "bucket": "fixed",
+                  "positionPct": 40,
+                  "targetPct": 40,
+                  "deltaPct": 0,
+                  "breach": false
+                }
+              ],
+              "equityHoldings": [
+                {
+                  "symbol": "VOO",
+                  "positionPct": 59
+                }
+              ],
+              "positionOnlySymbols": [],
+              "suspectedCashEquivMisclassified": [],
+              "templateTotalPct": 100
+            }
+          }
+        ]
+      }
+    ],
+    "alertAccounts": [
+      [
+        {
+          "accountId": "A1",
+          "accountTitle": "",
+          "household": "Household One",
+          "unmapped": false,
+          "templateMissing": false,
+          "totalValue": 100000,
+          "maxBucketDeltaPct": 1,
+          "worstBucket": "cash",
+          "symbolBreachCount": 0,
+          "status": "in",
+          "details": {
+            "buckets": {
+              "cash": {
+                "positionPct": 1,
+                "templatePct": 0,
+                "deltaPct": 1
+              },
+              "fixed": {
+                "positionPct": 40,
+                "templatePct": 40,
+                "deltaPct": 0
+              },
+              "equity": {
+                "positionPct": 59,
+                "templatePct": 60,
+                "deltaPct": 1
+              }
+            },
+            "symbolsWithTargets": [
+              {
+                "symbol": "__SETTLEMENT_CASH__",
+                "bucket": "cash",
+                "positionPct": 1,
+                "targetPct": 0,
+                "deltaPct": 1,
+                "breach": false
+              },
+              {
+                "symbol": "BND",
+                "bucket": "fixed",
+                "positionPct": 40,
+                "targetPct": 40,
+                "deltaPct": 0,
+                "breach": false
+              }
+            ],
+            "equityHoldings": [
+              {
+                "symbol": "VOO",
+                "positionPct": 59
+              }
+            ],
+            "positionOnlySymbols": [],
+            "suspectedCashEquivMisclassified": [],
+            "templateTotalPct": 100
+          }
+        }
+      ]
+    ]
+  },
+  "justOver": {
+    "summary": {
+      "runDateLocal": "2026-05-13",
+      "schemaVersion": 1,
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-05-13T00:00:00.000Z",
+      "totalHouseholds": 1,
+      "breachHouseholds": 1,
+      "insertedRows": 0,
+      "alert": {
+        "sent": false,
+        "alertingHouseholds": [],
+        "suppressedAllowListed": []
+      },
+      "unmappedPositionsAccounts": [],
+      "unmappedSnapshotAccounts": [],
+      "accountDrift": {
+        "totalAccounts": 1,
+        "outAccounts": 1,
+        "uninvestedAccounts": 0,
+        "insertedRows": 0,
+        "alert": {
+          "sent": false,
+          "alertingAccountIds": [],
+          "suppressedAllowListed": []
+        }
+      }
+    },
+    "householdInserts": [
+      [
+        "2026-05-13",
+        "Household Two",
+        1,
+        5.5,
+        true,
+        "full",
+        1,
+        "gcs",
+        "2026-05-13T00:00:00.000Z",
+        "{\"accountCount\":1,\"worstSymbol\":\"fixed\",\"accounts\":[{\"accountNumber\":\"B1\",\"maxDeltaPct\":5.5,\"worstSymbol\":\"fixed\",\"perSymbolDelta\":{\"__SETTLEMENT_CASH__\":{\"positions\":0.5,\"meridian\":0,\"delta\":0.5},\"VOO\":{\"positions\":65,\"meridian\":59.5,\"delta\":5.5},\"BND\":{\"positions\":34.5,\"meridian\":40,\"delta\":5.5}},\"perBucketDelta\":{\"cash\":{\"positions\":0.5,\"meridian\":0,\"delta\":0.5},\"fixed\":{\"positions\":34.5,\"meridian\":40,\"delta\":5.5},\"equity\":{\"positions\":65,\"meridian\":59.5,\"delta\":5.5}},\"coverage\":\"both\",\"flags\":[]}]}"
+      ]
+    ],
+    "accountPersist": [
+      {
+        "pool": {},
+        "runDateLocal": "2026-05-13",
+        "runStartedAt": "2026-05-13T13:15:00.000Z",
+        "snapshotSource": "gcs",
+        "snapshotAsOf": "2026-05-13T00:00:00.000Z",
+        "tolerancePct": 5,
+        "uninvestedCashThresholdPct": 99,
+        "schemaVersion": 1,
+        "accounts": [
+          {
+            "accountId": "B1",
+            "accountTitle": "",
+            "household": "Household Two",
+            "unmapped": false,
+            "templateMissing": false,
+            "totalValue": 100000,
+            "maxBucketDeltaPct": 5.5,
+            "worstBucket": "fixed",
+            "symbolBreachCount": 1,
+            "status": "out",
+            "details": {
+              "buckets": {
+                "cash": {
+                  "positionPct": 0.5,
+                  "templatePct": 0,
+                  "deltaPct": 0.5
+                },
+                "fixed": {
+                  "positionPct": 34.5,
+                  "templatePct": 40,
+                  "deltaPct": 5.5
+                },
+                "equity": {
+                  "positionPct": 65,
+                  "templatePct": 59.5,
+                  "deltaPct": 5.5
+                }
+              },
+              "symbolsWithTargets": [
+                {
+                  "symbol": "BND",
+                  "bucket": "fixed",
+                  "positionPct": 34.5,
+                  "targetPct": 40,
+                  "deltaPct": 5.5,
+                  "breach": true
+                },
+                {
+                  "symbol": "__SETTLEMENT_CASH__",
+                  "bucket": "cash",
+                  "positionPct": 0.5,
+                  "targetPct": 0,
+                  "deltaPct": 0.5,
+                  "breach": false
+                }
+              ],
+              "equityHoldings": [
+                {
+                  "symbol": "VOO",
+                  "positionPct": 65
+                }
+              ],
+              "positionOnlySymbols": [],
+              "suspectedCashEquivMisclassified": [],
+              "templateTotalPct": 99.5
+            }
+          }
+        ]
+      }
+    ],
+    "alertAccounts": [
+      [
+        {
+          "accountId": "B1",
+          "accountTitle": "",
+          "household": "Household Two",
+          "unmapped": false,
+          "templateMissing": false,
+          "totalValue": 100000,
+          "maxBucketDeltaPct": 5.5,
+          "worstBucket": "fixed",
+          "symbolBreachCount": 1,
+          "status": "out",
+          "details": {
+            "buckets": {
+              "cash": {
+                "positionPct": 0.5,
+                "templatePct": 0,
+                "deltaPct": 0.5
+              },
+              "fixed": {
+                "positionPct": 34.5,
+                "templatePct": 40,
+                "deltaPct": 5.5
+              },
+              "equity": {
+                "positionPct": 65,
+                "templatePct": 59.5,
+                "deltaPct": 5.5
+              }
+            },
+            "symbolsWithTargets": [
+              {
+                "symbol": "BND",
+                "bucket": "fixed",
+                "positionPct": 34.5,
+                "targetPct": 40,
+                "deltaPct": 5.5,
+                "breach": true
+              },
+              {
+                "symbol": "__SETTLEMENT_CASH__",
+                "bucket": "cash",
+                "positionPct": 0.5,
+                "targetPct": 0,
+                "deltaPct": 0.5,
+                "breach": false
+              }
+            ],
+            "equityHoldings": [
+              {
+                "symbol": "VOO",
+                "positionPct": 65
+              }
+            ],
+            "positionOnlySymbols": [],
+            "suspectedCashEquivMisclassified": [],
+            "templateTotalPct": 99.5
+          }
+        }
+      ]
+    ]
+  },
+  "uninvestedAndUnmapped": {
+    "summary": {
+      "runDateLocal": "2026-05-13",
+      "schemaVersion": 1,
+      "snapshotSource": "gcs",
+      "snapshotAsOf": "2026-05-13T00:00:00.000Z",
+      "totalHouseholds": 2,
+      "breachHouseholds": 1,
+      "insertedRows": 0,
+      "alert": {
+        "sent": false,
+        "alertingHouseholds": [],
+        "suppressedAllowListed": []
+      },
+      "unmappedPositionsAccounts": ["C9"],
+      "unmappedSnapshotAccounts": [],
+      "accountDrift": {
+        "totalAccounts": 2,
+        "outAccounts": 0,
+        "uninvestedAccounts": 1,
+        "insertedRows": 0,
+        "alert": {
+          "sent": false,
+          "alertingAccountIds": [],
+          "suppressedAllowListed": []
+        }
+      }
+    },
+    "householdInserts": [
+      [
+        "2026-05-13",
+        "__unmapped__:C9",
+        1,
+        100,
+        false,
+        "unmapped_account",
+        1,
+        "gcs",
+        "2026-05-13T00:00:00.000Z",
+        "{\"accountCount\":1,\"worstSymbol\":\"equity\",\"accounts\":[{\"accountNumber\":\"C9\",\"maxDeltaPct\":100,\"worstSymbol\":\"equity\",\"perSymbolDelta\":{\"VOO\":{\"positions\":100,\"meridian\":0,\"delta\":100}},\"perBucketDelta\":{\"equity\":{\"positions\":100,\"meridian\":0,\"delta\":100}},\"coverage\":\"positions_only\",\"flags\":[]}]}"
+      ],
+      [
+        "2026-05-13",
+        "Household Three",
+        1,
+        99.375,
+        true,
+        "full",
+        1,
+        "gcs",
+        "2026-05-13T00:00:00.000Z",
+        "{\"accountCount\":1,\"worstSymbol\":\"cash\",\"accounts\":[{\"accountNumber\":\"C1\",\"maxDeltaPct\":99.375,\"worstSymbol\":\"cash\",\"perSymbolDelta\":{\"__SETTLEMENT_CASH__\":{\"positions\":99.375,\"meridian\":0,\"delta\":99.375},\"VOO\":{\"positions\":0.625,\"meridian\":95,\"delta\":94.375},\"BND\":{\"positions\":0,\"meridian\":5,\"delta\":5}},\"perBucketDelta\":{\"cash\":{\"positions\":99.375,\"meridian\":0,\"delta\":99.375},\"fixed\":{\"positions\":0,\"meridian\":5,\"delta\":5},\"equity\":{\"positions\":0.625,\"meridian\":95,\"delta\":94.375}},\"coverage\":\"both\",\"flags\":[]}]}"
+      ]
+    ],
+    "accountPersist": [
+      {
+        "pool": {},
+        "runDateLocal": "2026-05-13",
+        "runStartedAt": "2026-05-13T13:15:00.000Z",
+        "snapshotSource": "gcs",
+        "snapshotAsOf": "2026-05-13T00:00:00.000Z",
+        "tolerancePct": 5,
+        "uninvestedCashThresholdPct": 99,
+        "schemaVersion": 1,
+        "accounts": [
+          {
+            "accountId": "C1",
+            "accountTitle": "",
+            "household": "Household Three",
+            "unmapped": false,
+            "templateMissing": false,
+            "totalValue": 80000,
+            "maxBucketDeltaPct": 99.375,
+            "worstBucket": "cash",
+            "symbolBreachCount": 0,
+            "status": "uninvested",
+            "details": {
+              "buckets": {
+                "cash": {
+                  "positionPct": 99.375,
+                  "templatePct": 0,
+                  "deltaPct": 99.375
+                },
+                "fixed": {
+                  "positionPct": 0,
+                  "templatePct": 5,
+                  "deltaPct": 5
+                },
+                "equity": {
+                  "positionPct": 0.625,
+                  "templatePct": 95,
+                  "deltaPct": 94.375
+                }
+              },
+              "symbolsWithTargets": [
+                {
+                  "symbol": "__SETTLEMENT_CASH__",
+                  "bucket": "cash",
+                  "positionPct": 99.375,
+                  "targetPct": 0,
+                  "deltaPct": 99.375,
+                  "breach": false
+                },
+                {
+                  "symbol": "BND",
+                  "bucket": "fixed",
+                  "positionPct": 0,
+                  "targetPct": 5,
+                  "deltaPct": 5,
+                  "breach": false
+                }
+              ],
+              "equityHoldings": [
+                {
+                  "symbol": "VOO",
+                  "positionPct": 0.625
+                }
+              ],
+              "positionOnlySymbols": [],
+              "suspectedCashEquivMisclassified": [],
+              "templateTotalPct": 100
+            }
+          },
+          {
+            "accountId": "C9",
+            "accountTitle": "",
+            "household": "",
+            "unmapped": true,
+            "templateMissing": true,
+            "totalValue": 10000,
+            "maxBucketDeltaPct": null,
+            "worstBucket": null,
+            "symbolBreachCount": 0,
+            "status": "no_template",
+            "details": {
+              "buckets": {
+                "cash": {
+                  "positionPct": 0,
+                  "templatePct": 0,
+                  "deltaPct": 0
+                },
+                "fixed": {
+                  "positionPct": 0,
+                  "templatePct": 0,
+                  "deltaPct": 0
+                },
+                "equity": {
+                  "positionPct": 100,
+                  "templatePct": 0,
+                  "deltaPct": 100
+                }
+              },
+              "symbolsWithTargets": [],
+              "equityHoldings": [
+                {
+                  "symbol": "VOO",
+                  "positionPct": 100
+                }
+              ],
+              "positionOnlySymbols": [
+                {
+                  "symbol": "VOO",
+                  "bucket": "equity",
+                  "positionPct": 100
+                }
+              ],
+              "suspectedCashEquivMisclassified": []
+            }
+          }
+        ]
+      }
+    ],
+    "alertAccounts": [
+      [
+        {
+          "accountId": "C1",
+          "accountTitle": "",
+          "household": "Household Three",
+          "unmapped": false,
+          "templateMissing": false,
+          "totalValue": 80000,
+          "maxBucketDeltaPct": 99.375,
+          "worstBucket": "cash",
+          "symbolBreachCount": 0,
+          "status": "uninvested",
+          "details": {
+            "buckets": {
+              "cash": {
+                "positionPct": 99.375,
+                "templatePct": 0,
+                "deltaPct": 99.375
+              },
+              "fixed": {
+                "positionPct": 0,
+                "templatePct": 5,
+                "deltaPct": 5
+              },
+              "equity": {
+                "positionPct": 0.625,
+                "templatePct": 95,
+                "deltaPct": 94.375
+              }
+            },
+            "symbolsWithTargets": [
+              {
+                "symbol": "__SETTLEMENT_CASH__",
+                "bucket": "cash",
+                "positionPct": 99.375,
+                "targetPct": 0,
+                "deltaPct": 99.375,
+                "breach": false
+              },
+              {
+                "symbol": "BND",
+                "bucket": "fixed",
+                "positionPct": 0,
+                "targetPct": 5,
+                "deltaPct": 5,
+                "breach": false
+              }
+            ],
+            "equityHoldings": [
+              {
+                "symbol": "VOO",
+                "positionPct": 0.625
+              }
+            ],
+            "positionOnlySymbols": [],
+            "suspectedCashEquivMisclassified": [],
+            "templateTotalPct": 100
+          }
+        },
+        {
+          "accountId": "C9",
+          "accountTitle": "",
+          "household": "",
+          "unmapped": true,
+          "templateMissing": true,
+          "totalValue": 10000,
+          "maxBucketDeltaPct": null,
+          "worstBucket": null,
+          "symbolBreachCount": 0,
+          "status": "no_template",
+          "details": {
+            "buckets": {
+              "cash": {
+                "positionPct": 0,
+                "templatePct": 0,
+                "deltaPct": 0
+              },
+              "fixed": {
+                "positionPct": 0,
+                "templatePct": 0,
+                "deltaPct": 0
+              },
+              "equity": {
+                "positionPct": 100,
+                "templatePct": 0,
+                "deltaPct": 100
+              }
+            },
+            "symbolsWithTargets": [],
+            "equityHoldings": [
+              {
+                "symbol": "VOO",
+                "positionPct": 100
+              }
+            ],
+            "positionOnlySymbols": [
+              {
+                "symbol": "VOO",
+                "bucket": "equity",
+                "positionPct": 100
+              }
+            ],
+            "suspectedCashEquivMisclassified": []
+          }
+        }
+      ]
+    ]
+  }
+}
