@@ -14,23 +14,23 @@ const leadName = (slug?: string) => projects.find((p) => p.slug === slug)?.name;
 const TOOLS = ['Claude Code', 'Cursor', 'Codex', 'Gemini', 'MCP servers', 'n8n'];
 const STEPS: [string, string, string][] = [
   ['users', 'Start with the work I do every day', 'I still do the ops and trading work myself, so I know where the time goes.'],
-  ['square-terminal', 'Prompt-first build', 'Agents draft the code. I steer, test and keep the scope tight.'],
-  ['eye', 'I review every change', 'Nothing reaches production without me reading it and passing an approval gate.'],
+  ['square-terminal', 'Build prompt-first', 'AI agents draft the code. I steer them and test what comes back, keeping the scope tight.'],
+  ['eye', 'I review every change', 'Nothing reaches production until I’ve read it and it has passed an approval gate.'],
   ['git-merge', 'Live with it in production', 'I own what I ship and keep improving it with the team that uses it.'],
 ];
 ---
 <Base
   title="Jeremy Hamann · Ops and trading background, building AI-first fintech software"
-  description="Jeremy Hamann does brokerage operations and trading work every day and builds the software it runs on. AI-first builder, Series 65, building tools for wealth-management operations, open to engineering, product and ops automation roles in fintech and wealthtech."
+  description="Jeremy Hamann does brokerage operations and trading work every day and builds the software it runs on. An AI-first builder with a Series 65, he makes tools for wealth-management operations and is open to engineering, product and ops automation roles in fintech and wealthtech."
 >
   <section class="hero">
     <div class="container">
       <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Open to new roles<span aria-hidden="true">·</span>Raleigh, NC<span aria-hidden="true">·</span>Remote-friendly</p>
       <h1>I do the ops work. <span class="h1-soft">I also build the software it runs on.</span></h1>
-      <p class="sub">I’m <strong>Jeremy Hamann</strong>. I’ve spent about three years in wealth management on trading desks and in brokerage operations, and I still do that ops and trading work every day. For the past year I’ve also been the main builder of the internal tools my team runs on. I build AI-first, I know the users because I’m one of them, and I hold an active Series 65.</p>
+      <p class="sub">I’m <strong>Jeremy Hamann</strong>. I’ve spent about three years in wealth management on trading desks and in brokerage operations, and I still do that ops and trading work every day. For the past year I’ve also been the main builder of the internal tools my team runs on. I build AI-first and hold an active Series 65. I know the users because I’m one of them.</p>
       <div class="focus">
         <p><span>What I do:</span> <strong>Building tools for wealth-management operations</strong></p>
-        <p class="focus-note">Open to engineering, product and ops automation roles in fintech and wealthtech.</p>
+        <p class="focus-note">I’m open to engineering, product and ops automation roles in fintech and wealthtech.</p>
       </div>
       <div class="btns">
         <a class="btn btn-primary" href="#work">View projects <Icon name="arrow-right" /></a>
@@ -55,7 +55,7 @@ const STEPS: [string, string, string][] = [
   <section class="section" id="work">
     <div class="container">
       <div class="sec-head">
-        <div><h2>Selected projects</h2><p>Five production systems, rebuilt as public demos. Each has a case study and, as it ships, a live demo.</p></div>
+        <div><h2>Selected projects</h2><p>I’ve rebuilt five production systems as public demos. Each has a case study and, when it ships, a live demo.</p></div>
         <span class="sec-note"><Icon name="lock" size={14} /> All demo data is synthetic and resets nightly</span>
       </div>
       {lead && (
@@ -115,11 +115,11 @@ const STEPS: [string, string, string][] = [
 
   <section class="section" id="how-i-build">
     <div class="container">
-      <div class="sec-head"><div><h2>How I build</h2><p>Prompt-first, every day. Fast, but nothing ships that I haven’t read.</p></div></div>
+      <div class="sec-head"><div><h2>How I build</h2><p>I build prompt-first every day. It’s fast, but nothing ships that I haven’t read.</p></div></div>
       <div class="build">
         <div class="build-main">
-          <p>I build prompt-first in Claude Code and Cursor every day. I’m in the ops and trading work every day, so I see what’s actually broken firsthand. I decide what to build first, and then work with AI agents to ship it.</p>
-          <p>The speed is real, but I read and review everything before it goes out. That’s how one person merged 1,600+ PRs across 5 production apps in about a year without skipping the boring parts: separate environments, CI checks, security scanning and an approval gate on every production deploy.</p>
+          <p>Because I’m also in the ops and trading work every day, I see firsthand what’s actually broken and decide what gets built first. Then I work prompt-first with AI agents in Claude Code and Cursor to ship it.</p>
+          <p>The speed is real, but I still read and review everything before it goes out. That’s how one person merged 1,600+ PRs across 5 production apps in about a year without skipping the boring parts, like separate environments, CI checks, security scanning and an approval gate on every production deploy.</p>
           <ul class="tools" aria-label="Tools">{TOOLS.map((t) => <li>{t}</li>)}</ul>
         </div>
         <ol class="build-steps">
@@ -135,16 +135,17 @@ const STEPS: [string, string, string][] = [
     <div class="container">
       <div class="sec-head"><div><h2>How I work</h2></div></div>
       <div class="principles">
-        <div class="principle"><span class="pi"><Icon name="scroll-text" /></span><h3>Audit trail by default</h3><p>Every write is attributable and reviewable. When a regulator asks what happened, the answer is a query.</p></div>
-        <div class="principle"><span class="pi"><Icon name="git-compare" /></span><h3>Models assist, rules decide</h3><p>AI handles reading and drafting. Anything that moves money or changes a record goes through deterministic, tested logic.</p></div>
-        <div class="principle"><span class="pi"><Icon name="shield-check" /></span><h3>Small, reversible releases</h3><p>Feature flags, separate environments and an explicit approval before anything reaches production.</p></div>
+        <div class="principle"><span class="pi"><Icon name="scroll-text" /></span><h3>Audit trail by default</h3><p>Every write is attributable and reviewable, so when a regulator asks what happened, the answer comes from a query.</p></div>
+        <div class="principle"><span class="pi"><Icon name="git-compare" /></span><h3>Models assist, rules decide</h3><p>AI does the reading and drafting, but anything that moves money or changes a record goes through deterministic, tested logic.</p></div>
+        <div class="principle"><span class="pi"><Icon name="shield-check" /></span><h3>Small, reversible releases</h3><p>I ship behind feature flags, with separate environments and an explicit approval before anything reaches production.</p></div>
+        <div class="principle"><span class="pi"><Icon name="lock-keyhole" /></span><h3>Encrypted in transit and at rest</h3><p>All five apps serve HTTPS, reach their databases over encrypted connections and keep data encrypted at rest. Their secrets live in a secrets manager, never in the code.</p></div>
       </div>
     </div>
   </section>
 
   <section class="section" id="experience">
     <div class="container">
-      <div class="sec-head"><div><h2>Experience</h2><p>Trading desks and brokerage ops. Today I still do the ops work and build the tools for it.</p></div></div>
+      <div class="sec-head"><div><h2>Experience</h2><p>My background is in trading desks and brokerage ops. I still do the ops work today, and I build the tools for it.</p></div></div>
       <div class="xp">
         {JOBS.map((job) => (
           <div class="xp-row">
@@ -197,7 +198,7 @@ const STEPS: [string, string, string][] = [
       <div class="contact">
         <div>
           <h2>Let’s talk</h2>
-          <p>I build tools for wealth-management operations, and I still do the ops and trading work they’re built for. I’m looking for my next engineering, product or ops automation role in fintech or wealthtech. Happy to compare notes on ops engineering and internal tools too.</p>
+          <p>I build tools for wealth-management operations, and I still do the ops and trading work they’re built for. I’m looking for my next engineering, product or ops automation role in fintech or wealthtech. I’m also happy to compare notes on ops engineering and internal tools.</p>
           <p class="contact-note">My code is mostly in private company repos, so the <a href="#work">projects above</a> are the best place to see it.</p>
           <p class="addr">{LINKS.email}</p>
           <ul class="facts">

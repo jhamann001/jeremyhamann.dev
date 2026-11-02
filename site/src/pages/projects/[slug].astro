@@ -17,7 +17,7 @@ const toc = [
   ...(p.numbers ? [['numbers', 'In numbers']] : []),
   ['overview', 'Overview'], ['problem', 'Problem'], ['built', 'What I built'],
   ...(gallery.length ? [['screens', 'In the app']] : []),
-  ['decisions', 'Decisions'], ['architecture', 'Architecture'], ['demo', 'The demo'],
+  ['decisions', 'Decisions'], ...(p.security ? [['security', 'Security']] : []), ['architecture', 'Architecture'], ['demo', 'The demo'],
 ];
 const demoArch: [string, string][] = [['Cloudflare Worker', `${p.host}.${DOMAIN}`], ['Container', 'same app · demo build'], ['Neon Postgres', 'synthetic seed · nightly reset']];
 ---
@@ -52,7 +52,7 @@ const demoArch: [string, string][] = [['Cloudflare Worker', `${p.host}.${DOMAIN}
             {p.numbers && (
               <div class="case-sec" id="numbers"><h2>The build in numbers</h2>
                 <dl class="nums">{p.numbers.map(([n, d]) => <div><dt>{n}</dt><dd>{d}</dd></div>)}</dl>
-                <p class="nums-note">Counted from the production repository and its GitHub history on November 2, 2026.</p>
+                <p class="nums-note">I counted these from the production repository and its GitHub history on November 2, 2026.</p>
               </div>
             )}
             <div class="case-sec" id="overview"><h2>Overview</h2><p>{p.summary}</p></div>
@@ -76,6 +76,7 @@ const demoArch: [string, string][] = [['Cloudflare Worker', `${p.host}.${DOMAIN}
             <div class="case-sec" id="decisions"><h2>Key decisions</h2>
               <div class="dec">{p.decisions.map(([t, d]) => <div><h3>{t}</h3><p>{d}</p></div>)}</div>
             </div>
+            {p.security && <div class="case-sec" id="security"><h2>Security and encryption</h2><p>{p.security}</p></div>}
             <div class="case-sec" id="architecture"><h2>Architecture</h2>
               <div class="arch">
                 <div class="arch-row"><span class="arch-label">Production</span>
@@ -91,7 +92,7 @@ const demoArch: [string, string][] = [['Cloudflare Worker', `${p.host}.${DOMAIN}
               <div class="cta">
                 {live
                   ? <Fragment><div><h3>See it running</h3><p>Sign in as any demo user. Nothing you do leaves the demo, and it resets every day.</p></div><a class="btn btn-primary" data-demo="warm" href={demoUrl}>Open live demo <Icon name="arrow-up-right" /></a></Fragment>
-                  : <Fragment><div><h3>Live demo in progress</h3><p>This demo is being rebuilt on synthetic data. This page will link to it when it ships.</p></div><span class="badge-soon">Coming soon</span></Fragment>}
+                  : <Fragment><div><h3>Live demo in progress</h3><p>I’m rebuilding this demo on synthetic data, and this page will link to it when it ships.</p></div><span class="badge-soon">Coming soon</span></Fragment>}
               </div>
             </div>
             <div class="next"><a href={`/projects/${next.slug}`}><small>Next project</small><b>{next.name} <Icon name="arrow-right" size={15} /></b></a></div>

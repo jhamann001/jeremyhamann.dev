@@ -16,12 +16,12 @@ export const PROOF: Proof[] = [
   { value: '640+', label: 'Account transfers tracked', sub: 'Across 37 custodians in the ACAT Tracker' },
   { value: '~$124M', label: 'AUM billed automatically', sub: 'Billing cycle moved from mid-month to the first 4 days' },
   { value: '<60', unit: 'sec', label: 'Per-client statement review', sub: 'Down from 30–45 minutes' },
-  { value: 'S65', label: 'Series 65, active', sub: 'Daily ops and trading work, not just code' },
+  { value: 'S65', label: 'Series 65, active', sub: 'Alongside daily ops and trading work' },
 ];
 
 // The note under the proof figures on why GitHub looks quiet. It names the employer, so it lives here.
 export const PRIVATE_WORK = {
-  note: 'Most of this work lives in Evergreen.ai’s private company repos, so my GitHub looks pretty quiet. The demos below rebuild these tools on synthetic data, so they’re the best way to see what I’ve built.',
+  note: 'Most of this work lives in Evergreen.ai’s private company repos, which is why my GitHub looks pretty quiet. The demos below rebuild these tools on synthetic data and are the best way to see what I’ve built.',
   link: 'See the projects',
 };
 
@@ -36,16 +36,16 @@ export const JOBS: Job[] = [
     roles: [
       {
         title: 'Brokerage Operations Associate & Internal Tools Engineer',
-        org: 'An RIA custodied at Apex · Daily ops across billing, account transfers and trading, and the main builder of the tools behind them',
+        org: 'An RIA custodied at Apex. I do the daily ops work across billing, account transfers and trading, and I’m the main builder of the tools behind them.',
         bullets: [
-          'Support advisors and the ops team day to day across billing, account transfers and trading, and resolve transfer and trade issues directly with Schwab, Apex, and advisor and ops teams.',
-          'Built and shipped 5 production internal apps for advisory, trading, client service, operations and compliance, with 1,600+ merged PRs as the primary engineer.',
+          'Support advisors and the ops team day to day across billing, account transfers and trading, and resolve transfer and trade issues directly with them and with Schwab and Apex.',
+          'Built and shipped 5 internal production apps for advisory, trading, client service, operations and compliance as the primary engineer, with 1,600+ PRs merged.',
           'Created and led the ACAT Tracker, the ops team’s system of record for 640+ account transfers across 37 custodians, with a field-level audit trail and position reconciliation against Apex.',
           'Built a Gemini statement pipeline that cut per-client transfer analysis from 30–45 minutes to under 60 seconds.',
-          'Sole engineer of the Trade Request platform used daily by the firm’s 4-person trading team, with asset-location and portfolio drift engines.',
+          'Built the Trade Request platform and its asset-location and portfolio drift engines as the sole engineer. The firm’s 4-person trading team uses it daily.',
           'Owned monthly advisory fee billing across Schwab and Apex on ~$124M AUM and moved the billing cycle from mid-month to the first 4 days.',
-          'Lead engineer on Always-On-Advice, the firm’s advisor and operations platform; cut household load time from ~5s to ~2.1s.',
-          'Run 16 production n8n workflows connecting Practifi, Schwab and Apex data, Zendesk and Slack to automate withdrawal, funding and mutual fund tasks and CRM sync.',
+          'Lead the engineering on Always-On-Advice, the firm’s advisor and operations platform, and cut its household load time from ~5s to ~2.1s.',
+          'Run 16 production n8n workflows that connect Practifi, Schwab and Apex data, Zendesk and Slack to automate withdrawal, funding and mutual fund tasks and keep the CRM in sync.',
         ],
       },
     ],
@@ -90,7 +90,7 @@ export const JOBS: Job[] = [
 ];
 
 export const ABOUT: string[] = [
-  'I work where operations and engineering meet. I started on trading desks, building rebalance trades and resolving trade breaks. Today I still do brokerage ops and trading work every day, and I build the tools for it alongside that work, not instead of it. So when I build something, it’s for a job I’ve done and still do.',
+  'I started on trading desks, building rebalance trades and resolving trade breaks. I still do brokerage ops and trading work every day, and building the tools for it hasn’t replaced that. Everything I build is for a job I’ve done and still do.',
   'I’ve worked day to day in advisor CRMs like Practifi, and I’ve seen how manual a lot of that work still is. Most of what I build replaces spreadsheets, shared inboxes and manual checks with software an ops team uses every day.',
   'I pay attention to the parts of a system that rarely make it into a demo: who is allowed to see what, how a record proves it was never changed, what happens when an upstream feed is late, and how a mistake is caught before a client notices it.',
 ];
