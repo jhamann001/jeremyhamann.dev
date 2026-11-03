@@ -3,6 +3,8 @@
 // reset token, so a container left running from the previous deploy would refuse the nightly reset, and a changed
 // database or session secret would never reach it. The Durable Object records which settings it started the
 // container with, and retires a container started with any others before its first request.
+// Each deploy's Worker version is one of the settings, so each deploy gets a container of its own, which its deploy
+// check waits for (demo-edge/container-start.js).
 //
 // The same as the help desk Worker's (apps/helpdesk/worker/src/container-settings.js).
 

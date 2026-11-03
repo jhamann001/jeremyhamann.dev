@@ -769,7 +769,7 @@ function LoginScreen({ gsiReady, personas = null, signInError = null }) {
       {/* Hero */}
       <div className="flex-1 flex items-center justify-center px-8 pt-28 pb-16 lg:pt-24 lg:pb-20">
         <div className="w-full max-w-xl text-center">
-          <p className="text-[11px] font-semibold tracking-[0.15em] uppercase mb-6 animate-[fadeUp_0.8s_ease-out_both]" style={{ color: 'var(--brand-faint)', fontFamily: "'DM Sans', sans-serif" }}>
+          <p className="text-[11px] font-semibold tracking-[0.15em] uppercase mb-6 animate-[fadeUp_0.8s_ease-out_both]" style={{ color: 'var(--brand-muted)', fontFamily: "'DM Sans', sans-serif" }}>
             Asset Intelligence
           </p>
           <h1
@@ -810,7 +810,7 @@ function LoginScreen({ gsiReady, personas = null, signInError = null }) {
             </div>
           )}
 
-          <div className="mt-10 flex items-center justify-center space-x-2 animate-[fadeUp_0.8s_ease-out_0.6s_both]" style={{ color: 'var(--brand-faint)', fontFamily: "'DM Sans', sans-serif" }}>
+          <div className="mt-10 flex items-center justify-center space-x-2 animate-[fadeUp_0.8s_ease-out_0.6s_both]" style={{ color: 'var(--brand-muted)', fontFamily: "'DM Sans', sans-serif" }}>
             <ShieldAlert className="w-3.5 h-3.5 opacity-50 flex-shrink-0" />
             <span className="text-xs">
               {personas
@@ -822,7 +822,7 @@ function LoginScreen({ gsiReady, personas = null, signInError = null }) {
         </div>
       </div>
 
-      {/* Features section */}
+      {/* Features section. Its small text is 70% white (APCA Lc 62 on #0A0A0A); the step numbers stay faint, as decoration. */}
       <div className="px-8 lg:px-12 py-20 lg:py-24" style={{ background: '#0A0A0A' }}>
         <div className="max-w-[960px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
           <div>
@@ -831,7 +831,7 @@ function LoginScreen({ gsiReady, personas = null, signInError = null }) {
               style={{ fontFamily: "'Playfair Display', serif", fontWeight: 400, color: '#fff' }}
             >
               Transfer analysis<br />
-              <em style={{ color: 'rgba(255,255,255,0.5)' }}>in minutes.</em>
+              <em style={{ color: 'rgba(255,255,255,0.6)' }}>in minutes.</em>
             </h2>
           </div>
           <div className="flex flex-col gap-10">
@@ -840,7 +840,7 @@ function LoginScreen({ gsiReady, personas = null, signInError = null }) {
                 <span className="text-xs font-semibold tracking-wide flex-shrink-0 pt-1" style={{ color: 'rgba(255,255,255,0.2)' }}>{f.num}</span>
                 <div>
                   <h3 className="text-lg mb-1.5" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 400, color: '#fff' }}>{f.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>{f.desc}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>{f.desc}</p>
                 </div>
               </div>
             ))}
@@ -851,7 +851,7 @@ function LoginScreen({ gsiReady, personas = null, signInError = null }) {
       {/* Footer */}
       <div className="flex items-center justify-between px-8 lg:px-12 py-8" style={{ background: '#0A0A0A', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <CedarRidgeLogo size="text-base" color="text-white" />
-        <span className="text-xs" style={{ color: 'rgba(255,255,255,0.2)', fontFamily: "'DM Sans', sans-serif" }}>Cedar Ridge Wealth</span>
+        <span className="text-xs" style={{ color: 'rgba(255,255,255,0.7)', fontFamily: "'DM Sans', sans-serif" }}>Cedar Ridge Wealth</span>
       </div>
     </div>
   );

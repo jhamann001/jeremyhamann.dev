@@ -1,8 +1,8 @@
 // The advisor platform demo at aoa.jeremyhamann.dev: a Worker in front of the app's container. It sends http to
 // https, starts each visitor in the portfolio site's theme, keeps the app's machine endpoints private, turns away
 // floods and oversized requests per visitor (with a stricter limit on writes), passes the app a pseudonym for each
-// visitor's address, lets the portfolio's analytics beacon run, keeps search engines out, and shows the "resetting"
-// page while the nightly reset refills the database (gate.js). The app's built static files are served by Cloudflare
+// visitor's address, lets the portfolio's analytics beacon run, keeps search engines out, shows the "resetting"
+// page while the nightly reset refills the database (gate.js), and says so while the container starts. The app's built static files are served by Cloudflare
 // without reaching the container (wrangler.jsonc, assets).
 //
 // The nightly reset does not run here: it runs from GitHub Actions as the database owner
@@ -14,6 +14,13 @@ import { Container, getContainer } from '@cloudflare/containers';
 import demoConfig from '../../demo-config.json';
 import { dispatchReset } from '../../../demo-edge/reset-dispatch.js';
 import { themeRedirect } from '../../../demo-edge/theme-handoff.js';
+import {
+  fetchWhenStarted,
+  isStartingResponse,
+  startContainerForDeploy,
+  startedResponse,
+  STARTED_PATH,
+} from '../../../demo-edge/container-start.js';
 import { retireStaleContainer } from './container-settings.js';
 import { GATE_PATH, gateUntil, gateUntilOrOpen, readGateChange, resettingResponse, showsResettingPage } from './gate.js';
 import {
@@ -29,6 +36,10 @@ import {
 
 // The app's server reads the theme from its own cookie (lib/theme.ts), so the hand-off sets that cookie.
 const THEME = { cookie: 'theme' };
+
+// The demo's name and the site's accent for it (site/src/styles/global.css), on the page shown while its container
+// starts (demo-edge/container-start.js).
+const DEMO = { name: 'Advisor platform', accent: ['#2E7D57', '#5CCB95'] };
 
 // Used only if the deploy's VISITOR_HASH_KEY is missing: pseudonyms then change per isolate, never fall back to IPs.
 // Made on first use, since Workers refuse random values at global scope (the upload fails with code 10021).
@@ -57,12 +68,15 @@ export class AoaApp extends Container {
       DIRECT_DATABASE_URL: env.DIRECT_DATABASE_URL,
       INGEST_DATABASE_URL: env.INGEST_DATABASE_URL,
       CRM_RECONCILER_DATABASE_URL: env.CRM_RECONCILER_DATABASE_URL,
+      // The Worker's version, so each deploy starts a container of its own rather than keeping the previous deploy's,
+      // which Cloudflare may still be replacing; the deploy waits for this one (demo-edge/container-start.js).
+      DEMO_WORKER_VERSION: env.CF_VERSION_METADATA?.id ?? '',
     };
     this.envVars = this.deploySettings;
   }
 
-  async fetch(request) {
-    // Once per object, shared by the requests that arrive while it runs; a failure is retried by the next request.
+  // Once per object, shared by the requests that arrive while it runs; a failure is retried by the next request.
+  checkSettings() {
     this.settingsChecked ??= retireStaleContainer({
       container: this.container,
       storage: this.ctx.storage,
@@ -72,8 +86,18 @@ export class AoaApp extends Container {
       this.settingsChecked = undefined;
       throw error;
     });
-    await this.settingsChecked;
+    return this.settingsChecked;
+  }
+
+  async fetch(request) {
+    await this.checkSettings();
     return super.fetch(request);
+  }
+
+  // The deploy check (demo-edge/container-start.js): this deploy's container, started and answering.
+  async startForDeploy() {
+    await this.checkSettings();
+    return startContainerForDeploy(this);
   }
 }
 
@@ -109,6 +133,7 @@ export default {
     if (url.pathname === '/robots.txt') {
       return new Response('User-agent: *\nDisallow: /\n', { headers: { 'content-type': 'text/plain; charset=utf-8' } });
     }
+    if (url.pathname === STARTED_PATH) return startedResponse(request, env, getContainer(env.AOA_APP));
     const handoff = themeRedirect(request, THEME);
     if (handoff) return handoff;
     const path = routedPath(url.pathname);
@@ -138,7 +163,8 @@ export default {
     const headers = forwardableHeaders(request.headers);
     headers.set('X-Forwarded-For', await visitorPseudonym(visitor, env.VISITOR_HASH_KEY ?? fallbackHashKey()));
     headers.set('X-Forwarded-Proto', 'https');
-    const response = await getContainer(env.AOA_APP).fetch(new Request(request, { headers }));
+    const response = await fetchWhenStarted(getContainer(env.AOA_APP), new Request(request, { headers }), DEMO);
+    if (isStartingResponse(response)) return response;
 
     const out = new Response(response.body, response);
     out.headers.set('X-Robots-Tag', 'noindex, nofollow');

@@ -30,6 +30,7 @@ const env = (overrides = {}) => ({
   SESSION_SECRET: 's'.repeat(64),
   DEMO_RESET_TOKEN: 'reset-token',
   VISITOR_HASH_KEY: 'visitor-key',
+  CF_VERSION_METADATA: { id: 'version-one' },
   STATEMENTS_APP: {},
   VISITOR_LIMIT: { limit: vi.fn(async () => ({ success: true })) },
   ...overrides,
@@ -70,6 +71,7 @@ describe('the Statement Analyzer’s Durable Object', () => {
       DATABASE_URL: 'postgres://app:pw@db.example/statements',
       SESSION_SECRET: 's'.repeat(64),
       DEMO_RESET_TOKEN: 'reset-token',
+      DEMO_WORKER_VERSION: 'version-one',
     });
     expect(object.defaultPort).toBe(8080);
     await object.fetch(new Request(`${ORIGIN}/`));

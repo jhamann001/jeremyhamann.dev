@@ -20,7 +20,7 @@ export function PortfolioLink({ label, compact = false, className = '' }: Props)
       href={url}
       // Keeps the visible words in the name, and names the link when `compact` hides them.
       aria-label={label ? `${label}, back to ${site}` : text}
-      className={`inline-flex items-center gap-1.5 text-[13px] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors ${className}`}
+      className={`inline-flex items-center gap-1.5 text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors ${className}`}
     >
       <ArrowLeft size={14} aria-hidden />
       <span className={compact ? 'hidden sm:inline' : undefined}>{text}</span>

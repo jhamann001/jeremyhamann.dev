@@ -104,6 +104,7 @@ jobs:
           test -n "$(find "$static/_next/static" -name '*.js' -print -quit)"
 
       - name: Deploy the Worker and the app container
+        id: deploy
         working-directory: apps/aoa/worker
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -124,7 +125,12 @@ jobs:
             secrets.VISITOR_HASH_KEY = require('crypto').randomBytes(32).toString('hex');
             if (process.env.RESET_DISPATCH_TOKEN) secrets.RESET_DISPATCH_TOKEN = process.env.RESET_DISPATCH_TOKEN;
             fs.writeFileSync(file, JSON.stringify(secrets));" "$secrets_file"
-          npx wrangler deploy --secrets-file "$secrets_file" --containers-rollout immediate
+          set -o pipefail
+          npx wrangler deploy --secrets-file "$secrets_file" --containers-rollout immediate | tee "$RUNNER_TEMP/wrangler-deploy.log"
+          # The version this deploy made: the key to its own readiness check (apps/demo-edge/wait-for-deploy.mjs).
+          version=$(tr -d '\r' < "$RUNNER_TEMP/wrangler-deploy.log" | sed -n 's/^Current Version ID: \([0-9a-f-]\{36\}\)$/\1/p' | tail -n 1)
+          test -n "$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Reset the demo data (the Worker just deployed shows its "resetting" page meanwhile)
         working-directory: apps/aoa
@@ -136,7 +142,12 @@ jobs:
           echo "::add-mask::$owner"
           DIRECT_DATABASE_URL="$owner" DEMO_SEED=reset npm run demo:reset
 
-      - name: Check the live app answers (the first request starts the container)
+      - name: Wait for this deploy's own container (Cloudflare stops the old one first, so for a minute or two there is none)
+        env:
+          VERSION: ${{ steps.deploy.outputs.version }}
+        run: node apps/demo-edge/wait-for-deploy.mjs https://aoa.jeremyhamann.dev "$VERSION" /
+
+      - name: Check the live app answers
         run: |
           for attempt in $(seq 1 30); do
             code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 https://aoa.jeremyhamann.dev/api/health || true)

@@ -38,7 +38,7 @@
   --bg-pill: #334155;
   --bg-pill-hover: #475569;
   --text-primary: #e8e8e8;
-  --text-secondary: #b0b0b0;
+  --text-secondary: #bcbcbc; /* not #b0b0b0: small text needs APCA Lc 60+ on the dark cards, and b0 reads 58 */
   --text-muted: #6b7280;
   --text-label: #7eb8d0;
   --border: #2e3340;

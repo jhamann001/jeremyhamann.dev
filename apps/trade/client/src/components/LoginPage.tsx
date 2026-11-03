@@ -36,7 +36,7 @@ function DriftSnapshot() {
         <div>
           <div className="flex items-center gap-2">
             <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-label)]">Account drift</p>
-            <span className="text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[var(--bg-surface)] text-[var(--text-muted)] border border-[var(--border)]">
+            <span className="text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[var(--bg-surface)] text-[var(--text-secondary)] border border-[var(--border)]">
               Sample data
             </span>
           </div>
@@ -51,7 +51,7 @@ function DriftSnapshot() {
 
       <table className="w-full text-[12px]">
         <thead>
-          <tr className="text-[10px] uppercase tracking-wide text-[var(--text-muted)]">
+          <tr className="text-[10px] uppercase tracking-wide text-[var(--text-secondary)]">
             <th className="text-left font-medium pb-1.5">Bucket</th>
             <th className="text-right font-medium pb-1.5">Position %</th>
             <th className="text-right font-medium pb-1.5">Template %</th>
@@ -77,7 +77,7 @@ function DriftSnapshot() {
         </tbody>
       </table>
 
-      <p className="text-[10px] text-[var(--text-muted)] mt-3 pt-2.5 border-t border-[var(--border-light)]">
+      <p className="text-[10px] text-[var(--text-secondary)] mt-3 pt-2.5 border-t border-[var(--border-light)]">
         5pp tolerance · illustrative figures, not live data
       </p>
     </div>
@@ -141,15 +141,17 @@ function PersonaButton({ persona, busy, disabled, onSelect }: { persona: Persona
       </span>
       <span className="min-w-0 flex-1">
         <span className="block text-[15px] font-medium text-[var(--text-primary)]">{persona.name}</span>
-        <span className="block text-[13px] text-[var(--text-muted)]">
+        <span className="block text-[13px] text-[var(--text-secondary)]">
           {persona.title} · {ROLE_BLURB[persona.role]}
         </span>
       </span>
-      {busy && <span className="text-[12px] text-[var(--text-muted)]">Signing in…</span>}
+      {busy && <span className="text-[12px] text-[var(--text-secondary)]">Signing in…</span>}
     </button>
   );
 }
 
+// Every word on this page is --text-secondary or darker: --text-muted (#999 on white, 2.9:1) is too faint to read.
+// Only the wordmark's ".ai" keeps it.
 export function LoginPage() {
   const { user } = useAuth();
   const [domains, setDomains] = useState<string[]>([]);
@@ -221,7 +223,7 @@ export function LoginPage() {
           <h1 className="font-serif text-[40px] lg:text-[46px] font-medium tracking-tight text-[var(--text-primary)] leading-none">
             cedarRidge<sup className="text-[14px] italic text-[var(--text-muted)]">.ai</sup>
           </h1>
-          <p className="text-[15px] lg:text-[16px] text-[var(--text-muted)] tracking-wide mt-1.5">Trade Center</p>
+          <p className="text-[15px] lg:text-[16px] text-[var(--text-secondary)] tracking-wide mt-1.5">Trade Center</p>
 
           <div className="w-10 h-0.5 bg-[var(--green)] rounded-full opacity-60 my-8" />
 
@@ -247,7 +249,7 @@ export function LoginPage() {
             ))}
           </div>
 
-          <p className="hidden md:block mt-14 text-[12px] text-[var(--text-muted)] opacity-60">
+          <p className="hidden md:block mt-14 text-[12px] text-[var(--text-secondary)]">
             {personas.length > 0
               ? 'A demo firm: every person, client, account and number here is invented.'
               : 'Internal use only \u2014 CedarRidge Wealth'}
@@ -261,7 +263,7 @@ export function LoginPage() {
           <h2 className="font-serif text-[30px] lg:text-[34px] font-medium text-[var(--text-primary)] mb-2.5">
             {personas.length > 0 ? (mcpState ? 'Connect your AI assistant' : 'Try the demo') : 'Welcome back'}
           </h2>
-          <p className="text-[15px] lg:text-[16px] text-[var(--text-muted)] leading-relaxed mb-8">
+          <p className="text-[15px] lg:text-[16px] text-[var(--text-secondary)] leading-relaxed mb-8">
             {personas.length > 0
               ? mcpState
                 ? 'Choose who your MCP client will act as. Its tools are read-only and see what that person can see.'
@@ -308,7 +310,7 @@ export function LoginPage() {
             <>
               {personas.length > 0 && <div className="my-6 border-t border-[var(--border-light)]" />}
               <GoogleButton />
-              <p className="text-center text-[13px] text-[var(--text-muted)] mt-6">
+              <p className="text-center text-[13px] text-[var(--text-secondary)] mt-6">
                 {domains.length > 0 ? (
                   <>
                     Restricted to{' '}
@@ -332,8 +334,7 @@ export function LoginPage() {
   );
 }
 
-// How the demo protects data, under the personas. In --text-secondary: --text-muted is too faint to read. It links
-// to the case study's security section when the image is built with VITE_PORTFOLIO_URL.
+// How the demo protects data, under the personas. It links to the case study's security section when the image is built with VITE_PORTFOLIO_URL.
 function SecurityNote() {
   const url = import.meta.env.VITE_PORTFOLIO_URL;
   return (

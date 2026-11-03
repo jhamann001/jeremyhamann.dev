@@ -97,6 +97,7 @@ jobs:
         run: DATABASE_URL="$STATEMENTS_DATABASE_URL" python demo_reset.py
 
       - name: Deploy the Worker and the app container
+        id: deploy
         working-directory: apps/statements/worker
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -117,9 +118,19 @@ jobs:
               DEMO_RESET_TOKEN: fresh(),
               VISITOR_HASH_KEY: fresh(),
             }))" "$secrets_file"
-          npx wrangler deploy --secrets-file "$secrets_file" --containers-rollout immediate
+          set -o pipefail
+          npx wrangler deploy --secrets-file "$secrets_file" --containers-rollout immediate | tee "$RUNNER_TEMP/wrangler-deploy.log"
+          # The version this deploy made: the key to its own readiness check (apps/demo-edge/wait-for-deploy.mjs).
+          version=$(tr -d '\r' < "$RUNNER_TEMP/wrangler-deploy.log" | sed -n 's/^Current Version ID: \([0-9a-f-]\{36\}\)$/\1/p' | tail -n 1)
+          test -n "$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - name: Check the live app answers (the first request starts the container) and keeps its private routes private
+      - name: Wait for this deploy's own container (Cloudflare stops the old one first, so for a minute or two there is none)
+        env:
+          VERSION: ${{ steps.deploy.outputs.version }}
+        run: node apps/demo-edge/wait-for-deploy.mjs https://statements.jeremyhamann.dev "$VERSION" /
+
+      - name: Check the live app answers and keeps its private routes private
         run: |
           site=https://statements.jeremyhamann.dev
           for attempt in $(seq 1 30); do

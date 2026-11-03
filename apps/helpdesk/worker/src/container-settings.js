@@ -3,6 +3,8 @@
 // the app role's password, so a container left running from the previous deploy can no longer reach its database.
 // The Durable Object records which settings it started the container with, and retires a container started with
 // any others before its first request.
+// Each deploy's Worker version is one of the settings, so each deploy gets a container of its own, which its deploy
+// check waits for (demo-edge/container-start.js).
 
 export const STARTED_WITH_KEY = 'startedWithSettings';
 

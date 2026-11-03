@@ -25,6 +25,9 @@
       "instance_type": "standard-1"
     }
   ],
+  // The Worker's own version: each deploy's container is started with it, and the deploy check is keyed by it
+  // (apps/demo-edge/container-start.js).
+  "version_metadata": { "binding": "CF_VERSION_METADATA" },
   "durable_objects": {
     "bindings": [
       { "name": "AOA_APP", "class_name": "AoaApp" },

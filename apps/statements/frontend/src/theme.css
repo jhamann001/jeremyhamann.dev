@@ -13,11 +13,12 @@
  * Elements dark in both themes (the header, toasts, the readiness card) use fixed colors or the overrides below.
  */
 
-/* The sign-in page's warm palette, as variables so both themes can set it. */
+/* The sign-in page's warm palette, as variables so both themes can set it. Words use --brand-muted (4.5:1 and APCA Lc 60+
+   on the cream and its cards in both themes); --brand-faint is for icons only. */
 :root {
   --brand-cream: #FAF7F3;
   --brand-ink: #1A1A1A;
-  --brand-muted: #8A8580;
+  --brand-muted: #6B665F;
   --brand-faint: #B5B0A8;
   --brand-glass: rgba(250, 247, 243, 0.85);
   --brand-line: rgba(26, 26, 26, 0.12);
@@ -32,7 +33,7 @@
 
   --brand-cream: #121110;
   --brand-ink: #F3EFE8;
-  --brand-muted: #A39E96;
+  --brand-muted: #BDB7AE;
   --brand-faint: #77726B;
   --brand-glass: rgba(18, 17, 16, 0.85);
   --brand-line: rgba(243, 239, 232, 0.14);

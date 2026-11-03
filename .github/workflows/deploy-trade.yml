@@ -76,6 +76,7 @@ jobs:
           test -n "$(find apps/trade/worker/static/assets -name '*.js' -print -quit)"
 
       - name: Deploy the Worker and the app container
+        id: deploy
         working-directory: apps/trade/worker
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -92,9 +93,19 @@ jobs:
             SESSION_SECRET: process.env.TRADE_SESSION_SECRET,
             DEMO_RESET_TOKEN: process.env.TRADE_RESET_TOKEN,
           }))" "$secrets_file"
-          npx wrangler deploy --secrets-file "$secrets_file" --containers-rollout immediate
+          set -o pipefail
+          npx wrangler deploy --secrets-file "$secrets_file" --containers-rollout immediate | tee "$RUNNER_TEMP/wrangler-deploy.log"
+          # The version this deploy made: the key to its own readiness check (apps/demo-edge/wait-for-deploy.mjs).
+          version=$(tr -d '\r' < "$RUNNER_TEMP/wrangler-deploy.log" | sed -n 's/^Current Version ID: \([0-9a-f-]\{36\}\)$/\1/p' | tail -n 1)
+          test -n "$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - name: Check the live app answers (the first request starts the container)
+      - name: Wait for this deploy's own container (Cloudflare stops the old one first, so for a minute or two there is none)
+        env:
+          VERSION: ${{ steps.deploy.outputs.version }}
+        run: node apps/demo-edge/wait-for-deploy.mjs https://trade.jeremyhamann.dev "$VERSION" /
+
+      - name: Check the live app answers
         run: |
           for attempt in $(seq 1 30); do
             code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://trade.jeremyhamann.dev/api/health || true)

@@ -105,6 +105,7 @@ jobs:
           test -n "$(find apps/helpdesk/worker/static/_next/static -name '*.js' -print -quit)"
 
       - name: Give the app role a fresh password, then deploy the Worker and the app container
+        id: deploy
         working-directory: apps/helpdesk/worker
         env:
           HELPDESK_DATABASE_URL: ${{ secrets.HELPDESK_DATABASE_URL }}
@@ -143,9 +144,19 @@ jobs:
             }))" "$secrets_file"
           # From here the running container's password no longer works, until the new Worker replaces it.
           psql "$direct" -v ON_ERROR_STOP=1 -q -c "ALTER ROLE wm_helpdesk_app PASSWORD '$password'"
-          npx wrangler deploy --secrets-file "$secrets_file" --containers-rollout immediate
+          set -o pipefail
+          npx wrangler deploy --secrets-file "$secrets_file" --containers-rollout immediate | tee "$RUNNER_TEMP/wrangler-deploy.log"
+          # The version this deploy made: the key to its own readiness check (apps/demo-edge/wait-for-deploy.mjs).
+          version=$(tr -d '\r' < "$RUNNER_TEMP/wrangler-deploy.log" | sed -n 's/^Current Version ID: \([0-9a-f-]\{36\}\)$/\1/p' | tail -n 1)
+          test -n "$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - name: Check the live app answers (the first request starts the container)
+      - name: Wait for this deploy's own container (Cloudflare stops the old one first, so for a minute or two there is none)
+        env:
+          VERSION: ${{ steps.deploy.outputs.version }}
+        run: node apps/demo-edge/wait-for-deploy.mjs https://helpdesk.jeremyhamann.dev "$VERSION" /sign-in
+
+      - name: Check the live app answers
         run: |
           for attempt in $(seq 1 30); do
             code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://helpdesk.jeremyhamann.dev/api/health || true)
