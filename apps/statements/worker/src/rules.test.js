@@ -8,6 +8,7 @@ import {
   routedPath,
   visitorKey,
   visitorPseudonym,
+  STRICT_TRANSPORT_SECURITY,
   withDemoHeaders,
 } from './rules.js';
 
@@ -128,12 +129,14 @@ describe('the Statement Analyzer Worker', () => {
     expect(page.headers.get('content-security-policy')).toBe(CONTENT_SECURITY_POLICY);
     expect(page.headers.get('x-robots-tag')).toBe('noindex, nofollow');
     expect(page.headers.get('x-content-type-options')).toBe('nosniff');
+    expect(page.headers.get('strict-transport-security')).toBe(STRICT_TRANSPORT_SECURITY);
     expect(await page.text()).toBe('<html></html>');
 
     const api = withDemoHeaders(new Response('{}', { status: 201, headers: { 'content-type': 'application/json' } }));
     expect(api.status).toBe(201);
     expect(api.headers.get('content-security-policy')).toBeNull();
     expect(api.headers.get('x-robots-tag')).toBe('noindex, nofollow');
+    expect(api.headers.get('strict-transport-security')).toBe('max-age=63072000; includeSubDomains');
   });
 
   it("allows only the app itself, Google Fonts and Cloudflare's analytics beacon, and no framing", () => {

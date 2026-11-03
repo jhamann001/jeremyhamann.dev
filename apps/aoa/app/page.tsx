@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { auth, signIn } from "@/auth";
 import { DEV_LOGIN } from "@/lib/auth/mode";
+import { portfolioLink } from "@/lib/demo/mode";
 import { PERSONAS, personaSignInEnabled } from "@/lib/demo/personas";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { ClearNavigationMemory } from "@/components/navigation/ListNavigationBoundary";
@@ -131,6 +132,7 @@ export default async function Home({
                 </form>
               ))}
             </div>
+            {demo && <SecurityNote />}
           </>
         )}
 
@@ -148,5 +150,27 @@ function LockIcon() {
       <rect x="4" y="10" width="16" height="11" rx="2" fill="currentColor" />
       <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="2" />
     </svg>
+  );
+}
+
+// The demo's note on how it protects data, under the personas. It links to the case study's security section on the
+// portfolio site when the demo image knows that site (NEXT_PUBLIC_PORTFOLIO_URL).
+function SecurityNote() {
+  const site = portfolioLink();
+  return (
+    <p className={styles.securitynote}>
+      <strong>Security:</strong> Every page is served over HTTPS with HSTS and a strict Content Security Policy. The
+      database accepts only encrypted connections and keeps its data encrypted at rest, and row-level security decides
+      what each persona can read. Account numbers show only their last four digits, your IP address is replaced with a
+      keyed hash before the app sees it, and secrets are kept out of the code.
+      {site && (
+        <>
+          {" "}
+          <a href={new URL("/projects/always-on-advice#security", site.url).href}>
+            How the production app handles it&nbsp;→
+          </a>
+        </>
+      )}
+    </p>
   );
 }

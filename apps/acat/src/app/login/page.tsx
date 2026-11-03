@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { Suspense, useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
-import { PortfolioLink } from "@/components/PortfolioLink";
+import { PortfolioLink, portfolio } from "@/components/PortfolioLink";
 import { demoMode } from "@/lib/demo/mode";
 import { PERSONAS } from "@/lib/demo/personas";
 
@@ -489,6 +489,7 @@ function LoginForm() {
                 </>
               )}
             </div>
+            {demo && <SecurityNote />}
           </div>
         </div>
 
@@ -642,6 +643,31 @@ function PreviewStat({
         {sub}
       </div>
     </div>
+  );
+}
+
+// How the demo protects data, under the sign-in facts. In --muted-strong: --muted-faint is too faint to read. It
+// links to the case study's security section when the image knows the portfolio site.
+function SecurityNote() {
+  const site = portfolio();
+  return (
+    <p className="mt-5 text-xs leading-relaxed text-muted-strong">
+      <strong className="font-semibold text-foreground">Security:</strong> Every page is served with HSTS and a new
+      Content Security Policy for each request. The database accepts only encrypted connections and keeps its data
+      encrypted at rest. The advisor view is redacted, and the connections that other systems and the AI assistant use
+      in production are switched off here.
+      {site && (
+        <>
+          {" "}
+          <a
+            href={new URL("/projects/transfer-tracker#security", site.url).href}
+            className="whitespace-nowrap underline underline-offset-2 transition hover:text-foreground"
+          >
+            How the production app handles it&nbsp;→
+          </a>
+        </>
+      )}
+    </p>
   );
 }
 

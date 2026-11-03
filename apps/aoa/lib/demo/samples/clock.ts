@@ -13,6 +13,9 @@ let last: { readAt: number; seedNow: Date | null } | null = null;
 
 /** The clock the demo database was seeded with, or the wall clock when none is recorded. */
 export async function demoSampleNow(): Promise<Date> {
+  // The image build prerenders these pages with no database configured: Prisma would log the failed read as an error
+  // (the catch below only swallows it). Nothing is cached, so the running app still reads the seed's clock.
+  if (!process.env.DATABASE_URL) return new Date();
   if (!last || Date.now() - last.readAt > FRESH_MS) {
     const rows = await prisma.$queryRaw<Array<{ seed_now: Date }>>`SELECT seed_now FROM demo.seed_clock`.catch(() => []);
     last = { readAt: Date.now(), seedNow: rows[0]?.seed_now ?? null };

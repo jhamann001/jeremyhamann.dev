@@ -60,6 +60,30 @@ function ThemeToggle({ className = '', style }) {
   );
 }
 
+// How the demo protects data, under the sign-in. Ink mixed into the cream rather than --brand-faint, which is too faint
+// to read. It links to the case study's security section when the image is built with VITE_PORTFOLIO_URL.
+function SecurityNote() {
+  const url = import.meta.env.VITE_PORTFOLIO_URL;
+  return (
+    <p
+      className="mt-3 max-w-md mx-auto text-xs leading-relaxed animate-[fadeUp_0.8s_ease-out_0.6s_both]"
+      style={{ color: 'color-mix(in srgb, var(--brand-ink) 75%, var(--brand-cream))', fontFamily: "'DM Sans', sans-serif" }}
+    >
+      <strong className="font-semibold">Security:</strong> Every page is served over HTTPS with HSTS. The demo never
+      reads a real statement or sends one to a model, account numbers show only their last four digits, and the sign-in
+      cookie is signed with HMAC. The database accepts only encrypted connections and keeps its data encrypted at rest.
+      {url && (
+        <>
+          {' '}
+          <a href={new URL('/projects/statement-analyzer#security', url).href} className="whitespace-nowrap underline underline-offset-2">
+            How the production app handles it&nbsp;→
+          </a>
+        </>
+      )}
+    </p>
+  );
+}
+
 // The public demo's way back to the portfolio site. The image is built with VITE_PORTFOLIO_URL; anywhere else
 // it is unset and nothing renders.
 function PortfolioLink({ className = '' }) {
@@ -794,6 +818,7 @@ function LoginScreen({ gsiReady, personas = null, signInError = null }) {
                 : 'Protected by Google Authentication'}
             </span>
           </div>
+          {personas && <SecurityNote />}
         </div>
       </div>
 

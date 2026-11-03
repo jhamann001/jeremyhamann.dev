@@ -152,6 +152,19 @@
   line-height: 1.5;
   color: var(--muted);
 }
+/* the demo's security note: --ink-2 rather than --muted, which is too faint to read in dark */
+.securitynote {
+  margin-top: 16px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.securitynote a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
 .personas {
   margin-top: 18px;
   display: flex;

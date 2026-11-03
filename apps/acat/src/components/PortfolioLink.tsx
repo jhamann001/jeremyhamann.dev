@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 // The public demo's way back to the portfolio site it is shown from. The demo image is built with
 // NEXT_PUBLIC_PORTFOLIO_URL; anywhere else it is unset and nothing renders.
 
-function portfolio(): { url: string; site: string } | null {
+export function portfolio(): { url: string; site: string } | null {
   const url = process.env.NEXT_PUBLIC_PORTFOLIO_URL;
   if (!url) return null;
   try {

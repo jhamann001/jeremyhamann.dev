@@ -93,9 +93,14 @@ export const CONTENT_SECURITY_POLICY = [
   "frame-ancestors 'none'",
 ].join('; ');
 
-/** The app's response as the visitor gets it: kept out of search engines, unsniffed, and a page under the policy. */
+/** Tells browsers to use HTTPS only, for two years, as the other demos do (no preload: that is a list to join). */
+export const STRICT_TRANSPORT_SECURITY = 'max-age=63072000; includeSubDomains';
+
+/** The app's response as the visitor gets it: HTTPS-only, kept out of search engines, unsniffed, and a page under the
+ *  policy. */
 export function withDemoHeaders(response) {
   const out = new Response(response.body, response);
+  out.headers.set('Strict-Transport-Security', STRICT_TRANSPORT_SECURITY);
   out.headers.set('X-Robots-Tag', 'noindex, nofollow');
   out.headers.set('X-Content-Type-Options', 'nosniff');
   if ((out.headers.get('content-type') ?? '').includes('text/html')) {

@@ -8,7 +8,7 @@ import { StickyActionBar } from "@/components/shell/sticky-action-bar";
 import { isGoogleConfigured, isOktaConfigured } from "@/auth.config";
 import { DEV_PERSONAS, isDevLoginEnabled } from "@/lib/dev-login";
 import { demoMode } from "@/lib/demo/mode";
-import { PortfolioLink } from "@/components/demo/portfolio-link";
+import { PortfolioLink, portfolioSite } from "@/components/demo/portfolio-link";
 import { allowedGoogleDomains } from "@/lib/google-domain";
 import { cn } from "@/lib/utils";
 import { signInWithGoogle, signInWithOkta } from "./sign-in.actions";
@@ -272,9 +272,34 @@ function DemoSignIn({ target, message }: { target: string; message: string | nul
               Every sign-in, ticket view and change is recorded in the compliance audit log, as it would be at a
               real firm. Sign in as Priya to read it.
             </p>
+            <SecurityNote />
           </CardContent>
         </Card>
       </div>
     </main>
+  );
+}
+
+/**
+ * How the demo protects data, under the audit-log line. Brighter than the muted text around it, which is too faint to
+ * read in dark. It links to the case study's security section when the image knows the portfolio site.
+ */
+function SecurityNote(): React.JSX.Element {
+  const site = portfolioSite();
+  return (
+    <p className="text-xs text-foreground/70">
+      <strong className="font-semibold">Security:</strong> Every page is served over HTTPS with HSTS. Social Security,
+      card and account numbers are redacted before anything is stored, reply links are signed with HMAC, and the audit
+      log is a SHA-256 hash chain that the database enforces. The database accepts only encrypted connections and keeps
+      its data encrypted at rest, and its password changes on every deploy.
+      {site ? (
+        <>
+          {" "}
+          <a className="whitespace-nowrap underline underline-offset-3" href={new URL("/projects/help-desk#security", site.url).href}>
+            How the production app handles it&nbsp;→
+          </a>
+        </>
+      ) : null}
+    </p>
   );
 }

@@ -302,6 +302,8 @@ export function LoginPage() {
             </div>
           )}
 
+          {personas.length > 0 && <SecurityNote />}
+
           {showGoogle && (
             <>
               {personas.length > 0 && <div className="my-6 border-t border-[var(--border-light)]" />}
@@ -327,5 +329,30 @@ export function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// How the demo protects data, under the personas. In --text-secondary: --text-muted is too faint to read. It links
+// to the case study's security section when the image is built with VITE_PORTFOLIO_URL.
+function SecurityNote() {
+  const url = import.meta.env.VITE_PORTFOLIO_URL;
+  return (
+    <p className="mt-6 text-[13px] leading-relaxed text-[var(--text-secondary)]">
+      <strong className="font-semibold">Security:</strong> Every page is served over HTTPS with HSTS. Sessions are kept
+      on the server behind HttpOnly, Secure cookies with CSRF protection, and the logger strips credentials and personal
+      details before anything is written. The database is reached over TLS with a verified certificate and keeps its
+      data encrypted at rest, and secrets are kept out of the code.
+      {url && (
+        <>
+          {' '}
+          <a
+            href={new URL('/projects/trade-request#security', url).href}
+            className="whitespace-nowrap underline underline-offset-2 hover:text-[var(--text-primary)]"
+          >
+            How the production app handles it&nbsp;→
+          </a>
+        </>
+      )}
+    </p>
   );
 }
