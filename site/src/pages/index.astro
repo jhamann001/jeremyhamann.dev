@@ -21,7 +21,7 @@ const STEPS: [string, string, string][] = [
 ---
 <Base
   title="Jeremy Hamann · Ops and trading background, building AI-first fintech software"
-  description="Jeremy Hamann does brokerage operations and trading work every day and builds the software it runs on. An AI-first builder with a Series 65, he makes tools for wealth-management operations and is open to engineering, product and ops automation roles in fintech and wealthtech."
+  description="Jeremy Hamann does brokerage operations and trading work every day and builds the software it runs on. An AI-first builder with a Series 65, he makes tools for wealth-management operations and is open to advisor, engineering, product and ops automation roles in fintech and wealthtech."
 >
   <section class="hero">
     <div class="container">
@@ -156,7 +156,7 @@ const STEPS: [string, string, string][] = [
                   <div class="xp-title"><h3>{r.title}</h3>{r.dates && <span class="mono">{r.dates}</span>}</div>
                   {r.badge && <span class="badge-note">{r.badge}</span>}
                   {r.org && <p class="org">{r.org}</p>}
-                  <ul>{r.bullets.map((b) => <li>{b}</li>)}</ul>
+                  <ul>{r.bullets.map((b) => <li>{Array.isArray(b) ? <Fragment><b>{b[0]}:</b> {b[1]}</Fragment> : b}</li>)}</ul>
                 </div>
               ))}
             </div>
@@ -198,7 +198,7 @@ const STEPS: [string, string, string][] = [
       <div class="contact">
         <div>
           <h2>Let’s talk</h2>
-          <p>I build tools for wealth-management operations, and I still do the ops and trading work they’re built for. I’m looking for my next engineering, product or ops automation role in fintech or wealthtech. I’m also happy to compare notes on ops engineering and internal tools.</p>
+          <p>I build tools for wealth-management operations, and I still do the ops and trading work they’re built for. I’m looking for my next advisor, engineering, product or ops automation role in fintech or wealthtech. I’m also happy to compare notes on ops engineering and internal tools.</p>
           <p class="contact-note">My code is mostly in private company repos, so the <a href="#work">projects above</a> are the best place to see it.</p>
           <p class="addr">{LINKS.email}</p>
           <ul class="facts">

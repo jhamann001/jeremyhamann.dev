@@ -21,31 +21,32 @@ export const PROOF: Proof[] = [
 
 // The note under the proof figures on why GitHub looks quiet. It names the employer, so it lives here.
 export const PRIVATE_WORK = {
-  note: 'Most of this work lives in Evergreen.ai’s private company repos, which is why my GitHub looks pretty quiet. The demos below rebuild these tools on synthetic data and are the best way to see what I’ve built.',
+  note: 'Most of this work lives in Evergreen Wealth’s private company repos, which is why my GitHub looks pretty quiet. The demos below rebuild these tools on synthetic data and are the best way to see what I’ve built.',
   link: 'See the projects',
 };
 
-export interface Role { title: string; dates?: string; badge?: string; org?: string; bullets: string[] }
+// A bullet is plain text, or [label, text] for a bullet that leads with a bold label, as on the résumé PDF.
+export type Bullet = string | [label: string, text: string];
+export interface Role { title: string; dates?: string; badge?: string; org?: string; bullets: Bullet[] }
 export interface Job { company: string; place: string; dates: string; roles: Role[] }
 
 export const JOBS: Job[] = [
   {
-    company: 'Evergreen.ai',
+    company: 'Evergreen Wealth',
     place: 'Raleigh, NC',
     dates: 'Oct 2025 – Present',
     roles: [
       {
-        title: 'Brokerage Operations Associate & Internal Tools Engineer',
+        title: 'Brokerage Operations Associate & Internal Tools Builder',
         org: 'An RIA custodied at Apex. I do the daily ops work across billing, account transfers and trading, and I’m the main builder of the tools behind them.',
         bullets: [
-          'Support advisors and the ops team day to day across billing, account transfers and trading, and resolve transfer and trade issues directly with them and with Schwab and Apex.',
-          'Built and shipped 5 internal production apps for advisory, trading, client service, operations and compliance as the primary engineer, with 1,600+ PRs merged.',
-          'Created and led the ACAT Tracker, the ops team’s system of record for 640+ account transfers across 37 custodians, with a field-level audit trail and position reconciliation against Apex.',
-          'Built a Gemini statement pipeline that cut per-client transfer analysis from 30–45 minutes to under 60 seconds.',
-          'Built the Trade Request platform and its asset-location and portfolio drift engines as the sole engineer. The firm’s 4-person trading team uses it daily.',
-          'Owned monthly advisory fee billing across Schwab and Apex on ~$124M AUM and moved the billing cycle from mid-month to the first 4 days.',
-          'Lead the engineering on Always-On-Advice, the firm’s advisor and operations platform, and cut its household load time from ~5s to ~2.1s.',
-          'Run 16 production n8n workflows that connect Practifi, Schwab and Apex data, Zendesk and Slack to automate withdrawal, funding and mutual fund tasks and keep the CRM in sync.',
+          ['Fee billing', 'Owned monthly advisory fee billing across Schwab and Apex for roughly $124M in AUM, moving the cycle from the 14th–15th of each month to the first 4 days and eliminating the need for one full-time role. Maintained fee tiers, validated Alphathena average-daily-balance calculations and checked fees against available cash.'],
+          ['Account transfers', 'Created the ACAT Tracker, the Operations team’s system of record for 640+ transfers across 37 custodians, and resolved transfer and trade issues directly with Schwab, Apex and advisor teams.'],
+          ['Trading support', 'Prepared unrealized gain/loss spreadsheets that helped advisors plan tax-aware trades, and built the Trade Request platform the firm’s 4-person trading team uses daily.'],
+          ['Audits and compliance', 'Helped pull and prepare large datasets for the firm’s 2025 and 2026 SEC custody audits, and led delivery of the CCO’s Form ADV AUM reporting dashboard.'],
+          ['Automation', 'Built 16 production n8n workflows that automate withdrawal, funding and mutual fund tasks, and a Gemini-powered pipeline that cut per-client ACAT statement analysis from 30–45 minutes to under 60 seconds.'],
+          ['Internal tools', 'Built and shipped 5 internal production apps for advisory, trading, client service, operations and compliance as the primary engineer, with 1,600+ PRs merged.'],
+          ['Advisor platform', 'Lead the engineering on Always-On-Advice, the firm’s advisor and operations platform, and cut its household load time from ~5s to ~2.1s.'],
         ],
       },
     ],
@@ -58,11 +59,11 @@ export const JOBS: Job[] = [
       {
         title: 'Senior Investment Operations Analyst / Team Lead',
         dates: 'Aug 2025 – Oct 2025',
-        badge: 'Double promotion',
+        badge: 'Double promotion after 19 months',
         bullets: [
           'Led centralized trading and portfolio rebalancing across advisor teams.',
           'Wrote and rolled out the procedures and checklists the trading desk ran on.',
-          'Trained and onboarded new centralized trading team members and reviewed their work.',
+          'Trained and onboarded new centralized trading team members, taught the concepts behind each trading process and reviewed their work.',
           'Led the project to bring capital gains budgets into centralized trading workflows.',
         ],
       },
@@ -101,6 +102,6 @@ export const SKILLS: [string, string][] = [
   ['Data', 'Postgres, Prisma, Redshift, Metabase, Hex'],
   ['Infrastructure', 'Google Cloud, Cloudflare, Terraform, Docker, GitHub Actions'],
   ['Automation & AI', 'n8n, Gemini extraction, MCP servers, Claude Code, Cursor, Codex'],
-  ['Wealth platforms', 'Practifi / Salesforce, Schwab, Apex, Orion, RedBlack, Alphathena, Zendesk'],
+  ['Wealth platforms', 'Schwab, Apex, Alphathena, Orion OMS, RedBlack, Practifi / Salesforce, Zendesk'],
   ['Ops & trading', 'Centralized trading, rebalancing, ACATs, cost basis, advisory fee billing, Form ADV AUM reporting'],
 ];

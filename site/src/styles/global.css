@@ -201,6 +201,7 @@ button { font: inherit; color: inherit; }
 .xp ul { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
 .xp li { position: relative; padding-left: 18px; color: var(--fg-2); font-size: 14.5px; }
 .xp li::before { content: ""; position: absolute; left: 2px; top: .7em; width: 5px; height: 5px; border-radius: 50%; background: var(--fg-4); }
+.xp li b { color: var(--fg); font-weight: 600; }
 .xp h3 { font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
 .xp .org { color: var(--fg-3); font-size: 14px; margin-top: 2px; }
 .xp-title { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 16px; flex-wrap: wrap; }
